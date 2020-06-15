@@ -5,6 +5,9 @@ import time
 import re
 import os
 
+from past.builtins import raw_input
+
+
 class Hyzllg:
     def __init__(self,loanReqNo,name,idNo,phone):
         self.loanReqNo = loanReqNo
@@ -242,8 +245,11 @@ class Hyzllg:
             os._exit()
         return requit
 
+# def wapper(f):
+#     with open(r'')
+
 def loanReqNo():
-    a = str(random.randint(1, 10))
+    a = str(random.randint(1, 1000))
     b = time.strftime("%Y%m%d%H%M%S")
     loanReqNo = b + '88' + a
     return loanReqNo
@@ -277,11 +283,10 @@ def name_idno():
     print(new_ret)
     return new_ret
 
-new_name_idno = name_idno()
-HB_loanReqNo = loanReqNo()
-HB_phone = phone()
-
 def main():
+    new_name_idno = name_idno()
+    HB_loanReqNo = loanReqNo()
+    HB_phone = phone()
     hyzllg = Hyzllg(HB_loanReqNo,new_name_idno[0],new_name_idno[1],HB_phone)
     hyzllg.insure_info()
     hyzllg.insure_data_query()
@@ -296,6 +301,8 @@ def main():
         
         '''
     )
+    raw_input("Press <enter>")
+
 
 
 

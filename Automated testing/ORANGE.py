@@ -1,8 +1,10 @@
+import random
+
 import requests
 import json
 import time
 import re
-import os
+import sys
 class Hyzllg:
     def __init__(self,channelCustId,creditReqNo,name,idNo,phone):
         self.channelCustId = channelCustId
@@ -131,8 +133,12 @@ class Hyzllg:
             print(requit)
         else:
             print("授信接口异常！")
-            os._exit()
-        return requit
+            sys.exit()
+        if 'status":"01' in requit["data"]:
+            print("受理成功！处理中")
+        else:
+            print("受理失败！")
+            sys.exit()
     def credit_inquiry(self):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/CREDIT_INQUIRY'
         data = {
@@ -147,16 +153,25 @@ class Hyzllg:
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
 
         }
-        print("**********授信结果查询！**********")
-        time.sleep(3)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200:
-            print(requit)
-        else:
-            print("授信查询接口异常！")
-            os._exit()
-        return requit
+
+        while True:
+            print("**********授信结果查询！**********")
+            time.sleep(6)
+            re = requests.post(url, data=json.dumps(data), headers=headers)
+            requit = re.json()
+            if re.status_code == 200:
+                print(requit)
+            else:
+                print("授信查询接口异常！")
+                sys.exit()
+            if 'status":"01' in requit["data"]:
+                print("授信成功！进入下一环节！")
+                break
+            elif 'status":"02' in requit["data"]:
+                print("授信失败！")
+                sys.exit()
+            else:
+                enumerate
     def disburse_trial(self):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE_TRIAL'
         data = {
@@ -171,15 +186,23 @@ class Hyzllg:
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
         print("**********支用试算！**********")
+
+        res = requests.post(url,data=json.dumps(data),headers=headers)
+        requit = res.json()
         time.sleep(3)
-        re = requests.post(url,data=json.dumps(data),headers=headers)
-        requit = re.json()
-        if re.status_code == 200:
+        if res.status_code == 200:
             print(requit)
         else:
             print("支用试算接口异常！")
-            os._exit()
-        return requit
+            sys.exit()
+        if 'status":"01' in requit["data"]:
+            print("试算成功！")
+            aa = re.search(r'"capitalCode":"(.*?)"', requit["data"])
+            capitalCode = aa.group()[15:-1]
+        else:
+            print("试算失败！")
+            sys.exit()
+        return capitalCode
     def disburse(self,loanReqNo,capitalCode):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE'
         data = {
@@ -234,8 +257,11 @@ class Hyzllg:
             print(requit)
         else:
             print("支用接口异常！")
-            os._exit()
-        return requit
+            sys.exit()
+        if 'status":"01' in requit["data"]:
+            print("支用受理成功！")
+        else:
+            print("支用受理失败！")
     def disburse_in_query(self,loanReqNo):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE_IN_QUERY'
         data = {
@@ -253,58 +279,71 @@ class Hyzllg:
         }
         print("**********支用结果查询！**********")
         time.sleep(10)
-        re = requests.post(url,data=json.dumps(data),headers=headers)
-        requit = re.json()
-        if re.status_code == 200:
-            print(requit)
-        else:
-            print("支用结果查询接口异常！")
-            os._exit()
-        return requit
+        while True:
+            re = requests.post(url, data=json.dumps(data), headers=headers)
+            requit = re.json()
+            if re.status_code == 200:
+                print(requit)
+            else:
+                print("支用结果查询接口异常！")
+                sys.exit()
+            if 'status":"01' in requit["data"]:
+                print("支用成功！")
+                break
+            elif 'status":"00' in requit["data"]:
+                print("支用中！")
+                enumerate
+            else:
+                print("支用失败！")
+                sys.exit()
+            time.sleep(10)
+
+def serial_number():
+    a = str(random.randint(1, 1000))
+    b = time.strftime("%Y%m%d%H%M%S")
+    channelCustId = b + '68' + a
+    creditReqNo = b + '86' + a
+    loanReqNo = b + '686' + a
+    return channelCustId,creditReqNo,loanReqNo
+
+def phone():
+    a = str(random.randint(1000,10000))
+    b = time.strftime("%m%d")
+    phone = "166"+b+a
+    return phone
+
+
+def name_idno():
+    url = 'http://www.xiaogongju.org/index.php/index/id.html/id/513224/year/1990/month/10/day/30/sex/%E7%94%B7'
+
+    headers = {
+        "Content-Type":"text/html;charset=utf-8",
+        "Host":"www.xiaogongju.org",
+        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+    }
+    print("*********爬取姓名身份证信息*********")
+    request = requests.get(url,headers=headers)
+    ret = request.text
+    ret = re.findall('\s<td>\w*</td>',ret)
+    new_ret = []
+    for i in ret:
+        i = i.replace(' ','')
+        i = i.replace('<td>','')
+        i = i.replace('</td>','')
+        new_ret.append(i)
+    print(new_ret)
+    return new_ret
 
 def main():
-    hyzllg = Hyzllg("20200613886881001", "20200613668661001", "刘玲", "51343619900613693X", "16606134001")
-    succeed_credit_granting = hyzllg.credit_granting()
-    if 'status":"01' in succeed_credit_granting["data"]:
-        print("受理成功！处理中")
-    else:
-        print("受理失败！")
-        os.exit()
-    while True:
-        succeed_credit_inquiry = hyzllg.credit_inquiry()
-        if 'status":"01' in succeed_credit_inquiry["data"]:
-            print("授信成功！进入下一环节！")
-            break
-        elif 'status":"02' in succeed_credit_inquiry["data"]:
-            print("授信失败！")
-            os.exit()
-        else:
-             enumerate
-    succeed_disburse_trial = hyzllg.disburse_trial()
-    if 'status":"01' in succeed_disburse_trial["data"]:
-        print("试算成功！")
-        aa = re.search(r'"capitalCode":"(.*?)"', succeed_disburse_trial["data"])
-        capitalCode = aa.group()[15:-1]
-    else:
-        print("试算失败！")
-    succeed_disburse = hyzllg.disburse("202006138866881005",capitalCode)
-    if 'status":"01' in succeed_disburse["data"]:
-        print("支用受理成功！")
-    else:
-        print("支用受理失败！")
-    while True:
-
-        succeed_disburse_in_query = hyzllg.disburse_in_query("202006138866881005")
-        if 'status":"01' in succeed_disburse_in_query["data"]:
-            print("支用成功！")
-            break
-        elif 'status":"00' in succeed_disburse_in_query["data"]:
-            print("支用中！")
-            enumerate
-        else:
-            print("支用失败！")
-            os._exit()
-
+    ORANGE_name_idno = name_idno()
+    ORANGE_phone = phone()
+    ORANGE_serial_number = serial_number()
+    hyzllg = Hyzllg(ORANGE_serial_number[0],ORANGE_serial_number[1], ORANGE_name_idno[0], ORANGE_name_idno[1],ORANGE_phone)
+    hyzllg.credit_granting()
+    hyzllg.credit_inquiry()
+    capitalCode_ = hyzllg.disburse_trial()
+    hyzllg.disburse(ORANGE_serial_number[2],capitalCode_)
+    hyzllg.disburse_in_query(ORANGE_serial_number[2])
 
 if __name__ == '__main__':
     main()
