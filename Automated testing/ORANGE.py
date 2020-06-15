@@ -297,6 +297,11 @@ class Hyzllg:
                 print("支用失败！")
                 sys.exit()
             time.sleep(10)
+#
+# def wapper(f):
+#     f()
+#     print(f)
+
 
 def serial_number():
     a = str(random.randint(1, 1000))
