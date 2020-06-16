@@ -82,7 +82,6 @@ def name_idno():
         "Host":"www.xiaogongju.org",
         "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
     }
-
     request = requests.get(url,headers=headers)
     ret = request.text
     ret = re.findall('\s<td>\w*</td>',ret)
