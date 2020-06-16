@@ -12,6 +12,15 @@ class Hyzllg:
         self.name = name
         self.idNo = idNo
         self.phone = phone
+
+    def wrapper(func):
+        def inner(*args,**kwargs):
+            s = func(*args,**kwargs)
+            with open(r'C:\Users\17633\Desktop\ORANGE.log', 'a+', encoding='utf-8') as hyzllg:
+                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}\n")
+
+        return inner
+    @wrapper
     def credit_granting(self):
 
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/CREDIT_GRANTING'
@@ -125,7 +134,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********授信申请！**********")
+        a = "**********授信申请！**********"
+        print(a)
         time.sleep(3)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
@@ -139,6 +149,9 @@ class Hyzllg:
         else:
             print("受理失败！")
             sys.exit()
+        return url, a, requit
+
+    @wrapper
     def credit_inquiry(self):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/CREDIT_INQUIRY'
         data = {
@@ -155,7 +168,7 @@ class Hyzllg:
         }
 
         while True:
-            print("**********授信结果查询！**********")
+            a = "**********授信结果查询！**********"
             time.sleep(6)
             re = requests.post(url, data=json.dumps(data), headers=headers)
             requit = re.json()
@@ -172,6 +185,9 @@ class Hyzllg:
                 sys.exit()
             else:
                 enumerate
+        return url, a, requit
+
+    @wrapper
     def disburse_trial(self):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE_TRIAL'
         data = {
@@ -185,8 +201,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********支用试算！**********")
-
+        a = "**********支用试算！**********"
+        print(a)
         res = requests.post(url,data=json.dumps(data),headers=headers)
         requit = res.json()
         time.sleep(3)
@@ -202,7 +218,9 @@ class Hyzllg:
         else:
             print("试算失败！")
             sys.exit()
-        return capitalCode
+        return url, a, requit,capitalCode
+
+    @wrapper
     def disburse(self,loanReqNo,capitalCode):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE'
         data = {
@@ -249,7 +267,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********支用接口！**********")
+        a = "**********支用接口！**********"
+        print(a)
         time.sleep(3)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
@@ -262,6 +281,9 @@ class Hyzllg:
             print("支用受理成功！")
         else:
             print("支用受理失败！")
+        return url, a, requit
+
+    @wrapper
     def disburse_in_query(self,loanReqNo):
         url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE_IN_QUERY'
         data = {
@@ -277,7 +299,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********支用结果查询！**********")
+        a = "**********支用结果查询！**********"
+        print(a)
         time.sleep(10)
         while True:
             re = requests.post(url, data=json.dumps(data), headers=headers)
@@ -297,10 +320,7 @@ class Hyzllg:
                 print("支用失败！")
                 sys.exit()
             time.sleep(10)
-#
-# def wapper(f):
-#     f()
-#     print(f)
+        return url, a, requit
 
 
 def serial_number():
@@ -347,7 +367,7 @@ def main():
     hyzllg.credit_granting()
     hyzllg.credit_inquiry()
     capitalCode_ = hyzllg.disburse_trial()
-    hyzllg.disburse(ORANGE_serial_number[2],capitalCode_)
+    hyzllg.disburse(ORANGE_serial_number[2],capitalCode_[-1])
     hyzllg.disburse_in_query(ORANGE_serial_number[2])
 
 if __name__ == '__main__':

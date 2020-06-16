@@ -6,7 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/llg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/jiekouzidonghua" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Selenium" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Automated testing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Automated_testing" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />

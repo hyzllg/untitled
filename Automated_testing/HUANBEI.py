@@ -15,7 +15,15 @@ class Hyzllg:
         self.idNo = idNo
         self.phone = phone
 
+    def wrapper(func):
+        def inner(*args,**kwargs):
+            s = func(*args,**kwargs)
+            with open(r'C:\Users\17633\Desktop\HUANBEI.log', 'a+', encoding='utf-8') as hyzllg:
+                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}\n")
 
+        return inner
+
+    @wrapper
     def insure_info(self):
         url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE_INFO'
         data = {
@@ -45,7 +53,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********投保信息接口！**********")
+        a = "**********投保信息接口！**********"
+        print(a)
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
@@ -55,9 +64,9 @@ class Hyzllg:
         else:
             print("投保信息接口异常！")
             os._exit()
-        return requit
+        return url,a,requit
 
-
+    @wrapper
     def insure_data_query(self):
         url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE_DATA_QUERY'
         data = {
@@ -69,7 +78,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********投保资料查询接口！**********")
+        a =  "**********投保资料查询接口！**********"
+        print(a)
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
@@ -79,9 +89,9 @@ class Hyzllg:
         else:
             print("投保资料查询接口异常！")
             os._exit()
-        return requit
+        return url,a,requit
 
-
+    @wrapper
     def insure(self):
         url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE'
         data = {
@@ -110,7 +120,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********投保接口！**********")
+        a = "**********投保接口！**********"
+        print(a)
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
@@ -120,9 +131,9 @@ class Hyzllg:
         else:
             print("投保接口异常！")
             os._exit()
-        return requit
+        return url,a,requit
 
-
+    @wrapper
     def disburse(self):
         url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/DISBURSE'
         data = {
@@ -233,7 +244,8 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        print("**********支用接口！**********")
+        a = "**********支用接口！**********"
+        print(a)
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
@@ -243,16 +255,14 @@ class Hyzllg:
         else:
             print("用接口异常！")
             os._exit()
-        return requit
-
-# def wapper(f):
-#     with open(r'')
+        return url,a,requit
 
 def loanReqNo():
     a = str(random.randint(1, 1000))
     b = time.strftime("%Y%m%d%H%M%S")
     loanReqNo = b + '88' + a
     return loanReqNo
+
 
 
 def phone():
