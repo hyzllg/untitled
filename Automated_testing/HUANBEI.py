@@ -1,12 +1,22 @@
 import random
 import requests
+import logging
 import json
 import time
 import re
 import os
+from logging import handlers
 
 from past.builtins import raw_input
 
+rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop')+"\logging.log",maxBytes=1024*1024*5,backupCount=5)
+logging.basicConfig(
+    format = '%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
+    datefmt="%Y-%m-%d %H:%M:%S %p",
+    # handlers=[fh,sh],
+    level=logging.ERROR,
+    handlers=[rh]
+)
 
 class Hyzllg:
     def __init__(self,loanReqNo,name,idNo,phone):
@@ -58,12 +68,15 @@ class Hyzllg:
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
+        requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             print(requit)
             print("投保信息接口成功！")
+            if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                logging.ERROR(requit["data"]["errorCode"]+"-"+requit["data"]["errorMsg"])
         else:
             print("投保信息接口异常！")
-            os._exit()
+            raw_input("Press <enter>")
         return url,a,requit
 
     @wrapper
@@ -83,12 +96,13 @@ class Hyzllg:
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
+        requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             print(requit)
             print("投保资料查询成功！")
         else:
             print("投保资料查询接口异常！")
-            os._exit()
+            raw_input("Press <enter>")
         return url,a,requit
 
     @wrapper
@@ -125,12 +139,20 @@ class Hyzllg:
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
-        if re.status_code == 200 and 'status":"01' in requit["data"]:
-            print(requit)
-            print("投保接口成功！")
+        requit["data"] = eval(requit["data"])
+        if re.status_code == 200:
+
+            print("投保接口调用成功！")
+            if requit["data"]["status"]=='01':
+                print(requit)
+                print("投保成功！")
+            else:
+                print('投保失败！')
+                logging.ERROR(requit["data"]["errorMsg"])
+                raw_input("Press <enter>")
         else:
-            print("投保接口异常！")
-            os._exit()
+            print("投保接口调用异常！")
+            raw_input("Press <enter>")
         return url,a,requit
 
     @wrapper
@@ -249,12 +271,23 @@ class Hyzllg:
         time.sleep(3)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
-        if re.status_code == 200 and 'status":"01' in requit["data"] :
-            print(requit)
-            print("支用接口成功！")
+        requit["data"] = eval(requit["data"])
+        if re.status_code == 200 :
+            print("支用接口调用成功！")
+            if requit["data"]["status"]=="01":
+                print(requit)
+                print("支用受理成功，处理中！")
+            elif requit["data"]["status"]=="00":
+                print(requit)
+                print("受理失败！")
+                if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                    logging.ERROR(requit["data"]["errorCode"]+"-"+requit["data"]["errorMsg"])
+                    raw_input("Press <enter>")
+
+
         else:
-            print("用接口异常！")
-            os._exit()
+            print("支用接口调用异常！")
+            raw_input("Press <enter>")
         return url,a,requit
 
 def loanReqNo():

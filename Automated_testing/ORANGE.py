@@ -1,11 +1,25 @@
 import random
-
+import logging
 import requests
 import json
 import time
 import re
 import os
 import sys
+from logging import handlers
+from past.builtins import raw_input
+
+rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop')+"\logging.log",maxBytes=1024*1024*5,backupCount=5)
+logging.basicConfig(
+    format = '%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
+    datefmt="%Y-%m-%d %H:%M:%S %p",
+    # handlers=[fh,sh],
+    level=logging.ERROR,
+    handlers=[rh]
+)
+
+
+
 class Hyzllg:
     def __init__(self,channelCustId,creditReqNo,name,idNo,phone):
         self.channelCustId = channelCustId
@@ -140,16 +154,21 @@ class Hyzllg:
         time.sleep(3)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
+        requit["data"] = eval(requit["data"])
         if re.status_code == 200:
-            print(requit)
+            print("授信接口调用成功！")
+            if requit["data"]["status"] == "01":
+                print(requit)
+                print("授信受理成功，处理中！")
+            else:
+                print("授信受理失败！")
+                if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                    logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                raw_input("Press <enter>")
+
         else:
-            print("授信接口异常！")
-            sys.exit()
-        if 'status":"01' in requit["data"]:
-            print("受理成功！处理中")
-        else:
-            print("受理失败！")
-            sys.exit()
+            print("授信接口调用异常！")
+            raw_input("Press <enter>")
         return url, a, requit
 
     @wrapper
@@ -173,19 +192,23 @@ class Hyzllg:
             time.sleep(6)
             re = requests.post(url, data=json.dumps(data), headers=headers)
             requit = re.json()
+            requit["data"] = eval(requit["data"])
             if re.status_code == 200:
-                print(requit)
+                print("授信查询接口调用成功！")
+                if requit["data"]["status"]=="01":
+                    print(requit)
+                    print("授信通过！")
+                    break
+                elif requit["data"]["status"]=="00":
+                    print("授信中！")
+                else:
+                    print("授信失败！")
+                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                        logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                        raw_input("Press <enter>")
             else:
-                print("授信查询接口异常！")
-                sys.exit()
-            if 'status":"01' in requit["data"]:
-                print("授信成功！进入下一环节！")
-                break
-            elif 'status":"02' in requit["data"]:
-                print("授信失败！")
-                sys.exit()
-            else:
-                enumerate
+                print("授信查询接口调用异常！")
+                raw_input("Press <enter>")
         return url, a, requit
 
     @wrapper
@@ -206,19 +229,20 @@ class Hyzllg:
         print(a)
         res = requests.post(url,data=json.dumps(data),headers=headers)
         requit = res.json()
+        requit["data"] = eval(requit["data"])
         time.sleep(3)
         if res.status_code == 200:
-            print(requit)
+            print("支用试算接口调用成功！")
+            if requit["data"]["status"]=="01":
+                print(requit)
+                capitalCode = requit["data"]["capitalCode"]
+                print("支用试算成功！")
+            else:
+                print("支用试算失败！")
+                raw_input("Press <enter>")
         else:
-            print("支用试算接口异常！")
-            sys.exit()
-        if 'status":"01' in requit["data"]:
-            print("试算成功！")
-            aa = re.search(r'"capitalCode":"(.*?)"', requit["data"])
-            capitalCode = aa.group()[15:-1]
-        else:
-            print("试算失败！")
-            sys.exit()
+            print("支用试算接口调用异常！")
+            raw_input("Press <enter>")
         return url, a, requit,capitalCode
 
     @wrapper
@@ -273,15 +297,21 @@ class Hyzllg:
         time.sleep(3)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
+        requit["data"] = eval(requit["data"])
         if re.status_code == 200:
-            print(requit)
+            print("支用接口调用成功！")
+            if requit["data"]["status"]=="01":
+                print(requit)
+                print("受理成功，处理中!")
+            else:
+                print("受理失败")
+                if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                    logging.ERROR(requit["data"]["errorCode"]+"-"+requit["data"]["errorMsg"])
+                    raw_input("Press <enter>")
         else:
-            print("支用接口异常！")
-            sys.exit()
-        if 'status":"01' in requit["data"]:
-            print("支用受理成功！")
-        else:
-            print("支用受理失败！")
+            print("支用接口调用异常！")
+            raw_input("Press <enter>")
+
         return url, a, requit
 
     @wrapper
@@ -306,20 +336,23 @@ class Hyzllg:
         while True:
             re = requests.post(url, data=json.dumps(data), headers=headers)
             requit = re.json()
+            requit["data"] = eval(requit["data"])
             if re.status_code == 200:
-                print(requit)
+                print("支用结果查询接口调用成功！")
+                if requit["data"]["status"]=="01":
+                    print(requit)
+                    print("支用成功")
+                    break
+                elif requit["data"]["status"]=="00":
+                    print("处理中！")
+                else:
+                    print("支用失败！")
+                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                        logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                        raw_input("Press <enter>")
             else:
-                print("支用结果查询接口异常！")
-                sys.exit()
-            if 'status":"01' in requit["data"]:
-                print("支用成功！")
-                break
-            elif 'status":"00' in requit["data"]:
-                print("支用中！")
-                enumerate
-            else:
-                print("支用失败！")
-                sys.exit()
+                print("支用结果查询接口调用异常！")
+                raw_input("Press <enter>")
             time.sleep(10)
         return url, a, requit
 
@@ -369,6 +402,17 @@ def main():
     capitalCode_ = hyzllg.disburse_trial()
     hyzllg.disburse(ORANGE_serial_number[2],capitalCode_[-1])
     hyzllg.disburse_in_query(ORANGE_serial_number[2])
+    print(
+        f'''
+        姓名：{ORANGE_name_idno[0]}
+        身份证号：{ORANGE_name_idno[1]}
+        手机号：{ORANGE_phone}
+        channelCustId：{ORANGE_serial_number[0]}
+        creditReqNo：{ORANGE_serial_number[1]}
+        loanReqNo:{ORANGE_serial_number[2]}
+        '''
+    )
+    raw_input("Press <enter>")
 
 if __name__ == '__main__':
     main()
