@@ -324,6 +324,8 @@ class Hyzllg:
         return url, a, requit
 
 
+
+
 def serial_number():
     a = str(random.randint(1, 1000))
     b = time.strftime("%Y%m%d%H%M%S")
