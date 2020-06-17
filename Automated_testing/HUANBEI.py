@@ -18,6 +18,7 @@ logging.basicConfig(
     handlers=[rh]
 )
 
+
 class Hyzllg:
     def __init__(self,loanReqNo,name,idNo,phone):
         self.loanReqNo = loanReqNo
