@@ -18,7 +18,7 @@ class Hyzllg:
     def wrapper(func):
         def inner(*args,**kwargs):
             s = func(*args,**kwargs)
-            with open(r'C:\Users\17633\Desktop\HUANBEI.log', 'a+', encoding='utf-8') as hyzllg:
+            with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\HUANBEI.log", 'a+', encoding='utf-8') as hyzllg:
                 hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}\n")
 
         return inner
