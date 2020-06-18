@@ -9,6 +9,8 @@ from logging import handlers
 
 from past.builtins import raw_input
 
+
+
 rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop') + "\ERROR.log",maxBytes=1024 * 1024 * 5, backupCount=5)
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
@@ -274,22 +276,79 @@ class Hyzllg:
         requit = re.json()
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
-            print("支用接口调用成功！")
+            print("放款接口调用成功！")
             if requit["data"]["status"] == "01":
                 print(requit)
-                print("支用受理成功，处理中！")
+                print("放款受理成功，处理中！")
             elif requit["data"]["status"] == "00":
                 print(requit)
                 print("受理失败！")
                 if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                    logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                    logging.ERROR(str(requit["data"]["errorCode"]) + "-" + str(requit["data"]["errorMsg"]))
                     raw_input("Press <enter>")
 
 
         else:
-            print("支用接口调用异常！")
+            print("放款接口调用异常！")
             raw_input("Press <enter>")
         return url, a, requit
+
+
+    @wrapper
+    def disburse_in_query(self,test_info):
+        url = 'http://10.1.14.106:27405/channel/TEST/QFIN/DISBURSE_IN_QUERY'
+        data = {
+                "channelCustId":"",
+                "loanReqNo":"2020061845630001"
+            }
+        data["loanReqNo"] = self.loanReqNo
+        headers = {
+            "Content-Type": "application/json;charset=UTF-8",
+            "Host": "10.1.14.106:27405",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+        }
+        while True:
+
+            a = "**********放款结果查询接口！**********"
+            print(a)
+            time.sleep(10)
+            re = requests.post(url, data=json.dumps(data), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200:
+
+                print("放款结果查询接口调用成功！")
+                if requit["data"]["status"] == '01':
+                    print(requit)
+                    print("支用成功，银行放款成功！")
+                    print(test_info)
+                elif requit["data"]["status"] == '00':
+                    print("支用中，银行放款中")
+                    continue
+                elif requit["data"]["status"] == '03':
+                    print("授信审批中")
+                    continue
+                elif requit["data"]["status"] == '04':
+                    print("授信审批成功")
+                    continue
+                elif requit["data"]["status"] == '05':
+                    print("授信审批拒绝")
+                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                        logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                    raw_input("Press <enter>")
+                elif requit["data"]["status"] == '02':
+                    print("支用失败，银行放款失败")
+                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                        logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                    raw_input("Press <enter>")
+                else:
+                    print("未知错误！")
+                    raw_input("Press <enter>")
+
+            else:
+                print("放款结果查询接口调用异常！")
+                raw_input("Press <enter>")
+            return url, a, requit
 
 
 def loanReqNo():
@@ -333,19 +392,19 @@ def main():
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
     hyzllg = Hyzllg(HB_loanReqNo, new_name_idno[0], new_name_idno[1], HB_phone)
+    test_info = f'''
+                    姓名：{new_name_idno[0]}
+                    身份证号：{new_name_idno[1]}
+                    手机号：{HB_phone}
+                    loanReqNo:{HB_loanReqNo}
+                '''
     hyzllg.insure_info()
     hyzllg.insure_data_query()
     hyzllg.insure()
     hyzllg.disburse()
-    print(
-        f'''
-        姓名：{new_name_idno[0]}
-        身份证号：{new_name_idno[1]}
-        手机号：{HB_phone}
-        loanReqNo:{HB_loanReqNo}
-
-        '''
-    )
+    # hyzllg.disburse_in_query(test_info)
+    time.sleep(1)
+    print(test_info)
     raw_input("Press <enter>")
 
 

@@ -75,6 +75,7 @@ class Hyzllg:
             print("投保信息接口成功！")
             if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                 logging.ERROR(requit["data"]["errorCode"]+"-"+requit["data"]["errorMsg"])
+            raw_input("Press <enter>")
         else:
             print("投保信息接口异常！")
             raw_input("Press <enter>")
@@ -333,19 +334,18 @@ def main():
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
     hyzllg = Hyzllg(HB_loanReqNo,new_name_idno[0],new_name_idno[1],HB_phone)
+    test_info = f'''
+                    姓名：{new_name_idno[0]}
+                    身份证号：{new_name_idno[1]}
+                    手机号：{HB_phone}
+                    loanReqNo:{HB_loanReqNo}
+                '''
     hyzllg.insure_info()
     hyzllg.insure_data_query()
     hyzllg.insure()
     hyzllg.disburse()
-    print(
-        f'''
-        姓名：{new_name_idno[0]}
-        身份证号：{new_name_idno[1]}
-        手机号：{HB_phone}
-        loanReqNo:{HB_loanReqNo}
-        
-        '''
-    )
+    time.sleep(1)
+    print(test_info)
     raw_input("Press <enter>")
 
 

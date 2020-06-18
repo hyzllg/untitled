@@ -396,21 +396,21 @@ def main():
     ORANGE_phone = phone()
     ORANGE_serial_number = serial_number()
     hyzllg = Hyzllg(ORANGE_serial_number[0],ORANGE_serial_number[1], ORANGE_name_idno[0], ORANGE_name_idno[1],ORANGE_phone)
+    test_info = f'''
+            姓名：{ORANGE_name_idno[0]}
+            身份证号：{ORANGE_name_idno[1]}
+            手机号：{ORANGE_phone}
+            channelCustId：{ORANGE_serial_number[0]}
+            creditReqNo：{ORANGE_serial_number[1]}
+            loanReqNo:{ORANGE_serial_number[2]}
+            '''
     hyzllg.credit_granting()
     hyzllg.credit_inquiry()
     capitalCode_ = hyzllg.disburse_trial()
     hyzllg.disburse(ORANGE_serial_number[2],capitalCode_[-1])
-    hyzllg.disburse_in_query(ORANGE_serial_number[2])
-    print(
-        f'''
-        姓名：{ORANGE_name_idno[0]}
-        身份证号：{ORANGE_name_idno[1]}
-        手机号：{ORANGE_phone}
-        channelCustId：{ORANGE_serial_number[0]}
-        creditReqNo：{ORANGE_serial_number[1]}
-        loanReqNo:{ORANGE_serial_number[2]}
-        '''
-    )
+    # hyzllg.disburse_in_query(ORANGE_serial_number[2])
+    time.sleep(1)
+    print(test_info)
     raw_input("Press <enter>")
 
 if __name__ == '__main__':
