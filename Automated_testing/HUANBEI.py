@@ -9,7 +9,7 @@ from logging import handlers
 
 from past.builtins import raw_input
 
-rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop')+"\logging.log",maxBytes=1024*1024*5,backupCount=5)
+rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop')+"\ERROR.log",maxBytes=1024*1024*5,backupCount=5)
 logging.basicConfig(
     format = '%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
     datefmt="%Y-%m-%d %H:%M:%S %p",
@@ -149,7 +149,8 @@ class Hyzllg:
                 print("投保成功！")
             else:
                 print('投保失败！')
-                logging.ERROR(requit["data"]["errorMsg"])
+                if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                    logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
                 raw_input("Press <enter>")
         else:
             print("投保接口调用异常！")

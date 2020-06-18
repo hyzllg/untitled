@@ -5,11 +5,10 @@ import json
 import time
 import re
 import os
-import sys
 from logging import handlers
 from past.builtins import raw_input
 
-rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop')+"\logging.log",maxBytes=1024*1024*5,backupCount=5)
+rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop')+"\ERROR.log",maxBytes=1024*1024*5,backupCount=5)
 logging.basicConfig(
     format = '%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
     datefmt="%Y-%m-%d %H:%M:%S %p",
