@@ -1,14 +1,14 @@
 #!/bin/env python
 ''' This code is mainly used to test the board's performance '''
 import os
-import posixpath
+import posixpath #路径处理库
 import time
-import logging
-import shutil
-import unittest
-import threading
-import wave
-import audioop
+import logging  #日志
+import shutil   #拷贝文件
+import unittest  #单元测试框架
+import threading  #线程
+import wave    #读写WAV文件
+import audioop #模块包含对声音片段的一些有用操作
 import soundfile
 
 import pyaudio
