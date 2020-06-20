@@ -14,7 +14,7 @@ class TestMathFunc(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         print("do something after test.Clean up.")
-        # 清理环境，用例执行完后执行一次
+        #清理环境，用例执行完后执行一次
 
     def test_phone01(self):
         self.assertEqual("Return Successd!",phone_01()["reason"])

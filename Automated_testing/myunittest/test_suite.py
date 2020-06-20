@@ -5,8 +5,11 @@ from test_mathfunc import TestMathFunc
 from HTMLTestRunner import HTMLTestRunner
 
 if __name__ == '__main__':
+    #创建容器
     suite = unittest.TestSuite()
+    #将用例放到容器里
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestMathFunc))
+    #生成HTML测试报告
     with open('HTMLReport.html', 'wb') as f:
         runner = HTMLTestRunner(stream=f,
                                 title='MathFunc Test Report',
