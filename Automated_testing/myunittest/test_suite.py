@@ -5,7 +5,7 @@ from test_mathfunc import TestMathFunc
 from HTMLTestRunner import HTMLTestRunner
 
 if __name__ == '__main__':
-    #创建容器
+    #容器   测试套件
     suite = unittest.TestSuite()
     #将用例放到容器里
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestMathFunc))
