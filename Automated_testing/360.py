@@ -79,7 +79,7 @@ class Hyzllg:
                 print("受理失败")
                 if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                     logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
-                raw_input("Press <enter>")
+                    raw_input("Press <enter>")
 
         else:
             print("投保信息接口调用异常！")
@@ -157,7 +157,7 @@ class Hyzllg:
                 print('投保失败！')
                 if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                     logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
-                raw_input("Press <enter>")
+                    raw_input("Press <enter>")
         else:
             print("投保接口调用异常！")
             raw_input("Press <enter>")
@@ -335,12 +335,12 @@ class Hyzllg:
                     print("授信审批拒绝")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
-                    raw_input("Press <enter>")
+                        raw_input("Press <enter>")
                 elif requit["data"]["status"] == '02':
                     print("支用失败，银行放款失败")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
-                    raw_input("Press <enter>")
+                        raw_input("Press <enter>")
                 else:
                     print("未知错误！")
                     raw_input("Press <enter>")
@@ -366,7 +366,7 @@ def phone():
 
 
 def name_idno():
-    url = 'http://www.xiaogongju.org/index.php/index/id.html/id/513436/year/1990/month/06/day/14/sex/%E7%94%B7'
+    url = f'http://www.xiaogongju.org/index.php/index/id.html/id/513436/year/1990/month/{time.strftime("%m")}/day/{time.strftime("%d")}/sex/%E7%94%B7'
 
     headers = {
         "Content-Type": "text/html;charset=utf-8",

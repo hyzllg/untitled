@@ -164,7 +164,7 @@ class Hyzllg:
                 print("授信受理失败！")
                 if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                     logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
-                raw_input("Press <enter>")
+                    raw_input("Press <enter>")
 
         else:
             print("授信接口调用异常！")
@@ -372,7 +372,7 @@ def phone():
 
 
 def name_idno():
-    url = 'http://www.xiaogongju.org/index.php/index/id.html/id/513224/year/1990/month/10/day/30/sex/%E7%94%B7'
+    url = 'http://www.xiaogongju.org/index.php/index/id.html/id/513224/year/1990/month/{time.strftime("%m")}/day/{time.strftime("%d")}/sex/%E7%94%B7'
 
     headers = {
         "Content-Type":"text/html;charset=utf-8",

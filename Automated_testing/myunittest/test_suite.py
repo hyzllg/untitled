@@ -19,13 +19,13 @@
 #         runner.run(suite)
 import os
 import unittest
-from test_mathfunc import TestMathCase
+from test_mathfunc import TestMathFunc
 from HTMLTestRunner import HTMLTestRunner
 
 if __name__ == '__main__':
     suite = unittest.TestSuite()
 
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestMathCase))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestMathFunc))
 
     with open(os.path.join(os.path.dirname(__file__),'HTMLReport.html'),'wb') as f:
         runner = HTMLTestRunner(stream=f,
