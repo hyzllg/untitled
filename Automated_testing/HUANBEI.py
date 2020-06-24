@@ -8,14 +8,14 @@ import os
 from logging import handlers
 
 from past.builtins import raw_input
-
+sh = logging.StreamHandler()
 rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop')+"\ERROR.log",maxBytes=1024*1024*5,backupCount=5)
 logging.basicConfig(
     format = '%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
     datefmt="%Y-%m-%d %H:%M:%S %p",
     # handlers=[fh,sh],
     level=logging.ERROR,
-    handlers=[rh]
+    handlers=[rh,sh]
 )
 
 
@@ -309,7 +309,7 @@ def phone():
 
 
 def name_idno():
-    url = 'http://www.xiaogongju.org/index.php/index/id.html/id/513436/year/1990/month/{time.strftime("%m")}/day/{time.strftime("%d")}/sex/%E7%94%B7'
+    url = f'http://www.xiaogongju.org/index.php/index/id.html/id/513436/year/1990/month/{time.strftime("%m")}/day/{time.strftime("%d")}/sex/%E7%94%B7'
 
     headers = {
         "Content-Type":"text/html;charset=utf-8",
@@ -352,4 +352,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+        main()

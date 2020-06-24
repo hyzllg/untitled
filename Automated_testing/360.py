@@ -10,13 +10,13 @@ from logging import handlers
 from past.builtins import raw_input
 
 
-
+sh = logging.StreamHandler()
 rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop') + "\ERROR.log",maxBytes=1024 * 1024 * 5, backupCount=5)
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
     datefmt="%Y-%m-%d %H:%M:%S %p",
     level=logging.ERROR,
-    handlers=[rh]
+    handlers=[rh,sh]
 )
 
 
@@ -30,8 +30,7 @@ class Hyzllg:
     def wrapper(func):
         def inner(*args, **kwargs):
             s = func(*args, **kwargs)
-            with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\360.log", 'a+',
-                      encoding='utf-8') as hyzllg:
+            with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\360.log", 'a+',encoding='utf-8') as hyzllg:
                 hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}\n")
 
         return inner
@@ -129,7 +128,8 @@ class Hyzllg:
                 "premiumRate":1.66,
                 "insurantName":"韦艺翠",
                 "insurantAdd":"上海市浦东新区龙阳路幸福村520号",
-                "postCode":"110016"
+                "postCode":"110016",
+                "productId":"7015"
                 }
         data["loanReqNo"] = self.loanReqNo
         data["insReqNo"] = self.loanReqNo
@@ -144,20 +144,17 @@ class Hyzllg:
         a = "**********投保接口！**********"
         print(a)
         time.sleep(3)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
-        requit = re.json()
+        res = requests.post(url, data=json.dumps(data), headers=headers)
+        requit = res.json()
         requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+        if res.status_code == 200:
 
             print("投保接口调用成功！")
-            if requit["data"]["status"] == '01':
-                print(requit)
-                print("投保成功！")
-            else:
-                print('投保失败！')
-                if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                    logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
-                    raw_input("Press <enter>")
+            print(requit)
+            if requit["data"]["message"]:
+                print(requit["data"]["message"])
+                # logging.ERROR(str(requit["data"]["message"]))
+                # raw_input("Press <enter>")
         else:
             print("投保接口调用异常！")
             raw_input("Press <enter>")
