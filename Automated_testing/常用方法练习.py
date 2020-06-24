@@ -72,31 +72,6 @@
 
 
 '''
-import requests
-import re
-def name_idno():
-    url = 'http://www.xiaogongju.org/index.php/index/id.html/id/513436/year/1990/month/06/day/14/sex/%E7%94%B7'
-
-    headers = {
-        "Content-Type":"text/html;charset=utf-8",
-        "Host":"www.xiaogongju.org",
-        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-    }
-    request = requests.get(url,headers=headers)
-    ret = request.text
-    ret = re.findall('\s<td>\w*</td>',ret)
-    new_ret = []
-    for i in ret:
-        i = i.replace(' ','')
-        i = i.replace('<td>','')
-        i = i.replace('</td>','')
-        new_ret.append(i)
-    print(new_ret)
-    return new_ret
-
-a = name_idno()
-print(a[0])
-print(a[1])
 
 
 

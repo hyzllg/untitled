@@ -1,24 +1,10 @@
 import random
 import requests
-import logging
 import json
 import time
 import re
 import os
-from logging import handlers
-
 from past.builtins import raw_input
-
-
-sh = logging.StreamHandler()
-rh = handlers.RotatingFileHandler(os.path.join(os.path.expanduser("~"), 'Desktop') + "\ERROR.log",maxBytes=1024 * 1024 * 5, backupCount=5)
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s[line : %(lineno)d] - %(module)s : %(message)s',
-    datefmt="%Y-%m-%d %H:%M:%S %p",
-    level=logging.ERROR,
-    handlers=[rh,sh]
-)
-
 
 class Hyzllg:
     def __init__(self, loanReqNo, name, idNo, phone):
@@ -45,7 +31,7 @@ class Hyzllg:
                  "idNo":"210102199006187178",
                  "idAddress":"上海市浦东新区龙阳路幸福村520号",
                  "phone":"16606185001",
-                 "amount":3000.00,
+                 "amount":1000.00,
                  "periods":"6",
                  "purpose":"07",
                  "capitalCode":"787",
@@ -65,7 +51,7 @@ class Hyzllg:
         }
         a = "**********投保信息接口！**********"
         print(a)
-        time.sleep(3)
+        time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -77,7 +63,7 @@ class Hyzllg:
             else:
                 print("受理失败")
                 if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                    logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                    print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
                     raw_input("Press <enter>")
 
         else:
@@ -99,7 +85,7 @@ class Hyzllg:
         }
         a = "**********投保资料查询接口！**********"
         print(a)
-        time.sleep(3)
+        time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -122,7 +108,7 @@ class Hyzllg:
                 "name":"雷宇蕾",
                 "idNo":"513436199106081366",
                 "phone":"18717880399",
-                "amount":3000.00,
+                "amount":1000.00,
                 "periods":"6",
                 "purpose":"07",
                 "premiumRate":1.66,
@@ -143,7 +129,7 @@ class Hyzllg:
         }
         a = "**********投保接口！**********"
         print(a)
-        time.sleep(3)
+        time.sleep(1)
         res = requests.post(url, data=json.dumps(data), headers=headers)
         requit = res.json()
         requit["data"] = eval(requit["data"])
@@ -151,10 +137,9 @@ class Hyzllg:
 
             print("投保接口调用成功！")
             print(requit)
-            if requit["data"]["message"]:
-                print(requit["data"]["message"])
-                # logging.ERROR(str(requit["data"]["message"]))
-                # raw_input("Press <enter>")
+            if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
+                raw_input("Press <enter>")
         else:
             print("投保接口调用异常！")
             raw_input("Press <enter>")
@@ -169,7 +154,7 @@ class Hyzllg:
                  "idNo":"513436199106081366",
                 "insuranceNo":"20200608002",
                  "phone":"18717880399",
-                 "loanAmount":3000.00,
+                 "loanAmount":1000.00,
                  "productId":"7015",
                  "name":"雷宇蕾",
                  "spelling":"CHENPI",
@@ -241,8 +226,8 @@ class Hyzllg:
                   "creditDuration":"2020/03/02",
                   "faceRecoType":"01",
                   "faceRecoScore":66.66,
-                  "currLimit":5000.00,
-                  "currRemainLimit":5000.00,
+                  "currLimit":1000.00,
+                  "currRemainLimit":1000.00,
                   "firstLoanFlag":"N",
                   "settleLoanNum":1,
                   "unsettleLoanLimit":1,
@@ -268,7 +253,7 @@ class Hyzllg:
         }
         a = "**********支用接口！**********"
         print(a)
-        time.sleep(3)
+        time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -281,7 +266,7 @@ class Hyzllg:
                 print(requit)
                 print("受理失败！")
                 if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                    logging.ERROR(str(requit["data"]["errorCode"]) + "-" + str(requit["data"]["errorMsg"]))
+                    print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
                     raw_input("Press <enter>")
 
 
@@ -331,12 +316,12 @@ class Hyzllg:
                 elif requit["data"]["status"] == '05':
                     print("授信审批拒绝")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                        logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                        print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
                         raw_input("Press <enter>")
                 elif requit["data"]["status"] == '02':
                     print("支用失败，银行放款失败")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                        logging.ERROR(requit["data"]["errorCode"] + "-" + requit["data"]["errorMsg"])
+                        print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
                         raw_input("Press <enter>")
                 else:
                     print("未知错误！")
@@ -384,14 +369,127 @@ def name_idno():
     return new_ret
 
 
+def get_districtcodes():
+    districtcodes = []
+    with open('districtcode.txt', mode='r', encoding='utf-8') as f:
+        for l in f.readlines():
+            districtcodes.append(l.strip()[:6])
+    return districtcodes
+
+
+def generate_ID(gender=None):
+    """
+    :param gender: 控制性别，None为随机, 1:男，0：女
+    :return: 身份证号码
+    """
+
+    # 6位地址码
+    codelist = get_districtcodes()
+    id_location = codelist[random.randint(0, len(codelist)-1)]   # randint为闭区间，注意-1
+
+    # 8位生日编码
+    date_start = time.mktime((1990, 1, 1, 0, 0, 0, 0, 0, 0))
+    date_end = time.mktime((1998, 8, 1, 0, 0, 0, 0, 0, 0))
+
+    date_int = random.randint(date_start, date_end)
+    id_date = time.strftime("%Y%m%d", time.localtime(date_int))
+
+    # 3位顺序码，末尾奇数-男，偶数-女
+    id_order = 0
+    if not gender:
+        id_order = random.randint(0, 999)
+    elif gender == 1:
+        id_order = random.randint(0, 499) * 2 + 1
+    elif gender == 0:
+        id_order = random.randint(0, 499) * 2
+
+    if id_order >= 100:
+        id_order = str(id_order)
+    elif id_order >= 10:
+        id_order = "0" + str(id_order)
+    else:
+        id_order = "00" + str(id_order)
+
+
+    # 前17位相加
+    ID_former = id_location + id_date + id_order
+
+    # 验证码
+    weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]  # 权重项
+    cheack_code = {
+        '0': '1',
+        '1': '0',
+        '2': 'X',
+        '3': '9',
+        '4': '8',
+        '5': '7',
+        '6': '6',
+        '7': '5',
+        '8': '5',
+        '9': '3',
+        '10': '2'}  # 校验码映射
+
+    sum = 0
+    for i, num in enumerate(ID_former):
+        sum += int(num) * weight[i]
+    ID_check = cheack_code[str(sum % 11)]
+
+    ID = ID_former + ID_check
+    return ID
+
+
+
+def random_name():
+    # 删减部分，比较大众化姓氏
+    firstName = "赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻水云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳鲍史唐费岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅卞齐康伍余元卜顾孟平" \
+                "黄和穆萧尹姚邵湛汪祁毛禹狄米贝明臧计成戴宋茅庞熊纪舒屈项祝董粱杜阮席季麻强贾路娄危江童颜郭梅盛林刁钟徐邱骆高夏蔡田胡凌霍万柯卢莫房缪干解应宗丁宣邓郁单杭洪包诸左石崔吉" \
+                "龚程邢滑裴陆荣翁荀羊甄家封芮储靳邴松井富乌焦巴弓牧隗山谷车侯伊宁仇祖武符刘景詹束龙叶幸司韶黎乔苍双闻莘劳逄姬冉宰桂牛寿通边燕冀尚农温庄晏瞿茹习鱼容向古戈终居衡步都耿满弘国文东殴沃曾关红游盖益桓公晋楚闫"
+    # 百家姓全部姓氏
+    # firstName = "赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平" \
+    #             "黄和穆萧尹姚邵湛汪祁毛禹狄米贝明臧计伏成戴谈宋茅庞熊纪舒屈项祝董粱杜阮蓝闵席季麻强贾路娄危江童颜郭梅盛林刁钟徐邱骆高夏蔡田樊胡凌霍虞万支柯昝管卢莫经房裘缪干解应宗丁宣贲邓郁单杭洪包诸左石崔吉钮" \
+    #             "龚程嵇邢滑裴陆荣翁荀羊於惠甄麴家封芮羿储靳汲邴糜松井段富巫乌焦巴弓牧隗山谷车侯宓蓬全郗班仰秋仲伊宫宁仇栾暴甘钭厉戎祖武符刘景詹束龙叶幸司韶郜黎蓟薄印宿白怀蒲邰从鄂索咸籍赖卓蔺屠蒙池乔阴欎胥能苍" \
+    #             "双闻莘党翟谭贡劳逄姬申扶堵冉宰郦雍舄璩桑桂濮牛寿通边扈燕冀郏浦尚农温别庄晏柴瞿阎充慕连茹习宦艾鱼容向古易慎戈廖庾终暨居衡步都耿满弘匡国文寇广禄阙东殴殳沃利蔚越夔隆师巩厍聂晁勾敖融冷訾辛阚那简饶空" \
+    #             "曾毋沙乜养鞠须丰巢关蒯相查後荆红游竺权逯盖益桓公晋楚闫法汝鄢涂钦归海帅缑亢况后有琴梁丘左丘商牟佘佴伯赏南宫墨哈谯笪年爱阳佟言福百家姓终"
+    # 百家姓中双姓氏
+    firstName2 = "万俟司马上官欧阳夏侯诸葛闻人东方赫连皇甫尉迟公羊澹台公冶宗政濮阳淳于单于太叔申屠公孙仲孙轩辕令狐钟离宇文长孙慕容鲜于闾丘司徒司空亓官司寇仉督子颛孙端木巫马公西漆雕乐正壤驷公良拓跋夹谷宰父谷梁段干百里东郭南门呼延羊舌微生梁丘左丘东门西门南宫南宫"
+    # 女孩名字
+    girl = '秀娟英华慧巧美娜静淑惠珠翠雅芝玉萍红娥玲芬芳燕彩春菊兰凤洁梅琳素云莲真环雪荣爱妹霞香月莺媛艳瑞凡佳嘉琼勤珍贞莉桂娣叶璧璐娅琦晶妍茜秋珊莎锦黛青倩婷姣婉娴瑾颖露瑶怡婵雁蓓纨仪荷丹蓉眉君琴蕊薇菁梦岚苑婕馨瑗琰韵融园艺咏卿聪澜纯毓悦昭冰爽琬茗羽希宁欣飘育滢馥筠柔竹霭凝晓欢霄枫芸菲寒伊亚宜可姬舒影荔枝思丽'
+    # 男孩名字
+    boy = '伟刚勇毅俊峰强军平保东文辉力明永健世广志义兴良海山仁波宁贵福生龙元全国胜学祥才发武新利清飞彬富顺信子杰涛昌成康星光天达安岩中茂进林有坚和彪博诚先敬震振壮会思群豪心邦承乐绍功松善厚庆磊民友裕河哲江超浩亮政谦亨奇固之轮翰朗伯宏言若鸣朋斌梁栋维启克伦翔旭鹏泽晨辰士以建家致树炎德行时泰盛雄琛钧冠策腾楠榕风航弘'
+    # 名
+    name = '中笑贝凯歌易仁器义礼智信友上都卡被好无九加电金马钰玉忠孝'
+
+    # 10%的机遇生成双数姓氏
+    if random.choice(range(100)) > 10:
+        firstName_name = firstName[random.choice(range(len(firstName)))]
+    else:
+        i = random.choice(range(len(firstName2)))
+        firstName_name = firstName2[i:i + 2]
+
+    sex = random.choice(range(2))
+    name_1 = ""
+    # 生成并返回一个名字
+    if sex > 0:
+        girl_name = girl[random.choice(range(len(girl)))]
+        if random.choice(range(2)) > 0:
+            name_1 = name[random.choice(range(len(name)))]
+        return firstName_name + name_1 + girl_name #+ "\t女"
+    else:
+        boy_name = boy[random.choice(range(len(boy)))]
+        if random.choice(range(2)) > 0:
+            name_1 = name[random.choice(range(len(name)))]
+        return firstName_name + name_1 + boy_name #+ "\t男"
+
+
 def main():
-    new_name_idno = name_idno()
+    random__name = random_name()
+    generate__ID = generate_ID(gender=1)
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
-    hyzllg = Hyzllg(HB_loanReqNo, new_name_idno[0], new_name_idno[1], HB_phone)
+    hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone)
     test_info = f'''
-                    姓名：{new_name_idno[0]}
-                    身份证号：{new_name_idno[1]}
+                    姓名：{random__name}
+                    身份证号：{generate__ID}
                     手机号：{HB_phone}
                     loanReqNo:{HB_loanReqNo}
                 '''
