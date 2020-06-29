@@ -136,9 +136,12 @@ class Hyzllg:
         if res.status_code == 200:
 
             print("投保接口调用成功！")
-            print(requit)
-            if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
+
+            if requit["data"]["status"] == '01':
+                print("投保成功！")
+                print(requit)
+            else:
+                print(f'errormsg:{requit["data"]["message"]}')
                 raw_input("Press <enter>")
         else:
             print("投保接口调用异常！")
