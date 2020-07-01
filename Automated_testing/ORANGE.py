@@ -183,17 +183,23 @@ class Hyzllg:
             requit["data"] = eval(requit["data"])
             if re.status_code == 200:
                 print("授信查询接口调用成功！")
-                if requit["data"]["body"]["status"]=="01":
-                    print(requit)
-                    print("授信通过！\n")
-                    break
-                elif requit["data"]["body"]["status"]=="00":
-                    print("授信中！")
-                else:
-                    print("授信失败！")
-                    if requit["data"]["message"]:
-                        print(f'errormsg:{requit["data"]["message"]}')
-                        raw_input("Press <enter>")
+                print(requit)
+                try:
+                    if requit["data"]["body"]["status"]=="01":
+                        print(requit)
+                        print("授信通过！\n")
+                        break
+                    elif requit["data"]["body"]["status"]=="00":
+                        print("授信中！")
+                    else:
+                        print("授信失败！")
+                        if requit["data"]["message"]:
+                            print(f'errormsg:{requit["data"]["message"]}')
+                            raw_input("Press <enter>")
+                except BaseException as e:
+                    print(f'orrer:{requit["data"]["message"]}')
+                    raw_input("Press <enter>")
+
             else:
                 print("授信查询接口调用异常！")
                 raw_input("Press <enter>")
@@ -386,7 +392,7 @@ def name_idno():
 
 def get_districtcodes():
     districtcodes = []
-    with open('districtcode.txt', mode='r', encoding='utf-8') as f:
+    with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\districtcode.txt", mode='r', encoding='utf-8') as f:
         for l in f.readlines():
             districtcodes.append(l.strip()[:6])
     return districtcodes

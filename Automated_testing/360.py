@@ -57,15 +57,11 @@ class Hyzllg:
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             print("投保信息接口调用成功！")
-            if requit["data"]["status"]=='01':
+            if requit["data"]["status"] == '01':
                 print(requit)
-                print("已受理，处理中！")
+                print("投保信息接口成功！")
             else:
-                print("受理失败")
-                if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                    print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                    raw_input("Press <enter>")
-
+                print("投保信息接口失败！")
         else:
             print("投保信息接口调用异常！")
             raw_input("Press <enter>")
@@ -134,15 +130,16 @@ class Hyzllg:
         requit = res.json()
         requit["data"] = eval(requit["data"])
         if res.status_code == 200:
-
             print("投保接口调用成功！")
-
-            if requit["data"]["status"] == '01':
-                print("投保成功！")
-                print(requit)
-            else:
-                print(f'errormsg:{requit["data"]["message"]}')
-                raw_input("Press <enter>")
+            try:
+                if requit["data"]["message"]:
+                    print("受理失败")
+                    print(f'errormsg:{requit["data"]["message"]}')
+                    raw_input("Press <enter>")
+            except BaseException as e:
+                if requit["data"]["status"]=='01':
+                    print(requit)
+                    print("已受理，处理中！")
         else:
             print("投保接口调用异常！")
             raw_input("Press <enter>")
@@ -374,7 +371,7 @@ def name_idno():
 
 def get_districtcodes():
     districtcodes = []
-    with open('districtcode.txt', mode='r', encoding='utf-8') as f:
+    with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\districtcode.txt", mode='r', encoding='utf-8') as f:
         for l in f.readlines():
             districtcodes.append(l.strip()[:6])
     return districtcodes

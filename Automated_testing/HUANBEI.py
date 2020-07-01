@@ -133,12 +133,16 @@ class Hyzllg:
         requit = re.json()
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
-
             print("投保接口调用成功！")
-            if requit["data"]["message"]:
-                print('投保失败！')
-                print(f'errormsg:{requit["data"]["message"]}')
-                raw_input("Press <enter>")
+            try:
+                if requit["data"]["message"]:
+                    print("受理失败")
+                    print(f'errormsg:{requit["data"]["message"]}')
+                    raw_input("Press <enter>")
+            except BaseException as e:
+                if requit["data"]["status"]=='01':
+                    print(requit)
+                    print("已受理，处理中！")
         else:
             print("投保接口调用异常！")
             raw_input("Press <enter>")
@@ -318,7 +322,7 @@ def name_idno():
 
 def get_districtcodes():
     districtcodes = []
-    with open('districtcode.txt', mode='r', encoding='utf-8') as f:
+    with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\districtcode.txt", mode='r', encoding='utf-8') as f:
         for l in f.readlines():
             districtcodes.append(l.strip()[:6])
     return districtcodes
