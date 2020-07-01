@@ -8,18 +8,20 @@ from past.builtins import raw_input
 
 
 class Hyzllg:
-    def __init__(self,channelCustId,creditReqNo,name,idNo,phone):
+    def __init__(self,channelCustId,creditReqNo,name,idNo,phone,loanAmount,periods):
         self.channelCustId = channelCustId
         self.creditReqNo = creditReqNo
         self.name = name
         self.idNo = idNo
         self.phone = phone
+        self.loanAmount = loanAmount
+        self.periods = periods
 
     def wrapper(func):
         def inner(*args,**kwargs):
             s = func(*args,**kwargs)
             with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\ORANGE.log", 'a+', encoding='utf-8') as hyzllg:
-                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}\n")
+                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
 
         return inner
     @wrapper
@@ -130,6 +132,8 @@ class Hyzllg:
         data["name"] = self.name
         data["idNo"] = self.idNo
         data["phone"] = self.phone
+        data["loanAmount"] = self.loanAmount
+        data["periods"] = self.periods
 
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
@@ -146,7 +150,7 @@ class Hyzllg:
             print("授信接口调用成功！")
             if requit["data"]["body"]["status"] == "01":
                 print(requit)
-                print("授信受理成功，处理中！\n")
+                print("授信受理成功，处理中！")
             else:
                 print("授信受理失败！")
                 if requit["data"]["message"]:
@@ -187,7 +191,7 @@ class Hyzllg:
                 try:
                     if requit["data"]["body"]["status"]=="01":
                         print(requit)
-                        print("授信通过！\n")
+                        print("授信通过！")
                         break
                     elif requit["data"]["body"]["status"]=="00":
                         print("授信中！")
@@ -214,6 +218,8 @@ class Hyzllg:
             "loanAmount": "1000.00"
         }
         data["channelCustId"] = self.channelCustId
+        data["loanAmount"] = self.loanAmount
+        data["periods"] = self.periods
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -230,7 +236,7 @@ class Hyzllg:
                 print(f'本次试算资方为：{requit["data"]["capitalCode"]}')
                 if requit["data"]["body"]["status"]=="01" and requit["data"]["capitalCode"]==capitalCode:
                     print(requit)
-                    print("支用试算成功！\n")
+                    print("支用试算成功！")
                     break
                 else:
                     time.sleep(3)
@@ -282,6 +288,8 @@ class Hyzllg:
         data["loanReqNo"] = loanReqNo
         data["creditReqNo"] = self.creditReqNo
         data["capitalCode"] = capitalCode
+        data["loanAmount"] = self.loanAmount
+        data["periods"] = self.periods
         print(data)
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
@@ -298,7 +306,7 @@ class Hyzllg:
             print("支用接口调用成功！")
             if requit["data"]["body"]["status"]=="01":
                 print(requit)
-                print("受理成功，处理中!\n")
+                print("受理成功，处理中!")
             else:
                 print("受理失败")
                 if requit["data"]["message"]:
@@ -517,11 +525,13 @@ def main():
     generate__ID = generate_ID(gender=1)
     ORANGE_phone = phone()
     ORANGE_serial_number = serial_number()
-    hyzllg = Hyzllg(ORANGE_serial_number[0],ORANGE_serial_number[1], random__name, generate__ID,ORANGE_phone)
+    hyzllg = Hyzllg(ORANGE_serial_number[0],ORANGE_serial_number[1], random__name, generate__ID,ORANGE_phone,"5000.00","12")
     test_info = f'''
             姓名：{random__name}
             身份证号：{generate__ID}
             手机号：{ORANGE_phone}
+            借款金额:{hyzllg.loanAmount}
+            借款期次:{hyzllg.periods}
             channelCustId：{ORANGE_serial_number[0]}
             creditReqNo：{ORANGE_serial_number[1]}
             loanReqNo:{ORANGE_serial_number[2]}

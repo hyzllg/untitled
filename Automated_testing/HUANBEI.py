@@ -10,17 +10,19 @@ from past.builtins import raw_input
 
 
 class Hyzllg:
-    def __init__(self,loanReqNo,name,idNo,phone):
+    def __init__(self,loanReqNo,name,idNo,phone,loanAmount,periods):
         self.loanReqNo = loanReqNo
         self.name = name
         self.idNo = idNo
         self.phone = phone
+        self.loanAmount = loanAmount
+        self.periods = periods
 
     def wrapper(func):
         def inner(*args,**kwargs):
             s = func(*args,**kwargs)
             with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\HUANBEI.log", 'a+', encoding='utf-8') as hyzllg:
-                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}\n")
+                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
 
         return inner
 
@@ -49,6 +51,8 @@ class Hyzllg:
         data["name"] = self.name
         data["idNo"] = self.idNo
         data["phone"] = self.phone
+        data["amount"] = self.loanAmount
+        data["periods"] = self.periods
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -62,7 +66,7 @@ class Hyzllg:
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             print(requit)
-            print("投保信息接口成功！\n")
+            print("投保信息接口成功！")
             if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                 print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
                 raw_input("Press <enter>")
@@ -91,7 +95,7 @@ class Hyzllg:
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             print(requit)
-            print("投保资料查询成功！\n")
+            print("投保资料查询成功！")
         else:
             print("投保资料查询接口异常！")
             raw_input("Press <enter>")
@@ -121,6 +125,8 @@ class Hyzllg:
         data["name"] = self.name
         data["idNo"] = self.idNo
         data["phone"] = self.phone
+        data["amount"] = self.loanAmount
+        data["periods"] = self.periods
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -133,7 +139,6 @@ class Hyzllg:
         requit = re.json()
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
-            print("投保接口调用成功！")
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
@@ -233,8 +238,8 @@ class Hyzllg:
                 "verifyResult": "01",
                 "fourElementsResult": "01",
                 "limitDate": "2020/05/06",
-                "limit": 1000.0,
-                "balanceLimit": 1000.0,
+                "limit": 20000.0,
+                "balanceLimit": 20000.0,
                 "isFirstDisburse": "Y",
                 "settleLoanCounts": 1,
                 "unclearedLoanCnts": 1,
@@ -254,6 +259,8 @@ class Hyzllg:
         data["name"] = self.name
         data["phone"] = self.phone
         data["idNo"] = self.idNo
+        data["loanAmount"] = self.loanAmount
+        data["periods"] = self.periods
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -266,16 +273,20 @@ class Hyzllg:
         requit = re.json()
         requit["data"] = eval(requit["data"])
         if re.status_code == 200 :
-            print("支用接口调用成功！")
-            if requit["data"]["status"]=="01":
-                print(requit)
-                print("支用受理成功，处理中！\n")
-            elif requit["data"]["status"]=="00":
-                print(requit)
-                print("受理失败！\n")
-                if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                    print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                    raw_input("Press <enter>")
+            try:
+
+                if requit["data"]["status"]=="01":
+                    print(requit)
+                    print("支用受理成功，处理中！")
+                elif requit["data"]["status"]=="00":
+                    print(requit)
+                    print("受理失败！")
+                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                        print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
+                        raw_input("Press <enter>")
+            except BaseException as e:
+                if requit["data"]["message"]:
+                    print(f'error:{requit["data"]["message"]}')
 
 
         else:
@@ -436,11 +447,13 @@ def main():
     generate__ID = generate_ID(gender=1)
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
-    hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone)
+    hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,"8000","6")
     test_info = f'''
                     姓名：{random__name}
                     身份证号：{generate__ID}
                     手机号：{HB_phone}
+                    借款金额:{hyzllg.loanAmount}
+                    借款期次:{hyzllg.periods}
                     loanReqNo:{HB_loanReqNo}
                 '''
     hyzllg.insure_info()
