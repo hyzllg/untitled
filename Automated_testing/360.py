@@ -231,8 +231,8 @@ class Hyzllg:
                   "creditDuration":"2020/03/02",
                   "faceRecoType":"01",
                   "faceRecoScore":66.66,
-                  "currLimit":1000.00,
-                  "currRemainLimit":1000.00,
+                  "currLimit":20000.00,
+                  "currRemainLimit":20000.00,
                   "firstLoanFlag":"N",
                   "settleLoanNum":1,
                   "unsettleLoanLimit":1,
@@ -496,7 +496,8 @@ def main():
     generate__ID = generate_ID(gender=1)
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
-    hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone,"10000.00","6")
+    hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone,"3000.00","6")
+    # hyzllg = Hyzllg(HB_loanReqNo, "宗忠博", "350121199103290396", "16607026293", "1000.00", "6")
     test_info = f'''
                     姓名：{random__name}
                     身份证号：{generate__ID}
