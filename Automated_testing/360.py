@@ -496,8 +496,9 @@ def main():
     generate__ID = generate_ID(gender=1)
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
-    hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone,"3000.00","6")
-    # hyzllg = Hyzllg(HB_loanReqNo, "宗忠博", "350121199103290396", "16607026293", "1000.00", "6")
+    # hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone,"5000.00","6")
+    hyzllg = Hyzllg(HB_loanReqNo, "魏维", "340506199307040037", HB_phone,"5000.00","6")
+
     test_info = f'''
                     姓名：{random__name}
                     身份证号：{generate__ID}

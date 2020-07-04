@@ -181,13 +181,12 @@ class Hyzllg:
         while True:
             a = "**********授信结果查询！**********"
             print(a)
-            time.sleep(8)
+            time.sleep(5)
             re = requests.post(url, data=json.dumps(data), headers=headers)
             requit = re.json()
             requit["data"] = eval(requit["data"])
             if re.status_code == 200:
                 print("授信查询接口调用成功！")
-                print(requit)
                 try:
                     if requit["data"]["body"]["status"]=="01":
                         print(requit)
@@ -233,8 +232,8 @@ class Hyzllg:
         time.sleep(2)
         while True:
             if res.status_code == 200:
-                print(f'本次试算资方为：{requit["data"]["capitalCode"]}')
-                if requit["data"]["body"]["status"]=="01" and requit["data"]["capitalCode"]==capitalCode:
+                print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
+                if requit["data"]["body"]["status"]=="01" and requit["data"]["body"]["capitalCode"]==capitalCode:
                     print(requit)
                     print("支用试算成功！")
                     break
@@ -245,7 +244,7 @@ class Hyzllg:
             else:
                 print("支用试算接口调用异常！")
                 raw_input("Press <enter>")
-        return url, a, requit,capitalCode
+        return url, a, requit
 
     @wrapper
     def disburse(self,loanReqNo,capitalCode):
@@ -539,7 +538,7 @@ def main():
     hyzllg.credit_granting()
     hyzllg.credit_inquiry()
     capitalCode_ = hyzllg.disburse_trial(hlp)
-    hyzllg.disburse(ORANGE_serial_number[2],capitalCode_[3])
+    hyzllg.disburse(ORANGE_serial_number[2],hlp)
     # hyzllg.disburse_in_query(ORANGE_serial_number[2])
     time.sleep(1)
     print(test_info)
