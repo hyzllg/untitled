@@ -1,6 +1,5 @@
 import random
 import requests
-import logging
 import json
 import time
 import re
@@ -20,8 +19,9 @@ class Hyzllg:
     def wrapper(func):
         def inner(*args,**kwargs):
             s = func(*args,**kwargs)
-            with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\HUANBEI.log", 'a+', encoding='utf-8') as hyzllg:
+            with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\JIAOHANG.log", 'a+', encoding='utf-8') as hyzllg:
                 hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
+            return s
 
         return inner
 
@@ -97,7 +97,7 @@ class Hyzllg:
         return url, a, requit
 
     @wrapper
-    def insure(self):
+    def insure(self,a="01"):
         url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE'
         data = {
                 "agentNo":"TianCheng",
@@ -123,6 +123,7 @@ class Hyzllg:
         data["phone"] = self.phone
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
+        data["stage"] = a
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
@@ -250,17 +251,16 @@ class Hyzllg:
         a = "**********授信接口！**********"
         print(a)
         time.sleep(1)
-        # re = requests.post(url, data=json.dumps(data), headers=headers)
-        re = requests.post(url, data=json.data, headers=headers)
+        re = requests.post(url, data=json.dumps(data), headers=headers)
 
         requit = re.json()
-        # requit["data"] = eval(requit["data"])
-        print(requit)
+        requit["data"] = eval(requit["data"])
         if re.status_code == 200 :
             try:
 
                 if requit["data"]["status"]=="01":
                     print(requit)
+                    creditApplyNo = requit["data"]["creditApplyNo"]
                     print("授信受理成功，处理中！")
                 elif requit["data"]["status"]=="00":
                     print(requit)
@@ -276,12 +276,12 @@ class Hyzllg:
         else:
             print("授信接口调用异常！")
             raw_input("Press <enter>")
-        return url,a,requit,requit["data"]["creditApplyNo"]
+        return url,a,requit,creditApplyNo
 
 
     @wrapper
     def credit_inquiry(self,creditApplyNo):
-        url = 'http://10.1.14.106:27405/channel/TEST/BCM/CREDIT_INQUIRY'
+        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/CREDIT_INQUIRY'
         data = {
                 "creditReqNo":"20200706456123001",
                 "creditApplyNo":"20200706000000009"
@@ -365,7 +365,7 @@ class Hyzllg:
             "Host": "10.1.14.106:27405",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        a = "**********投保接口！**********"
+        a = "**********提款投保接口！**********"
         print(a)
         time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
@@ -373,16 +373,21 @@ class Hyzllg:
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             try:
+                if requit["data"]["status"] == '01':
+                    print(requit)
+                    print("受理成功，处理中！")
+                elif requit["data"]["status"] == '00':
+                    print(requit)
+                    print("受理失败！")
+                    print(f'Error:{requit["data"]["errorCode"]} {requit["data"]["errorMsg"]}')
+
+            except BaseException as e:
                 if requit["data"]["message"]:
                     print("受理失败")
                     print(f'errormsg:{requit["data"]["message"]}')
                     raw_input("Press <enter>")
-            except BaseException as e:
-                if requit["data"]["status"] == '01':
-                    print(requit)
-                    print("已受理，处理中！")
         else:
-            print("投保接口调用异常！")
+            print("提款投保接口调用异常！")
             raw_input("Press <enter>")
         return url, a, requit
 
@@ -399,7 +404,7 @@ def loanReqNo():
 def creditReqNo():
     a = str(random.randint(1, 10000))
     b = time.strftime("%Y%m%d%H%M%S")
-    loanReqNo = b + '68' + a
+    creditReqNo = b + '68' + a
     return creditReqNo
 
 
@@ -564,9 +569,10 @@ def main():
     hyzllg.insure_info()
     hyzllg.insure_data_query()
     hyzllg.insure()
-    credit_granting = hyzllg.credit_granting()
-    hyzllg.credit_inquiry(credit_granting[3])
-    hyzllg.disburse(credit_granting[3])
+    credit_Granting = hyzllg.credit_granting()
+    hyzllg.credit_inquiry(credit_Granting[3])
+    hyzllg.insure("02")
+    hyzllg.disburse(credit_Granting[3])
     print(test_info)
 
 if __name__ == '__main__':
