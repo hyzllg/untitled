@@ -154,16 +154,24 @@ class Hyzllg:
     def credit_granting(self):
         url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/CREDIT_GRANTING'
         data = {
-                "creditReqNo":"20200706456123001",
-                "insuranceNo":"2020070615030988245",
-                "name":"隗贝光",
+                "creditReqNo":"20200706456123004",
+                "insuranceNo":"2020070616462188640",
+                "name":"弘孝琴",
+                "idNo":"450222199701040895",
+                "phone":"16607067526",
                 "spelling":"",
+                "loanAmount":5000,
+                "periods":3,
+                "purpose":"01",
+                "direction":"00",
+                "payType":"00",
+                "payMerchantNo":"",
+                "authFlag":"01",
                 "sex":"00",
                 "nationality":"中国",
                 "nation":"汉族",
                 "birthday":"1990/06/02",
                 "idType":"00",
-                "idNo":"65232519930329469X",
                 "idStartDate":"2016/01/18",
                 "idEndDate":"2036/01/18",
                 "idOffice":"杭州市公安局江干区分局",
@@ -187,7 +195,6 @@ class Hyzllg:
                 "income":"04",
                 "education":"08",
                 "school":"哈弗",
-                "phone":"16607063242",
                 "email":"ybhdsg@hrtx.com",
                 "contacts":[
                     {
@@ -208,13 +215,6 @@ class Hyzllg:
                 "applyCity":"110000",
                 "applyDistrict":"110101",
                 "applyResult":"99",
-                "loanAmount":5000,
-                "periods":3,
-                "purpose":"01",
-                "direction":"00",
-                "payType":"00",
-                "payMerchantNo":"",
-                "authFlag":"01",
                 "deviceDetail":{
                     "deviceId":"",
                     "mac":"",
@@ -236,7 +236,7 @@ class Hyzllg:
                 }
             }
         data["creditReqNo"] = self.creditReqNo
-        data["loanReqNo"] = self.loanReqNo
+        data["insuranceNo"] = self.loanReqNo
         data["name"] = self.name
         data["phone"] = self.phone
         data["idNo"] = self.idNo
@@ -250,9 +250,11 @@ class Hyzllg:
         a = "**********授信接口！**********"
         print(a)
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
+        # re = requests.post(url, data=json.dumps(data), headers=headers)
+        re = requests.post(url, data=json.data, headers=headers)
+
         requit = re.json()
-        requit["data"] = eval(requit["data"])
+        # requit["data"] = eval(requit["data"])
         print(requit)
         if re.status_code == 200 :
             try:
