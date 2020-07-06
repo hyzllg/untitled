@@ -7,10 +7,9 @@ import re
 import os
 from past.builtins import raw_input
 
-
-
 class Hyzllg:
-    def __init__(self,loanReqNo,name,idNo,phone,loanAmount,periods):
+    def __init__(self,creditReqNo,loanReqNo,name,idNo,phone,loanAmount,periods):
+        self.creditReqNo = creditReqNo
         self.loanReqNo = loanReqNo
         self.name = name
         self.idNo = idNo
@@ -28,26 +27,25 @@ class Hyzllg:
 
     @wrapper
     def insure_info(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE_INFO'
+        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_INFO'
         data = {
-            "channelCustId":"",
-            "loanReqNo":"20200613910199001",
-            "capitalCode":"787",
-            "custGrde":"GRD36",
-            "name":"凤骅",
-            "idNo":"513436199006138839",
-            "phone":"16606137001",
-            "amount":3000.00,
-            "periods":6,
-            "purpose":"01",
-            "addProvince":"110000",
-            "addCity":"110000",
-            "addDistrict":"110101",
-            "addDetail":"学霸路学渣小区250弄38号",
-            "email":"ybhdsg@hrtx.com",
-            "contactPhone":"17760601111"
-        }
-        data["loanReqNo"] = self.loanReqNo
+                "channelCustId":"",
+                "insuranceNo":"2020070614282288733",
+                "name":"束贝娜",
+                "idNo":"530723199703088596",
+                "phone":"16607061634",
+                "idAddress":"落魄山祖师堂",
+                "amount":5000,
+                "periods":3,
+                "purpose":"01",
+                "laonRate":"8%",
+                "insuranceName":"交行",
+                "insuranceAdd":"中国交行",
+                "postCode":"110016",
+                "stage":"01",
+                "callbackUrl":"http://www.woshishui.com"
+            }
+        data["insuranceNo"] = self.loanReqNo
         data["name"] = self.name
         data["idNo"] = self.idNo
         data["phone"] = self.phone
@@ -58,7 +56,7 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        a = "**********投保信息接口！**********"
+        a = "**********投保链接接口！**********"
         print(a)
         time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
@@ -66,10 +64,7 @@ class Hyzllg:
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             print(requit)
-            print("投保信息接口成功！")
-            if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                raw_input("Press <enter>")
+            print("投保链接接口成功！")
         else:
             print("投保信息接口异常！")
             raw_input("Press <enter>")
@@ -77,17 +72,17 @@ class Hyzllg:
 
     @wrapper
     def insure_data_query(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE_DATA_QUERY'
+        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_DATA_QUERY'
         data = {
-            "loanReqNo": "20200613910199001"
-        }
+                "loanReqNo":"2020070614351688817"
+            }
         data["loanReqNo"] = self.loanReqNo
         headers = {
-            "Content-Type":"application/json;charset=UTF-8",
-            "Host":"10.1.14.106:27405",
-            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+            "Content-Type": "application/json;charset=UTF-8",
+            "Host": "10.1.14.106:27405",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        a =  "**********投保资料查询接口！**********"
+        a = "**********投保资料查询接口！**********"
         print(a)
         time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
@@ -99,27 +94,28 @@ class Hyzllg:
         else:
             print("投保资料查询接口异常！")
             raw_input("Press <enter>")
-        return url,a,requit
+        return url, a, requit
 
     @wrapper
     def insure(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE'
+        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE'
         data = {
-            "agentNo": "DingSheng",
-            "agentName": "鼎盛保险经纪",
-            "loanReqNo": "20200613910199001",
-            "insReqNo": "20200613910199001",
-            "name": "凤骅",
-            "idNo": "513436199006138839",
-            "phone": "16606137001",
-            "amount": 3000.0,
-            "periods": 6,
-            "purpose": "01",
-            "premiumRate": 1.66,
-            "insurantName": "鼎盛",
-            "insurantAdd": "上海幸福村521弄1100号",
-            "postCode": "110016"
-        }
+                "agentNo":"TianCheng",
+                "agentName":"甜橙保代",
+                "loanReqNo":"2020070152013140001",
+                "insReqNo":"",
+                "name":"哑巴湖大水怪",
+                "idNo":"412721198705203577",
+                "phone":"16613145219",
+                "amount": 5000,
+                "periods":3,
+                "purpose":"01",
+                "premiumRate":0.08,
+                "insurantName":"哑巴湖大水怪",
+                "insurantAdd":"被保险人通讯地址",
+                "postCode":"110016",
+                "stage":"01"
+            }
         data["loanReqNo"] = self.loanReqNo
         data["insReqNo"] = self.loanReqNo
         data["name"] = self.name
@@ -128,9 +124,9 @@ class Hyzllg:
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
         headers = {
-            "Content-Type":"application/json;charset=UTF-8",
-            "Host":"10.1.14.106:27405",
-            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+            "Content-Type": "application/json;charset=UTF-8",
+            "Host": "10.1.14.106:27405",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
         a = "**********投保接口！**********"
         print(a)
@@ -145,116 +141,101 @@ class Hyzllg:
                     print(f'errormsg:{requit["data"]["message"]}')
                     raw_input("Press <enter>")
             except BaseException as e:
-                if requit["data"]["status"]=='01':
+                if requit["data"]["status"] == '01':
                     print(requit)
                     print("已受理，处理中！")
         else:
             print("投保接口调用异常！")
             raw_input("Press <enter>")
-        return url,a,requit
+        return url, a, requit
+
 
     @wrapper
-    def disburse(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/DISBURSE'
+    def credit_granting(self):
+        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/CREDIT_GRANTING'
         data = {
-            "channelCustId": "",
-            "loanReqNo": "20200613910199001",
-            "name": "凤骅",
-            "spelling": "LAIJING",
-            "sex": "00",
-            "nationality": "中国",
-            "nation": "汉族",
-            "birthday": "1993/12/12",
-            "idType": "00",
-            "loanAmount": 3000.0,
-            "periods": 6,
-            "phone": "16606137001",
-            "idNo": "513436199006138839",
-            "idStartDate": "2016/01/18",
-            "idEndDate": "2026/01/18",
-            "idOffice": "上海市崇明区太上皇路888弄001号",
-            "marriage": "00",
-            "children": "01",
-            "supplyPeople": 0,
-            "house": "09",
-            "addProvince": "110000",
-            "addCity": "110000",
-            "addDistrict": "110101",
-            "addDetail": "学霸路学渣小区250弄38号",
-            "industry": "C",
-            "profession": "02",
-            "workplaceName": "中国大地保险公司",
-            "workTel": "0521-11122844",
-            "workProvince": "上海市",
-            "workCity": "上海市",
-            "workDistrict": "浦东新区",
-            "workDetailAdd": "证大五道口1199弄",
-            "workAge": 5,
-            "income": "02",
-            "education": "08",
-            "school": "哈弗大学",
-            "email": "ybhdsg@hrtx.com",
-            "bankCard": "6214832192941115",
-            "bankName": "招商银行",
-            "bankPhone": "19888128830",
-            "applyProvince": "110000",
-            "applyCity": "110000",
-            "applyDistrict": "110101",
-            "purpose": "01",
-            "direction": "04",
-            "payType": "00",
-            "payMerchantNo": "",
-            "authFlag": "01",
-            "capitalCode": "FBBANK",
-            "agrSignTime": "20200506175500",
-            "docDate": "",
-            "contacts": [
-                {
-                    "relation": "01",
-                    "name": "鼎盛一",
-                    "phoneNo": "17613148801"
+                "creditReqNo":"20200706456123001",
+                "insuranceNo":"2020070615030988245",
+                "name":"隗贝光",
+                "spelling":"",
+                "sex":"00",
+                "nationality":"中国",
+                "nation":"汉族",
+                "birthday":"1990/06/02",
+                "idType":"00",
+                "idNo":"65232519930329469X",
+                "idStartDate":"2016/01/18",
+                "idEndDate":"2036/01/18",
+                "idOffice":"杭州市公安局江干区分局",
+                "marriage":"00",
+                "children":"01",
+                "supplyPeople":0,
+                "house":"05",
+                "addProvince":"110000",
+                "addCity":"110000",
+                "addDistrict":"110101",
+                "addDetail":"学霸路学渣小区250弄38号",
+                "industry":"C",
+                "profession":"00",
+                "workplaceName":"大地保险公司",
+                "workTel":"021-1254684",
+                "workProvince":"",
+                "workCity":"",
+                "workDistrict":"",
+                "workDetailAdd":"学院路100号小杨制造厂",
+                "workAge":5,
+                "income":"04",
+                "education":"08",
+                "school":"哈弗",
+                "phone":"16607063242",
+                "email":"ybhdsg@hrtx.com",
+                "contacts":[
+                    {
+                        "relation":"00",
+                        "name":"哑巴湖大水怪",
+                        "phoneNo":"17613145210"
+                    },
+                    {
+                        "relation":"00",
+                        "name":"哑巴湖大水怪",
+                        "phoneNo":"17613145210"
+                    }
+                ],
+                "bankCard":"6226661203661652",
+                "bankName":"工商银行",
+                "bankPhone":"13784566444",
+                "applyProvince":"110000",
+                "applyCity":"110000",
+                "applyDistrict":"110101",
+                "applyResult":"99",
+                "loanAmount":5000,
+                "periods":3,
+                "purpose":"01",
+                "direction":"00",
+                "payType":"00",
+                "payMerchantNo":"",
+                "authFlag":"01",
+                "deviceDetail":{
+                    "deviceId":"",
+                    "mac":"",
+                    "longitude":"",
+                    "latitude":"",
+                    "gpsCity":"",
+                    "ip":"",
+                    "ipCity":"",
+                    "oS":""
                 },
-                {
-                    "relation": "00",
-                    "name": "鼎盛二",
-                    "phoneNo": "17613148802"
+                "docDate":"2020/07/06",
+                "channelDetail":{
+                    "childProductId":"01",
+                    "bankLimit":"30000",
+                    "billAge":"36",
+                    "insuranceName":"BCM",
+                    "insuranceAdd":"BCM",
+                    "postCode":"110016"
                 }
-            ],
-            "deviceDetail": {
-                "deviceId": "646876135467846554646",
-                "mac": "NONE",
-                "longitude": "162.357159",
-                "latitude": "63.589634",
-                "gpsCity": "上海市",
-                "ip": "192.3.46.57",
-                "ipCity": "上海市",
-                "oS": "ios"
-            },
-            "channelDetail": {
-                "custGrade": "GRD36",
-                "obtainCustType": "01",
-                "faceType": "01",
-                "faceScore": 70,
-                "verifyResult": "01",
-                "fourElementsResult": "01",
-                "limitDate": "2020/05/06",
-                "limit": 20000.0,
-                "balanceLimit": 20000.0,
-                "isFirstDisburse": "Y",
-                "settleLoanCounts": 1,
-                "unclearedLoanCnts": 1,
-                "unclearedLoanBaln": 0,
-                "overdueD3Days": "N",
-                "maxOverdueDays": 14,
-                "overdueDays": 4,
-                "overdueD3Cnts": 1,
-                "isCurrentOverdue": "N",
-                "firstRepayOdCnts": 1,
-                "beforeLoanSocre": "",
-                "midLoanSocre": "",
-                "afterLoanSocre": ""
             }
-        }
+        data["creditReqNo"] = self.creditReqNo
         data["loanReqNo"] = self.loanReqNo
         data["name"] = self.name
         data["phone"] = self.phone
@@ -266,18 +247,19 @@ class Hyzllg:
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        a = "**********支用接口！**********"
+        a = "**********授信接口！**********"
         print(a)
         time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
+        print(requit)
         if re.status_code == 200 :
             try:
 
                 if requit["data"]["status"]=="01":
                     print(requit)
-                    print("支用受理成功，处理中！")
+                    print("授信受理成功，处理中！")
                 elif requit["data"]["status"]=="00":
                     print(requit)
                     print("受理失败！")
@@ -290,15 +272,134 @@ class Hyzllg:
 
 
         else:
-            print("支用接口调用异常！")
+            print("授信接口调用异常！")
             raw_input("Press <enter>")
+        return url,a,requit,requit["data"]["creditApplyNo"]
+
+
+    @wrapper
+    def credit_inquiry(self,creditApplyNo):
+        url = 'http://10.1.14.106:27405/channel/TEST/BCM/CREDIT_INQUIRY'
+        data = {
+                "creditReqNo":"20200706456123001",
+                "creditApplyNo":"20200706000000009"
+            }
+        data["creditReqNo"] = self.creditReqNo
+        data["creditApplyNo"] = creditApplyNo
+        headers = {
+            "Content-Type":"application/json;charset=UTF-8",
+            "Host":"10.1.14.106:27405",
+            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+        }
+        a = "**********授信结果查询接口！**********"
+        print(a)
+        while True:
+            time.sleep(6)
+            re = requests.post(url, data=json.dumps(data), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200 :
+                try:
+
+                    if requit["data"]["status"]=="01":
+                        print(requit)
+                        print("授信通过！")
+                        break
+                    elif requit["data"]["status"]=="00":
+                        print(requit)
+                        print("授信中！")
+                        continue
+                    else:
+                        print(requit)
+                        print("授信失败！")
+                        raw_input("Press <enter>")
+                except BaseException as e:
+                    if requit["data"]["message"]:
+                        print(f'error:{requit["data"]["message"]}')
+
+
+            else:
+                print("授信结果查询接口调用异常！")
+                raw_input("Press <enter>")
         return url,a,requit
 
+
+    @wrapper
+    def disburse(self,creditApplyNo):
+        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/DISBURSE'
+        data = {
+                "loanReqNo":"202007061552308824",
+                "creditApplyNo":"20200706000000012",
+                "loanAmount":5000,
+                "periods":3,
+                "purpose":"01",
+                "currentLimit":"50000",
+                "longitude":"",
+                "latitude":"",
+                "ip":"",
+                "contacts":[
+                    {
+                        "relation":"00",
+                        "name":"哑巴湖大水怪",
+                        "phoneNo":"17613145210"
+                    },
+                    {
+                        "relation":"00",
+                        "name":"哑巴湖大水怪",
+                        "phoneNo":"17613145210"
+                    }
+                ],
+                "bankCard":"6226661203661652",
+                "bankName":"工商银行",
+                "bankPhone":"13784566444"
+            }
+        data["loanReqNo"] = self.loanReqNo
+        data["creditApplyNo"] = creditApplyNo
+        data["phone"] = self.phone
+        data["loanAmount"] = self.loanAmount
+        data["periods"] = self.periods
+        headers = {
+            "Content-Type": "application/json;charset=UTF-8",
+            "Host": "10.1.14.106:27405",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+        }
+        a = "**********投保接口！**********"
+        print(a)
+        time.sleep(1)
+        re = requests.post(url, data=json.dumps(data), headers=headers)
+        requit = re.json()
+        requit["data"] = eval(requit["data"])
+        if re.status_code == 200:
+            try:
+                if requit["data"]["message"]:
+                    print("受理失败")
+                    print(f'errormsg:{requit["data"]["message"]}')
+                    raw_input("Press <enter>")
+            except BaseException as e:
+                if requit["data"]["status"] == '01':
+                    print(requit)
+                    print("已受理，处理中！")
+        else:
+            print("投保接口调用异常！")
+            raw_input("Press <enter>")
+        return url, a, requit
+
+
+
+
+
 def loanReqNo():
-    a = str(random.randint(1, 1000))
+    a = str(random.randint(1, 10000))
     b = time.strftime("%Y%m%d%H%M%S")
     loanReqNo = b + '88' + a
     return loanReqNo
+
+def creditReqNo():
+    a = str(random.randint(1, 10000))
+    b = time.strftime("%Y%m%d%H%M%S")
+    loanReqNo = b + '68' + a
+    return creditReqNo
+
 
 
 
@@ -445,29 +546,26 @@ def random_name():
 def main():
     random__name = random_name()
     generate__ID = generate_ID(gender=1)
-    HB_loanReqNo = loanReqNo()
-    HB_phone = phone()
-    # hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,"8000","6")
-    hyzllg = Hyzllg(HB_loanReqNo,"向长甲","371202199011179181",HB_phone,"8000","6")
-
+    JH_creditReqNo = creditReqNo()
+    JH_loanReqNo = loanReqNo()
+    JH_phone = phone()
+    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,random__name,generate__ID,JH_phone,"8000","6")
     test_info = f'''
                     姓名：{random__name}
                     身份证号：{generate__ID}
-                    手机号：{HB_phone}
+                    手机号：{JH_phone}
                     借款金额:{hyzllg.loanAmount}
                     借款期次:{hyzllg.periods}
-                    loanReqNo:{HB_loanReqNo}
+                    creditReqNo:{JH_creditReqNo}
+                    loanReqNo:{JH_loanReqNo}
                 '''
     hyzllg.insure_info()
     hyzllg.insure_data_query()
     hyzllg.insure()
-    hyzllg.disburse()
-    time.sleep(1)
+    credit_granting = hyzllg.credit_granting()
+    hyzllg.credit_inquiry(credit_granting[3])
+    hyzllg.disburse(credit_granting[3])
     print(test_info)
-    raw_input("Press <enter>")
-
-
-
 
 if __name__ == '__main__':
-        main()
+    main()

@@ -107,15 +107,15 @@ webdriver提供了两种类型的元素等待：显式等待和隐式等待
 
 例：
 
-![](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593859669253.png)
+![](C:\Users\17633\PycharmProjects\untitled\image\1593859669253.png)
 
 ​	本例中，通过as关键字将expected_conditions重命名为EC，并调用presence_of_element_located()方法判断元素是否存在
 
-![](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593859610301.png)
+![](C:\Users\17633\PycharmProjects\untitled\image\1593859610301.png)
 
 ​	除expected——conditions类提供的丰富的预期条件判断方法外，还可以利用前面学到的is_displayed()方法自己实现元素显式等待。
 
-​	![](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593859898913.png)
+​	![](C:\Users\17633\PycharmProjects\untitled\image\1593859898913.png)
 
 ​	相对来说，这种方式更容易理解。首先for循环10次，然后通过is_displayed()方法循环判断元素是否可见。如果为True，则说明元素可见，执行break跳出循环；否则执行sleep()休眠1s继续循环判断。10次循环结束后，如果没有执行break，则执行for循环对应的else语句，打印“time out”信息。
 
@@ -123,9 +123,9 @@ webdriver提供了两种类型的元素等待：显式等待和隐式等待
 
 WebDriver提供了implicitly_wait()方法可以用来实现隐式等地，用方法来说要简单的多。
 
-![](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593860199473.png)
+![](C:\Users\17633\PycharmProjects\untitled\image\1593860199473.png)
 
-![](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593860216903.png)
+![](C:\Users\17633\PycharmProjects\untitled\image\1593860216903.png)
 
 ​	implicitly_wait()的参数是时间，单位为秒，本例中设置的等待时间是10s。首先，这10s并非一个固定的等待时间，它并不影响脚本的执行速度。其次，它会等待页面上的所有元素。当脚本执行到某个元素定位时，如果元素存在，则继续运行；如果定位不到元素，则它将进行轮询的方式不断地判断元素是否存在。假设在第6s定位到了元素，则继续运行，若直到超出设置时间还没有定位到元素，则抛出异常。
 
@@ -133,23 +133,23 @@ WebDriver提供了implicitly_wait()方法可以用来实现隐式等地，用方
 
 WebDriver还提供了8种用于定位一组元素的方法：
 
-![](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593864795483.png)
+![](C:\Users\17633\PycharmProjects\untitled\image\1593864795483.png)
 
 定位一组元素的方法与定位单个元素的方法非常像，唯一的区别是单词“element”后面多了个“s”，用来表示复数。
 
-![1593864874490](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593864874490.png)
+![1593864874490](C:\Users\17633\PycharmProjects\untitled\image\1593864874490.png)
 
-![1593864888778](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593864888778.png)
+![1593864888778](C:\Users\17633\PycharmProjects\untitled\image\1593864888778.png)
 
 运行结果：
 
-![1593864909907](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593864909907.png)
+![1593864909907](C:\Users\17633\PycharmProjects\untitled\image\1593864909907.png)
 
 ### 1.9 多表单切换
 
 ​		在Web应用中经常会遇到frame/iframe表单嵌套页面的应用，WebDriver只能在一个页面上对元素进行识别和定位，无法直接定位frame/iframe表单内嵌页面上的元素，这时就需要通过swich_to.frame()方法将当前定位的主体切换为frame/iframe表单的内嵌页面。
 
-![1593865182586](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593865182586.png)
+![1593865182586](C:\Users\17633\PycharmProjects\untitled\image\1593865182586.png)
 
 ​		switch_to.frame()默认可以直接对表单的id属性或name属性传参，因而可以定位元素的对象。在这个例子中，表单的id属性后半部分的数字（1553484417298.5217）是随机变化的，在CSS定位方法中，可以通过“^=“匹配id属性为以”x-URS-iframe"开头的元素。
 
@@ -167,7 +167,7 @@ WebDriver还提供了8种用于定位一组元素的方法：
 
   ​	以百度首页和账号注册页为例，在两个窗口之间的切换
 
-![1593865615313](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593865615313.png)![1593865625052](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593865625052.png)
+![1593865615313](C:\Users\17633\PycharmProjects\untitled\image\1593865615313.png)![1593865625052](C:\Users\17633\PycharmProjects\untitled\image\1593865625052.png)
 
 ​		脚本的执行过程：首先打开百度首页，通过current_window_handle获得当前窗口句柄，并赋值给变量search_handle。接着打开登陆窗口，在登录弹窗上单击“立即注册”链接，从而打开新的注册窗口。通过window_handles获得当前所有窗口句柄（包含百度首页和账号注册页），并赋值给变量all_handles。
 
@@ -187,7 +187,7 @@ WebDriver还提供了8种用于定位一组元素的方法：
 
   可以使用switch_to.alert()方法为百度搜索设置弹窗
 
-![1593866257114](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593866257114.png)
+![1593866257114](C:\Users\17633\PycharmProjects\untitled\image\1593866257114.png)
 
 ​		这里以百度搜索设置为例，打开百度瞍索设置，设置完成后单击“保存设置”按钮，弹出保存确认警告框。通过switch_to.alert获取当前页面上的警告框，text用于获取警告框提示信息，accept()于接受警告框。
 
@@ -205,13 +205,13 @@ WebDriver还提供了8种用于定位一组元素的方法：
 
   以百度搜索设置为例，下拉框代码如下：
 
-  ![1593867058541](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593867058541.png)
+  ![1593867058541](C:\Users\17633\PycharmProjects\untitled\image\1593867058541.png)
 
   通过WevDriver代码操作下拉框：
 
-  ![1593867092932](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593867092932.png)
+  ![1593867092932](C:\Users\17633\PycharmProjects\untitled\image\1593867092932.png)
 
-  ![1593867122898](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593867122898.png)
+  ![1593867122898](C:\Users\17633\PycharmProjects\untitled\image\1593867122898.png)
 
 ### 1.13 上传文件
 
@@ -227,15 +227,15 @@ WebDriver还提供了8种用于定位一组元素的方法：
 
   ​	对于通过input标签实现的上传功能，可以将其看作一个输入框，即通过send_keys()指定本地文件路径的方式实现文件上传。
 
-![1593867676439](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593867676439.png)
+![1593867676439](C:\Users\17633\PycharmProjects\untitled\image\1593867676439.png)
 
-![1593867720672](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593867720672.png)
+![1593867720672](C:\Users\17633\PycharmProjects\untitled\image\1593867720672.png)
 
 通过浏览器打开upfile.html文件，效果如图所示
 
-![1593867765647](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593867765647.png)
+![1593867765647](C:\Users\17633\PycharmProjects\untitled\image\1593867765647.png)
 
-![1593867776351](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593867776351.png)
+![1593867776351](C:\Users\17633\PycharmProjects\untitled\image\1593867776351.png)
 
 ​		这里测试的页面（upfile.html）和上传的文件（test.txt）位于与当前程序同目录的files/目录下
 
@@ -249,15 +249,15 @@ WebDriver还提供了8种用于定位一组元素的方法：
 
 ​		下面以Firefox浏览器为例，演示文件的下载：
 
-![1593868058374](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593868058374.png)
+![1593868058374](C:\Users\17633\PycharmProjects\untitled\image\1593868058374.png)
 
 ​		为了能在Firefox浏览器中实现文件的下载，我们需要通过FirefoxProfile()对其做一些设置。
 
-![1593868122844](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593868122844.png)
+![1593868122844](C:\Users\17633\PycharmProjects\untitled\image\1593868122844.png)
 
 ​		设置为0，表示文件会下载到浏览器默认的下载路径；设置为2，表示文件会下载到指定的目录。
 
-![1593868184860](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593868184860.png)
+![1593868184860](C:\Users\17633\PycharmProjects\untitled\image\1593868184860.png)
 
 ​		指定要下载文件的类型，即Content-type值，“binary/octet-stream”用于表示二进制文件。
 
@@ -271,15 +271,15 @@ WebDriver还提供了8种用于定位一组元素的方法：
 
 下面以Chrome浏览器为例，演示文件的下载。
 
-![1593868476249](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593868476249.png)
+![1593868476249](C:\Users\17633\PycharmProjects\untitled\image\1593868476249.png)
 
 Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修改默认的下载路径。
 
-![1593868532830](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593868532830.png)
+![1593868532830](C:\Users\17633\PycharmProjects\untitled\image\1593868532830.png)
 
 设置为0，表示禁止弹出下载窗口
 
-![1593868579095](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593868579095.png)
+![1593868579095](C:\Users\17633\PycharmProjects\untitled\image\1593868579095.png)
 
 设置文件下载路径，使用os.getcwd()方法获取当前脚本的目录作为下载文件的保存位置
 
@@ -301,19 +301,19 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
   下面通过get_cookies()获取当前浏览器的所有Cookie
 
-  ![1593869550026](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593869550026.png)
+  ![1593869550026](C:\Users\17633\PycharmProjects\untitled\image\1593869550026.png)
 
   执行结果如下：
 
-  ![1593869584666](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593869584666.png)
+  ![1593869584666](C:\Users\17633\PycharmProjects\untitled\image\1593869584666.png)
 
-  ![1593869600377](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593869600377.png)
+  ![1593869600377](C:\Users\17633\PycharmProjects\untitled\image\1593869600377.png)
 
 ​        从执行结果可以看出，Cookie中的数据时以字典形式存放的。知道了Cookie中数据的存放形式后，即可按照这种形式向浏览器中添加Cookie
 
-![1593870105754](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593870105754.png)
+![1593870105754](C:\Users\17633\PycharmProjects\untitled\image\1593870105754.png)
 
-​		执行结果如下：![1593870132848](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593870132848.png)
+​		执行结果如下：![1593870132848](C:\Users\17633\PycharmProjects\untitled\image\1593870132848.png)
 
 ​		从执行结果可以看出，最后一条Cookie是在脚本执行过程中通过add_cookie()方法添加的。通过遍历得到所有的Cookie，从而找到字典中key为”name“和”value”的Cookie值。
 
@@ -325,25 +325,25 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
 ​		用于调整浏览器滚动条位置的JavaScript代码如下：
 
-![1593870497455](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593870497455.png)
+![1593870497455](C:\Users\17633\PycharmProjects\untitled\image\1593870497455.png)
 
 ​		window.scrollTp()方法用于设置浏览器窗口滚动条的水平位置和垂直位置。第一个参数表示水平的左边距，第二个参数表示垂直的上边距，代码如下：
 
-![1593870588010](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593870588010.png)
+![1593870588010](C:\Users\17633\PycharmProjects\untitled\image\1593870588010.png)
 
 ​		首先，在浏览器中打开百度，搜索“selenium”，通过set_window_size()方法将浏览器窗口设置为固定宽、高显式，目的是让窗口出现水平和垂直滚动条。然后，通过execute_script()方法执行JavaScript代码来控制浏览器滚动条的位置。
 
 ​		当然，Javascript的作用不仅仅体现在浏览器滚动条的操作上，它还可以在页面中textarea文本框中输入内容。
 
-![1593870806093](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593870806093.png)
+![1593870806093](C:\Users\17633\PycharmProjects\untitled\image\1593870806093.png)
 
 ​		文本框的HTML代码如下：
 
-![1593870829744](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593870829744.png)
+![1593870829744](C:\Users\17633\PycharmProjects\untitled\image\1593870829744.png)
 
 ​		虽然可以通过id定位元素，但是不能通过send_keys()在文本框中输入文本信息。在这种情况下，可以借助JavaScript代码输入文本信息。
 
-![1593870891483](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593870891483.png)
+![1593870891483](C:\Users\17633\PycharmProjects\untitled\image\1593870891483.png)
 
 ​		首先，定义要输入的内容text。然后，将text与JavaScript代码通过“+”进行拼接，这样做的目的是为了方便自定义输入内容。最后，通过execute_script()执行JavaScript代码。
 
@@ -357,7 +357,7 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
 ​		下面介绍如何自动化测试<video>,<video>提供了JavaScript接口和多种方法及属性。
 
-![1593871388820](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593871388820.png)
+![1593871388820](C:\Users\17633\PycharmProjects\untitled\image\1593871388820.png)
 
 ​		JavaScript有个内置的对象叫作arguments。arguments包含了函数调用的参数数组，[0]表示取对象的第一个值。
 
@@ -369,16 +369,16 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
 ​		滑动解锁如图：
 
-![1593871602893](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593871602893.png)
+![1593871602893](C:\Users\17633\PycharmProjects\untitled\image\1593871602893.png)
 
 ​		当我们单击滑块时，改变的只是CSS样式，HTML代码段如下：
-![1593871671602](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593871671602.png)
+![1593871671602](C:\Users\17633\PycharmProjects\untitled\image\1593871671602.png)
 
 ​		slide-to-unlock-handle表示滑块。在滑动过程中，滑块的左边距离会逐渐变大，因为它在向右移动。
 
 ​		slide-to-unlock-progress表示滑过之后的背景色，背景色的区域会逐渐增加，因为滑块在向右移动。
 
-![1593871807690](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593871807690.png)
+![1593871807690](C:\Users\17633\PycharmProjects\untitled\image\1593871807690.png)
 
 ​		在这个脚本中，用到下面几个方法：
 
@@ -388,17 +388,17 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
 ​       执行完成，滑动效果：
 
-![1593871982101](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593871982101.png)
+![1593871982101](C:\Users\17633\PycharmProjects\untitled\image\1593871982101.png)
 
 ​		另一种应用，上下滑动选择日期：
 
-![1593872021148](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593872021148.png)
+![1593872021148](C:\Users\17633\PycharmProjects\untitled\image\1593872021148.png)
 
 ​		参考前面的操作，通过ActionChains类可以实现上下滑动选择日期，但是这里要介绍另外一种方法，及通过TouchActions类实现上下滑动选择日期。
 
-![1593872112058](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593872112058.png)
+![1593872112058](C:\Users\17633\PycharmProjects\untitled\image\1593872112058.png)
 
-![1593872120534](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593872120534.png)
+![1593872120534](C:\Users\17633\PycharmProjects\untitled\image\1593872120534.png)
 
 ​		这里使用TouchActions类中的scroll_from_element()方法滑动元素：
 
@@ -410,7 +410,7 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
 ​		自动化测试用例是由程序执行的，因此有时候打印的错误信息不够直观。如果在脚本执行出错时能够对当前窗口进行截图并保存，那么通过截图就可以非常直观地看到脚本出错的原因。WebDriver提供了截图函数save_screenshot(),可用来截取当前窗口。
 
-![1593872416646](C:\Users\16621\AppData\Roaming\Typora\typora-user-images\1593872416646.png)
+![1593872416646](C:\Users\17633\PycharmProjects\untitled\image\1593872416646.png)
 
 ​		WebDriver建议使用png作为图片的后缀名。脚本运行完成后，会在当前files/目录中生成baidu_img.png图片。
 
