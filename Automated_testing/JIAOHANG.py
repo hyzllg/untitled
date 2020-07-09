@@ -7,7 +7,7 @@ import os
 from past.builtins import raw_input
 
 class Hyzllg:
-    def __init__(self,creditReqNo,loanReqNo,name,idNo,phone,loanAmount,periods):
+    def __init__(self,creditReqNo,loanReqNo,name,idNo,phone,loanAmount,periods,bankCard,bankName,bankPhone):
         self.creditReqNo = creditReqNo
         self.loanReqNo = loanReqNo
         self.name = name
@@ -15,6 +15,9 @@ class Hyzllg:
         self.phone = phone
         self.loanAmount = loanAmount
         self.periods = periods
+        self.bankCard = bankCard
+        self.bankName = bankName
+        self.bankPhone = bankPhone
 
     def wrapper(func):
         def inner(*args,**kwargs):
@@ -210,7 +213,7 @@ class Hyzllg:
                     }
                 ],
                 "bankCard":"6226661203661652",
-                "bankName":"工商银行",
+                "bankName":"招商银行",
                 "bankPhone":"13784566444",
                 "applyProvince":"110000",
                 "applyCity":"110000",
@@ -243,6 +246,9 @@ class Hyzllg:
         data["idNo"] = self.idNo
         data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
+        data["bankCard"] = self.bankCard
+        data["bankName"] = self.bankName
+        data["bankPhone"] = self.bankPhone
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -360,6 +366,9 @@ class Hyzllg:
         data["phone"] = self.phone
         data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
+        data["bankCard"] = self.bankCard
+        data["bankName"] = self.bankName
+        data["bankPhone"] = self.bankPhone
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
@@ -556,7 +565,10 @@ def main():
     JH_creditReqNo = creditReqNo()
     JH_loanReqNo = loanReqNo()
     JH_phone = phone()
-    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,random__name,generate__ID,JH_phone,"8000","6")
+    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,random__name,generate__ID,JH_phone,"8000","3","6214832172362282","吴玲","18390530425")
+    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,random__name,generate__ID,JH_phone,"8000","3","6214832172362282","吴玲","18390530425")
+    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,"王珊","430721197206245401","18301010124","8000","3","6217003030105248402","建设银行","18301010124")
+
     test_info = f'''
                     姓名：{random__name}
                     身份证号：{generate__ID}
@@ -571,7 +583,7 @@ def main():
     hyzllg.insure()
     credit_Granting = hyzllg.credit_granting()
     hyzllg.credit_inquiry(credit_Granting[3])
-    hyzllg.insure("02")
+    hyzllg.insure(a="02")
     hyzllg.disburse(credit_Granting[3])
     print(test_info)
 
