@@ -2,7 +2,7 @@ import pyautogui
 import time
 import random
 n = 0
-while n<100:
+while n<50:
 
     pyautogui.click(x=random.randint(810,840), y=random.randint(970,1000),duration=0.5)
     time.sleep(28)
