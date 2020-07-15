@@ -58,6 +58,7 @@ class Hyzllg:
         time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
+        print(requit)
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             if requit["data"]["status"] == '01':
@@ -496,8 +497,8 @@ def main():
     generate__ID = generate_ID(gender=1)
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
-    # hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone,"5000.00","6")
-    hyzllg = Hyzllg(HB_loanReqNo, "魏维", "340506199307040037", HB_phone,"5000.00","6")
+    hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone,"5000.00","6")
+    # hyzllg = Hyzllg(HB_loanReqNo, "魏维", "340506199307040037", HB_phone,"5000.00","6")
 
     test_info = f'''
                     姓名：{random__name}

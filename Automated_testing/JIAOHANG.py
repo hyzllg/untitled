@@ -7,7 +7,7 @@ import os
 from past.builtins import raw_input
 
 class Hyzllg:
-    def __init__(self,creditReqNo,loanReqNo,name,idNo,phone,loanAmount,periods,bankCard,bankName,bankPhone):
+    def __init__(self,creditReqNo,loanReqNo,loanReqNo1,name,idNo,phone,loanAmount,periods,bankCard,bankName,bankPhone):
         self.creditReqNo = creditReqNo
         self.loanReqNo = loanReqNo
         self.name = name
@@ -18,6 +18,7 @@ class Hyzllg:
         self.bankCard = bankCard
         self.bankName = bankName
         self.bankPhone = bankPhone
+        self.loanReqNo1 = loanReqNo1
 
     def wrapper(func):
         def inner(*args,**kwargs):
@@ -29,9 +30,9 @@ class Hyzllg:
         return inner
 
     @wrapper
-    def insure_info(self):
+    def insure_info(self,a):
         url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_INFO'
-        data = {
+        data1 = {
                 "channelCustId":"",
                 "insuranceNo":"2020070614282288733",
                 "name":"束贝娜",
@@ -48,61 +49,119 @@ class Hyzllg:
                 "stage":"01",
                 "callbackUrl":"http://www.woshishui.com"
             }
-        data["insuranceNo"] = self.loanReqNo
-        data["name"] = self.name
-        data["idNo"] = self.idNo
-        data["phone"] = self.phone
-        data["amount"] = self.loanAmount
-        data["periods"] = self.periods
+        data2 = {
+            "channelCustId": "",
+            "insuranceNo": "2020070614282288733",
+            "name": "束贝娜",
+            "idNo": "530723199703088596",
+            "phone": "16607061634",
+            "idAddress": "落魄山祖师堂",
+            "amount": 5000,
+            "periods": 3,
+            "purpose": "01",
+            "laonRate": "8%",
+            "insuranceName": "交行",
+            "insuranceAdd": "中国交行",
+            "postCode": "110016",
+            "stage": "02",
+            "callbackUrl": "http://www.woshishui.com"
+        }
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        a = "**********投保链接接口！**********"
-        print(a)
-        time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
-        requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
-            print(requit)
-            print("投保链接接口成功！")
-        else:
-            print("投保信息接口异常！")
-            raw_input("Press <enter>")
+        if a == "1":
+            data1["insuranceNo"] = self.loanReqNo
+            data1["name"] = self.name
+            data1["idNo"] = self.idNo
+            data1["phone"] = self.phone
+            data1["amount"] = self.loanAmount
+            data1["periods"] = self.periods
+            a = "**********投保链接接口！**********"
+            print(a)
+            time.sleep(1)
+            re = requests.post(url, data=json.dumps(data1), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200:
+                print(requit)
+                print("投保链接接口成功！")
+            else:
+                print("投保信息接口异常！")
+                raw_input("Press <enter>")
+        elif a == "2":
+            data2["insuranceNo"] = self.loanReqNo1
+            data2["name"] = self.name
+            data2["idNo"] = self.idNo
+            data2["phone"] = self.phone
+            data2["amount"] = self.loanAmount
+            data2["periods"] = self.periods
+            a = "**********投保链接接口！**********"
+            print(a)
+            time.sleep(1)
+            re = requests.post(url, data=json.dumps(data2), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200:
+                print(requit)
+                print("投保链接接口成功！")
+            else:
+                print("投保信息接口异常！")
+                raw_input("Press <enter>")
+
+
         return url,a,requit
 
     @wrapper
-    def insure_data_query(self):
+    def insure_data_query(self,a):
         url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_DATA_QUERY'
-        data = {
+        data1 = {
                 "loanReqNo":"2020070614351688817"
             }
-        data["loanReqNo"] = self.loanReqNo
+        data2 = {
+                "loanReqNo":"2020070614351688817"
+            }
+
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        a = "**********投保资料查询接口！**********"
-        print(a)
-        time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
-        requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
-            print(requit)
-            print("投保资料查询成功！")
-        else:
-            print("投保资料查询接口异常！")
-            raw_input("Press <enter>")
+        if a == "1":
+            data1["loanReqNo"] = self.loanReqNo
+            a = "**********投保资料查询接口！**********"
+            print(a)
+            time.sleep(1)
+            re = requests.post(url, data=json.dumps(data1), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200:
+                print(requit)
+                print("投保资料查询成功！")
+            else:
+                print("投保资料查询接口异常！")
+                raw_input("Press <enter>")
+        elif a == "2":
+            data2["loanReqNo"] = self.loanReqNo1
+            a = "**********投保资料查询接口！**********"
+            print(a)
+            time.sleep(1)
+            re = requests.post(url, data=json.dumps(data2), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200:
+                print(requit)
+                print("投保资料查询成功！")
+            else:
+                print("投保资料查询接口异常！")
+                raw_input("Press <enter>")
         return url, a, requit
 
     @wrapper
-    def insure(self,a="01"):
+    def insure(self,a):
         url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE'
-        data = {
+        data1 = {
                 "agentNo":"TianCheng",
                 "agentName":"甜橙保代",
                 "loanReqNo":"2020070152013140001",
@@ -119,38 +178,82 @@ class Hyzllg:
                 "postCode":"110016",
                 "stage":"01"
             }
-        data["loanReqNo"] = self.loanReqNo
-        data["insReqNo"] = self.loanReqNo
-        data["name"] = self.name
-        data["idNo"] = self.idNo
-        data["phone"] = self.phone
-        data["amount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["stage"] = a
+        data2 = {
+                "agentNo":"TianCheng",
+                "agentName":"甜橙保代",
+                "loanReqNo":"2020070152013140001",
+                "insReqNo":"",
+                "name":"哑巴湖大水怪",
+                "idNo":"412721198705203577",
+                "phone":"16613145219",
+                "amount": 5000,
+                "periods":3,
+                "purpose":"01",
+                "premiumRate":0.08,
+                "insurantName":"哑巴湖大水怪",
+                "insurantAdd":"被保险人通讯地址",
+                "postCode":"110016",
+                "stage":"02"
+            }
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
-        a = "**********投保接口！**********"
-        print(a)
-        time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
-        requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
-            try:
-                if requit["data"]["message"]:
-                    print("受理失败")
-                    print(f'errormsg:{requit["data"]["message"]}')
-                    raw_input("Press <enter>")
-            except BaseException as e:
-                if requit["data"]["status"] == '01':
-                    print(requit)
-                    print("已受理，处理中！")
-        else:
-            print("投保接口调用异常！")
-            raw_input("Press <enter>")
+        if a == "1":
+            data1["loanReqNo"] = self.loanReqNo
+            data1["insReqNo"] = self.loanReqNo
+            data1["name"] = self.name
+            data1["idNo"] = self.idNo
+            data1["phone"] = self.phone
+            data1["amount"] = self.loanAmount
+            data1["periods"] = self.periods
+            a = "**********投保接口！**********"
+            print(a)
+            time.sleep(1)
+            re = requests.post(url, data=json.dumps(data1), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200:
+                try:
+                    if requit["data"]["message"]:
+                        print("受理失败")
+                        print(f'errormsg:{requit["data"]["message"]}')
+                        raw_input("Press <enter>")
+                except BaseException as e:
+                    if requit["data"]["status"] == '01':
+                        print(requit)
+                        print("已受理，处理中！")
+            else:
+                print("投保接口调用异常！")
+                raw_input("Press <enter>")
+        elif a == "2":
+            data2["loanReqNo"] = self.loanReqNo1
+            data2["insReqNo"] = self.loanReqNo1
+            data2["name"] = self.name
+            data2["idNo"] = self.idNo
+            data2["phone"] = self.phone
+            data2["amount"] = self.loanAmount
+            data2["periods"] = self.periods
+            a = "**********投保接口！**********"
+            print(a)
+            time.sleep(1)
+            re = requests.post(url, data=json.dumps(data2), headers=headers)
+            requit = re.json()
+            requit["data"] = eval(requit["data"])
+            if re.status_code == 200:
+                try:
+                    if requit["data"]["message"]:
+                        print("受理失败")
+                        print(f'errormsg:{requit["data"]["message"]}')
+                        raw_input("Press <enter>")
+                except BaseException as e:
+                    if requit["data"]["status"] == '01':
+                        print(requit)
+                        print("已受理，处理中！")
+            else:
+                print("投保接口调用异常！")
+                raw_input("Press <enter>")
         return url, a, requit
 
 
@@ -229,7 +332,7 @@ class Hyzllg:
                     "ipCity":"",
                     "oS":""
                 },
-                "docDate":"2020/07/06",
+                "docDate":"",
                 "channelDetail":{
                     "childProductId":"01",
                     "bankLimit":"30000",
@@ -249,6 +352,7 @@ class Hyzllg:
         data["bankCard"] = self.bankCard
         data["bankName"] = self.bankName
         data["bankPhone"] = self.bankPhone
+        data["docDate"] = time.strftime('%Y/%m/%d')
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -338,6 +442,7 @@ class Hyzllg:
         data = {
                 "loanReqNo":"202007061552308824",
                 "creditApplyNo":"20200706000000012",
+                "insuranceNo":"202007100000111011",
                 "loanAmount":5000,
                 "periods":3,
                 "purpose":"01",
@@ -361,7 +466,8 @@ class Hyzllg:
                 "bankName":"工商银行",
                 "bankPhone":"13784566444"
             }
-        data["loanReqNo"] = self.loanReqNo
+        data["loanReqNo"] = self.loanReqNo1
+        data["insuranceNo"] = self.loanReqNo1
         data["creditApplyNo"] = creditApplyNo
         data["phone"] = self.phone
         data["loanAmount"] = self.loanAmount
@@ -563,11 +669,12 @@ def main():
     random__name = random_name()
     generate__ID = generate_ID(gender=1)
     JH_creditReqNo = creditReqNo()
-    JH_loanReqNo = loanReqNo()
+    JH_loanReqNo1 = loanReqNo()
+    JH_loanReqNo2 = loanReqNo()
     JH_phone = phone()
-    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,random__name,generate__ID,JH_phone,"8000","3","6214832172362282","吴玲","18390530425")
-    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,random__name,generate__ID,JH_phone,"8000","3","6214832172362282","吴玲","18390530425")
-    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,"王珊","430721197206245401","18301010124","8000","3","6217003030105248402","建设银行","18301010124")
+    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2,random__name,generate__ID,"17633926705","5000","12","6214832172362282","招商银行","18390530425")
+    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,"陈裕明","421182199509162919","17633926705","8000","12","6214832172362282","吴玲","18390530425")
+    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,"韩明红","210113197710232737","13401251261","8000","6","6217003030105248402","建设银行","13401251261")
 
     test_info = f'''
                     姓名：{random__name}
@@ -576,14 +683,16 @@ def main():
                     借款金额:{hyzllg.loanAmount}
                     借款期次:{hyzllg.periods}
                     creditReqNo:{JH_creditReqNo}
-                    loanReqNo:{JH_loanReqNo}
+                    loanReqNo:{JH_loanReqNo1}
                 '''
-    hyzllg.insure_info()
-    hyzllg.insure_data_query()
-    hyzllg.insure()
+    hyzllg.insure_info("1")
+    hyzllg.insure_data_query("1")
+    hyzllg.insure("1")
     credit_Granting = hyzllg.credit_granting()
     hyzllg.credit_inquiry(credit_Granting[3])
-    hyzllg.insure(a="02")
+    hyzllg.insure_info("2")
+    hyzllg.insure_data_query("2")
+    hyzllg.insure("2")
     hyzllg.disburse(credit_Granting[3])
     print(test_info)
 

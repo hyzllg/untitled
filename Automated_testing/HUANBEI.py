@@ -448,7 +448,7 @@ def main():
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
     # hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,"8000","6")
-    hyzllg = Hyzllg(HB_loanReqNo,"向长甲","371202199011179181",HB_phone,"8000","6")
+    hyzllg = Hyzllg(HB_loanReqNo,"还呗","371203198503290558",HB_phone,"8000","6")
 
     test_info = f'''
                     姓名：{random__name}
