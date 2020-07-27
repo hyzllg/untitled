@@ -176,7 +176,9 @@ class Hyzllg:
                 "insurantName":"哑巴湖大水怪",
                 "insurantAdd":"被保险人通讯地址",
                 "postCode":"110016",
-                "stage":"01"
+                "stage":"01",
+                "version": "",
+                "docVersion": ""
             }
         data2 = {
                 "agentNo":"TianCheng",
@@ -193,7 +195,9 @@ class Hyzllg:
                 "insurantName":"哑巴湖大水怪",
                 "insurantAdd":"被保险人通讯地址",
                 "postCode":"110016",
-                "stage":"02"
+                "stage":"02",
+                "version": "",
+                "docVersion": ""
             }
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
@@ -364,6 +368,7 @@ class Hyzllg:
         re = requests.post(url, data=json.dumps(data), headers=headers)
 
         requit = re.json()
+
         requit["data"] = eval(requit["data"])
         if re.status_code == 200 :
             try:
@@ -672,9 +677,9 @@ def main():
     JH_loanReqNo1 = loanReqNo()
     JH_loanReqNo2 = loanReqNo()
     JH_phone = phone()
-    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2,random__name,generate__ID,"17633926705","5000","12","6214832172362282","招商银行","18390530425")
-    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,"陈裕明","421182199509162919","17633926705","8000","12","6214832172362282","吴玲","18390530425")
-    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo,"韩明红","210113197710232737","13401251261","8000","6","6217003030105248402","建设银行","13401251261")
+    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2,random__name,generate__ID,"18390530426","5000","6","6214832172362283","招商银行","18390530426")
+    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2"陈裕明","421182199509162919","17633926705","5000","12","6214832172362282","吴玲","18390530425")
+    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2,"东方耀","110101199001020192","13401251261","5000","6","6217003030105248402","建设银行","13401251261")
 
     test_info = f'''
                     姓名：{random__name}
@@ -683,7 +688,7 @@ def main():
                     借款金额:{hyzllg.loanAmount}
                     借款期次:{hyzllg.periods}
                     creditReqNo:{JH_creditReqNo}
-                    loanReqNo:{JH_loanReqNo1}
+                    loanReqNo:{JH_loanReqNo2}
                 '''
     hyzllg.insure_info("1")
     hyzllg.insure_data_query("1")

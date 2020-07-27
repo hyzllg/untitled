@@ -58,7 +58,7 @@ class Hyzllg:
         time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
-        print(requit)
+        # print(requit)
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
             if requit["data"]["status"] == '01':
@@ -231,7 +231,7 @@ class Hyzllg:
                   "applyEntry":"03",
                   "creditDuration":"2020/03/02",
                   "faceRecoType":"01",
-                  "faceRecoScore":66.66,
+                  "faceRecoScore":66,
                   "currLimit":20000.00,
                   "currRemainLimit":20000.00,
                   "firstLoanFlag":"N",

@@ -30,23 +30,26 @@ class Hyzllg:
     def insure_info(self):
         url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE_INFO'
         data = {
-            "channelCustId":"",
-            "loanReqNo":"20200613910199001",
-            "capitalCode":"787",
-            "custGrde":"GRD36",
-            "name":"凤骅",
-            "idNo":"513436199006138839",
-            "phone":"16606137001",
-            "amount":3000.00,
-            "periods":6,
-            "purpose":"01",
-            "addProvince":"110000",
-            "addCity":"110000",
-            "addDistrict":"110101",
-            "addDetail":"学霸路学渣小区250弄38号",
-            "email":"ybhdsg@hrtx.com",
-            "contactPhone":"17760601111"
-        }
+                "channelCustId":"",
+                "loanReqNo":"20200515000000000011",
+                "capitalCode":"FBBANK",
+                "custGrde":"GRD36",
+                "name":"哑巴湖大水怪",
+                "idNo":"412622198705223574",
+                "phone":"17613145209",
+                "amount":1000,
+                "periods":12,
+                "purpose":"01",
+                "addProvince":"110000",
+                "addCity":"110000",
+                "addDistrict":"110101",
+                "addDetail":"学霸路学渣小区1314弄520号",
+                "email":"ybhdsg@hrtx.com",
+                "contactPhone":"contactPhone",
+                "loanRate":20.00,
+                "discountRate":34.00
+            }
+
         data["loanReqNo"] = self.loanReqNo
         data["name"] = self.name
         data["idNo"] = self.idNo
