@@ -42,7 +42,7 @@ class Hyzllg:
                 "amount":5000,
                 "periods":3,
                 "purpose":"01",
-                "laonRate":"8%",
+                "laonRate":"18%",
                 "insuranceName":"交行",
                 "insuranceAdd":"中国交行",
                 "postCode":"110016",
@@ -52,14 +52,15 @@ class Hyzllg:
         data2 = {
             "channelCustId": "",
             "insuranceNo": "2020070614282288733",
+            "creditApplyNo": "2020070614282288733",
             "name": "束贝娜",
             "idNo": "530723199703088596",
             "phone": "16607061634",
-            "idAddress": "落魄山祖师堂",
+            # "idAddress": "落魄山祖师堂",
             "amount": 5000,
             "periods": 3,
             "purpose": "01",
-            "laonRate": "8%",
+            "laonRate": "18%",
             "insuranceName": "交行",
             "insuranceAdd": "中国交行",
             "postCode": "110016",
@@ -78,6 +79,7 @@ class Hyzllg:
             data1["phone"] = self.phone
             data1["amount"] = self.loanAmount
             data1["periods"] = self.periods
+
             a = "**********投保链接接口！**********"
             print(a)
             time.sleep(1)
@@ -92,6 +94,7 @@ class Hyzllg:
                 raw_input("Press <enter>")
         elif a == "2":
             data2["insuranceNo"] = self.loanReqNo1
+            data2["creditApplyNo"]= self.creditReqNo
             data2["name"] = self.name
             data2["idNo"] = self.idNo
             data2["phone"] = self.phone
@@ -308,16 +311,16 @@ class Hyzllg:
                 "school":"哈弗",
                 "email":"ybhdsg@hrtx.com",
                 "contacts":[
-                    {
-                        "relation":"00",
-                        "name":"哑巴湖大水怪",
-                        "phoneNo":"17613145210"
-                    },
-                    {
-                        "relation":"00",
-                        "name":"哑巴湖大水怪",
-                        "phoneNo":"17613145210"
-                    }
+                    # {
+                    #     "relation":"00",
+                    #     "name":"哑巴湖大水怪",
+                    #     "phoneNo":"17613145210"
+                    # },
+                    # {
+                    #     "relation":"00",
+                    #     "name":"哑巴湖大水怪",
+                    #     "phoneNo":"17613145210"
+                    # }
                 ],
                 "bankCard":"6226661203661652",
                 "bankName":"招商银行",

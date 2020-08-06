@@ -72,6 +72,15 @@
 
 
 '''
+import re
+with open(r'C:\Users\17633\Desktop\文件\UE\编辑1.txt',"r" ) as hyzllg:
+    a = hyzllg.read()
+    result1 = re.findall("'creditApplyNo': '(.*)', 'status'",a)
+    print(result1)
+with open(r'C:\Users\17633\Desktop\流水号.txt','w') as hyzllg:
+    result2 = str(result1)
+    hyzllg.write(result2)
+
 
 
 

@@ -142,7 +142,7 @@ class Hyzllg:
         }
         a = "**********授信申请！**********"
         print(a)
-        time.sleep(2)
+        # time.sleep(2)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -543,6 +543,8 @@ def main():
     time.sleep(1)
     print(test_info)
     raw_input("Press <enter>")
+
+
 
 if __name__ == '__main__':
     main()

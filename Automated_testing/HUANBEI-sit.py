@@ -23,6 +23,7 @@ class Hyzllg:
             s = func(*args,**kwargs)
             with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\HUANBEI.log", 'a+', encoding='utf-8') as hyzllg:
                 hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
+            return s
 
         return inner
 
@@ -63,7 +64,7 @@ class Hyzllg:
         }
         a = "**********投保信息接口！**********"
         print(a)
-        time.sleep(1)
+        # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -92,7 +93,7 @@ class Hyzllg:
         }
         a =  "**********投保资料查询接口！**********"
         print(a)
-        time.sleep(1)
+        # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -102,10 +103,10 @@ class Hyzllg:
         else:
             print("投保资料查询接口异常！")
             raw_input("Press <enter>")
-        return url,a,requit
+        return url,a,requit,requit["data"]["premiumRate"]
 
     @wrapper
-    def insure(self):
+    def insure(self,a):
         url = 'http://10.1.14.106:27405/channel/TEST/HUANBEI/INSURE'
         data = {
             "agentNo": "DingSheng",
@@ -130,6 +131,7 @@ class Hyzllg:
         data["phone"] = self.phone
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
+        data["premiumRate"] = a
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -137,7 +139,7 @@ class Hyzllg:
         }
         a = "**********投保接口！**********"
         print(a)
-        time.sleep(1)
+        # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -162,6 +164,8 @@ class Hyzllg:
         data = {
             "channelCustId": "",
             "loanReqNo": "20200613910199001",
+            "loanRate": 20.00,
+            "discountRate": 34.00,
             "name": "凤骅",
             "spelling": "LAIJING",
             "sex": "00",
@@ -271,7 +275,7 @@ class Hyzllg:
         }
         a = "**********支用接口！**********"
         print(a)
-        time.sleep(1)
+        # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
@@ -451,7 +455,7 @@ def main():
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
     # hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,"8000","6")
-    hyzllg = Hyzllg(HB_loanReqNo,"还呗","371203198503290558",HB_phone,"8000","6")
+    hyzllg = Hyzllg(HB_loanReqNo,"贺友波","51180119920125603X",16608053602,"8000","6")
 
     test_info = f'''
                     姓名：{random__name}
@@ -462,8 +466,8 @@ def main():
                     loanReqNo:{HB_loanReqNo}
                 '''
     hyzllg.insure_info()
-    hyzllg.insure_data_query()
-    hyzllg.insure()
+    Insure_Data_Query = hyzllg.insure_data_query()
+    hyzllg.insure(Insure_Data_Query[3])
     hyzllg.disburse()
     time.sleep(1)
     print(test_info)
@@ -473,4 +477,6 @@ def main():
 
 
 if __name__ == '__main__':
+        # main()
+    for i in range(100):
         main()

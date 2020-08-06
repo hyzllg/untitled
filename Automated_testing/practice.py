@@ -1,6 +1,6 @@
 import random
 import time
-from HUANBEI import *
+# from HUANBEI-sit import *
 
 def get_districtcodes():
     districtcodes = []
@@ -117,7 +117,7 @@ def random_name():
 if __name__ == '__main__':
     print(generate_ID(gender=1))
     print(random_name())
-    print(loanReqNo())
-    print(phone())
+    # print(loanReqNo())
+    # print(phone())
 
 
