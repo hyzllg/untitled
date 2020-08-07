@@ -25,7 +25,7 @@ class Hyzllg:
 
     @wrapper
     def insure_info(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/QFIN/INSURE_INFO'
+        url = 'http://10.1.14.117:27405/channel/TEST/QFIN/INSURE_INFO'
         data = {
                  "channelCustId":"",
                  "name":"容邦",
@@ -73,7 +73,7 @@ class Hyzllg:
 
     @wrapper
     def insure_data_query(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/QFIN/INSURE_DATA_QUERY'
+        url = 'http://10.1.14.117:27405/channel/TEST/QFIN/INSURE_DATA_QUERY'
         data = {
             "loanReqNo": "20200613910199001"
         }
@@ -99,7 +99,7 @@ class Hyzllg:
 
     @wrapper
     def insure(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/QFIN/INSURE'
+        url = 'http://10.1.14.117:27405/channel/TEST/QFIN/INSURE'
         data = {
                 "agentNo":"TianCheng",
                 "agentName":"甜橙保代",
@@ -153,7 +153,7 @@ class Hyzllg:
 
     @wrapper
     def disburse(self):
-        url = 'http://10.1.14.106:27405/channel/TEST/QFIN/DISBURSE'
+        url = 'http://10.1.14.117:27405/channel/TEST/QFIN/DISBURSE'
         data = {
                  "channelCustId":"",
                  "loanReqNo":"20200608002",
@@ -289,7 +289,7 @@ class Hyzllg:
 
     @wrapper
     def disburse_in_query(self,test_info):
-        url = 'http://10.1.14.106:27405/channel/TEST/QFIN/DISBURSE_IN_QUERY'
+        url = 'http://10.1.14.117:27405/channel/TEST/QFIN/DISBURSE_IN_QUERY'
         data = {
                 "channelCustId":"",
                 "loanReqNo":"2020061845630001"
