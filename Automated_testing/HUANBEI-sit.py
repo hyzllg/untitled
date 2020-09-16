@@ -454,8 +454,8 @@ def main():
     generate__ID = generate_ID(gender=1)
     HB_loanReqNo = loanReqNo()
     HB_phone = phone()
-    # hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,"8000","6")
-    hyzllg = Hyzllg(HB_loanReqNo,"贺友波","51180119920125603X",16608053602,"8000","6")
+    hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,"8000","6")
+    # hyzllg = Hyzllg(HB_loanReqNo,"贺友波","51180119920125603X",16608053602,"8000","6")
 
     test_info = f'''
                     姓名：{random__name}
@@ -465,18 +465,18 @@ def main():
                     借款期次:{hyzllg.periods}
                     loanReqNo:{HB_loanReqNo}
                 '''
-    hyzllg.insure_info()
-    Insure_Data_Query = hyzllg.insure_data_query()
-    hyzllg.insure(Insure_Data_Query[3])
-    hyzllg.disburse()
+    hyzllg.insure_info()   #投保信息接口
+    Insure_Data_Query = hyzllg.insure_data_query()   #投保资料查询接口
+    hyzllg.insure(Insure_Data_Query[3])  #投保接口
+    hyzllg.disburse()   #支用接口
     time.sleep(1)
     print(test_info)
-    raw_input("Press <enter>")
+    # raw_input("Press <enter>")
 
 
 
 
 if __name__ == '__main__':
         # main()
-    for i in range(100):
+    for i in range(1):
         main()

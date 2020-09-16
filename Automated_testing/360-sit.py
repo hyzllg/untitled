@@ -135,6 +135,7 @@ class Hyzllg:
         res = requests.post(url, data=json.dumps(data), headers=headers)
         requit = res.json()
         requit["data"] = eval(requit["data"])
+        # print(requit)
         if res.status_code == 200:
             try:
                 if requit["data"]["message"]:
@@ -515,8 +516,9 @@ def main():
     # hyzllg.disburse_in_query(test_info)
     time.sleep(1)
     print(test_info)
-    raw_input("Press <enter>")
-
+    # raw_input("Press <enter>")
 
 if __name__ == '__main__':
-    main()
+        # main()
+    for i in range(1):
+        main()

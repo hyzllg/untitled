@@ -31,7 +31,7 @@ class Hyzllg:
 
     @wrapper
     def insure_info(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_INFO'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/INSURE_INFO'
         data = {
                 "channelCustId":"",
                 "insuranceNo":"2020070152013140002",
@@ -80,7 +80,7 @@ class Hyzllg:
         return url,a,requit
 
     def insure_info_put(self,b):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_INFO'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/INSURE_INFO'
         data = {
                     "channelCustId":"",
                     "insuranceNo":"2020070152013140002",
@@ -132,7 +132,7 @@ class Hyzllg:
 
     @wrapper
     def insure_data_query(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_DATA_QUERY'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/INSURE_DATA_QUERY'
         data1 = {
                 "loanReqNo":"2020070614351688817"
             }
@@ -161,7 +161,7 @@ class Hyzllg:
 
     @wrapper
     def insure_data_query_put(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_DATA_QUERY'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/INSURE_DATA_QUERY'
         data1 = {
                 "loanReqNo":"2020070614351688817"
             }
@@ -190,7 +190,7 @@ class Hyzllg:
 
     @wrapper
     def insure(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/INSURE'
         data = {
                 "agentNo":"TianCheng",
                 "agentName":"甜橙保代",
@@ -246,7 +246,7 @@ class Hyzllg:
 
     @wrapper
     def insure_put(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/INSURE'
         data = {
                 "agentNo":"TianCheng",
                 "agentName":"甜橙保代",
@@ -303,7 +303,7 @@ class Hyzllg:
 
     @wrapper
     def credit_granting(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/CREDIT_GRANTING'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/CREDIT_GRANTING'
         data = {
                 "creditReqNo":"20200706456123004",
                 "insuranceNo":"2020070616462188640",
@@ -437,7 +437,7 @@ class Hyzllg:
 
     @wrapper
     def credit_inquiry(self,creditApplyNo):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/CREDIT_INQUIRY'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/CREDIT_INQUIRY'
         data = {
                 "creditReqNo":"20200706456123001",
                 "creditApplyNo":"20200706000000009"
@@ -484,7 +484,7 @@ class Hyzllg:
 
     @wrapper
     def disburse(self,creditApplyNo):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/DISBURSE'
+        url = 'http://10.1.14.117:27405/channel/TEST/BCM/DISBURSE'
         data = {
                 "loanReqNo":"202007061552308824",
                 "creditApplyNo":"20200706000000012",

@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DBNavigator.Project.DataEditorManager">
+    <record-view-column-sorting-type value="BY_INDEX" />
+    <value-preview-text-wrapping value="false" />
+    <value-preview-pinned value="false" />
+  </component>
+  <component name="DBNavigator.Project.DataExportManager">
+    <export-instructions>
+      <create-header value="true" />
+      <quote-values-containing-separator value="true" />
+      <quote-all-values value="false" />
+      <value-separator value="" />
+      <file-name value="" />
+      <file-location value="" />
+      <scope value="GLOBAL" />
+      <destination value="FILE" />
+      <format value="EXCEL" />
+      <charset value="GBK" />
+    </export-instructions>
+  </component>
+  <component name="DBNavigator.Project.DatabaseBrowserManager">
+    <autoscroll-to-editor value="false" />
+    <autoscroll-from-editor value="true" />
+    <show-object-properties value="true" />
+    <loaded-nodes />
+  </component>
+  <component name="DBNavigator.Project.DatabaseConsoleManager">
+    <connection id="ce418608-3098-48c5-981e-2c1fea762a1d">
+      <console name="核心sit" type="STANDARD" schema="XBHXBUSI" session="Main"><![CDATA[select * from CUSTOMER_INFO where phoneno = '12312312311'-- 客户信息表
+select * from BUSINESS_APPLY where serialno='20190802000000006' --授信申请表
+select * from FACE_LIST  ----人脸信息
+select * from CUSTOMER_FACECHECK where customerid='20200629000000017' --人脸信息
+select * from CUSTOMER_FACECHECK_LOG  where customerid='20200707000000024'--人脸信息
+select * from CUSTOMER_REALNAME_LOG where certid = '140421199006297753'--实名信息表
+select * from customer_realname_log  --实名流水表
+select * from PRODUCT_TERM_INFO where productid = '7017' and capitalcode = '787' for update --产品参数
+
+ select * from CUSTOMER_REALNAME_LOG where status in ('03','04') and inputdate BETWEEN('2019/02/27')AND('2019/02/28')--实名信息异常取消当天笔数统计
+select * from code_library cl where cl.codeno='ESBConfig'--日志查询表
+select * from loan_credit_records where id_card='320681198909240017' and status='0'for update--额度平台在途件（在途后再次申请，报错时查）
+select * from loan_limit where id_card='410102199007183213' --额度状态表       
+320681199410156814  320681198909240017
+select t.*, t.rowid from LOAN_LIMIT t where t.id_card='410102199007183213'--额度状态表
+
+SELECT * FROM CHANNEL_CARD_INFO where creditreqno = '202001023344005'--四要素验证通过保存银行卡信息
+
+select * from apply_suanhua_datainfo 
+select * from apply_suanhua_device --算话
+select * from apply_suanhua_network 
+select * from apply_suanhua_user where dev_name='iPhonexs'
+select table_name from user_tab_columns where column_name='bankno'--根据列查表
+select * from FACE_LIST  ----人脸信息
+select * from CUSTOMER_FACECHECK where customerid='2019072488688001' --人脸信息
+select * from CUSTOMER_FACECHECK_LOG  where customerid='20190225000010005'--人脸信息
+select * from CUSTOMER_WHITELIST where phoneno like'%2651%'--客户白名单
+select * from CUSTOMER_INFO where phoneno like'158%3575'--客户信息表
+select * from CUSTOMER_INFO where phoneno ='13611111133'
+--for update
+select * from audit_task where customerid='20190314000000001' --改数据授信成功
+--for update 
+20190306000004007
+select * from PUTOUT_APPROVE   342601199208145613  13235662667
+select * from code_library where codeno ='FlowNo' --授信申请阶段
+select * from BUSINESS_APPLY where customerid='  20200527000000030'--授信申请表查看白名单来源where serialno='20190223000000013' --提现申请表--提现申请流水号查询
+select * from trans_log where reqtime is not null and customerid ='20200527000000030' order by reqtime desc--调用接口日志客户号
+select * from no_application_allowed --超每日申请量落的客户信表
+select * from CUSTOMER_INFO where phoneno like'%13235662580%'--客户信息表
+--for update
+select * from PUTOUT_APPROVE where customerid='20191021000006002'--提现表
+update customer_whitelist cw set cw.time = substr(to_char(add_months(cw.UPDATE_DATE,cw.time),'YYYY/MM/DD HH24:MI:SS'),0,10)
+select putoutDate from acct_loan where serialno='2019072200001'--借据表
+select * from audit_task where customerid ='20190226000012001' --同盾
+select * from td_gps_location --同盾gps表
+select * from cl_info where customerid ='20190311000000004'--额度台账
+--for update 
+select * from system_setup
+
+select * from cl_info where status='4'
+select * from exception_warn_record --业务告警信息库
+--for update 
+select count(*) from BUSINESS_APPLY where APPLYSTATUS in ('3','9','999') and occurdate='2019/02/27'--授信异常取消失败当天笔数统计
+select * from CUSTOMER_REALNAME_LOG --实名信息表
+select * from CUSTOMER_REALNAME_LOG where status in ('03','04') and inputdate BETWEEN('2019/02/27')AND('2019/02/28')--实名信息异常取消当天笔数统计
+select * from PUTOUT_APPROVE  order by inputtime desc --提现申请表
+select * from PUTOUT_APPROVE where customerid ='20190802000004001'
+select count(*) from PUTOUT_APPROVE where showstate in ('3','4','5') and inputtime  BETWEEN('2019/02/27')AND('2019/02/28') --提现申请信息异常取消失败当天笔数统计
+
+select * from td_risk_item   where objectno='48347DF6790C40899420A414A2AB0FAD' 
+--for update
+
+update customer_info set customername='巫燕贞', certid = '652522198508082460' ,phoneno='13654172204' where phoneno='13235662684'--白名单13654172204
+
+select * from td_risk_item  where customerid ='20200722000000009'--20190301000002004  --同盾ins命中表
+--for update
+select * from TD_RESULT_MSG where customerid ='20200722000000009' --同盾ins命中表
+for update  
+select * from business_apply where customerid ='20200722000000009' --同盾ins命中表
+select * from customer_info where customerid ='20200722000000009' --同盾ins命中表
+
+
+select * from audit_task where customerid ='20190225000010004'--同盾调用时间表
+
+select * from ins_response_data where applyno ='20190225000010004'--ins命中明细
+
+select * from capital_eleacct_record order by updatetime desc --充值至电子账户表
+select * from capital_eleacct_record where customerid ='20191021000006002'
+select * from IMAGE_LIST
+select * from trans_log where 
+--reqtime is not null and 
+customerid ='20190629000010005'
+--order by reqtime desc--调用接口日志客户号
+
+select * from CLAIM_PREPARE_INFO--预理赔信息历史记录
+select * from  COMPENSATION_INFO--对公还款记录
+select * from code_library where codeno='Reconciliation'--对公还款状态
+select * from acct_loan where customerid='20190327000002014'--借据表 
+select * from acct_loan where customerid='20190520000008004'--借据表
+
+
+select * from icr_list where certno ='220602199007186395'--人行征信
+select * from icr_list where certno ='220602199007184031'--人行征信
+select * from LOAN_RECORDS where id_card='220602199007186395'--额度平台借据表
+select * from trans_log where reqtime is not null and servicename like'%SecondCreduitQuery%' order by reqtime desc--二代征信
+select * from marketing_message_info where applyid = '20190425000000001' and phoneno = '16633663366' --推送短信平台记录
+select * from customer_info ci where ci.phoneno ='16633660001'--短信
+select * from customer_info_log cil where cil.customerid ='20190426000006009'--短信
+select * from LOAN_LIMIT where id_card ='110101198901060216'--额度台账
+select * from LOAN_LIMIT where product_id ='7013'
+select * from PRODUCT_CONFIG_INFO --for update --基础产品配置
+select * from channel_apply_info cai where cai.idno ='110101198902205384'--渠道授信流水表
+SELECT * FROM  business_apply  where channelapplyno='20190323000000015'--授信申请流水表
+
+select * from APPLY_REGISTER_INFO where  phoneno='13800030011'--注册表
+select * from CUSTOMER_INFO where phoneno = '15574177417' -- 客户信息表
+for update
+commit
+select * from CUSTOMER_INFO 
+--customername = ''and 
+where phoneno like '158%8999'
+select * from CUSTOMER_HISTORY where phoneno='13611111133'--客户信息历史表
+select * from CUSTOMER_REALNAME_LOG where phoneno='15835713571'--实名流水表
+select * from CUSTOMER_FACECHECK where customerid = '20190404000000001'--人脸信息
+select * from BUSINESS_APPLY where customerid = '20190629000010008' --授信申请表
+select * from CL_INFO where customerid = '20190404000000001'--额度台账
+select * from PUTOUT_APPROVE  where customerid = '20200217000000011'--提现申请表
+select * from PUTOUT_APPROVE  where customerid = '20200326000000006'--提现申请表
+select * from PUTOUT_APPROVE  where channelputoutsno = '202003098686001'--提现申请表
+
+select * from acct_loan a where serialno='' or a.policyno='PBLG201931170422000077'
+for update --改时间
+select * from acct_loan where policyno='PBLG201931171845000068'--查loan_no
+select * from acct_loan where serialno = '20191120104128619619'
+select * from trans_log where reqtime is not null and customerid ='20190328000000002' order by reqtime desc--调用接口日志客户号
+select * from audit_task where customerid='20190314000000001' for update --改数据授信成功
+select * from exception_warn_record --业务告警信息库
+--for update 
+select * from CARD_BIN where BINNO = '621210'
+select * from code_library cl where cl.codeno='ESBConfig'--日志查询表（抓日志查询字段）
+select * from loan_credit_records where id_card='130403198001010419' --and status='0'--额度平台在途件（在途后再次申请，报错时查）
+for update  
+select * from  PUTOUT_APPROVE where customerid='20191121000006020' --for update  ---提现流水表清数据
+SELECT * FROM  PFA_INSURANCEPOLICYINFO where CHANNELPUTOUTAPPROVENO='20191121000004'for update  ------投保流水表清数据
+select * from  PUTOUT_APPROVE  where customerid='20190819000006032'
+COMMIT
+
+--渠道表
+SELECT * FROM channel_apply_info where channelcustid='2019071266866006'
+SELECT * FROM channel_apply_info where customerid = '20200709000000020'
+
+--实名流水表
+select * from customer_realname_log where phoneno='18873881001'
+--支用
+select * from business_putout where customerid='20200614000000009'
+--支用失败原因
+select * from putout_approve where CHANNELPUTOUTSNO ='2019050700001808'
+select * from putout_approve where customerid='20200702000000004'
+--还款
+select * from acct_loan where serialno='20191217000000001'
+SELECT * FROM loan_batch_notice where billno='36501932100147904'
+select * from acct_payment_schedule where serialno = '36501932100160916' 
+select * from acct_loan where customerid ='20190520000008004'
+select * from loan_batch_notice where billno='787-503103152980226325' for update --还款通知
+select * from loan_batch_notice where customerid = '20200217000000011'
+select * from loan_batch_info where objectno='787-503102242980225613'--还款记录
+select * from loan_batch_info where customerid = '20200217000000011'
+select * from loan_batch_cutpayment where billno='787-503102242980225613'--扣款记录
+
+select * from queue_task where item='AgreementPay51PAF' and serialno='96E02F115F9448A5B265A50E040E4820'--后台异步任务记录
+
+select * from offlinerecord where bacthno = 'H20191220000000_07' for update  --改当日送线下报收付费
+
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-502809202980162333' -- 渠道还款计划表
+select * from toceb_repay_detail where serialno = '20191217000000001' --还款明细表
+select * from toceb_repay_detail where billno ='20191216160000012688'
+select * from system_setup --for update
+select * from image_list where applyno='20190604000000001'
+select * from queue_task qt where qt.objectno ='20190612000000008'
+select * from TRANS_LOG where objectno='16606130011'
+
+delete from CUSTOMER_BANK_CARD where customerid = '20200708000002001'
+delete from CHANNEL_APPLY_INFO where customerid ='20200708000002001'
+delete from channel_apply_info c where c.idno = '371401198211131908'--清数据
+delete from customer_info c where c.certid = '371401198211131908'--清数据
+delete from customer_realname c where c.certid = '371401198211131908'--清数据
+delete from customer_realname_log c where c.certid = '371401198211131908'--清数据
+select * from customer_info cc where cc.certid='412702199810032718'
+delete from putout_approve where customerid ='20200708000002001'--清数据
+delete from BUSINESS_INSURANCEPOLICYINFO where customerid ='20200708000002001'--清数据
+delete FROM PFA_INSURANCEPOLICYINFO where CHANNELPUTOUTAPPROVENO='2019121266660005'  ------投保流水表清数据
+SELECT * FROM PFA_INSURANCEPOLICYINFO where IDNO='330700199402010398'for update  ------投保流水表清数据
+commit
+--改数据库时间
+update system_setup set businessdate='2031/04/11',
+batchdate='2020/04/11'
+where systemid='1'
+update system_setup set businessdate='2020/06/29',
+batchdate='2020/06/29'
+where systemid='1'
+update system_setup set businessdate='2031/03/16',
+batchdate='2031/03/16'
+where systemid='1'
+select * from system_setup --for update
+commit
+
+
+
+select * from SECONDCREDIT_THIRD_RECORD --for update     --人行征信
+SELECT * FROM BUSINESS_INSURANCEPOLICYINFO where customerid='20191212000002010' for update --保单信息表
+SELECT * FROM PFA_MOBILEBRIEF where channelcustid='2019070488668011'
+select * from PHONE_CALL_INDEX where creditreqno = '2019071588668012'--ins落库
+select * from channel_apply_info cai WHERE cai.creditreqno ='20190720190703886680020186668002'
+select * from PFA_MOBILEDETAIL where creditreqno = '2019070488668018'
+select * from PFA_accfundLoan where creditreqno = '2019070588668020'
+select * from pfa_accfundbasic where creditreqno = '2019070488668018'
+select * from pfa_MOBILEBILL where creditreqno = '2019070488668012'
+select * from pfa_familie where creditreqno = '2019070488668018'
+SELECT * FROM  business_apply  where customerid='20191008000002001'--授信申请流水表
+SELECT ItemDescribe FROM code_library where codeno='PolicyTypeFlag'for update  --更改投保新老流程
+SELECT * FROM BUSINESS_INSURANCEPOLICYINFO where  putoutApproveNo='20191114000000002'--对应的这笔 查保单（提现申请流水号查询）
+SELECT * FROM queue_task where objectno ='202009030000000002' and  objecttype ='jbo.app.PUTOUT_APPROVE' order by runtime for update nowait-- 查流程节点
+SELECT * FROM queue_task where objectno ='202007060000002001' and  objecttype ='jbo.channel51.CHANNEL_APPLY_INFO' order by runtime for update nowait-- 查流程节点
+COMMIT
+SELECT * FROM image_list i where i.signloanno='20200408000004005' for update
+
+20200629000004014
+
+select * from offlinerecord where bacthno = '20200903000000_7018_TONGL'
+
+select * from channel_apply_info where customerid = '20190919000000003'
+select * from putout_approve where customerid = '20190919000006003' 
+select * from loan_batch_notice where customerid = '20191220000004011'
+
+select * from channel_setup
+
+select*from customer_info where phoneno='16611120005'
+
+select * from loan_batch_notice where billno='20191220135739375375'--还款通知
+select * from loan_batch_notice where customerid = '20200217000000011'
+select * from loan_batch_info where objectno='20191220135739375375'--还款记录
+select * from loan_batch_info where customerid = '20200217000000011'
+select * from loan_batch_cutpayment where billno='20191220135739375375'--扣款记录
+
+select * from queue_task where item='AgreementPay51PAF' and serialno='96E02F115F9448A5B265A50E040E4820'--后台异步任务记录
+
+select * from offlinerecord where bacthno = 'H20191220000000_07' for update  --改当日送线下报收付费
+
+--二代征信
+SELECT * FROM SECONDCREDIT_THIRD_RECORD c WHERE c.customerid = '20200108000004003' ORDER BY c.create_date DESC
+
+SELECT * FROM ED_INS_PBOC_DATA c WHERE c.objectno = '20200722000004006'  ORDER BY c.create_date DESC -- 二代征信(INS)-人行响应数据
+
+SELECT rsLoanQueryNumLast12 FROM ED_ILOG_PBOC_DATA c WHERE c.objectno = '20200107000008002' ORDER BY c.create_date DESC --二代征信(ILOG)-人行响应数据
+select * from ED_CREDIT_CARD c WHERE c.objectno = '20200107000022002'  ORDER BY c.create_date DESC for update --二代征信-贷记卡清单 ED_CREDIT_CARD
+select * from ED_LOAN_INFO  c WHERE c.objectno = '20200107000022002'  ORDER BY c.create_date DESC for update --二代征信-贷款信息
+
+select * from ED_CUSTOMER_QUERY_INFO  c WHERE c.objectno = '20200106000002014'  ORDER BY c.create_date DESC -- 二代征信-客户征信查询信息
+select * from ED_CUSTOMER_QUERY_RECORD c WHERE c.objectno = '20200106000002014'  ORDER BY c.create_date DESC --二代征信-客户征信查询记录
+select * from ED_CUSTOMER_CARD_INFO  c WHERE c.objectno = '20200106000002014'  ORDER BY c.create_date DESC--二代征信-客户征信信用卡信息
+
+----***** ins响应落库
+SELECT * FROM INS_RESPONSE_DATA c WHERE c.applyno = '20200722000004006'
+-- ilog 响应落表
+SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '20200709000000025' -- ilog规则集结果
+SELECT * FROM ILOG_REFUSED_LIST c WHERE c.applyno = 'ba20200417000040001' -- ilog拒绝原因列表 
+SELECT * FROM ILOG_RULES_DETAILSCORES c WHERE c.objecttype = 'jbo.app.ILOG_RULES_RESULT' AND c.objectno = 'C9123ED08293446BBD31C7FAFD4A417A' --  评分分值落库
+select * from ilog_rules_result irr where irr.customerid = '20200722000000009'     --ilog返回seg1、seg2 ABC
+
+select * from WEBANK_BORROWCAPITALINFO w where w.channelcustid='202003255500101'   --借款试算
+ORDER BY CREATE_DATE DESC
+
+
+select * from WEBANK_BORROWCAPITALINFO wb where wb.Channelcustid = '20200401886881006' ORDER BY CREATE_DATE DESC --核心借款试算资方表
+
+
+select * from PRODUCT_CONFIG_APPLY where serialno ='20200407000000006'
+select * from CODE_LIBRARY where itemno ='2020031800000004'-- for update 
+
+select * from BRAIN_PERSONSPECIAL
+select * from customer_auth where customerid = '20200416000000008'
+
+select * from trans_log a  where a.servicename = 'PersonAndSpecia'
+
+select * from acct_loan where customerid = '20200708000000011'
+
+select * from ocr_operate_record where customerid = '20200825000014013'
+
+select * from CUSTOMER_BANK_CARD where certid = '370203199208135997' --for update --四要素成功落库
+select * from customer_auth  where certid='412702199810032718' --for update --四要素是否调用
+select * from third_relative where customerid = '20200717000000001' --for update--四要素是否复用
+select * from CUSTOMER_INFO where customerid = '20200708000000011'-- 客户信息表
+
+select * from PHONETHREE_VERITY_RESULT  where customerid='20200709000000020' --调三要素
+--授信规则校验
+
+select * from system_setup for updat
+select * from queue_task where customerid='20200708000000011' for update  --授信流程节点
+
+SELECT * FROM channel_apply_info where idno = '421182199509162919'
+SELECT * FROM channel_apply_info where customerid = '20200723000002006'
+select * from PUTOUT_APPROVE  where customerid = '20200717000000001'--提现申请表
+select * from PUTOUT_APPROVE where customerid = '20200724000000003'
+select * from putout_approve where refusedsubreason = 'ZSKJ001'
+
+select * from INSURE_SERIAL    --投保流水表
+
+select * from ocr_operate_record where customerid = '20200826000002008'
+
+select * from third_relative where customerid = '20200713000000027'   --黑瞳复用
+select * from HEITONG_RESULT WHERE customerid = '20200722000000009'
+
+select * from nciiclist d where d.channelno = '20200713000000027'
+
+
+SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '20200722000000006' -- ilog规则集结果
+SELECT * FROM ILOG_RULES_RESULT c WHERE c.customerid = '20200722000000010' -- ilog规则集结果
+select * from ilog_rules_result where rulename = 'bigDataIlog'
+
+select * from brain_personspecial where customerid = '20200722000000005'   --北冥接口
+
+select * from queue_task q where q.objectno in 
+(
+'20200824000000047'
+)
+--and q.objecttype='jbo.channel51.CHANNEL_APPLY_INFO'
+order by runtime --for update --查流程节点
+
+select * from CL_INFO where customerid = '20200722000004005' --for update 
+commit
+
+select * from putout_approve where serialno = '20200722000000004'
+
+select * from system_setup for update
+
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '301-360000199411246471'
+
+select * from customer_tel where customerid = '20200728000006001'
+
+select * from IMAGE_LIST where customerid = '20200826000002008'
+
+
+select * from customer_info where certid = '513436199001084800'
+
+select * from cl_info where customerid = '20200731000014007' for update
+
+
+select * from channel_apply_info where customerid = '20200804000004033'
+select * from channel_apply_info where channelcustid = '2020073115173068240'
+
+select * from acct_loan where customerid = '20200731000000005' for update
+
+select * from CUSTOMER_INFO where phoneno = '18618114799'
+
+select * from putout_approve where customerid = '20200804000004033' for update
+
+select * from acct_loan where policyno in ( 'PBLG202031170434000058','PBLG202031170433000464')
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '301-204501110570999048200000176001' --for update--还款计划表
+
+
+select * from channel_apply_info where customerid = '20200804000002006'
+
+select * from PRODUCT_CONFIG_INFO where productid = '7018' for update -- 
+commit
+select * from CAPITAL_RATE_INFO where capitalcode = '787' for update --
+
+select * from putout_approve where customerid = '20200813000006003' 
+
+select * from system_setup for update
+select * from acct_loan where customerid = '20200814000000003'
+
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '301-204601310350999048200000180001'
+
+select * from CODE_LIBRARY where ATTRIBUTE3 = 'CH2016032400000002' and ITEMNAME = '个贷险-鼎盛还呗' for update
+
+
+SELECT * FROM queue_task where objectno ='202008260000000091' and  objecttype ='jbo.app.PUTOUT_APPROVE' order by runtime for update nowait-- 查流程节点]]></console>
+    </connection>
+  </component>
+  <component name="DBNavigator.Project.DatabaseFileManager">
+    <open-files />
+  </component>
+  <component name="DBNavigator.Project.DatabaseSessionManager">
+    <connection id="ce418608-3098-48c5-981e-2c1fea762a1d" />
+  </component>
+  <component name="DBNavigator.Project.EditorStateManager">
+    <last-used-providers />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
+  </component>
+  <component name="DBNavigator.Project.ObjectDependencyManager">
+    <last-used-dependency-type value="INCOMING" />
+  </component>
+  <component name="DBNavigator.Project.ObjectQuickFilterManager">
+    <last-used-operator value="EQUAL" />
+    <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces>
+      <mapping database-type="ORACLE" interface-id="DEFAULT" />
+    </recently-used-interfaces>
+  </component>
+  <component name="DBNavigator.Project.Settings">
+    <connections>
+      <connection id="ce418608-3098-48c5-981e-2c1fea762a1d" active="true">
+        <database>
+          <name value="核心sit" />
+          <description value="" />
+          <database-type value="ORACLE" />
+          <config-type value="BASIC" />
+          <database-version value="12.2" />
+          <driver-source value="BUILTIN" />
+          <driver-library value="" />
+          <driver value="" />
+          <url-type value="SERVICE" />
+          <host value="10.1.12.141" />
+          <port value="1523" />
+          <database value="PDEV12UF" />
+          <type value="USER_PASSWORD" />
+          <user value="xbhxbusi" />
+          <deprecated-pwd value="Y2NpYzEyMzQ=" />
+        </database>
+        <properties>
+          <auto-commit value="false" />
+        </properties>
+        <ssh-settings>
+          <active value="false" />
+          <proxy-host value="" />
+          <proxy-port value="22" />
+          <proxy-user value="" />
+          <deprecated-proxy-pwd value="" />
+          <auth-type value="PASSWORD" />
+          <key-file value="" />
+          <key-passphrase value="" />
+        </ssh-settings>
+        <ssl-settings>
+          <active value="false" />
+          <certificate-authority-file value="" />
+          <client-certificate-file value="" />
+          <client-key-file value="" />
+        </ssl-settings>
+        <details>
+          <charset value="UTF-8" />
+          <session-management value="true" />
+          <ddl-file-binding value="true" />
+          <database-logging value="false" />
+          <connect-automatically value="true" />
+          <restore-workspace value="true" />
+          <restore-workspace-deep value="true" />
+          <environment-type value="default" />
+          <idle-time-to-disconnect value="30" />
+          <idle-time-to-disconnect-pool value="5" />
+          <credential-expiry-time value="10" />
+          <max-connection-pool-size value="7" />
+          <alternative-statement-delimiter value="" />
+        </details>
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
+          <object-type-filter use-master-settings="true">
+            <object-type name="SCHEMA" enabled="true" />
+            <object-type name="USER" enabled="true" />
+            <object-type name="ROLE" enabled="true" />
+            <object-type name="PRIVILEGE" enabled="true" />
+            <object-type name="CHARSET" enabled="true" />
+            <object-type name="TABLE" enabled="true" />
+            <object-type name="VIEW" enabled="true" />
+            <object-type name="MATERIALIZED_VIEW" enabled="true" />
+            <object-type name="NESTED_TABLE" enabled="true" />
+            <object-type name="COLUMN" enabled="true" />
+            <object-type name="INDEX" enabled="true" />
+            <object-type name="CONSTRAINT" enabled="true" />
+            <object-type name="DATASET_TRIGGER" enabled="true" />
+            <object-type name="DATABASE_TRIGGER" enabled="true" />
+            <object-type name="SYNONYM" enabled="true" />
+            <object-type name="SEQUENCE" enabled="true" />
+            <object-type name="PROCEDURE" enabled="true" />
+            <object-type name="FUNCTION" enabled="true" />
+            <object-type name="PACKAGE" enabled="true" />
+            <object-type name="TYPE" enabled="true" />
+            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+            <object-type name="ARGUMENT" enabled="true" />
+            <object-type name="DIMENSION" enabled="true" />
+            <object-type name="CLUSTER" enabled="true" />
+            <object-type name="DBLINK" enabled="true" />
+          </object-type-filter>
+          <object-name-filters />
+        </object-filters>
+      </connection>
+    </connections>
+    <browser-settings>
+      <general>
+        <display-mode value="TABBED" />
+        <navigation-history-size value="100" />
+        <show-object-details value="false" />
+      </general>
+      <filters>
+        <object-type-filter>
+          <object-type name="SCHEMA" enabled="true" />
+          <object-type name="USER" enabled="true" />
+          <object-type name="ROLE" enabled="true" />
+          <object-type name="PRIVILEGE" enabled="true" />
+          <object-type name="CHARSET" enabled="true" />
+          <object-type name="TABLE" enabled="true" />
+          <object-type name="VIEW" enabled="true" />
+          <object-type name="MATERIALIZED_VIEW" enabled="true" />
+          <object-type name="NESTED_TABLE" enabled="true" />
+          <object-type name="COLUMN" enabled="true" />
+          <object-type name="INDEX" enabled="true" />
+          <object-type name="CONSTRAINT" enabled="true" />
+          <object-type name="DATASET_TRIGGER" enabled="true" />
+          <object-type name="DATABASE_TRIGGER" enabled="true" />
+          <object-type name="SYNONYM" enabled="true" />
+          <object-type name="SEQUENCE" enabled="true" />
+          <object-type name="PROCEDURE" enabled="true" />
+          <object-type name="FUNCTION" enabled="true" />
+          <object-type name="PACKAGE" enabled="true" />
+          <object-type name="TYPE" enabled="true" />
+          <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+          <object-type name="ARGUMENT" enabled="true" />
+          <object-type name="DIMENSION" enabled="true" />
+          <object-type name="CLUSTER" enabled="true" />
+          <object-type name="DBLINK" enabled="true" />
+        </object-type-filter>
+      </filters>
+      <sorting>
+        <object-type name="COLUMN" sorting-type="NAME" />
+        <object-type name="FUNCTION" sorting-type="NAME" />
+        <object-type name="PROCEDURE" sorting-type="NAME" />
+        <object-type name="ARGUMENT" sorting-type="POSITION" />
+      </sorting>
+      <default-editors>
+        <object-type name="VIEW" editor-type="SELECTION" />
+        <object-type name="PACKAGE" editor-type="SELECTION" />
+        <object-type name="TYPE" editor-type="SELECTION" />
+      </default-editors>
+    </browser-settings>
+    <navigation-settings>
+      <lookup-filters>
+        <lookup-objects>
+          <object-type name="SCHEMA" enabled="true" />
+          <object-type name="USER" enabled="false" />
+          <object-type name="ROLE" enabled="false" />
+          <object-type name="PRIVILEGE" enabled="false" />
+          <object-type name="CHARSET" enabled="false" />
+          <object-type name="TABLE" enabled="true" />
+          <object-type name="VIEW" enabled="true" />
+          <object-type name="MATERIALIZED VIEW" enabled="true" />
+          <object-type name="NESTED TABLE" enabled="false" />
+          <object-type name="COLUMN" enabled="false" />
+          <object-type name="INDEX" enabled="true" />
+          <object-type name="CONSTRAINT" enabled="true" />
+          <object-type name="DATASET TRIGGER" enabled="true" />
+          <object-type name="DATABASE TRIGGER" enabled="true" />
+          <object-type name="SYNONYM" enabled="false" />
+          <object-type name="SEQUENCE" enabled="true" />
+          <object-type name="PROCEDURE" enabled="true" />
+          <object-type name="FUNCTION" enabled="true" />
+          <object-type name="PACKAGE" enabled="true" />
+          <object-type name="TYPE" enabled="true" />
+          <object-type name="TYPE ATTRIBUTE" enabled="false" />
+          <object-type name="ARGUMENT" enabled="false" />
+          <object-type name="DIMENSION" enabled="false" />
+          <object-type name="CLUSTER" enabled="false" />
+          <object-type name="DBLINK" enabled="true" />
+        </lookup-objects>
+        <force-database-load value="false" />
+        <prompt-connection-selection value="true" />
+        <prompt-schema-selection value="true" />
+      </lookup-filters>
+    </navigation-settings>
+    <dataset-grid-settings>
+      <general>
+        <enable-zooming value="true" />
+        <enable-column-tooltip value="true" />
+      </general>
+      <sorting>
+        <nulls-first value="true" />
+        <max-sorting-columns value="4" />
+      </sorting>
+      <tracking-columns>
+        <columnNames value="" />
+        <visible value="true" />
+        <editable value="false" />
+      </tracking-columns>
+    </dataset-grid-settings>
+    <dataset-editor-settings>
+      <text-editor-popup>
+        <active value="false" />
+        <active-if-empty value="false" />
+        <data-length-threshold value="100" />
+        <popup-delay value="1000" />
+      </text-editor-popup>
+      <values-actions-popup>
+        <show-popup-button value="true" />
+        <element-count-threshold value="1000" />
+        <data-length-threshold value="250" />
+      </values-actions-popup>
+      <general>
+        <fetch-block-size value="100" />
+        <fetch-timeout value="30" />
+        <trim-whitespaces value="true" />
+        <convert-empty-strings-to-null value="true" />
+        <select-content-on-cell-edit value="true" />
+        <large-value-preview-active value="true" />
+      </general>
+      <filters>
+        <prompt-filter-dialog value="true" />
+        <default-filter-type value="BASIC" />
+      </filters>
+      <qualified-text-editor text-length-threshold="300">
+        <content-types>
+          <content-type name="Text" enabled="true" />
+          <content-type name="Properties" enabled="true" />
+          <content-type name="XML" enabled="true" />
+          <content-type name="DTD" enabled="true" />
+          <content-type name="HTML" enabled="true" />
+          <content-type name="XHTML" enabled="true" />
+          <content-type name="JSON" enabled="true" />
+          <content-type name="JSON5" enabled="true" />
+          <content-type name="YAML" enabled="true" />
+        </content-types>
+      </qualified-text-editor>
+      <record-navigation>
+        <navigation-target value="VIEWER" />
+      </record-navigation>
+    </dataset-editor-settings>
+    <code-editor-settings>
+      <general>
+        <show-object-navigation-gutter value="false" />
+        <show-spec-declaration-navigation-gutter value="true" />
+        <enable-spellchecking value="true" />
+        <enable-reference-spellchecking value="false" />
+      </general>
+      <confirmations>
+        <save-changes value="false" />
+        <revert-changes value="true" />
+      </confirmations>
+    </code-editor-settings>
+    <code-completion-settings>
+      <filters>
+        <basic-filter>
+          <filter-element type="RESERVED_WORD" id="keyword" selected="true" />
+          <filter-element type="RESERVED_WORD" id="function" selected="true" />
+          <filter-element type="RESERVED_WORD" id="parameter" selected="true" />
+          <filter-element type="RESERVED_WORD" id="datatype" selected="true" />
+          <filter-element type="RESERVED_WORD" id="exception" selected="true" />
+          <filter-element type="OBJECT" id="schema" selected="true" />
+          <filter-element type="OBJECT" id="role" selected="true" />
+          <filter-element type="OBJECT" id="user" selected="true" />
+          <filter-element type="OBJECT" id="privilege" selected="true" />
+          <user-schema>
+            <filter-element type="OBJECT" id="table" selected="true" />
+            <filter-element type="OBJECT" id="view" selected="true" />
+            <filter-element type="OBJECT" id="materialized view" selected="true" />
+            <filter-element type="OBJECT" id="index" selected="true" />
+            <filter-element type="OBJECT" id="constraint" selected="true" />
+            <filter-element type="OBJECT" id="trigger" selected="true" />
+            <filter-element type="OBJECT" id="synonym" selected="false" />
+            <filter-element type="OBJECT" id="sequence" selected="true" />
+            <filter-element type="OBJECT" id="procedure" selected="true" />
+            <filter-element type="OBJECT" id="function" selected="true" />
+            <filter-element type="OBJECT" id="package" selected="true" />
+            <filter-element type="OBJECT" id="type" selected="true" />
+            <filter-element type="OBJECT" id="dimension" selected="true" />
+            <filter-element type="OBJECT" id="cluster" selected="true" />
+            <filter-element type="OBJECT" id="dblink" selected="true" />
+          </user-schema>
+          <public-schema>
+            <filter-element type="OBJECT" id="table" selected="false" />
+            <filter-element type="OBJECT" id="view" selected="false" />
+            <filter-element type="OBJECT" id="materialized view" selected="false" />
+            <filter-element type="OBJECT" id="index" selected="false" />
+            <filter-element type="OBJECT" id="constraint" selected="false" />
+            <filter-element type="OBJECT" id="trigger" selected="false" />
+            <filter-element type="OBJECT" id="synonym" selected="false" />
+            <filter-element type="OBJECT" id="sequence" selected="false" />
+            <filter-element type="OBJECT" id="procedure" selected="false" />
+            <filter-element type="OBJECT" id="function" selected="false" />
+            <filter-element type="OBJECT" id="package" selected="false" />
+            <filter-element type="OBJECT" id="type" selected="false" />
+            <filter-element type="OBJECT" id="dimension" selected="false" />
+            <filter-element type="OBJECT" id="cluster" selected="false" />
+            <filter-element type="OBJECT" id="dblink" selected="false" />
+          </public-schema>
+          <any-schema>
+            <filter-element type="OBJECT" id="table" selected="true" />
+            <filter-element type="OBJECT" id="view" selected="true" />
+            <filter-element type="OBJECT" id="materialized view" selected="true" />
+            <filter-element type="OBJECT" id="index" selected="true" />
+            <filter-element type="OBJECT" id="constraint" selected="true" />
+            <filter-element type="OBJECT" id="trigger" selected="true" />
+            <filter-element type="OBJECT" id="synonym" selected="true" />
+            <filter-element type="OBJECT" id="sequence" selected="true" />
+            <filter-element type="OBJECT" id="procedure" selected="true" />
+            <filter-element type="OBJECT" id="function" selected="true" />
+            <filter-element type="OBJECT" id="package" selected="true" />
+            <filter-element type="OBJECT" id="type" selected="true" />
+            <filter-element type="OBJECT" id="dimension" selected="true" />
+            <filter-element type="OBJECT" id="cluster" selected="true" />
+            <filter-element type="OBJECT" id="dblink" selected="true" />
+          </any-schema>
+        </basic-filter>
+        <extended-filter>
+          <filter-element type="RESERVED_WORD" id="keyword" selected="true" />
+          <filter-element type="RESERVED_WORD" id="function" selected="true" />
+          <filter-element type="RESERVED_WORD" id="parameter" selected="true" />
+          <filter-element type="RESERVED_WORD" id="datatype" selected="true" />
+          <filter-element type="RESERVED_WORD" id="exception" selected="true" />
+          <filter-element type="OBJECT" id="schema" selected="true" />
+          <filter-element type="OBJECT" id="user" selected="true" />
+          <filter-element type="OBJECT" id="role" selected="true" />
+          <filter-element type="OBJECT" id="privilege" selected="true" />
+          <user-schema>
+            <filter-element type="OBJECT" id="table" selected="true" />
+            <filter-element type="OBJECT" id="view" selected="true" />
+            <filter-element type="OBJECT" id="materialized view" selected="true" />
+            <filter-element type="OBJECT" id="index" selected="true" />
+            <filter-element type="OBJECT" id="constraint" selected="true" />
+            <filter-element type="OBJECT" id="trigger" selected="true" />
+            <filter-element type="OBJECT" id="synonym" selected="true" />
+            <filter-element type="OBJECT" id="sequence" selected="true" />
+            <filter-element type="OBJECT" id="procedure" selected="true" />
+            <filter-element type="OBJECT" id="function" selected="true" />
+            <filter-element type="OBJECT" id="package" selected="true" />
+            <filter-element type="OBJECT" id="type" selected="true" />
+            <filter-element type="OBJECT" id="dimension" selected="true" />
+            <filter-element type="OBJECT" id="cluster" selected="true" />
+            <filter-element type="OBJECT" id="dblink" selected="true" />
+          </user-schema>
+          <public-schema>
+            <filter-element type="OBJECT" id="table" selected="true" />
+            <filter-element type="OBJECT" id="view" selected="true" />
+            <filter-element type="OBJECT" id="materialized view" selected="true" />
+            <filter-element type="OBJECT" id="index" selected="true" />
+            <filter-element type="OBJECT" id="constraint" selected="true" />
+            <filter-element type="OBJECT" id="trigger" selected="true" />
+            <filter-element type="OBJECT" id="synonym" selected="true" />
+            <filter-element type="OBJECT" id="sequence" selected="true" />
+            <filter-element type="OBJECT" id="procedure" selected="true" />
+            <filter-element type="OBJECT" id="function" selected="true" />
+            <filter-element type="OBJECT" id="package" selected="true" />
+            <filter-element type="OBJECT" id="type" selected="true" />
+            <filter-element type="OBJECT" id="dimension" selected="true" />
+            <filter-element type="OBJECT" id="cluster" selected="true" />
+            <filter-element type="OBJECT" id="dblink" selected="true" />
+          </public-schema>
+          <any-schema>
+            <filter-element type="OBJECT" id="table" selected="true" />
+            <filter-element type="OBJECT" id="view" selected="true" />
+            <filter-element type="OBJECT" id="materialized view" selected="true" />
+            <filter-element type="OBJECT" id="index" selected="true" />
+            <filter-element type="OBJECT" id="constraint" selected="true" />
+            <filter-element type="OBJECT" id="trigger" selected="true" />
+            <filter-element type="OBJECT" id="synonym" selected="true" />
+            <filter-element type="OBJECT" id="sequence" selected="true" />
+            <filter-element type="OBJECT" id="procedure" selected="true" />
+            <filter-element type="OBJECT" id="function" selected="true" />
+            <filter-element type="OBJECT" id="package" selected="true" />
+            <filter-element type="OBJECT" id="type" selected="true" />
+            <filter-element type="OBJECT" id="dimension" selected="true" />
+            <filter-element type="OBJECT" id="cluster" selected="true" />
+            <filter-element type="OBJECT" id="dblink" selected="true" />
+          </any-schema>
+        </extended-filter>
+      </filters>
+      <sorting enabled="true">
+        <sorting-element type="RESERVED_WORD" id="keyword" />
+        <sorting-element type="RESERVED_WORD" id="datatype" />
+        <sorting-element type="OBJECT" id="column" />
+        <sorting-element type="OBJECT" id="table" />
+        <sorting-element type="OBJECT" id="view" />
+        <sorting-element type="OBJECT" id="materialized view" />
+        <sorting-element type="OBJECT" id="index" />
+        <sorting-element type="OBJECT" id="constraint" />
+        <sorting-element type="OBJECT" id="trigger" />
+        <sorting-element type="OBJECT" id="synonym" />
+        <sorting-element type="OBJECT" id="sequence" />
+        <sorting-element type="OBJECT" id="procedure" />
+        <sorting-element type="OBJECT" id="function" />
+        <sorting-element type="OBJECT" id="package" />
+        <sorting-element type="OBJECT" id="type" />
+        <sorting-element type="OBJECT" id="dimension" />
+        <sorting-element type="OBJECT" id="cluster" />
+        <sorting-element type="OBJECT" id="dblink" />
+        <sorting-element type="OBJECT" id="schema" />
+        <sorting-element type="OBJECT" id="role" />
+        <sorting-element type="OBJECT" id="user" />
+        <sorting-element type="RESERVED_WORD" id="function" />
+        <sorting-element type="RESERVED_WORD" id="parameter" />
+      </sorting>
+      <format>
+        <enforce-code-style-case value="true" />
+      </format>
+    </code-completion-settings>
+    <execution-engine-settings>
+      <statement-execution>
+        <fetch-block-size value="100" />
+        <execution-timeout value="20" />
+        <debug-execution-timeout value="600" />
+        <focus-result value="false" />
+        <prompt-execution value="false" />
+      </statement-execution>
+      <script-execution>
+        <command-line-interfaces />
+        <execution-timeout value="300" />
+      </script-execution>
+      <method-execution>
+        <execution-timeout value="30" />
+        <debug-execution-timeout value="600" />
+        <parameter-history-size value="10" />
+      </method-execution>
+    </execution-engine-settings>
+    <operation-settings>
+      <transactions>
+        <uncommitted-changes>
+          <on-project-close value="ASK" />
+          <on-disconnect value="ASK" />
+          <on-autocommit-toggle value="ASK" />
+        </uncommitted-changes>
+        <multiple-uncommitted-changes>
+          <on-commit value="ASK" />
+          <on-rollback value="ASK" />
+        </multiple-uncommitted-changes>
+      </transactions>
+      <session-browser>
+        <disconnect-session value="ASK" />
+        <kill-session value="ASK" />
+        <reload-on-filter-change value="false" />
+      </session-browser>
+      <compiler>
+        <compile-type value="KEEP" />
+        <compile-dependencies value="ASK" />
+        <always-show-controls value="false" />
+      </compiler>
+      <debugger>
+        <debugger-type value="JDBC" />
+        <use-generic-runners value="true" />
+      </debugger>
+    </operation-settings>
+    <ddl-file-settings>
+      <extensions>
+        <mapping file-type-id="VIEW" extensions="vw" />
+        <mapping file-type-id="TRIGGER" extensions="trg" />
+        <mapping file-type-id="PROCEDURE" extensions="prc" />
+        <mapping file-type-id="FUNCTION" extensions="fnc" />
+        <mapping file-type-id="PACKAGE" extensions="pkg" />
+        <mapping file-type-id="PACKAGE_SPEC" extensions="pks" />
+        <mapping file-type-id="PACKAGE_BODY" extensions="pkb" />
+        <mapping file-type-id="TYPE" extensions="tpe" />
+        <mapping file-type-id="TYPE_SPEC" extensions="tps" />
+        <mapping file-type-id="TYPE_BODY" extensions="tpb" />
+      </extensions>
+      <general>
+        <lookup-ddl-files value="true" />
+        <create-ddl-files value="false" />
+        <synchronize-ddl-files value="true" />
+        <use-qualified-names value="false" />
+        <make-scripts-rerunnable value="true" />
+      </general>
+    </ddl-file-settings>
+    <general-settings>
+      <regional-settings>
+        <date-format value="MEDIUM" />
+        <number-format value="UNGROUPED" />
+        <locale value="SYSTEM_DEFAULT" />
+        <use-custom-formats value="false" />
+      </regional-settings>
+      <environment>
+        <environment-types>
+          <environment-type id="development" name="Development" description="Development environment" color="-2430209/-12296320" readonly-code="false" readonly-data="false" />
+          <environment-type id="integration" name="Integration" description="Integration environment" color="-2621494/-12163514" readonly-code="true" readonly-data="false" />
+          <environment-type id="production" name="Production" description="Productive environment" color="-11574/-10271420" readonly-code="true" readonly-data="true" />
+          <environment-type id="other" name="Other" description="" color="-1576/-10724543" readonly-code="false" readonly-data="false" />
+        </environment-types>
+        <visibility-settings>
+          <connection-tabs value="true" />
+          <dialog-headers value="true" />
+          <object-editor-tabs value="true" />
+          <script-editor-tabs value="false" />
+          <execution-result-tabs value="true" />
+        </visibility-settings>
+      </environment>
+    </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
+  </component>
+</project>
