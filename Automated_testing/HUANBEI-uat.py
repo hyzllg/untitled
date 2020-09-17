@@ -64,12 +64,13 @@ class Hyzllg:
         }
         a = "**********投保信息接口！**********"
         print(a)
+        print(f"请求报文：{data}")
         # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
-            print(requit)
+            print(f"响应报文：{requit}")
             print("投保信息接口成功！")
             if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                 print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
@@ -93,12 +94,13 @@ class Hyzllg:
         }
         a =  "**********投保资料查询接口！**********"
         print(a)
+        print(f"请求报文：{data}")
         # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         requit["data"] = eval(requit["data"])
         if re.status_code == 200:
-            print(requit)
+            print(f"响应报文：{requit}")
             print("投保资料查询成功！")
         else:
             print("投保资料查询接口异常！")
@@ -139,6 +141,7 @@ class Hyzllg:
         }
         a = "**********投保接口！**********"
         print(a)
+        print(f"请求报文：{data}")
         # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
@@ -151,7 +154,7 @@ class Hyzllg:
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"]=='01':
-                    print(requit)
+                    print(f"响应报文：{requit}")
                     print("已受理，处理中！")
         else:
             print("投保接口调用异常！")
@@ -275,6 +278,7 @@ class Hyzllg:
         }
         a = "**********支用接口！**********"
         print(a)
+        print(f"请求报文：{data}")
         # time.sleep(1)
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
@@ -283,10 +287,10 @@ class Hyzllg:
             try:
 
                 if requit["data"]["status"]=="01":
-                    print(requit)
+                    print(f"响应报文：{requit}")
                     print("支用受理成功，处理中！")
                 elif requit["data"]["status"]=="00":
-                    print(requit)
+                    print(f"响应报文：{requit}")
                     print("受理失败！")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')

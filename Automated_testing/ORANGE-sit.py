@@ -143,6 +143,7 @@ class Hyzllg:
         }
         a = "**********授信申请！**********"
         print(a)
+        print(f"请求报文：{data}")
         # time.sleep(2)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
@@ -150,7 +151,7 @@ class Hyzllg:
         if re.status_code == 200:
             print("授信接口调用成功！")
             if requit["data"]["body"]["status"] == "01":
-                print(requit)
+                print(f"响应报文：{requit}")
                 print("授信受理成功，处理中！")
             else:
                 print("授信受理失败！")
@@ -182,6 +183,7 @@ class Hyzllg:
         while True:
             a = "**********授信结果查询！**********"
             print(a)
+            print(f"请求报文：{data}")
             time.sleep(5)
             re = requests.post(url, data=json.dumps(data), headers=headers)
             requit = re.json()
@@ -190,7 +192,7 @@ class Hyzllg:
                 print("授信查询接口调用成功！")
                 try:
                     if requit["data"]["body"]["status"]=="01":
-                        print(requit)
+                        print(f"响应报文：{requit}")
                         print("授信通过！")
                         break
                     elif requit["data"]["body"]["status"]=="00":
@@ -227,6 +229,7 @@ class Hyzllg:
         }
         a = "**********支用试算！**********"
         print(a)
+        print(f"请求报文：{data}")
         res = requests.post(url,data=json.dumps(data),headers=headers)
         requit = res.json()
         requit["data"] = eval(requit["data"])
@@ -235,7 +238,7 @@ class Hyzllg:
             if res.status_code == 200:
                 print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
                 if requit["data"]["body"]["status"]=="01" and requit["data"]["body"]["capitalCode"]==capitalCode:
-                    print(requit)
+                    print(f"响应报文：{requit}")
                     print("支用试算成功！")
                     break
                 else:
@@ -298,6 +301,7 @@ class Hyzllg:
         }
         a = "**********支用接口！**********"
         print(a)
+        print(f"请求报文：{data}")
         time.sleep(1)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
@@ -305,7 +309,7 @@ class Hyzllg:
         if re.status_code == 200:
             print("支用接口调用成功！")
             if requit["data"]["body"]["status"]=="01":
-                print(requit)
+                print(f"响应报文：{requit}")
                 print("受理成功，处理中!")
             else:
                 print("受理失败")
@@ -336,6 +340,7 @@ class Hyzllg:
         }
         a = "**********支用结果查询！**********"
         print(a)
+        print(f"请求报文：{data}")
         time.sleep(10)
         while True:
             re = requests.post(url, data=json.dumps(data), headers=headers)
@@ -344,7 +349,7 @@ class Hyzllg:
             if re.status_code == 200:
                 print("支用结果查询接口调用成功！")
                 if requit["data"]["body"]["status"]=="01":
-                    print(requit)
+                    print(f"响应报文：{requit}")
                     print("支用成功")
                     break
                 elif requit["data"]["body"]["status"]=="00":
