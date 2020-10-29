@@ -9,7 +9,7 @@ from past.builtins import raw_input
 
 
 class Hyzllg:
-    def __init__(self,channelCustId,creditReqNo,name,idNo,phone,loanAmount,periods):
+    def __init__(self,channelCustId,creditReqNo,name,idNo,phone,loanAmount,periods,bankcard):
         self.channelCustId = channelCustId
         self.creditReqNo = creditReqNo
         self.name = name
@@ -17,6 +17,7 @@ class Hyzllg:
         self.phone = phone
         self.loanAmount = loanAmount
         self.periods = periods
+        self.bankcard = bankcard
 
     def wrapper(func):
         def inner(*args,**kwargs):
@@ -28,7 +29,7 @@ class Hyzllg:
     @wrapper
     def credit_granting(self):
 
-        url = 'http://10.1.14.117:27405/channel/TEST/TCJQ/CREDIT_GRANTING'
+        url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/CREDIT_GRANTING'
         data = {
             "channelCustId": "20200612886881020",
             "creditReqNo": "20200612668661020",
@@ -74,8 +75,8 @@ class Hyzllg:
                 "name": "李四",
                 "phoneNo": "15638537486"
              }],
-            "bankCard": "6230523610012118577",
-            "bankName": "中国农业银行",
+            "bankCard": "6214852127765553",
+            "bankName": "建设银行",
             "bankPhone": "15638537487",
             "applyProvince": "110000",
             "applyCity": "110000",
@@ -135,6 +136,8 @@ class Hyzllg:
         data["phone"] = self.phone
         data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
+        data["bankCard"] = self.bankcard
+        data["bankPhone"] = self.phone
 
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
@@ -143,6 +146,7 @@ class Hyzllg:
         }
         a = "**********授信申请！**********"
         print(a)
+        print(f"请求报文：{data}")
         # time.sleep(2)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
@@ -150,7 +154,7 @@ class Hyzllg:
         if re.status_code == 200:
             print("授信接口调用成功！")
             if requit["data"]["body"]["status"] == "01":
-                print(requit)
+                print(f"响应报文：{requit}")
                 print("授信受理成功，处理中！")
             else:
                 print("授信受理失败！")
@@ -165,7 +169,7 @@ class Hyzllg:
 
     @wrapper
     def credit_inquiry(self):
-        url = 'http://10.1.14.117:27405/channel/TEST/TCJQ/CREDIT_INQUIRY'
+        url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/CREDIT_INQUIRY'
         data = {
                 "channelCustId": "20200612886881021",
                 "creditReqNo": "20200612668661021"
@@ -182,6 +186,7 @@ class Hyzllg:
         while True:
             a = "**********授信结果查询！**********"
             print(a)
+            print(f"请求报文：{data}")
             time.sleep(5)
             re = requests.post(url, data=json.dumps(data), headers=headers)
             requit = re.json()
@@ -190,7 +195,7 @@ class Hyzllg:
                 print("授信查询接口调用成功！")
                 try:
                     if requit["data"]["body"]["status"]=="01":
-                        print(requit)
+                        print(f"响应报文：{requit}")
                         print("授信通过！")
                         break
                     elif requit["data"]["body"]["status"]=="00":
@@ -211,7 +216,7 @@ class Hyzllg:
 
     @wrapper
     def disburse_trial(self,capitalCode):
-        url = 'http://10.1.14.117:27405/channel/TEST/TCJQ/DISBURSE_TRIAL'
+        url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE_TRIAL'
         data = {
             "channelCustId": "20200612886881021",
             "periods": 6,
@@ -227,16 +232,16 @@ class Hyzllg:
         }
         a = "**********支用试算！**********"
         print(a)
+        print(f"请求报文：{data}")
         res = requests.post(url,data=json.dumps(data),headers=headers)
         requit = res.json()
         requit["data"] = eval(requit["data"])
-        print(requit)
         time.sleep(2)
         while True:
             if res.status_code == 200:
                 print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
                 if requit["data"]["body"]["status"]=="01" and requit["data"]["body"]["capitalCode"]==capitalCode:
-                    print(requit)
+                    print(f"响应报文：{requit}")
                     print("支用试算成功！")
                     break
                 else:
@@ -250,7 +255,7 @@ class Hyzllg:
 
     @wrapper
     def disburse(self,loanReqNo,capitalCode):
-        url = 'http://10.1.14.117:27405/channel/TEST/TCJQ/DISBURSE'
+        url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE'
         data = {
                 "channelCustId": "20200612886881021",
                 "loanReqNo": "202006128866881022",
@@ -258,9 +263,9 @@ class Hyzllg:
                 "loanAmount": "1000.00",
                 "periods": 6,
                 "purpose": "01",
-                "bankCard": "6214852127765555",
+                "bankCard": "6214852127765553",
                 "bankCode": "308584000013",
-                "bankName": "招商银行",
+                "bankName": "建设银行",
                 "bankPhone": "13800000004",
                 "longitude": "121.551738",
                 "latitude": "31.224634",
@@ -289,8 +294,10 @@ class Hyzllg:
         data["loanReqNo"] = loanReqNo
         data["creditReqNo"] = self.creditReqNo
         data["capitalCode"] = capitalCode
-        data["loanAmount"] = self.loanAmount
+        # data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
+        data["bankCard"] = self.bankcard
+        data["bankPhone"] = self.phone
         print(data)
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
@@ -299,6 +306,7 @@ class Hyzllg:
         }
         a = "**********支用接口！**********"
         print(a)
+        print(f"请求报文：{data}")
         time.sleep(1)
         re = requests.post(url,data=json.dumps(data),headers=headers)
         requit = re.json()
@@ -306,7 +314,7 @@ class Hyzllg:
         if re.status_code == 200:
             print("支用接口调用成功！")
             if requit["data"]["body"]["status"]=="01":
-                print(requit)
+                print(f"响应报文：{requit}")
                 print("受理成功，处理中!")
             else:
                 print("受理失败")
@@ -321,7 +329,7 @@ class Hyzllg:
 
     @wrapper
     def disburse_in_query(self,loanReqNo):
-        url = 'http://10.1.14.117:27405/channel/TEST/TCJQ/DISBURSE_IN_QUERY'
+        url = 'http://10.1.14.106:27405/channel/TEST/TCJQ/DISBURSE_IN_QUERY'
         data = {
                 "channelCustId":"20200612886881021",
                 "creditReqNo":"20200612668661021",
@@ -337,6 +345,7 @@ class Hyzllg:
         }
         a = "**********支用结果查询！**********"
         print(a)
+        print(f"请求报文：{data}")
         time.sleep(10)
         while True:
             re = requests.post(url, data=json.dumps(data), headers=headers)
@@ -345,7 +354,7 @@ class Hyzllg:
             if re.status_code == 200:
                 print("支用结果查询接口调用成功！")
                 if requit["data"]["body"]["status"]=="01":
-                    print(requit)
+                    print(f"响应报文：{requit}")
                     print("支用成功")
                     break
                 elif requit["data"]["body"]["status"]=="00":
@@ -374,6 +383,12 @@ def phone():
     b = time.strftime("%m%d")
     phone = "166"+b+a
     return phone
+
+def bankcard():
+    a = str(random.randint(1000,10000))
+    b = time.strftime("%m%d%H%M%S")
+    bankcard = '621083' + b
+    return bankcard
 
 
 def name_idno():
@@ -512,8 +527,8 @@ def random_name():
 
 def main():
     while True:
-        hlp = input("选择资方(1：徽商，2：微众)：")
-        # hlp = "2"
+        # hlp = input("选择资方(1：徽商，2：微众)：")
+        hlp = "2"
         if hlp == "1":
             hlp = 'HNTRUST'
             break
@@ -522,12 +537,12 @@ def main():
             break
         else:
             print("输入错误!")
-
     random__name = random_name()
     generate__ID = generate_ID(gender=1)
     ORANGE_phone = phone()
     ORANGE_serial_number = serial_number()
-    hyzllg = Hyzllg(ORANGE_serial_number[0],ORANGE_serial_number[1], random__name, generate__ID,ORANGE_phone,"5000.00","6")
+    ORANGE_bankcard = bankcard()
+    hyzllg = Hyzllg(ORANGE_serial_number[0],ORANGE_serial_number[1], random__name, generate__ID,ORANGE_phone,"10000.00","12",ORANGE_bankcard)
     test_info = f'''
             姓名：{random__name}
             身份证号：{generate__ID}
@@ -545,9 +560,10 @@ def main():
     # hyzllg.disburse_in_query(ORANGE_serial_number[2])
     time.sleep(1)
     print(test_info)
-    raw_input("Press <enter>")
 
 
 
 if __name__ == '__main__':
-    main()
+        # main()
+    for i in range(1):
+        main()

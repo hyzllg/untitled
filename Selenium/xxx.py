@@ -1,31 +1,28 @@
-from time import sleep
-from selenium import webdriver
+import requests
+import re
+import time
 
-url = "http://www.126.com"
-driver = webdriver.Chrome()
-driver.get(url)
-driver.implicitly_wait(10)
-current_frame = driver.find_element_by_xpath('//iframe[@scrolling="no"]')
-driver.switch_to.frame(current_frame)
-driver.find_element_by_xpath('//input[@data-loginname="loginEmail"]').send_keys("hyzllg")
-driver.find_element_by_xpath('//input[@class="j-inputtext dlpwd"]').send_keys("123456789")
-driver.find_element_by_xpath('//input[@id="un-login"]').click()
-driver.switch_to.default_content()
-driver.find_element_by_xpath('//a[@class="f-float-left"]').click()
-current_windows = driver.current_window_handle
-print(current_windows)
-all_handles = driver.window_handles
-print(all_handles)
-for handle in all_handles:
-    if handle != current_windows:
-        driver.switch_to.window(handle)
-        driver.find_element_by_xpath('//div[@class="custom-checkbox service"]/span').click()
-        driver.find_element_by_xpath('//input[@class="username"]').send_keys("hyzllg")
-        driver.find_element_by_xpath('//input[@class="password"]').send_keys("hyzllg33123456")
-        driver.find_element_by_xpath('//input[@class="phone"]').send_keys("16635468545")
-        driver.find_element_by_xpath('//a[@class="j-register"]').click()
-        sleep(10)
-        driver.close()
-driver.switch_to.window(current_windows)
+s = requests.session()
+def name_idno():
+    url = f'http://www.xiaogongju.org/index.php/index/id.html/id/513224/year/1990/month/{time.strftime("%m")}/day/{time.strftime("%d")}/sex/%E7%94%B7'
 
-sleep(2)
+    headers = {
+        "Content-Type":"text/html;charset=utf-8",
+        "Host":"www.xiaogongju.org",
+        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+    }
+    print("*********爬取姓名身份证信息*********")
+    print(url)
+    request = s.get(url,headers=headers)
+    ret = request.text
+    ret = re.findall('\s<td>\w*</td>',ret)
+    new_ret = []
+    for i in ret:
+        i = i.replace(' ','')
+        i = i.replace('<td>','')
+        i = i.replace('</td>','')
+        new_ret.append(i)
+    print(new_ret)
+    return new_ret
+
+name_idno()
