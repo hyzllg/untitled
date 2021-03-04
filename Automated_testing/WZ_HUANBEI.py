@@ -359,8 +359,8 @@ def main(a):
                     姓名：{random__name}
                     身份证号：{generate__ID}
                     手机号：{HB_phone}
-                    借款金额:{hyzllg.loanAmount}
-                    借款期次:{hyzllg.periods}
+                    借款金额:{loanAmount}
+                    借款期次:{periods}
                     loanReqNo:{HB_loanReqNo}
                 '''
     hyzllg.insure_info()   #投保信息接口

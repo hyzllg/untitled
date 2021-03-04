@@ -59,12 +59,14 @@ class MyTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    #测试套件
-    suite = unittest.TestSuite()
-    suite.addTest(MyTest('test_001'))
-    suite.addTest(MyTest('test_002'))
-    suite.addTest(MyTest('test_003'))
-    suite.addTest(MyTest('test_004'))
+    # 测试用例列表
+    case_list = ['test_001', 'test_002', 'test_003', 'test_004', 'test_005', 'test_006']
+    # 创建测试套件
+    suit = unittest.TestSuite()
+    # 将测试用例添加到测试套件中
+    for case in case_list:
+        suit.addTest(MyTest(case))
+
 
     with open('./HwTestReport.html', 'wb') as report:
         runner = HTMLTestReport(stream=report,

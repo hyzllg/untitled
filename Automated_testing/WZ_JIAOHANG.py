@@ -613,8 +613,8 @@ def main(a):
                     姓名：{random__name}
                     身份证号：{generate__ID}
                     手机号：{JH_phone}
-                    借款金额:{hyzllg.loanAmount}
-                    借款期次:{hyzllg.periods}
+                    借款金额:{loanAmount}
+                    借款期次:{periods}
                     creditReqNo:{JH_creditReqNo}
                     loanReqNo:{JH_loanReqNo2}
                 '''
