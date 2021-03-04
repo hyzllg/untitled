@@ -2,12 +2,14 @@ import random
 import requests
 import json
 import time
-import re
+import re as res
 import os
 from past.builtins import raw_input
+from Collect import Collect
+
 
 class Hyzllg:
-    def __init__(self,creditReqNo,loanReqNo,loanReqNo1,name,idNo,phone,loanAmount,periods,bankCard,bankName,bankPhone):
+    def __init__(self,creditReqNo,loanReqNo,loanReqNo1,name,idNo,phone,loanAmount,periods,bankCard,bankName,bankPhone,url):
         self.creditReqNo = creditReqNo
         self.loanReqNo = loanReqNo
         self.name = name
@@ -19,6 +21,7 @@ class Hyzllg:
         self.bankName = bankName
         self.bankPhone = bankPhone
         self.loanReqNo1 = loanReqNo1
+        self.url = url
 
     def wrapper(func):
         def inner(*args,**kwargs):
@@ -29,9 +32,8 @@ class Hyzllg:
 
         return inner
 
-    @wrapper
+    
     def insure_info(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_INFO'
         data = {
                 "channelCustId":"",
                 "insuranceNo":"2020070152013140002",
@@ -67,21 +69,24 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
+        re = requests.post(self.url+'INSURE_INFO', data=json.dumps(data), headers=headers)
         requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
+            a = requit["data"]["insurUrl"]
+            b = res.search("lp=(.*)", a)
+            c = b.group()[3:]
             print(f"响应报文：{requit}")
             print("投保链接接口成功！")
         else:
-            print("投保信息接口异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
 
 
-        return url,a,requit
+        return self.url,a,requit,c
 
     def insure_info_put(self,b):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_INFO'
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE_INFO'
         data = {
                     "channelCustId":"",
                     "insuranceNo":"2020070152013140002",
@@ -118,25 +123,31 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
+        re = requests.post(self.url+'INSURE_INFO', data=json.dumps(data), headers=headers)
         requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
+            # print(requit)
+            a = requit["data"]["insurUrl"]
+            b = res.search("lp=(.*)", a)
+            c = b.group()[3:]
             print(f"响应报文：{requit}")
             print("投保链接接口成功！")
         else:
-            print("投保信息接口异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
 
 
-        return url,a,requit
+        return self.url,a,requit,c
 
 
-    @wrapper
-    def insure_data_query(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_DATA_QUERY'
+    
+    def insure_data_query(self,token):
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE_DATA_QUERY'
         data1 = {
-                "loanReqNo":"2020070614351688817"
+                "loanReqNo":"2020070614351688817",
+                "token":""
             }
 
         headers = {
@@ -146,27 +157,30 @@ class Hyzllg:
         }
 
         data1["loanReqNo"] = self.loanReqNo
+        data1["token"] = token
         a = "**********投保资料查询接口！**********"
         print(a)
         print(f"请求报文：{data1}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data1), headers=headers)
+        re = requests.post(self.url+'INSURE_DATA_QUERY', data=json.dumps(data1), headers=headers)
         requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
             print(f"响应报文：{requit}")
             print("投保资料查询成功！")
         else:
-            print("投保资料查询接口异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
 
-        return url, a, requit
+        return self.url, a, requit
 
-    @wrapper
-    def insure_data_query_put(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE_DATA_QUERY'
+    
+    def insure_data_query_put(self,token):
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE_DATA_QUERY'
         data1 = {
-                "loanReqNo":"2020070614351688817"
+                "loanReqNo":"2020070614351688817",
+                "token":""
             }
 
         headers = {
@@ -176,25 +190,27 @@ class Hyzllg:
         }
 
         data1["loanReqNo"] = self.loanReqNo1
+        data1["token"] = token
         a = "**********投保资料查询接口！**********"
         print(a)
         print(f"请求报文：{data1}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data1), headers=headers)
+        re = requests.post(self.url+'INSURE_DATA_QUERY', data=json.dumps(data1), headers=headers)
         requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
             print(f"响应报文：{requit}")
             print("投保资料查询成功！")
         else:
-            print("投保资料查询接口异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
 
-        return url, a, requit
+        return self.url, a, requit
 
-    @wrapper
+    
     def insure(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE'
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE'
         data = {
                 "agentNo":"TianCheng",
                 "agentName":"甜橙保代",
@@ -231,10 +247,11 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
+        re = requests.post(self.url+'INSURE', data=json.dumps(data), headers=headers)
         requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
@@ -245,13 +262,13 @@ class Hyzllg:
                     print(f"响应报文：{requit}")
                     print("已受理，处理中！")
         else:
-            print("投保接口调用异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
-        return url, a, requit
+        return self.url, a, requit
 
-    @wrapper
+    
     def insure_put(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/INSURE'
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE'
         data = {
                 "agentNo":"TianCheng",
                 "agentName":"甜橙保代",
@@ -288,10 +305,11 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
+        re = requests.post(self.url+'INSURE', data=json.dumps(data), headers=headers)
         requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
+
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
@@ -302,14 +320,14 @@ class Hyzllg:
                     print(f"响应报文：{requit}")
                     print("已受理，处理中！")
         else:
-            print("投保接口调用异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
-        return url, a, requit
+        return self.url, a, requit
 
 
-    @wrapper
+    
     def credit_granting(self):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/CREDIT_GRANTING'
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/CREDIT_GRANTING'
         data = {
                 "creditReqNo":"20200706456123004",
                 "insuranceNo":"2020070616462188640",
@@ -412,13 +430,10 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
-
+        re = requests.post(self.url+'CREDIT_GRANTING', data=json.dumps(data), headers=headers)
         requit = re.json()
-
-        requit["data"] = eval(requit["data"])
-
-        if re.status_code == 200 :
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
             try:
 
                 if requit["data"]["status"]=="01":
@@ -437,14 +452,14 @@ class Hyzllg:
 
 
         else:
-            print("授信接口调用异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
-        return url,a,requit,creditApplyNo
+        return self.url,a,requit,creditApplyNo
 
 
-    @wrapper
+    
     def credit_inquiry(self,creditApplyNo):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/CREDIT_INQUIRY'
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/CREDIT_INQUIRY'
         data = {
                 "creditReqNo":"20200706456123001",
                 "creditApplyNo":"20200706000000009"
@@ -461,10 +476,11 @@ class Hyzllg:
         print(f"请求报文：{data}")
         while True:
             time.sleep(6)
-            re = requests.post(url, data=json.dumps(data), headers=headers)
+            re = requests.post(self.url+'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
             requit = re.json()
-            requit["data"] = eval(requit["data"])
-            if re.status_code == 200 :
+            if re.status_code == 200 and requit["result"] == True:
+                requit["data"] = eval(requit["data"])
+
                 try:
 
                     if requit["data"]["status"]=="01":
@@ -485,14 +501,14 @@ class Hyzllg:
 
 
             else:
-                print("授信结果查询接口调用异常！")
+                print("msg:{}".format(requit["msg"]))
                 raw_input("Press <enter>")
-        return url,a,requit
+        return self.url,a,requit
 
 
-    @wrapper
+    
     def disburse(self,creditApplyNo):
-        url = 'http://10.1.14.106:27405/channel-dev/TEST/BCM/DISBURSE'
+        url = 'http://10.1.14.106:27405/channel/apitest/BCM/DISBURSE'
         data = {
                 "loanReqNo":"202007061552308824",
                 "creditApplyNo":"20200706000000012",
@@ -538,10 +554,11 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(url, data=json.dumps(data), headers=headers)
+        re = requests.post(self.url+'DISBURSE', data=json.dumps(data), headers=headers)
         requit = re.json()
-        requit["data"] = eval(requit["data"])
-        if re.status_code == 200:
+        if re.status_code == 200 and requit["result"] == True:
+            requit["data"] = eval(requit["data"])
+
             try:
                 if requit["data"]["status"] == '01':
                     print(f"响应报文：{requit}")
@@ -557,179 +574,40 @@ class Hyzllg:
                     print(f'errormsg:{requit["data"]["message"]}')
                     raw_input("Press <enter>")
         else:
-            print("提款投保接口调用异常！")
+            print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
-        return url, a, requit
+        return self.url, a, requit
 
 
 
 
+def main(a):
+    sit_url = 'http://10.1.14.106:27405/channel/apitest/BCM/'
+    uat_url = 'http://10.1.14.117:27405/channel/apitest/BCM/'
+    dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/BCM/'
+    random__name = Collect().random_name()
+    generate__ID = Collect().generate_ID()
+    JH_creditReqNo = Collect().creditReqNo()
+    JH_loanReqNo1 = Collect().loanReqNo()
+    JH_loanReqNo2 = Collect().loanReqNo()
+    JH_phone = Collect().phone()
+    JH_bankcard = Collect().bankcard()
+    #借款金额
+    loanAmount = 5000
+    #期数
+    periods = '6'
 
-def loanReqNo():
-    a = str(random.randint(1, 10000))
-    b = time.strftime("%Y%m%d%H%M%S")
-    loanReqNo = b + '88' + a
-    return loanReqNo
-
-def creditReqNo():
-    a = str(random.randint(1, 10000))
-    b = time.strftime("%Y%m%d%H%M%S")
-    creditReqNo = b + '68' + a
-    return creditReqNo
-
-
-
-
-def phone():
-    a = str(random.randint(1000,10000))
-    b = time.strftime("%m%d")
-    phone = "166"+b+a
-    return phone
-
-
-def name_idno():
-    url = f'http://www.xiaogongju.org/index.php/index/id.html/id/513436/year/1990/month/{time.strftime("%m")}/day/{time.strftime("%d")}/sex/%E7%94%B7'
-
-    headers = {
-        "Content-Type":"text/html;charset=utf-8",
-        "Host":"www.xiaogongju.org",
-        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-    }
-    print("*********爬取姓名身份证信息*********")
-    request = requests.get(url,headers=headers)
-    ret = request.text
-    ret = re.findall('\s<td>\w*</td>',ret)
-    new_ret = []
-    for i in ret:
-        i = i.replace(' ','')
-        i = i.replace('<td>','')
-        i = i.replace('</td>','')
-        new_ret.append(i)
-    print(new_ret)
-    return new_ret
-
-
-def get_districtcodes():
-    districtcodes = []
-    with open(os.path.join(os.path.expanduser("~"), 'Desktop')+"\districtcode.txt", mode='r', encoding='utf-8') as f:
-        for l in f.readlines():
-            districtcodes.append(l.strip()[:6])
-    return districtcodes
-
-
-def generate_ID(gender=None):
-    """
-    :param gender: 控制性别，None为随机, 1:男，0：女
-    :return: 身份证号码
-    """
-
-    # 6位地址码
-    codelist = get_districtcodes()
-    id_location = codelist[random.randint(0, len(codelist)-1)]   # randint为闭区间，注意-1
-
-    # 8位生日编码
-    date_start = time.mktime((1990, 1, 1, 0, 0, 0, 0, 0, 0))
-    date_end = time.mktime((1998, 8, 1, 0, 0, 0, 0, 0, 0))
-
-    date_int = random.randint(date_start, date_end)
-    id_date = time.strftime("%Y%m%d", time.localtime(date_int))
-
-    # 3位顺序码，末尾奇数-男，偶数-女
-    id_order = 0
-    if not gender:
-        id_order = random.randint(0, 999)
-    elif gender == 1:
-        id_order = random.randint(0, 499) * 2 + 1
-    elif gender == 0:
-        id_order = random.randint(0, 499) * 2
-
-    if id_order >= 100:
-        id_order = str(id_order)
-    elif id_order >= 10:
-        id_order = "0" + str(id_order)
+    if a == 0:
+        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount, periods,
+                        JH_bankcard, "招商银行", JH_phone,sit_url)
+    elif a == 1:
+        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount, periods,
+                        JH_bankcard, "招商银行", JH_phone,uat_url)
+    elif a == 2:
+        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount, periods,
+                        JH_bankcard, "招商银行", JH_phone,dev_url)
     else:
-        id_order = "00" + str(id_order)
-
-
-    # 前17位相加
-    ID_former = id_location + id_date + id_order
-
-    # 验证码
-    weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]  # 权重项
-    cheack_code = {
-        '0': '1',
-        '1': '0',
-        '2': 'X',
-        '3': '9',
-        '4': '8',
-        '5': '7',
-        '6': '6',
-        '7': '5',
-        '8': '5',
-        '9': '3',
-        '10': '2'}  # 校验码映射
-
-    sum = 0
-    for i, num in enumerate(ID_former):
-        sum += int(num) * weight[i]
-    ID_check = cheack_code[str(sum % 11)]
-
-    ID = ID_former + ID_check
-    return ID
-
-
-
-def random_name():
-    # 删减部分，比较大众化姓氏
-    firstName = "赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻水云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳鲍史唐费岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅卞齐康伍余元卜顾孟平" \
-                "黄和穆萧尹姚邵湛汪祁毛禹狄米贝明臧计成戴宋茅庞熊纪舒屈项祝董粱杜阮席季麻强贾路娄危江童颜郭梅盛林刁钟徐邱骆高夏蔡田胡凌霍万柯卢莫房缪干解应宗丁宣邓郁单杭洪包诸左石崔吉" \
-                "龚程邢滑裴陆荣翁荀羊甄家封芮储靳邴松井富乌焦巴弓牧隗山谷车侯伊宁仇祖武符刘景詹束龙叶幸司韶黎乔苍双闻莘劳逄姬冉宰桂牛寿通边燕冀尚农温庄晏瞿茹习鱼容向古戈终居衡步都耿满弘国文东殴沃曾关红游盖益桓公晋楚闫"
-    # 百家姓全部姓氏
-    # firstName = "赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平" \
-    #             "黄和穆萧尹姚邵湛汪祁毛禹狄米贝明臧计伏成戴谈宋茅庞熊纪舒屈项祝董粱杜阮蓝闵席季麻强贾路娄危江童颜郭梅盛林刁钟徐邱骆高夏蔡田樊胡凌霍虞万支柯昝管卢莫经房裘缪干解应宗丁宣贲邓郁单杭洪包诸左石崔吉钮" \
-    #             "龚程嵇邢滑裴陆荣翁荀羊於惠甄麴家封芮羿储靳汲邴糜松井段富巫乌焦巴弓牧隗山谷车侯宓蓬全郗班仰秋仲伊宫宁仇栾暴甘钭厉戎祖武符刘景詹束龙叶幸司韶郜黎蓟薄印宿白怀蒲邰从鄂索咸籍赖卓蔺屠蒙池乔阴欎胥能苍" \
-    #             "双闻莘党翟谭贡劳逄姬申扶堵冉宰郦雍舄璩桑桂濮牛寿通边扈燕冀郏浦尚农温别庄晏柴瞿阎充慕连茹习宦艾鱼容向古易慎戈廖庾终暨居衡步都耿满弘匡国文寇广禄阙东殴殳沃利蔚越夔隆师巩厍聂晁勾敖融冷訾辛阚那简饶空" \
-    #             "曾毋沙乜养鞠须丰巢关蒯相查後荆红游竺权逯盖益桓公晋楚闫法汝鄢涂钦归海帅缑亢况后有琴梁丘左丘商牟佘佴伯赏南宫墨哈谯笪年爱阳佟言福百家姓终"
-    # 百家姓中双姓氏
-    firstName2 = "万俟司马上官欧阳夏侯诸葛闻人东方赫连皇甫尉迟公羊澹台公冶宗政濮阳淳于单于太叔申屠公孙仲孙轩辕令狐钟离宇文长孙慕容鲜于闾丘司徒司空亓官司寇仉督子颛孙端木巫马公西漆雕乐正壤驷公良拓跋夹谷宰父谷梁段干百里东郭南门呼延羊舌微生梁丘左丘东门西门南宫南宫"
-    # 女孩名字
-    girl = '秀娟英华慧巧美娜静淑惠珠翠雅芝玉萍红娥玲芬芳燕彩春菊兰凤洁梅琳素云莲真环雪荣爱妹霞香月莺媛艳瑞凡佳嘉琼勤珍贞莉桂娣叶璧璐娅琦晶妍茜秋珊莎锦黛青倩婷姣婉娴瑾颖露瑶怡婵雁蓓纨仪荷丹蓉眉君琴蕊薇菁梦岚苑婕馨瑗琰韵融园艺咏卿聪澜纯毓悦昭冰爽琬茗羽希宁欣飘育滢馥筠柔竹霭凝晓欢霄枫芸菲寒伊亚宜可姬舒影荔枝思丽'
-    # 男孩名字
-    boy = '伟刚勇毅俊峰强军平保东文辉力明永健世广志义兴良海山仁波宁贵福生龙元全国胜学祥才发武新利清飞彬富顺信子杰涛昌成康星光天达安岩中茂进林有坚和彪博诚先敬震振壮会思群豪心邦承乐绍功松善厚庆磊民友裕河哲江超浩亮政谦亨奇固之轮翰朗伯宏言若鸣朋斌梁栋维启克伦翔旭鹏泽晨辰士以建家致树炎德行时泰盛雄琛钧冠策腾楠榕风航弘'
-    # 名
-    name = '中笑贝凯歌易仁器义礼智信友上都卡被好无九加电金马钰玉忠孝'
-
-    # 10%的机遇生成双数姓氏
-    if random.choice(range(100)) > 10:
-        firstName_name = firstName[random.choice(range(len(firstName)))]
-    else:
-        i = random.choice(range(len(firstName2)))
-        firstName_name = firstName2[i:i + 2]
-
-    sex = random.choice(range(2))
-    name_1 = ""
-    # 生成并返回一个名字
-    if sex > 0:
-        girl_name = girl[random.choice(range(len(girl)))]
-        if random.choice(range(2)) > 0:
-            name_1 = name[random.choice(range(len(name)))]
-        return firstName_name + name_1 + girl_name #+ "\t女"
-    else:
-        boy_name = boy[random.choice(range(len(boy)))]
-        if random.choice(range(2)) > 0:
-            name_1 = name[random.choice(range(len(name)))]
-        return firstName_name + name_1 + boy_name #+ "\t男"
-
-def main():
-    random__name = random_name()
-    generate__ID = generate_ID(gender=1)
-    JH_creditReqNo = creditReqNo()
-    JH_loanReqNo1 = loanReqNo()
-    JH_loanReqNo2 = loanReqNo()
-    JH_phone = phone()
-    hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2,random__name,generate__ID,"18390530426","5000","6","6214832172362283","招商银行","18390530426")
-    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2"陈裕明","421182199509162919","17633926705","5000","12","6214832172362282","吴玲","18390530425")
-    # hyzllg = Hyzllg(JH_creditReqNo,JH_loanReqNo1,JH_loanReqNo2,"东方耀","110101199001020192","13401251261","5000","6","6217003030105248402","建设银行","13401251261")
+        print("........")
 
     test_info = f'''
                     姓名：{random__name}
@@ -740,20 +618,22 @@ def main():
                     creditReqNo:{JH_creditReqNo}
                     loanReqNo:{JH_loanReqNo2}
                 '''
-    hyzllg.insure_info()
-    hyzllg.insure_data_query()
+    insure = hyzllg.insure_info()
+    hyzllg.insure_data_query(insure[-1])
     hyzllg.insure()
     credit_Granting = hyzllg.credit_granting()
     hyzllg.credit_inquiry(credit_Granting[3])
-    hyzllg.insure_info_put(credit_Granting[3])
-    hyzllg.insure_data_query_put()
+    insure_put = hyzllg.insure_info_put(credit_Granting[3])
+    hyzllg.insure_data_query_put(insure_put[-1])
     hyzllg.insure_put()
     hyzllg.disburse(credit_Granting[3])
     print(test_info)
 
 if __name__ == '__main__':
-    for i in range(1):
-        main()
+    #0是SIT
+    #1是UAT
+    #2是DEV
+    main(0)
 
 
 
