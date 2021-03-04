@@ -60,7 +60,7 @@ class Hyzllg:
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
-            print(requit)
+            # print(requit)
             if requit["data"]["status"] == '01':
                 a = requit["data"]["insurUrl"]
                 b = res.search("lp=(.*)", a)
@@ -385,8 +385,8 @@ def main(a):
                     姓名：{random__name}
                     身份证号：{generate__ID}
                     手机号：{HB_phone}
-                    借款金额:{hyzllg.loanAmount}
-                    借款期次:{hyzllg.periods}
+                    借款金额:{loanAmount}
+                    借款期次:{periods}
                     loanReqNo:{HB_loanReqNo}
                 '''
     insure = hyzllg.insure_info()
