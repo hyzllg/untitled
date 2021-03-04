@@ -23,11 +23,18 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="ce418608-3098-48c5-981e-2c1fea762a1d">
+        <schema name="PUBLIC" object-types="view, synonym, table, package, sequence, type, function, materialized view" />
+        <schema name="SENSITIVE" object-types="column, view, synonym, table, materialized view" />
+        <schema name="SYS" object-types="column, view, synonym, table, type, materialized view" />
+        <schema name="XBHXBUSI" object-types="column, view, synonym, table, package, sequence, type, function, materialized view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ce418608-3098-48c5-981e-2c1fea762a1d">
-      <console name="核心sit" type="STANDARD" schema="XBHXBUSI" session="Main"><![CDATA[select * from CUSTOMER_INFO where phoneno = '12312312311'-- 客户信息表
+      <console name="核心sit" type="STANDARD" schema="XBHXBUSI" session="Main">select * from CUSTOMER_INFO where phoneno = '12312312311'-- 客户信息表
 select * from BUSINESS_APPLY where serialno='20190802000000006' --授信申请表
 select * from FACE_LIST  ----人脸信息
 select * from CUSTOMER_FACECHECK where customerid='20200629000000017' --人脸信息
@@ -393,7 +400,7 @@ select * from ACCT_PAYMENT_SCHEDULE where objectno = '301-2046013103509990482000
 select * from CODE_LIBRARY where ATTRIBUTE3 = 'CH2016032400000002' and ITEMNAME = '个贷险-鼎盛还呗' for update
 
 
-SELECT * FROM queue_task where objectno ='202008260000000091' and  objecttype ='jbo.app.PUTOUT_APPROVE' order by runtime for update nowait-- 查流程节点]]></console>
+SELECT * FROM queue_task where objectno ='202008260000000091' and  objecttype ='jbo.app.PUTOUT_APPROVE' order by runtime for update nowait-- 查流程节点</console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -404,6 +411,9 @@ SELECT * FROM queue_task where objectno ='202008260000000091' and  objecttype ='
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -433,14 +443,14 @@ SELECT * FROM queue_task where objectno ='202008260000000091' and  objecttype ='
           <description value="" />
           <database-type value="ORACLE" />
           <config-type value="BASIC" />
-          <database-version value="12.2" />
+          <database-version value="12.1" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
           <url-type value="SERVICE" />
           <host value="10.1.12.141" />
-          <port value="1523" />
-          <database value="PDEV12UF" />
+          <port value="1521" />
+          <database value="PTST12UF" />
           <type value="USER_PASSWORD" />
           <user value="xbhxbusi" />
           <deprecated-pwd value="Y2NpYzEyMzQ=" />
@@ -468,11 +478,12 @@ SELECT * FROM queue_task where objectno ='202008260000000091' and  objecttype ='
           <charset value="UTF-8" />
           <session-management value="true" />
           <ddl-file-binding value="true" />
-          <database-logging value="false" />
+          <database-logging value="true" />
           <connect-automatically value="true" />
           <restore-workspace value="true" />
           <restore-workspace-deep value="true" />
           <environment-type value="default" />
+          <connectivity-timeout value="5" />
           <idle-time-to-disconnect value="30" />
           <idle-time-to-disconnect-pool value="5" />
           <credential-expiry-time value="10" />
@@ -639,6 +650,8 @@ SELECT * FROM queue_task where objectno ='202008260000000091' and  objecttype ='
           <content-type name="DTD" enabled="true" />
           <content-type name="HTML" enabled="true" />
           <content-type name="XHTML" enabled="true" />
+          <content-type name="SQL" enabled="true" />
+          <content-type name="PL/SQL" enabled="true" />
           <content-type name="JSON" enabled="true" />
           <content-type name="JSON5" enabled="true" />
           <content-type name="YAML" enabled="true" />

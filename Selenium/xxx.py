@@ -1,28 +1,48 @@
-import requests
-import re
-import time
+import json
 
-s = requests.session()
-def name_idno():
-    url = f'http://www.xiaogongju.org/index.php/index/id.html/id/513224/year/1990/month/{time.strftime("%m")}/day/{time.strftime("%d")}/sex/%E7%94%B7'
+import requests
+
+hyz = []
+llg = {}
+
+def insure_info():
+    url = 'http://10.1.11.198:9001/llas-zuul/sfpt-external-platform-sp/sfpt/external/platform/sp/rule/bankcard'
+    data = {
+                "interfaceType":6,
+                "productId":"7018",
+                "mobile":"01234567890",
+                "idCard":"012345678901234567",
+                "applyNo":"demo22018101700000001",
+                "source":"OLCICORE",
+                "custName":"张三",
+                "bankCard":"01234567890123456",
+                "isAuth":1,
+                "stage":"0",
+                "accountNo":"01234567890123456"
+                }
 
     headers = {
-        "Content-Type":"text/html;charset=utf-8",
-        "Host":"www.xiaogongju.org",
-        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+        "Content-Type": "application/json;charset=UTF-8",
+        "Host": "10.1.14.106:27405",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
     }
-    print("*********爬取姓名身份证信息*********")
-    print(url)
-    request = s.get(url,headers=headers)
-    ret = request.text
-    ret = re.findall('\s<td>\w*</td>',ret)
-    new_ret = []
-    for i in ret:
-        i = i.replace(' ','')
-        i = i.replace('<td>','')
-        i = i.replace('</td>','')
-        new_ret.append(i)
-    print(new_ret)
-    return new_ret
 
-name_idno()
+
+    re = requests.post(url, data=json.dumps(data), headers=headers)
+    requit = re.json()
+    print(requit)
+
+    a = requit["data"]["serviceCode"]
+    hyz.append(a)
+
+    print(requit)
+
+for i in range(2):
+    insure_info()
+for i in hyz:
+    if i not in llg:
+        llg[i] = 1
+    else:
+        llg[i] += 1
+for i in llg:
+    print(f"{i} : {llg[i]}笔")
