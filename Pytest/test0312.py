@@ -1,7 +1,5 @@
-import unittest
 import WZ_PPDAI
 from Collect import Collect
-from HwTestReport import HTMLTestReport
 
 
 class Mytestcase():
@@ -37,42 +35,5 @@ class Mytestcase():
                                                   generate__ID))[0])[0]
         return monthperiod
 
-
-class MyTest(unittest.TestCase):
-    def setUp(self):
-        pass
-    def tearDown(self):
-        pass
-
-    def test_001(self):
-        result = Mytestcase().test_001(3,26.66)
-        self.assertEqual(result, '1.147')
-    def test_002(self):
-        result = Mytestcase().test_001(6,27.11)
-        self.assertEqual(result, '1.04')
-    def test_003(self):
-        result = Mytestcase().test_001(9,18.11)
-        self.assertEqual(result, '0.566')
-    def test_004(self):
-        result = Mytestcase().test_001(12,22.99)
-        self.assertEqual(result, '0.791')
-
-
-if __name__ == '__main__':
-    # 测试用例列表
-    case_list = ['test_001', 'test_002', 'test_003', 'test_004', 'test_005', 'test_006']
-    # 创建测试套件
-    suite = unittest.TestSuite()
-    # 将测试用例添加到测试套件中
-    for case in case_list:
-        suite.addTest(MyTest(case))
-
-
-    with open('./HwTestReport.html', 'wb') as report:
-        runner = HTMLTestReport(stream=report,
-                                verbosity=2,
-                                title='HwTestReport 测试',
-                                description='带饼图，带详情',
-                                tester='hyzllg')
-
-        runner.run(suite)
+# a = Mytestcase().test_001(3,26.66)
+# print(a)

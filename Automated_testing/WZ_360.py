@@ -1,9 +1,7 @@
-import random
 import requests
 import json
 import time
 import re as res
-import os
 from past.builtins import raw_input
 from Collect import Collect
 
@@ -59,6 +57,7 @@ class Hyzllg:
         # print(f"响应报文：{requit}")
 
         if re.status_code == 200 and requit["result"] == True:
+            #剥掉两边的引号
             requit["data"] = eval(requit["data"])
             # print(requit)
             if requit["data"]["status"] == '01':

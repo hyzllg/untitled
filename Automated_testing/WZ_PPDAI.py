@@ -2,7 +2,6 @@ import requests
 import json
 import time
 import re as res
-import os
 from past.builtins import raw_input
 from Collect import Collect
 

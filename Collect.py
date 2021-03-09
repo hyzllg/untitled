@@ -1,3 +1,4 @@
+import os
 import random
 import time
 import cx_Oracle
@@ -58,19 +59,13 @@ class Collect:
 
         except cx_Oracle.DatabaseError:
             return print("无效的SQL语句")
-    # def get_districtcodes(self):
-    #     districtcodes = []
-    #     with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\districtcode.txt", mode='r',
-    #               encoding='utf-8') as f:
-    #         for l in f.readlines():
-    #             districtcodes.append(l.strip()[:6])
-    #     return districtcodes
 
 
     def get_districtcodes(self):
         districtcodes = []
-        with open("districtcode.txt", mode='r',
-                  encoding='utf-8') as f:
+        #获取当前路径的相对路径
+        base_dir = os.path.dirname(os.path.dirname(__file__))
+        with open(base_dir + r"\untitled\districtcode.txt", mode='r',encoding='utf-8') as f:
             for l in f.readlines():
                 districtcodes.append(l.strip()[:6])
         return districtcodes
