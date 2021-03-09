@@ -1,11 +1,11 @@
-import requests
 import json
-import time
 import os
+import time
+
+import requests
 from past.builtins import raw_input
-from Collect import Collect
 
-
+import Collect
 
 
 class Hyzllg:
@@ -323,18 +323,11 @@ class Hyzllg:
 
 
 def main(a):
-    sit_url = 'http://10.1.14.106:27405/channel/apitest/HUANBEI/'
-    uat_url = 'http://10.1.14.117:27405/channel/apitest/HUANBEI/'
-    dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/'
-    #核心数据库配置
-    hxSIT_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1521/PTST12UF"]
-    #账务数据库配置
-    zwSIT_ORACLE = ["gdbzdev","ccic1234","10.2.3.203:1521/R2TST16GPDB"]
-    random__name = Collect().random_name()
-    generate__ID = Collect().generate_ID()
-    HB_loanReqNo = Collect().loanReqNo()
-    HB_phone = Collect().phone()
-    HB_bankcard = Collect().bankcard()
+    random__name = Collect.random_name()
+    generate__ID = Collect.generate_ID()
+    HB_loanReqNo = Collect.loanReqNo()
+    HB_phone = Collect.phone()
+    HB_bankcard = Collect.bankcard()
     #借款金额
     loanAmount = 5000
     #期数
@@ -342,14 +335,14 @@ def main(a):
     #客户等级
     custGrde = 26.00
     #折后利率
-    discountRate = list(Collect().sql_cha(hxSIT_ORACLE,"select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(periods))[0])[0]
+    discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,"select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(periods))[0])[0]
 
     if a == 0:
-        hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,loanAmount,periods,custGrde,HB_bankcard,sit_url,discountRate)
+        hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
     elif a == 1:
-        hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,loanAmount,periods,custGrde,HB_bankcard,uat_url,discountRate)
+        hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,loanAmount,periods,custGrde,HB_bankcard,Collect.uat_url_hb,discountRate)
     elif a == 2:
-        hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,loanAmount,periods,custGrde,HB_bankcard,dev_url,discountRate)
+        hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,loanAmount,periods,custGrde,HB_bankcard,Collect.dev_url_hb,discountRate)
     else:
         print("........")
 

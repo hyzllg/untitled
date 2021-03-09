@@ -1,9 +1,11 @@
-import requests
 import json
-import time
 import os
+import time
+
+import requests
 from past.builtins import raw_input
-from Collect import Collect
+
+import Collect
 
 
 class Hyzllg:
@@ -385,40 +387,37 @@ def main(a,hhh):
     abc = []
 
     for i in range(hhh):
-        random__name = Collect().random_name()
-        generate__ID = Collect().generate_ID()
-        ORANGE_phone = Collect().phone()
-        ORANGE_bankcard = Collect().bankcard()
-        channelCustId = Collect().channelCustId()
-        creditReqNo = Collect().creditReqNo()
-        loanReqNo = Collect().loanReqNo()
+        random__name = Collect.random_name()
+        generate__ID = Collect.generate_ID()
+        ORANGE_phone = Collect.phone()
+        ORANGE_bankcard = Collect.bankcard()
+        channelCustId = Collect.channelCustId()
+        creditReqNo = Collect.creditReqNo()
+        loanReqNo = Collect.loanReqNo()
         #借款金额
         loanAmount = 5000
         #期数
         periods = "6"
-        sit_url = 'http://10.1.14.106:27405/channel/apitest/TCJQ/'
-        uat_url = 'http://10.1.14.117:27405/channel/apitest/TCJQ/'
-        dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/TCJQ/'
         if a == 0:
             hyzllg = Hyzllg(channelCustId, creditReqNo,loanReqNo,random__name, generate__ID, ORANGE_phone,
-                            loanAmount, periods, ORANGE_bankcard,sit_url)
+                            loanAmount, periods, ORANGE_bankcard,Collect.sit_url_tc)
             credit = hyzllg.credit_granting()[-1]
             abc.append(
                 [channelCustId, creditReqNo, loanReqNo, random__name, generate__ID,
-                 ORANGE_phone,loanAmount, periods, ORANGE_bankcard, sit_url, credit])
+                 ORANGE_phone,loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc, credit])
         elif a == 1:
             hyzllg = Hyzllg(channelCustId, creditReqNo,loanReqNo,random__name, generate__ID, ORANGE_phone,
-                            loanAmount, periods, ORANGE_bankcard,uat_url)
+                            loanAmount, periods, ORANGE_bankcard,Collect.uat_url_tc)
             credit = hyzllg.credit_granting()[-1]
             abc.append(
                 [channelCustId, creditReqNo, loanReqNo, random__name, generate__ID,
-                 ORANGE_phone,loanAmount, periods, ORANGE_bankcard, uat_url, credit])
+                 ORANGE_phone,loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc, credit])
         elif a == 2:
             hyzllg = Hyzllg(channelCustId, creditReqNo,loanReqNo,random__name, generate__ID, ORANGE_phone,
-                            loanAmount, periods, ORANGE_bankcard,dev_url)
+                            loanAmount, periods, ORANGE_bankcard,Collect.dev_url_tc)
             credit = hyzllg.credit_granting()[-1]
             abc.append([channelCustId, creditReqNo, loanReqNo, random__name, generate__ID,
-                 ORANGE_phone,loanAmount, periods, ORANGE_bankcard, dev_url, credit])
+                 ORANGE_phone,loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc, credit])
         else:
             print("........")
 

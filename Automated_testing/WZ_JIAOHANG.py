@@ -1,10 +1,12 @@
-import requests
 import json
-import time
-import re as res
 import os
+import re as res
+import time
+
+import requests
 from past.builtins import raw_input
-from Collect import Collect
+
+import Collect
 
 
 class Hyzllg:
@@ -581,16 +583,13 @@ class Hyzllg:
 
 
 def main(a):
-    sit_url = 'http://10.1.14.106:27405/channel/apitest/BCM/'
-    uat_url = 'http://10.1.14.117:27405/channel/apitest/BCM/'
-    dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/BCM/'
-    random__name = Collect().random_name()
-    generate__ID = Collect().generate_ID()
-    JH_creditReqNo = Collect().creditReqNo()
-    JH_loanReqNo1 = Collect().loanReqNo()
-    JH_loanReqNo2 = Collect().loanReqNo()
-    JH_phone = Collect().phone()
-    JH_bankcard = Collect().bankcard()
+    random__name = Collect.random_name()
+    generate__ID = Collect.generate_ID()
+    JH_creditReqNo = Collect.creditReqNo()
+    JH_loanReqNo1 = Collect.loanReqNo()
+    JH_loanReqNo2 = Collect.loanReqNo()
+    JH_phone = Collect.phone()
+    JH_bankcard = Collect.bankcard()
     #借款金额
     loanAmount = 5000
     #期数
@@ -598,13 +597,13 @@ def main(a):
 
     if a == 0:
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount, periods,
-                        JH_bankcard, "招商银行", JH_phone,sit_url)
+                        JH_bankcard, "招商银行", JH_phone,Collect.sit_url_jh)
     elif a == 1:
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount, periods,
-                        JH_bankcard, "招商银行", JH_phone,uat_url)
+                        JH_bankcard, "招商银行", JH_phone,Collect.uat_url_jh)
     elif a == 2:
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount, periods,
-                        JH_bankcard, "招商银行", JH_phone,dev_url)
+                        JH_bankcard, "招商银行", JH_phone,Collect.dev_url_jh)
     else:
         print("........")
 

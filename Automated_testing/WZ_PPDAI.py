@@ -1,9 +1,12 @@
-import requests
 import json
-import time
 import re as res
+import time
+
+import requests
 from past.builtins import raw_input
-from Collect import Collect
+
+import Collect
+
 
 # os.environ['path'] =  r'E:\instantclient_11_2'
 class Hyzllg:
@@ -449,54 +452,48 @@ class Hyzllg:
 def main(a,hhh):
     abc = []
     for i in range(hhh):
-        random__name = Collect().random_name()
-        HB_loanReqNo = Collect().loanReqNo()
-        HB_creditReqNo = Collect().creditReqNo()
-        HB_phone = Collect().phone()
-        generate__ID = Collect().generate_ID()
-        HB_bankcard = Collect().bankcard()
-        # 核心数据库配置
-        hxSIT_ORACLE = ["xbhxbusi", "ccic1234", "10.1.12.141:1521/PTST12UF"]
-        # 账务数据库配置
-        zwSIT_ORACLE = ["gdbzdev", "ccic1234", "10.2.3.203:1521/R2TST16GPDB"]
+        random__name = Collect.random_name()
+        HB_loanReqNo = Collect.loanReqNo()
+        HB_creditReqNo = Collect.creditReqNo()
+        HB_phone = Collect.phone()
+        generate__ID = Collect.generate_ID()
+        HB_bankcard = Collect.bankcard()
         #借款金额
         loanAmount = 5000
         #期数
         periods = "6"
         #客户等级上下限
-        # custGrde = list(Collect().sql_cha(hxSIT_ORACLE,"select t.attribute1 from code_library t where t.codeno ='PaiPaiDai'and t.itemno = '{}'".format(periods))[0])[0]
+        # custGrde = list(Collect.sql_cha(Collect.hxSIT_ORACLE,"select t.attribute1 from code_library t where t.codeno ='PaiPaiDai'and t.itemno = '{}'".format(periods))[0])[0]
         custGrde = 26.32
-        sit_url = 'http://10.1.14.106:27405/channel/TEST/PPDAI/'
-        uat_url = 'http://10.1.14.117:27405/channel/apitest/PPDAI/'
-        dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/PPDAI/'
+
 
         if a == 0:
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
-                            "建设银行", HB_phone,sit_url,custGrde)
+                            "建设银行", HB_phone,Collect.sit_url_pp,custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
             hyzllg.insure(Insure_Data_Query[3])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
-                        "5000", periods, HB_bankcard, "建设银行", HB_phone,sit_url,custGrde])
+                        "5000", periods, HB_bankcard, "建设银行", HB_phone,Collect.sit_url_pp,custGrde])
         elif a == 1:
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
-                            "建设银行", HB_phone,uat_url,custGrde)
+                            "建设银行", HB_phone,Collect.uat_url_pp,custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
             hyzllg.insure(Insure_Data_Query[3])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
-                        "5000", periods, HB_bankcard, "建设银行", HB_phone,uat_url,custGrde])
+                        "5000", periods, HB_bankcard, "建设银行", HB_phone,Collect.uat_url_pp,custGrde])
         elif a == 2:
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
-                            "建设银行", HB_phone,dev_url,custGrde)
+                            "建设银行", HB_phone,Collect.dev_url_pp,custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
             hyzllg.insure(Insure_Data_Query[3])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
-                        loanAmount, periods, HB_bankcard, "建设银行", HB_phone,dev_url,custGrde])
+                        loanAmount, periods, HB_bankcard, "建设银行", HB_phone,Collect.dev_url_pp,custGrde])
         else:
             print("........")
 
