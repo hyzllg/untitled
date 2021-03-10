@@ -155,10 +155,10 @@ class Hyzllg:
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             creditApplyNo = requit["data"]["body"]["creditApplyNo"]
             print("授信接口调用成功！")
             if requit["data"]["body"]["status"] == "01":
-                print(f"响应报文：{requit}")
                 print("授信受理成功，处理中！")
             else:
                 print("授信受理失败！")
@@ -197,10 +197,10 @@ class Hyzllg:
             re = requests.post(self.url+'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
             requit = re.json()
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             print("授信查询接口调用成功！")
             try:
                 if requit["data"]["body"]["status"]=="01":
-                    print(f"响应报文：{requit}")
                     print("授信通过！")
                     n = True
                     break
@@ -246,14 +246,12 @@ class Hyzllg:
         res = requests.post(self.url+'DISBURSE_TRIAL',data=json.dumps(data),headers=headers)
         requit = res.json()
         requit["data"] = eval(requit["data"])
+        print(f"响应报文：{requit}")
         # time.sleep(1)
         while True:
             if res.status_code == 200 and requit["result"] == True:
-
-                print(requit)
                 print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
                 if requit["data"]["body"]["status"]=="01" and requit["data"]["body"]["capitalCode"]==capitalCode:
-                    print(f"响应报文：{requit}")
                     print("支用试算成功！")
                     break
                 else:
@@ -310,7 +308,6 @@ class Hyzllg:
         data["periods"] = self.periods
         data["bankCard"] = self.bankcard
         data["bankPhone"] = self.phone
-        print(data)
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
             "Host":"10.1.14.106:27405",
@@ -324,9 +321,9 @@ class Hyzllg:
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             print("支用接口调用成功！")
             if requit["data"]["body"]["status"]=="01":
-                print(f"响应报文：{requit}")
                 print("受理成功，处理中!")
             else:
                 print("受理失败")
@@ -363,10 +360,10 @@ class Hyzllg:
             re = requests.post(self.url+'DISBURSE_IN_QUERY', data=json.dumps(data), headers=headers)
             requit = re.json()
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             if re.status_code == 200 and requit["result"] == True:
                 print("支用结果查询接口调用成功！")
                 if requit["data"]["body"]["status"]=="01":
-                    print(f"响应报文：{requit}")
                     print("支用成功")
                     break
                 elif requit["data"]["body"]["status"]=="00":
@@ -388,7 +385,7 @@ def main(a,hhh):
 
     for i in range(hhh):
         random__name = Collect.random_name()
-        generate__ID = Collect.generate_ID()
+        generate__ID = Collect.id_card().generate_ID()
         ORANGE_phone = Collect.phone()
         ORANGE_bankcard = Collect.bankcard()
         channelCustId = Collect.channelCustId()

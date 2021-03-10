@@ -72,7 +72,7 @@ class Hyzllg:
 
             print("投保信息接口成功！")
             if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
+                print(requit["data"]["errorCode"] + requit["data"]["errorMsg"])
                 raw_input("Press <enter>")
         else:
             print("msg:{}".format(requit["msg"]))
@@ -147,6 +147,7 @@ class Hyzllg:
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
@@ -154,7 +155,6 @@ class Hyzllg:
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"] == '01':
-                    print(f"响应报文：{requit}")
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
@@ -285,10 +285,10 @@ class Hyzllg:
         # print(requit)
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
 
                 if requit["data"]["status"] == "01":
-                    print(f"响应报文：{requit}")
                     print("授信受理成功，处理中！")
                 elif requit["data"]["status"] == "00":
                     print(requit)
@@ -330,10 +330,10 @@ class Hyzllg:
             requit = re.json()
             if re.status_code == 200 and requit["result"] == True:
                 requit["data"] = eval(requit["data"])
+                print(f"响应报文：{requit}")
                 print("授信查询接口调用成功！")
                 try:
                     if requit["data"]["status"] == "01":
-                        print(f"响应报文：{requit}")
                         print("授信通过！")
                         n = True
                         break
@@ -341,9 +341,9 @@ class Hyzllg:
                         print("授信中！")
                     else:
                         print("授信失败！")
-                        if requit["data"]["message"]:
-                            print(f'errormsg:{requit["data"]["message"]}')
-                            raw_input("Press <enter>")
+                        if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
+                            print(requit["data"]["errorCode"],requit["data"]["errorMsg"])
+                        raw_input("Press <enter>")
                 except BaseException as e:
                     print(f'orrer:{requit["data"]["message"]}')
                     raw_input("Press <enter>")
@@ -381,10 +381,10 @@ class Hyzllg:
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
 
                 if requit["data"]["status"] == "01":
-                    print(f"响应报文：{requit}")
                     print("支用受理成功，处理中！")
                 elif requit["data"]["status"] == "00":
                     print(requit)
@@ -426,10 +426,10 @@ class Hyzllg:
             requit = re.json()
             if re.status_code == 200 and requit["result"] == True:
                 requit["data"] = eval(requit["data"])
+                print(f"响应报文：{requit}")
                 print("支用查询接口调用成功！")
                 try:
                     if requit["data"]["status"] == "01":
-                        print(f"响应报文：{requit}")
                         print("支用通过！")
                         break
                     elif requit["data"]["status"] == "00":
@@ -456,7 +456,7 @@ def main(a,hhh):
         HB_loanReqNo = Collect.loanReqNo()
         HB_creditReqNo = Collect.creditReqNo()
         HB_phone = Collect.phone()
-        generate__ID = Collect.generate_ID()
+        generate__ID = Collect.id_card().generate_ID()
         HB_bankcard = Collect.bankcard()
         #借款金额
         loanAmount = 5000

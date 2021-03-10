@@ -156,6 +156,7 @@ class Hyzllg:
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
@@ -163,7 +164,6 @@ class Hyzllg:
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"]=='01':
-                    print(f"响应报文：{requit}")
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
@@ -299,13 +299,12 @@ class Hyzllg:
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
 
                 if requit["data"]["status"]=="01":
-                    print(f"响应报文：{requit}")
                     print("支用受理成功，处理中！")
                 elif requit["data"]["status"]=="00":
-                    print(f"响应报文：{requit}")
                     print("受理失败！")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
@@ -324,7 +323,7 @@ class Hyzllg:
 
 def main(a):
     random__name = Collect.random_name()
-    generate__ID = Collect.generate_ID()
+    generate__ID = Collect.id_card().generate_ID()
     HB_loanReqNo = Collect.loanReqNo()
     HB_phone = Collect.phone()
     HB_bankcard = Collect.bankcard()

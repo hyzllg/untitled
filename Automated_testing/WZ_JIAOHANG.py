@@ -74,10 +74,10 @@ class Hyzllg:
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             a = requit["data"]["insurUrl"]
             b = res.search("lp=(.*)", a)
             c = b.group()[3:]
-            print(f"响应报文：{requit}")
             print("投保链接接口成功！")
         else:
             print("msg:{}".format(requit["msg"]))
@@ -129,11 +129,11 @@ class Hyzllg:
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             # print(requit)
             a = requit["data"]["insurUrl"]
             b = res.search("lp=(.*)", a)
             c = b.group()[3:]
-            print(f"响应报文：{requit}")
             print("投保链接接口成功！")
         else:
             print("msg:{}".format(requit["msg"]))
@@ -253,6 +253,7 @@ class Hyzllg:
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
@@ -260,7 +261,6 @@ class Hyzllg:
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"] == '01':
-                    print(f"响应报文：{requit}")
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
@@ -310,6 +310,7 @@ class Hyzllg:
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
 
             try:
                 if requit["data"]["message"]:
@@ -318,7 +319,6 @@ class Hyzllg:
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"] == '01':
-                    print(f"响应报文：{requit}")
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
@@ -435,14 +435,13 @@ class Hyzllg:
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
 
                 if requit["data"]["status"]=="01":
-                    print(f"响应报文：{requit}")
                     creditApplyNo = requit["data"]["creditApplyNo"]
                     print("授信受理成功，处理中！")
                 elif requit["data"]["status"]=="00":
-                    print(f"响应报文：{requit}")
                     print("受理失败！")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
@@ -481,19 +480,17 @@ class Hyzllg:
             requit = re.json()
             if re.status_code == 200 and requit["result"] == True:
                 requit["data"] = eval(requit["data"])
+                print(f"响应报文：{requit}")
 
                 try:
 
                     if requit["data"]["status"]=="01":
-                        print(f"响应报文：{requit}")
                         print("授信通过！")
                         break
                     elif requit["data"]["status"]=="00":
-                        print(f"响应报文：{requit}")
                         print("授信中！")
                         continue
                     else:
-                        print(f"响应报文：{requit}")
                         print("授信失败！")
                         raw_input("Press <enter>")
                 except BaseException as e:
@@ -559,13 +556,12 @@ class Hyzllg:
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
 
             try:
                 if requit["data"]["status"] == '01':
-                    print(f"响应报文：{requit}")
                     print("受理成功，处理中！")
                 elif requit["data"]["status"] == '00':
-                    print(f"响应报文：{requit}")
                     print("受理失败！")
                     print(f'Error:{requit["data"]["errorCode"]} {requit["data"]["errorMsg"]}')
 
@@ -584,7 +580,7 @@ class Hyzllg:
 
 def main(a):
     random__name = Collect.random_name()
-    generate__ID = Collect.generate_ID()
+    generate__ID = Collect.id_card().generate_ID()
     JH_creditReqNo = Collect.creditReqNo()
     JH_loanReqNo1 = Collect.loanReqNo()
     JH_loanReqNo2 = Collect.loanReqNo()

@@ -241,7 +241,7 @@ class TC_repqy:
             if requit["data"]["body"]["status"] == '01':
                 print(f"响应报文：{requit}")
                 print("甜橙提前结清接口！")
-                repayAmt = requit["data"]["body"]["requit"]["repayAmt"]
+                repayAmt = requit["data"]["body"]["result"]["repayAmt"]
             else:
                 print("甜橙提前结清接口失败！")
                 print("{} {}".format(requit["data"]["body"]["errorCode"],requit["data"]["body"]["errorMsg"]))
@@ -819,12 +819,25 @@ def main(a,loanNo,Pay_time,repayType):
 
 if __name__ == '__main__':
     #还款时间
-    Pay_time = "2028/07/27"
+    Pay_time = "2028/08/24"
     #借据号
-    loanNo = "787-502805153301143206"
+    loanNo = "787-502807273301494658"
     #还款类型 00正常或预期还款，01正常结清或逾期结清
-    repayType = "00"
+    repayType = "01"
     main(0,loanNo,Pay_time,repayType)
+
+
+#还呗
+#787-502808233301498210
+
+#拍拍
+#787-502808233301498514
+
+#甜橙
+#787-502808233301498211
+
+#360
+#787-502807273301494658
 
 
 

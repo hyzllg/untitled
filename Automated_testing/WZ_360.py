@@ -60,12 +60,12 @@ class Hyzllg:
         if re.status_code == 200 and requit["result"] == True:
             #剥掉两边的引号
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             # print(requit)
             if requit["data"]["status"] == '01':
                 a = requit["data"]["insurUrl"]
                 b = res.search("lp=(.*)", a)
                 c = b.group()[3:]
-                print(f"响应报文：{requit}")
                 print("投保信息接口成功！")
             else:
                 print("投保信息接口失败！")
@@ -144,6 +144,7 @@ class Hyzllg:
         # print(f"响应报文：{requit}")
         if res.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
@@ -151,7 +152,6 @@ class Hyzllg:
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"] == '01':
-                    print(f"响应报文：{requit}")
                     print("已受理，处理中！")
 
         else:
@@ -276,12 +276,11 @@ class Hyzllg:
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
+            print(f"响应报文：{requit}")
             try:
                 if requit["data"]["status"] == "01":
-                    print(f"响应报文：{requit}")
                     print("放款受理成功，处理中！")
                 elif requit["data"]["status"] == "00":
-                    print(f"响应报文：{requit}")
                     print("受理失败！")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
@@ -318,10 +317,10 @@ class Hyzllg:
 
             if re.status_code == 200 and requit["result"] == True:
                 requit["data"] = eval(requit["data"])
+                print(f"响应报文：{requit}")
 
                 print("放款结果查询接口调用成功！")
                 if requit["data"]["status"] == '01':
-                    print(f"响应报文：{requit}")
                     print("支用成功，银行放款成功！")
                     print(test_info)
                 elif requit["data"]["status"] == '00':
@@ -357,7 +356,7 @@ class Hyzllg:
 
 def main(a):
     random__name = Collect.random_name()
-    generate__ID = Collect.generate_ID()
+    generate__ID = Collect.id_card().generate_ID()
     HB_loanReqNo = Collect.loanReqNo()
     HB_phone = Collect.phone()
     Bank = Collect.bankcard()

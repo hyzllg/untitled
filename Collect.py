@@ -88,73 +88,74 @@ def sql_update(time,setting,table,systemid,v,vv,n):
         return print("无效的SQL语句")
 
 
-def get_districtcodes():
-    districtcodes = []
-    #获取当前路径的相对路径
-    base_dir = os.path.dirname(os.path.dirname(__file__))
-    with open(base_dir + r"\untitled\districtcode.txt", mode='r',encoding='utf-8') as f:
-        for l in f.readlines():
-            districtcodes.append(l.strip()[:6])
-    return districtcodes
+class id_card:
+    def areaCodeDict(self,fileName):
+        dataDict = {}
+        key=0
+        value=1
+        dataLine=open(fileName,encoding="utf-8").read().splitlines()
+        for line in dataLine:
+            tmpLst=line.split(",")
+            dataDict[tmpLst[key]]=tmpLst[value]
+        return dataDict
 
-def generate_ID(gender=None):
-    """
-    :param gender: 控制性别，None为随机, 1:男，0：女
-    :return: 身份证号码
-    """
+    # 功能：随机生产一个区域码
 
-    # 6位地址码
-    codelist = get_districtcodes()
-    id_location = codelist[random.randint(0, len(codelist) - 1)]  # randint为闭区间，注意-1
+    def areaCode(self,Dict):
+        codeList=[]
+        for key in Dict.keys():
+            codeList.append(key)
+        lenth=len(codeList)-1
+        i=random.randint(0,lenth)
+        return codeList[i]
+    # 功能：随机生成1930年之后的出生日期
+    def birthDay(self):
+        # d1=datetime.datetime.strptime('1930-01-01 00:00:00', '%Y-%m-%d %H:%M:%S')
+        # d2=datetime.datetime.now()
+        # delta=d2-d1
+        # dys=delta.days
+        # i=random.randint(0,dys)
+        # dta=datetime.timedelta(days=i)
+        # bhday=d1+dta
+        # return bhday.strftime('%Y%m%d' )
 
-    # 8位生日编码
-    date_start = time.mktime((1990, 1, 1, 0, 0, 0, 0, 0, 0))
-    date_end = time.mktime((1997, 8, 1, 0, 0, 0, 0, 0, 0))
+        # 8位生日编码
+        date_start = time.mktime((1990, 1, 1, 0, 0, 0, 0, 0, 0))
+        date_end = time.mktime((1997, 8, 1, 0, 0, 0, 0, 0, 0))
 
-    date_int = random.randint(date_start, date_end)
-    id_date = time.strftime("%Y%m%d", time.localtime(date_int))
+        date_int = random.randint(date_start, date_end)
+        id_date = time.strftime("%Y%m%d", time.localtime(date_int))
+        return id_date
 
-    # 3位顺序码，末尾奇数-男，偶数-女
-    id_order = 0
-    if not gender:
-        id_order = random.randint(0, 999)
-    elif gender == 1:
-        id_order = random.randint(0, 499) * 2 + 1
-    elif gender == 0:
-        id_order = random.randint(0, 499) * 2
+    #功能：随机生成3位序列号
 
-    if id_order >= 100:
-        id_order = str(id_order)
-    elif id_order >= 10:
-        id_order = "0" + str(id_order)
-    else:
-        id_order = "00" + str(id_order)
+    def ordrNum(self):
+        odNum=random.randint(100,999) #随机生成100到999之间的3为数据
+        sex=odNum%2
+        return (str(odNum),sex)
 
-    # 前17位相加
-    ID_former = id_location + id_date + id_order
+    #功能：生成校验码
 
-    # 验证码
-    weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]  # 权重项
-    cheack_code = {
-        '0': '1',
-        '1': '0',
-        '2': 'X',
-        '3': '9',
-        '4': '8',
-        '5': '7',
-        '6': '6',
-        '7': '5',
-        '8': '5',
-        '9': '3',
-        '10': '2'}  # 校验码映射
+    def check(self,id_num):
+        i = 0
+        count = 0
+        weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] #权重项
+        checkcode ={'0':'1','1':'0','2':'X','3':'9','4':'8','5':'7','6':'6','7':'5','8':'5','9':'3','10':'2'} #校验码映射
+        for i in range(0,len(id_num)):
+           count = count +int(id_num[i])*weight[i]
+        return checkcode[str(count%11)] #算出校验码
 
-    sum = 0
-    for i, num in enumerate(ID_former):
-        sum += int(num) * weight[i]
-    ID_check = cheack_code[str(sum % 11)]
-
-    ID = ID_former + ID_check
-    return ID
+    def generate_ID(self):
+        base_dir = os.path.dirname(os.path.dirname(__file__))
+        fileName = base_dir + r"\untitled\districtcode.txt"  # 区域文件地址
+        areaCodeDt=self.areaCodeDict(fileName)   #调用生成字典
+        areaCd=self.areaCode(areaCodeDt)     #生成区域码
+        areaCdName=areaCodeDt[areaCd]   #获取区域名称
+        birthDy=self.birthDay()   #生成出生日期
+        (ordNum,sex)=self.ordrNum()  #生成顺序号和性别
+        checkcode=self.check((areaCd+birthDy+ordNum)) #生产校验码
+        id_card=areaCd+birthDy+ordNum+checkcode  #拼装身份证号
+        return id_card
 
 def random_name():
     # 删减部分，比较大众化姓氏
@@ -196,4 +197,5 @@ def random_name():
         if random.choice(range(2)) > 0:
             name_1 = name[random.choice(range(len(name)))]
         return firstName_name + name_1 + boy_name  # + "\t男"
+
 

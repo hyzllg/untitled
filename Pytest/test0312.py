@@ -1,5 +1,5 @@
 import WZ_PPDAI
-from Collect import Collect
+import Collect
 
 
 class Mytestcase():
@@ -9,12 +9,12 @@ class Mytestcase():
         uat_url = 'http://10.1.14.117:27405/channel/apitest/PPDAI/'
         dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/PPDAI/'
         hxSIT_ORACLE = ["xbhxbusi", "ccic1234", "10.1.12.141:1521/PTST12UF"]
-        random__name = Collect().random_name()
-        HB_loanReqNo = Collect().loanReqNo()
-        HB_creditReqNo = Collect().creditReqNo()
-        HB_phone = Collect().phone()
-        generate__ID = Collect().generate_ID()
-        HB_bankcard = Collect().bankcard()
+        random__name = Collect.random_name()
+        HB_loanReqNo = Collect.loanReqNo()
+        HB_creditReqNo = Collect.creditReqNo()
+        HB_phone = Collect.phone()
+        generate__ID = Collect.generate_ID()
+        HB_bankcard = Collect.bankcard()
         #借款金额
         loanAmount = 5000
         #期数
@@ -30,7 +30,7 @@ class Mytestcase():
         hyzllg.insure(Insure_Data_Query[3])  # 投保接口
         hyzllg.credit_granting()  # 授信接口
 
-        monthperiod = list(Collect().sql_cha(hxSIT_ORACLE,
+        monthperiod = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
                                               "select monthperiod from INSURE_SERIAL where idno = '{}'".format(
                                                   generate__ID))[0])[0]
         return monthperiod
