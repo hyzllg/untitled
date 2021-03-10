@@ -1,5 +1,7 @@
+import os
+
 import pytest
-import Automated_testing.Repay as repay
+
 import Collect
 
 
@@ -42,3 +44,4 @@ class Test_repay_regression:
 
 if __name__ == '__main__':
     pytest.main(['test_regression_0312.py::Test_repay_regression'])
+    os.system('allure generate ./temp -o ./report --clean')
