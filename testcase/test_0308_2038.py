@@ -12,24 +12,24 @@ import Collect
 class testadd:
     def monthperiod(self,periods,custGrde):
         random__name = Collect.random_name()
-        generate__ID = Collect.generate_ID()
+        generate__ID = Collect.id_card().generate_ID()
         HB_loanReqNo = Collect.loanReqNo()
         HB_phone = Collect.phone()
         Bank = Collect.bankcard()
         hyzllg = WZ_360.Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, "5000.00", periods, custGrde, Bank,
-                            Collect.uat_url_360)
+                            Collect.sit_url_360)
         insure = hyzllg.insure_info()
         hyzllg.insure_data_query(insure[-1])
         hyzllg.insure()
         hyzllg.disburse()
         #计算月保费期初本金比例
         a = str(round((custGrde/100 - 0.062 - custGrde/100*0.3)/24*(periods+1)/periods*100,2))
-        print(a)
+        # print(a)
         #核心库里存的月保费期初本金比例
         discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
                                               "select monthperiod from INSURE_SERIAL where idno = '{}'".format(
                                                   generate__ID))[0])[0]
-        print(discountRate)
+        # print(discountRate)
         return discountRate,a
 
 
@@ -58,7 +58,6 @@ class Testhyz:
         b = a[1]
         #库里存的月保费期初本金比例
         c = a[0]
-        print(c)
         assert b == c
 
     def test003(self):
@@ -71,4 +70,5 @@ class Testhyz:
         assert b == c
 
 if __name__ == '__main__':
-    pytest.main()
+    pytest.main(["test_0308_2038.py::Testhyz"])
+    os.system('allure generate ./temp -o ./report --clean')

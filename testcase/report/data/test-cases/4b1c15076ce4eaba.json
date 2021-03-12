@@ -1,0 +1,82 @@
+{
+  "uid" : "4b1c15076ce4eaba",
+  "name" : "test002[787-502808233301498211]",
+  "fullName" : "testcase.test_regression_0312.Test_repay_regression#test002",
+  "historyId" : "0b51ec4341d09439caf78a102a4f1c6b",
+  "time" : {
+    "start" : 1615514675279,
+    "stop" : 1615514677307,
+    "duration" : 2028
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "myfixture",
+    "time" : {
+      "start" : 1615514675279,
+      "stop" : 1615514675279,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0
+  } ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "testcase"
+  }, {
+    "name" : "suite",
+    "value" : "test_regression_0312"
+  }, {
+    "name" : "subSuite",
+    "value" : "Test_repay_regression"
+  }, {
+    "name" : "host",
+    "value" : "LAPTOP-E7PE1LN5"
+  }, {
+    "name" : "thread",
+    "value" : "20276-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "testcase.test_regression_0312"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "myfixture",
+    "value" : "'787-502808233301498211'"
+  } ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "4acf107a2b12376b",
+      "status" : "passed",
+      "time" : {
+        "start" : 1615432193826,
+        "stop" : 1615432194002,
+        "duration" : 176
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "4b1c15076ce4eaba.json",
+  "parameterValues" : [ "'787-502808233301498211'" ]
+}

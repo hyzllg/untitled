@@ -356,10 +356,10 @@ class Hyzllg:
 
 def main(a):
     random__name = Collect.random_name()
-    generate__ID = Collect.id_card().generate_ID()
     HB_loanReqNo = Collect.loanReqNo()
     HB_phone = Collect.phone()
     Bank = Collect.bankcard()
+    generate__ID = Collect.id_card().generate_ID()
     #借款金额
     loanAmount = 5000
     #期数

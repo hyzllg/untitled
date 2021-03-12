@@ -64,6 +64,19 @@ def bankcard():
     bankcard = '621466' + b
     return bankcard
 
+def check_id_card(n):
+    var = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
+    var_id = ['1', '0', 'x', '9', '8', '7', '6', '5', '4', '3', '2']
+    n = str(n)
+    sum = 0
+    for i in range(0, 17):
+        sum += int(n[i]) * var[i]
+    sum %= 11
+    if (var_id[sum]) == str(n[17]):
+        return sum
+    else:
+        return 0
+
 def sql_cha(setting,my_sql_c):
     try:
         conn = cx_Oracle.connect(setting[0],setting[1],setting[2])
@@ -146,15 +159,22 @@ class id_card:
         return checkcode[str(count%11)] #算出校验码
 
     def generate_ID(self):
-        base_dir = os.path.dirname(os.path.dirname(__file__))
-        fileName = base_dir + r"\untitled\districtcode.txt"  # 区域文件地址
-        areaCodeDt=self.areaCodeDict(fileName)   #调用生成字典
-        areaCd=self.areaCode(areaCodeDt)     #生成区域码
-        areaCdName=areaCodeDt[areaCd]   #获取区域名称
-        birthDy=self.birthDay()   #生成出生日期
-        (ordNum,sex)=self.ordrNum()  #生成顺序号和性别
-        checkcode=self.check((areaCd+birthDy+ordNum)) #生产校验码
-        id_card=areaCd+birthDy+ordNum+checkcode  #拼装身份证号
+        while True:
+            base_dir = os.path.dirname(os.path.dirname(__file__))
+            fileName = base_dir + r"\untitled\districtcode.txt"  # 区域文件地址
+            areaCodeDt=self.areaCodeDict(fileName)   #调用生成字典
+            areaCd=self.areaCode(areaCodeDt)     #生成区域码
+            areaCdName=areaCodeDt[areaCd]   #获取区域名称
+            birthDy=self.birthDay()   #生成出生日期
+            (ordNum,sex)=self.ordrNum()  #生成顺序号和性别
+            checkcode=self.check((areaCd+birthDy+ordNum)) #生产校验码
+            id_card=areaCd+birthDy+ordNum+checkcode  #拼装身份证号
+
+            if check_id_card(id_card):
+                break
+            else:
+                continue
+
         return id_card
 
 def random_name():
