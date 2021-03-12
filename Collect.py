@@ -64,6 +64,19 @@ def bankcard():
     bankcard = '621466' + b
     return bankcard
 
+def PMT(custGrde,periods,businessrate):#执行年利率，期数，客户等级
+    import warnings
+    #忽略警告
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    import numpy
+
+    #PMT函数
+    a = numpy.pmt(custGrde/100/12,periods,-1)
+    b = numpy.pmt(businessrate/100/12,periods,-1)
+    c = (a - b)*100
+    pmt = round(c,3)
+    return  pmt
+
 def check_id_card(n):
     var = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
     var_id = ['1', '0', 'x', '9', '8', '7', '6', '5', '4', '3', '2']
