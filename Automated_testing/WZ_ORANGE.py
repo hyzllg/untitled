@@ -193,7 +193,7 @@ class Hyzllg:
             a = "**********授信结果查询！**********"
             print(a)
             print(f"请求报文：{data}")
-            time.sleep(1)
+            time.sleep(5)
             re = requests.post(self.url+'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
             requit = re.json()
             requit["data"] = eval(requit["data"])
@@ -396,6 +396,8 @@ def main(a,hhh):
         #期数
         periods = "6"
         if a == 0:
+            # hyzllg = Hyzllg(channelCustId, creditReqNo,loanReqNo,"滕金炎", "530124199704032387", "16603191127",
+            #                 loanAmount, periods, ORANGE_bankcard,Collect.sit_url_tc)
             hyzllg = Hyzllg(channelCustId, creditReqNo,loanReqNo,random__name, generate__ID, ORANGE_phone,
                             loanAmount, periods, ORANGE_bankcard,Collect.sit_url_tc)
             credit = hyzllg.credit_granting()[-1]

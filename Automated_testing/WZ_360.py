@@ -9,7 +9,7 @@ import Collect
 
 
 class Hyzllg:
-    def __init__(self, loanReqNo, name, idNo, phone, loanAmount, periods, custGrde ,bankcard,url):
+    def __init__(self, loanReqNo, name, idNo, phone, loanAmount, periods, custGrde ,capitalCode,bankcard,url):
         self.loanReqNo = loanReqNo
         self.name = name
         self.idNo = idNo
@@ -19,6 +19,7 @@ class Hyzllg:
         self.bankcard = bankcard
         self.url = url
         self.custGrde = custGrde
+        self.capitalCode = capitalCode
 
     def insure_info(self):
         data = {
@@ -262,6 +263,7 @@ class Hyzllg:
         data["periods"] = self.periods
         data["bankCard"] = self.bankcard
         data["channelDetail"]["custGrde"] = self.custGrde
+        data["channelDetail"]["capitalCode"] = self.capitalCode
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
@@ -366,14 +368,18 @@ def main(a):
     periods = '3'
     #客户等级
     custGrde = 26.00
+    #资方代码 (微众：FBBANK，龙江：20062)
+    capitalCode = "FBBANK"
 
 
     if a == 0:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,Bank,Collect.sit_url_360)
+        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
+        # hyzllg = Hyzllg(HB_loanReqNo, "史燕", "341500199110233057", "16607098581", loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
+
     elif a == 1:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,Bank, Collect.uat_url_360)
+        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,capitalCode,Bank, Collect.uat_url_360)
     elif a == 2:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,Bank, Collect.dev_url_360)
+        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,capitalCode,Bank, Collect.dev_url_360)
     else:
         print("........")
 

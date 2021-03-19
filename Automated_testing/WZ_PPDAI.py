@@ -468,6 +468,8 @@ def main(a,hhh):
 
 
         if a == 0:
+            # hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, "万七十", "44022419970312139X", "18789769070", loanAmount, periods, HB_bankcard,
+            #                 "建设银行", HB_phone,Collect.sit_url_pp,custGrde)
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
                             "建设银行", HB_phone,Collect.sit_url_pp,custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
