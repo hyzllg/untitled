@@ -1,9 +1,11 @@
+import datetime
 import random
+import time
 
 import cx_Oracle
-import time
-import datetime
+
 import Collect
+
 
 #计算两个日期相差天数，自定义函数名，和两个日期的变量名。
 def Caltime(date1,date2):
@@ -35,6 +37,19 @@ def sql_update_acct_loan(setting,v,vv,n):
         my_sql_c = "update acct_loan set overduedays = '80',normalbalance = :v ,overduebalance = :vv where serialno = :n"
         cursor.execute(my_sql_c, {'v': v,'vv': vv, 'n': n})
         conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
+        conn.close()
+
+    except cx_Oracle.DatabaseError:
+        return print("无效的SQL语句")
+
+def sql_update_acct_file_task(setting,v,n):
+    try:
+        conn = cx_Oracle.connect(setting[0], setting[1], setting[2])
+        cursor = conn.cursor()
+        my_sql_c = "update acct_file_task set business_date = :v where ID = :n"
+        cursor.execute(my_sql_c, {'v': v,'n':n})
+        conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
+        print("acct_file_task表数据更新成功！")
         conn.close()
 
     except cx_Oracle.DatabaseError:
@@ -81,12 +96,26 @@ def data(loanNo,productid,datetime0,datatime3,payamt):#productid
         7017:"533010003000001",
         7018:"533000007000001"
     }
-    a = str(random.randint(1, 10000))
     b = time.strftime("%Y%m%d%H%M%S")
-    serialno = b + '00000000000000' + a
+    serialno = b + '00000000000000' + str(random.randint(1, 10000))
     a = Collect.sql_cha(Collect.zwSIT_ORACLE,"select a.customername,a.accountno,af.result_seq_no,a.putoutno from acct_loan a inner join acct_fund_apply af on a.apply_no = af.apply_no where serialno = '{}'".format(loanNo))[0]
     data = f"{serialno}{number[productid]}533030001000001533020001000001{a[0]}{a[1]}{a[2]}{a[3]}805{datetime0}{payamt[2]}{payamt[3]}{payamt[4]}{payamt[5]}{datatime3}FINAL_CLAIM"
-    return  data
+    ID = "46010001130" + str(random.randint(1, 10000))
+    sql = f"insert into acct_file_task_detail (ID, TASK_ID, ROW_NUM, LINE_CONTENT, DIFF_COLUMNS, PROCESS_STATUS, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME, DIFF_MY_VALUES, ERROR_MESSAGE, BIZ_NO)values ({ID}, '460100000030811', 1, '{data}', null, 2, 'system', to_date('03-10-2028', 'dd-mm-yyyy'), 'system', to_date('03-10-2028', 'dd-mm-yyyy'), null, null, '{a[3]}')"
+    return  data,sql,ID
+
+def insert_data(statement,setting):
+    try:
+        conn = Collect.cx_Oracle.connect(setting[0], setting[1], setting[2])
+        cursor = conn.cursor()
+        cursor.execute(statement)
+        conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
+        print("data插入acct_file_task_detail表成功！")
+        conn.close()
+
+
+    except Collect.cx_Oracle.DatabaseError:
+        return print("无效的SQL语句")
 
 def main(loanNo,productid):
     print("运行中……")
@@ -99,10 +128,15 @@ def main(loanNo,productid):
     #更新借据表中的逾期金额，正常金额
     sql_update_acct_loan(Collect.zwSIT_ORACLE,payamt[0],payamt[1],loanNo)
     #生成申请文件数据
-    datas = data(loanNo,7017,datetime0,datatime3,payamt)
+    datas = data(loanNo,productid,datetime0,datatime3,payamt)
     datatime4 = datatime3.replace(r"/", "")
+    #data插入acct_file_task_detail
+    insert_data(datas[1],Collect.zwSIT_ORACLE)
+    #更改acct_file_task表数据
+    sql_update_acct_file_task(Collect.zwSIT_ORACLE,get_date(datatime3,-1),'460100000030811')
+    print(f"acct_file_task_detail表ID:{datas[2]}")
     with open(f"CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
-        h.write(datas)
+        h.write(datas[0])
 
 if __name__ == '__main__':
     #借据号
