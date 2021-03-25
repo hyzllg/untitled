@@ -1,6 +1,7 @@
 import datetime
 import random
 import time
+import winreg
 
 import cx_Oracle
 
@@ -135,8 +136,12 @@ def main(loanNo,productid):
     #更改acct_file_task表数据
     sql_update_acct_file_task(Collect.zwSIT_ORACLE,get_date(datatime3,-1),'460100000030811')
     print(f"acct_file_task_detail表ID:{datas[2]}")
-    with open(f"CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
+    #生成理赔申请文件，路径是桌面
+    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
+    with open(winreg.QueryValueEx(key, "Desktop")[0] + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
         h.write(datas[0])
+    # with open(os.path.join(os.path.expanduser("~"), 'Desktop') + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
+    #     h.write(datas[0])
 
 if __name__ == '__main__':
     #借据号
