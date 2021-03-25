@@ -1,0 +1,127 @@
+﻿1、同步微众系统日期（切日）
+
+2、同步微众还款计划（跑批）
+
+3、通过还款试算接口，获取理赔日提前结清的还款金额（各个科目都有）
+请求地址：10.1.14.191:26275/trial/repay
+请求参数：
+{
+    "batchNo":"20201222000000_7001_TONGL",
+    "loanno":"787-502809153301500469",
+    "cooperate":"787",
+    "repaySeqWay":"2",
+    "cardNo":"6216611500004535400",
+    "version":1,
+    "orgid":"31171845",
+    "businesstype":"7017",
+    "returnLoanDataStyle":"0",
+    "returnRepayDataStyle":"0",
+    "systemCode":"OLCICORE",
+    "repayDate":"2028/11/15",
+    "repayOuterNo":"LHB202012220000020061"
+}
+
+返回参数：
+{
+    "code": "0",
+    "message": "业务成功",
+    "data": {
+        "paycorpusamt": 1000.00,
+        "payinteamt": 10.35,
+        "payfineamt": 0.22,
+        "paycompdinteamt": 0,
+        "payfeeamt1": 31.00,
+        "overduefinebalance": 0,
+        "details": [
+            {
+                "seqid": 1,
+                "paycorpusamt": 80.99,
+                "payinteamt": 5.6,
+                "payfineamt": 0.22,
+                "paycompdinteamt": 0,
+                "payfeeamt1": 15.5,
+                "overduefinebalance": 0,
+                "paytotal": 102.31
+            },
+            {
+                "seqid": 2,
+                "paycorpusamt": 81.41,
+                "payinteamt": 4.75,
+                "payfineamt": 0,
+                "paycompdinteamt": 0,
+                "payfeeamt1": 15.5,
+                "overduefinebalance": 0,
+                "paytotal": 101.66
+            },
+            {
+                "seqid": 3,
+                "paycorpusamt": 837.60,
+                "payinteamt": 0.00,
+                "payfineamt": 0.00,
+                "paycompdinteamt": 0,
+                "payfeeamt1": 0.00,
+                "overduefinebalance": 0,
+                "paytotal": 837.60
+            }
+        ],
+        "paytotal": 1041.57
+    }
+}
+
+
+4、快速生成微众理赔格式，把sql中的中文分别用试算结果中的数据替换掉
+select '2905021950676500000000000308002'||rownum||'533010003000001533030001000001533020001000001'
+||al.customername||''||al.accountno||''||af.result_seq_no||''||al.putoutno
+||'80520280715本金利息罚息合计20281003FINAL_CLAIM',al.putoutno
+ from acct_loan al inner join acct_fund_apply af on al.apply_no = af.apply_no 
+where al.serialno = '787-502809153301500469'
+ 
+
+29050219506765000000000003080021533010003000001533030001000001533020001000001文加元8992010102812270502809153301500467PBLG20213117184500726480520281015本金利息罚息合计20281115FINAL_CLAIM
+
+29050219506765000000000003080021533010003000001533030001000001533020001000001文加元8992010102812270502809153301500467PBLG202131171845007264805202810151000.0010.350.221041.5720281115FINAL_CLAIM
+29050219506765000000000003080021533010003000001533030001000001533020001000001文加元8992010102812270502809153301500467PBLG202131171845007264805202810151000.0010.350.221041.5720281115FINAL_CLAIM
+
+
+6、更新借据表中的逾期金额，正常金额
+select a.serialno,a.overduedays,a.feeamt80,a.normalbalance,a.overduebalance from acct_loan a where a.serialno in ('787-502805153301158176') for update;
+
+7、往跑批表中插入数据（因为是手动造数据，所以需要）
+把第4步生成的数据填到line_content字段，保单号填到biz_no字段
+select * from acct_file_task_detail where task_id = '460100000030811' for update;
+更新下面表的businessDate，为理赔日期的前一天 (例如 2028/11/15为理赔日，该字段填2028/11/14)
+select * from acct_file_task t where t.id = '460100000030811' for update;
+（ps：注意把acct_file_task表中business_date改成理赔日期-1；acct_file_task_detail表中line_content值与文件保持一致；biz_no改成对应数据保单号）
+
+
+
+
+8、声明：
+自己造文件只要跑,给催收的理赔结果文件
+资方给文件三个都需跑
+
+富邦华索赔文件解析
+10.1.14.191:26275/task/run/2020007300930/webankClaimFileParser
+
+{
+	"fundCode":"787",
+	"fileCode":"INS_CLAIM_REQUEST_DBBX_KCXB"
+}
+
+给催收的理赔结果文件
+10.1.14.191:26001/task/run/202101151638/fileGeneratorTask
+
+{
+    "fundCode":"localsftp",
+    "fileCode":"ClaimResult",
+    "stretegy":"OVERWRITE"
+}
+
+
+富邦华理赔结果文件
+10.1.14.191:26275/task/run/202101201056/webankFileUploadTask
+{
+    "cooperate":"787",
+    "fileCode":"INS_CLAIM_RESULT_DBBX_KCXB",
+    "stretegy":"OVERWRITE"
+}

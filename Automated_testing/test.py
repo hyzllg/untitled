@@ -89,6 +89,7 @@ def data(loanNo,productid,datetime0,datatime3,payamt):#productid
     return  data
 
 def main(loanNo,productid):
+    print("运行中……")
     #最早逾期期次还款日
     datetime0 = Collect.sql_cha(Collect.zwSIT_ORACLE,f"select paydate from acct_payment_schedule s  where s.objectno = '{loanNo}'and status = '12'")[0][0]
     #理赔日
@@ -99,13 +100,14 @@ def main(loanNo,productid):
     sql_update_acct_loan(Collect.zwSIT_ORACLE,payamt[0],payamt[1],loanNo)
     #生成申请文件数据
     datas = data(loanNo,7017,datetime0,datatime3,payamt)
-    with open("111.txt",mode="w") as h:
+    datatime4 = datatime3.replace(r"/", "")
+    with open(f"CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
         h.write(datas)
 
 if __name__ == '__main__':
     #借据号
-    loanNo = '787-502809153301501871'
+    loanNo = '787-503102012980222641'
     #产品号
-    productid = 7017
+    productid = 7014
     main(loanNo,productid)
 
