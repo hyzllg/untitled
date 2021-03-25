@@ -1,8 +1,11 @@
 import os
 
 import pytest
-import WZ_PPDAI
+
 import Collect
+import WZ_PPDAI
+
+
 # print(Collect.PMT(27.31,12,6.2))
 
 
@@ -40,5 +43,5 @@ class Test_MONTHPERIOD():
         assert disburse_ppd(a[0],a[1]) == str(Collect.PMT(a[0],a[1],a[2])),"验证月保费起初本金比例"
 
 
-pytest.main(["test.py::Test_MONTHPERIOD::test001"])
+pytest.main(["CLAIM_RESULT_FILE.py::Test_MONTHPERIOD::test001"])
 os.system("allure generate ./temp -o ./report --clean")
