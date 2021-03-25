@@ -97,6 +97,7 @@ def sql_cha(setting,my_sql_c):
         cursor.execute(my_sql_c)
         all_data = cursor.fetchall()
         oo = list(all_data)
+        conn.close()
         return oo
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
@@ -108,6 +109,7 @@ def sql_update(time,setting,table,systemid,v,vv,n):
         my_sql_c = "UPDATE {} SET businessdate = :v,batchdate = :vv WHERE {} = :n".format(table,systemid)
         cursor.execute(my_sql_c, {'v': v,'vv': vv, 'n': n})
         conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
+        conn.close()
         print("核心数据库时间更改成功  {}".format(time))
 
     except cx_Oracle.DatabaseError:

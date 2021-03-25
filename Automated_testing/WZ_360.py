@@ -177,8 +177,8 @@ class Hyzllg:
             "birthday": "1991/01/08",
             "idType": "00",
             "idAddress": "上海市浦东新区龙阳路幸福村520号",
-            "idStartDate": "2016/01/18",
-            "idEndDate": "2026/01/18",
+            "idStartDate": "2015/10/08",
+            "idEndDate": "2025/10/08",
             "idOffice": "杭州市公安局江干区分局",
             "marriage": "04",
             "children": "00",
@@ -374,7 +374,7 @@ def main(a):
 
     if a == 0:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
-        # hyzllg = Hyzllg(HB_loanReqNo, "史燕", "341500199110233057", "16607098581", loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
+        # hyzllg = Hyzllg(HB_loanReqNo, "黄亚辉", "412702199810032718", HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
 
     elif a == 1:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,capitalCode,Bank, Collect.uat_url_360)

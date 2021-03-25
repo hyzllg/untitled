@@ -177,8 +177,8 @@ class Hyzllg:
             "periods": 12,
             "idNo": "513436199003021045",
             "phone": "16608205407",
-            "idStartDate": "2016/01/18",
-            "idEndDate": "2036/01/18",
+            "idStartDate": "2016/09/04",
+            "idEndDate": "2026/09/04",
             "idOffice": "浩然天下宝瓶洲大骊王朝落坡山办祖师堂",
             "idAddress": "浙江省杭州市江干区高教路119号",
             "marriage": "00",
@@ -468,7 +468,7 @@ def main(a,hhh):
 
 
         if a == 0:
-            # hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, "万七十", "44022419970312139X", "18789769070", loanAmount, periods, HB_bankcard,
+            # hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, "陈裕明", "421182199509162919", "18789769070", loanAmount, periods, HB_bankcard,
             #                 "建设银行", HB_phone,Collect.sit_url_pp,custGrde)
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
                             "建设银行", HB_phone,Collect.sit_url_pp,custGrde)

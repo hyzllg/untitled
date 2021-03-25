@@ -189,8 +189,8 @@ class Hyzllg:
             "periods": 6,
             "phone": "16606137001",
             "idNo": "513436199006138839",
-            "idStartDate": "2016/01/18",
-            "idEndDate": "2026/01/18",
+            "idStartDate": "2015/10/08",
+            "idEndDate": "2025/10/08",
             "idOffice": "上海市崇明区太上皇路888弄001号",
             "marriage": "00",
             "children": "01",
@@ -337,7 +337,7 @@ def main(a):
     discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,"select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(periods))[0])[0]
 
     if a == 0:
-        # hyzllg = Hyzllg(HB_loanReqNo,"方方","320102199307076557","17613110915",loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
+        # hyzllg = Hyzllg(HB_loanReqNo,"黄亚辉","412702199810032718",HB_phone,loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
         hyzllg = Hyzllg(HB_loanReqNo,random__name,generate__ID,HB_phone,loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
 
     elif a == 1:
