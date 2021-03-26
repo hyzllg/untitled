@@ -140,6 +140,7 @@ def main(loanNo,productid):
     key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
     with open(winreg.QueryValueEx(key, "Desktop")[0] + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
         h.write(datas[0])
+    print("理赔申请文件生成成功！在桌面")
     # with open(os.path.join(os.path.expanduser("~"), 'Desktop') + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
     #     h.write(datas[0])
 

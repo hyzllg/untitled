@@ -819,11 +819,11 @@ def main(a,loanNo,Pay_time,repayType):
 
 if __name__ == '__main__':
     #还款时间
-    Pay_time = "2028/10/17"
+    Pay_time = "2029/02/14"
     #借据号
-    loanNo = "787-502809153301501871"
+    loanNo = "787-502901243301540147"
     #还款类型 00正常或预期还款，01正常结清或逾期结清
-    repayType = "00"
+    repayType = "01"
     main(0,loanNo,Pay_time,repayType)
 
 
