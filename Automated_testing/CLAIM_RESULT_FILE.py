@@ -43,18 +43,6 @@ def sql_update_acct_loan(setting,v,vv,n):
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
 
-def sql_update_acct_file_task(setting,v,n):
-    try:
-        conn = cx_Oracle.connect(setting[0], setting[1], setting[2])
-        cursor = conn.cursor()
-        my_sql_c = "update acct_file_task set business_date = :v where ID = :n"
-        cursor.execute(my_sql_c, {'v': v,'n':n})
-        conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
-        print("acct_file_task表数据更新成功！")
-        conn.close()
-
-    except cx_Oracle.DatabaseError:
-        return print("无效的SQL语句")
 
 def Payamt(loanNo,datetime1):
     #未还本金
@@ -102,16 +90,31 @@ def data(loanNo,productid,datetime0,datatime3,payamt):#productid
     a = Collect.sql_cha(Collect.zwSIT_ORACLE,"select a.customername,a.accountno,af.result_seq_no,a.putoutno from acct_loan a inner join acct_fund_apply af on a.apply_no = af.apply_no where serialno = '{}'".format(loanNo))[0]
     data = f"{serialno}{number[productid]}533030001000001533020001000001{a[0]}{a[1]}{a[2]}{a[3]}805{datetime0}{payamt[2]}{payamt[3]}{payamt[4]}{payamt[5]}{datatime3}FINAL_CLAIM"
     ID = "46010001130" + str(random.randint(1, 10000))
-    sql = f"insert into acct_file_task_detail (ID, TASK_ID, ROW_NUM, LINE_CONTENT, DIFF_COLUMNS, PROCESS_STATUS, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME, DIFF_MY_VALUES, ERROR_MESSAGE, BIZ_NO)values ({ID}, '460100000030811', 1, '{data}', null, 2, 'system', to_date('03-10-2028', 'dd-mm-yyyy'), 'system', to_date('03-10-2028', 'dd-mm-yyyy'), null, null, '{a[3]}')"
-    return  data,sql,ID
+    TASK_ID = "46010001130" + str(random.randint(1, 10000))
+    sql = f"insert into acct_file_task_detail (ID, TASK_ID, ROW_NUM, LINE_CONTENT, DIFF_COLUMNS, PROCESS_STATUS, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME, DIFF_MY_VALUES, ERROR_MESSAGE, BIZ_NO)values ({ID}, '{TASK_ID}', 1, '{data}', null, 2, 'system', to_date('03-10-2028', 'dd-mm-yyyy'), 'system', to_date('03-10-2028', 'dd-mm-yyyy'), null, null, '{a[3]}')"
+    return  data,sql,TASK_ID
 
-def insert_data(statement,setting):
+def insert_data_acct_file_task_detail(statement,setting):
     try:
         conn = Collect.cx_Oracle.connect(setting[0], setting[1], setting[2])
         cursor = conn.cursor()
         cursor.execute(statement)
         conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
         print("data插入acct_file_task_detail表成功！")
+        conn.close()
+
+
+    except Collect.cx_Oracle.DatabaseError:
+        return print("无效的SQL语句")
+
+def insert_data_acct_file_task(setting,task_id,datatime):
+    try:
+        conn = Collect.cx_Oracle.connect(setting[0], setting[1], setting[2])
+        statement = f"insert into acct_file_task (ID, BUSINESS_DATE, FUND_CODE, PRODUCT_CODE, ORG_ID, REQUEST_ID, FILE_CODE, FILE_PATH, FILE_NAME, FILE_SIZE, FILE_ROWS, STATUS, ERROR_CODE, ERROR_MESSAGE, CREATE_TIME, UPDATE_TIME, NEXT_STEP, ERROR_ROWS, PROCESS_TYPE) values ('{task_id}', '{datatime}', '787', null, null, '202103081124', 'ClaimApply', '/DBBX_KCXB_CLAIM/20281003/', 'INS_CLAIM_RESULT_DBBX_KCXB_20281002', null, 1, 1, null, null, to_date('03-10-2028 09:52:14', 'dd-mm-yyyy hh24:mi:ss'), to_date('03-10-2028 09:52:15', 'dd-mm-yyyy hh24:mi:ss'), null, 0, 1)"
+        cursor = conn.cursor()
+        cursor.execute(statement)
+        conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
+        print("data插入acct_file_task表成功！")
         conn.close()
 
 
@@ -132,10 +135,10 @@ def main(loanNo,productid):
     datas = data(loanNo,productid,datetime0,datatime3,payamt)
     datatime4 = datatime3.replace(r"/", "")
     #data插入acct_file_task_detail
-    insert_data(datas[1],Collect.zwSIT_ORACLE)
+    insert_data_acct_file_task_detail(datas[1],Collect.zwSIT_ORACLE)
     #更改acct_file_task表数据
-    sql_update_acct_file_task(Collect.zwSIT_ORACLE,get_date(datatime3,-1),'460100000030811')
-    print(f"acct_file_task_detail表ID:{datas[2]}")
+    insert_data_acct_file_task(Collect.zwSIT_ORACLE,datas[2],get_date(datatime3,-1))
+    print(f"acct_file_task_detail表TASK_ID:{datas[2]}")
     #生成理赔申请文件，路径是桌面
     key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
     with open(winreg.QueryValueEx(key, "Desktop")[0] + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:

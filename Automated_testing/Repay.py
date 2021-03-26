@@ -821,7 +821,7 @@ if __name__ == '__main__':
     #还款时间
     Pay_time = "2029/02/14"
     #借据号
-    loanNo = "787-502901243301540147"
+    loanNo = "787-502901243301540439"
     #还款类型 00正常或预期还款，01正常结清或逾期结清
     repayType = "01"
     main(0,loanNo,Pay_time,repayType)
