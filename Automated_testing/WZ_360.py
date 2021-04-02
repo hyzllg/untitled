@@ -374,7 +374,7 @@ def main(a):
 
     if a == 0:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
-        # hyzllg = Hyzllg(HB_loanReqNo, "黄亚辉", "412702199810032718", HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
+        # hyzllg = Hyzllg(HB_loanReqNo, "测试", "412702199810032718", HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
 
     elif a == 1:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,capitalCode,Bank, Collect.uat_url_360)

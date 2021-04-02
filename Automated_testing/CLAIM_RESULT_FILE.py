@@ -31,6 +31,11 @@ def get_date(date, time_interval):#字符串时间，天数负数代表前多少
     a = start_date + now_date
     fu = a.strftime('%Y/%m/%d')#时间转回字符串格式
     return  fu
+
+def datatime_cap(datatime):
+    datatime = datatime.replace(r"/", "")
+    return datatime
+
 def sql_update_acct_loan(setting,v,vv,n):
     try:
         conn = cx_Oracle.connect(setting[0], setting[1], setting[2])
@@ -86,11 +91,12 @@ def data(loanNo,productid,datetime0,datatime3,payamt):#productid
         7018:"533000007000001"
     }
     b = time.strftime("%Y%m%d%H%M%S")
-    serialno = b + '00000000000000' + str(random.randint(1, 10000))
+    serialno = b + '00000000000000' + str(random.randint(1000, 10000))
     a = Collect.sql_cha(Collect.zwSIT_ORACLE,"select a.customername,a.accountno,af.result_seq_no,a.putoutno from acct_loan a inner join acct_fund_apply af on a.apply_no = af.apply_no where serialno = '{}'".format(loanNo))[0]
-    data = f"{serialno}{number[productid]}533030001000001533020001000001{a[0]}{a[1]}{a[2]}{a[3]}805{datetime0}{payamt[2]}{payamt[3]}{payamt[4]}{payamt[5]}{datatime3}FINAL_CLAIM"
-    ID = "46010001130" + str(random.randint(1, 10000))
-    TASK_ID = "46010001130" + str(random.randint(1, 10000))
+    data = f"{serialno}{number[productid]}533030001000001533020001000001{a[0]}{a[1]}{a[2]}{a[3]}805{datatime_cap(datetime0)}{payamt[2]}{payamt[3]}{payamt[4]}{payamt[5]}{datatime_cap(datatime3)}FINAL_CLAIM"
+    ID = "46010001130" + str(random.randint(1000, 10000))
+    # TASK_ID = "46010001130" + str(random.randint(1, 10000))
+    TASK_ID = "460100011521144"
     sql = f"insert into acct_file_task_detail (ID, TASK_ID, ROW_NUM, LINE_CONTENT, DIFF_COLUMNS, PROCESS_STATUS, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME, DIFF_MY_VALUES, ERROR_MESSAGE, BIZ_NO)values ({ID}, '{TASK_ID}', 1, '{data}', null, 2, 'system', to_date('03-10-2028', 'dd-mm-yyyy'), 'system', to_date('03-10-2028', 'dd-mm-yyyy'), null, null, '{a[3]}')"
     return  data,sql,TASK_ID
 
@@ -127,30 +133,33 @@ def main(loanNo,productid):
     datetime0 = Collect.sql_cha(Collect.zwSIT_ORACLE,f"select paydate from acct_payment_schedule s  where s.objectno = '{loanNo}'and status = '12'")[0][0]
     #理赔日
     datatime3 = get_date(datetime0,80)
+    print(f"索赔日：{datatime_cap(datatime3)}")
     #各科目金额（正常本金，逾期本金，本金，利息，罚息，总和）
     payamt = Payamt(loanNo,datatime3)
     #更新借据表中的逾期金额，正常金额
     sql_update_acct_loan(Collect.zwSIT_ORACLE,payamt[0],payamt[1],loanNo)
     #生成申请文件数据
     datas = data(loanNo,productid,datetime0,datatime3,payamt)
-    datatime4 = datatime3.replace(r"/", "")
+    datatime4 = datatime_cap(datatime3)
     #data插入acct_file_task_detail
     insert_data_acct_file_task_detail(datas[1],Collect.zwSIT_ORACLE)
     #更改acct_file_task表数据
-    insert_data_acct_file_task(Collect.zwSIT_ORACLE,datas[2],get_date(datatime3,-1))
+    # insert_data_acct_file_task(Collect.zwSIT_ORACLE,datas[2],get_date(datatime3,-1))
+    print(f"理赔日前一天：{datatime_cap(get_date(datatime3,-1))}")
     print(f"acct_file_task_detail表TASK_ID:{datas[2]}")
     #生成理赔申请文件，路径是桌面
     key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
-    with open(winreg.QueryValueEx(key, "Desktop")[0] + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
-        h.write(datas[0])
+    with open(winreg.QueryValueEx(key, "Desktop")[0] + f"\INS_CLAIM_REQUEST_DBBX_KCXB_{datatime_cap(get_date(datatime3,-1))}",mode="a") as h:
+        h.write(datas[0] + '\n')
     print("理赔申请文件生成成功！在桌面")
     # with open(os.path.join(os.path.expanduser("~"), 'Desktop') + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
     #     h.write(datas[0])
 
 if __name__ == '__main__':
     #借据号
-    loanNo = '787-503102012980222641'
+    loanNo = ['787-502901243301540157','787-502901243301540156','787-502901243301540439','787-502901243301540151','787-502901243301540442']
     #产品号
-    productid = 7014
-    main(loanNo,productid)
+    productid = [7018,7018,7017,7017,7014]
+    for i in range(len(loanNo)):
+        main(loanNo[i],productid[i])
 

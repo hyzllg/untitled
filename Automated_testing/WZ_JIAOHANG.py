@@ -587,7 +587,7 @@ def main(a):
     JH_phone = Collect.phone()
     JH_bankcard = Collect.bankcard()
     #借款金额
-    loanAmount = 5000
+    loanAmount = 10000
     #期数
     periods = '6'
 
