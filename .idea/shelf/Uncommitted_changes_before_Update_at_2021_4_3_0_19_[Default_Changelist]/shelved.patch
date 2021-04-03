@@ -1,0 +1,38 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"JavaScriptSettings\">\r\n    <option name=\"languageLevel\" value=\"ES6\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.7 (untitled)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 76ba8ea9c1c26a3157ffc71e2d4cb15edd154edf)
++++ b/.idea/misc.xml	(date 1617352432482)
+@@ -3,5 +3,5 @@
+   <component name="JavaScriptSettings">
+     <option name="languageLevel" value="ES6" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (untitled)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (untitled)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/untitled2.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/hyz\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/llg\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/jiekouzidonghua\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/Selenium\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/Automated_testing\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/Automated_testing/myunittest\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/image\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/untest\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/Pytest\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/testcase\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/hyzllg\" isTestSource=\"false\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.7 (untitled)\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/untitled2.iml b/.idea/untitled2.iml
+--- a/.idea/untitled2.iml	(revision 76ba8ea9c1c26a3157ffc71e2d4cb15edd154edf)
++++ b/.idea/untitled2.iml	(date 1617352432449)
+@@ -15,7 +15,7 @@
+       <sourceFolder url="file://$MODULE_DIR$/hyzllg" isTestSource="false" />
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.7 (untitled)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.9 (untitled)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
