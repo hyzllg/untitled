@@ -1,0 +1,3 @@
+Automated_testing  Selenium	     hyzllg	 requirements.txt
+Collect.py	   __pycache__	     image	 venv
+Pytest		   districtcode.txt  pytest.ini  wenjian.txt
