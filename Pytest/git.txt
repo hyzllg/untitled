@@ -3,7 +3,6 @@ git
 git config --global user.name hyzllg
 git config --global user.phone 336699
 git config --global user.email "16621381003@163.com
-
 #创建仓库
 git init
 #将文件添加到暂存区
@@ -55,5 +54,7 @@ git merge -no-ff -m "注释" 分支
 #强制拉取远程仓库代码覆盖本地
 git fetch --all && git reset --hard origin/master && git pull
 git pull
+
+ceshi
 
 
