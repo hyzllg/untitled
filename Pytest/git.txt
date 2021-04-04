@@ -1,0 +1,57 @@
+#设置用户名 密码 邮箱
+git
+git config --global user.name hyzllg
+git config --global user.phone 336699
+git config --global user.email "16621381003@163.com
+
+#创建仓库
+git init
+#将文件添加到暂存区
+git add wenjianming
+#将文件提交到本地仓库
+git commit -m "备注"
+#查看暂存去状态
+git status
+#将修改后的文件提交到本地仓库
+git add wenjianming
+git commit -m "备注"
+#查看文件具体修改内容
+git diff wenjianming
+#查看日志信息，由近到远
+git log --pretty=oneline
+#版本回退
+git reset --hard HEAD~1
+#查看各版本信息
+git reflog
+#撤销修改删除
+git restore -- wenjianming
+
+#注册github账号
+注册地址：https://github.com
+#window下配置SSH链接github、github配置ssh key，由于本地仓库git仓库和github仓库
+之间的传输是通过SSH加密的，所有需要设置：
+创建SSH KEY，在用户主目录下，看看有没有.ssh目录，如果没有的话，打开命令行，输入如下命令：
+ssh-keygen -t rsa -C "你的邮箱"
+#关联github
+git remote add origin github项目链接
+#提交到远程仓库
+git push -u(第一次使用，后续不用加) origin master
+#解除ssl验证后，再次git即可
+git config --global http.sslVerify "false"
+换掉Git的http版本
+git config --global http.version HTTP/1.1
+#克隆远程代码
+git clone
+#创建并切换分支
+git checkout -b dev
+#删除本地分支
+git branch -d dev
+#删除远程分支
+git push origin --delete 分支名
+#合并分支
+git merge 分支
+#注释分支
+git merge -no-ff -m "注释" 分支
+
+
+POM测试框架
