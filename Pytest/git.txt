@@ -52,6 +52,8 @@ git push origin --delete 分支名
 git merge 分支
 #注释分支
 git merge -no-ff -m "注释" 分支
+#强制拉取远程仓库代码覆盖本地
+git reset --hard origin/master
+git fetch --all && git reset --hard origin/master && git pull
 
 
-POM测试框架
