@@ -1,0 +1,2 @@
+Automated_testing  Pytest    __pycache__       hyzllg  pytest.ini  testcase
+Collect.py	   Selenium  districtcode.txt  image   test.txt    venv

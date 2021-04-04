@@ -3,7 +3,6 @@ import random
 import time
 import winreg
 import cx_Oracle
-
 import Collect
 
 class CLAIM_RESULT:
