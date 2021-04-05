@@ -9,7 +9,7 @@ import Collect
 
 
 class Hyzllg:
-    def __init__(self, loanReqNo, name, idNo, phone, loanAmount, periods, custGrde ,capitalCode,bankcard,url):
+    def __init__(self, loanReqNo, name, idNo, phone, loanAmount, periods, custGrde, capitalCode, bankcard, url):
         self.loanReqNo = loanReqNo
         self.name = name
         self.idNo = idNo
@@ -54,12 +54,12 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'INSURE_INFO', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'INSURE_INFO', data=json.dumps(data), headers=headers)
         requit = re.json()
         # print(f"响应报文：{requit}")
 
         if re.status_code == 200 and requit["result"] == True:
-            #剥掉两边的引号
+            # 剥掉两边的引号
             requit["data"] = eval(requit["data"])
             print(f"响应报文：{requit}")
             # print(requit)
@@ -93,7 +93,7 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'INSURE_DATA_QUERY', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'INSURE_DATA_QUERY', data=json.dumps(data), headers=headers)
         requit = re.json()
 
         if re.status_code == 200 and requit["result"] == True:
@@ -139,7 +139,7 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        res = requests.post(self.url+'INSURE', data=json.dumps(data), headers=headers)
+        res = requests.post(self.url + 'INSURE', data=json.dumps(data), headers=headers)
         requit = res.json()
 
         # print(f"响应报文：{requit}")
@@ -273,7 +273,7 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'DISBURSE', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'DISBURSE', data=json.dumps(data), headers=headers)
         requit = re.json()
 
         if re.status_code == 200 and requit["result"] == True:
@@ -314,7 +314,7 @@ class Hyzllg:
             print(a)
             print(f"请求报文：{data}")
             time.sleep(10)
-            re = requests.post(self.url+'DISBURSE_IN_QUERY', data=json.dumps(data), headers=headers)
+            re = requests.post(self.url + 'DISBURSE_IN_QUERY', data=json.dumps(data), headers=headers)
             requit = re.json()
 
             if re.status_code == 200 and requit["result"] == True:
@@ -354,32 +354,32 @@ class Hyzllg:
             return self.url, a, requit
 
 
-
-
 def main(a):
     random__name = Collect.random_name()
     HB_loanReqNo = Collect.loanReqNo()
     HB_phone = Collect.phone()
     Bank = Collect.bankcard()
     generate__ID = Collect.id_card().generate_ID()
-    #借款金额
+    # 借款金额
     loanAmount = 5000
-    #期数
+    # 期数
     periods = '3'
-    #客户等级
+    # 客户等级
     custGrde = 26.00
-    #资方代码 (微众：FBBANK，龙江：20062)
+    # 资方代码 (微众：FBBANK，龙江：20062)
     capitalCode = "FBBANK"
 
-
     if a == 0:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
+        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
+                        Bank, Collect.sit_url_360)
         # hyzllg = Hyzllg(HB_loanReqNo, "测试", "412702199810032718", HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
 
     elif a == 1:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,capitalCode,Bank, Collect.uat_url_360)
+        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
+                        Bank, Collect.uat_url_360)
     elif a == 2:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,custGrde ,capitalCode,Bank, Collect.dev_url_360)
+        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
+                        Bank, Collect.dev_url_360)
     else:
         print("........")
 
@@ -402,8 +402,8 @@ def main(a):
 
 
 if __name__ == '__main__':
-    #0是SIT
-    #1是UAT
-    #2是DEV
+    # 0是SIT
+    # 1是UAT
+    # 2是DEV
     for i in range(1):
         main(0)

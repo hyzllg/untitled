@@ -10,7 +10,8 @@ import Collect
 
 # os.environ['path'] =  r'E:\instantclient_11_2'
 class Hyzllg:
-    def __init__(self, loanReqNo, creditReqNo, name, idNo, phone, loanAmount, periods, bankCard, bankName, bankPhone,url,custGrde):
+    def __init__(self, loanReqNo, creditReqNo, name, idNo, phone, loanAmount, periods, bankCard, bankName, bankPhone,
+                 url, custGrde):
         self.loanReqNo = loanReqNo
         self.creditReqNo = creditReqNo
         self.name = name
@@ -59,9 +60,8 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'INSURE_INFO', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'INSURE_INFO', data=json.dumps(data), headers=headers)
         requit = re.json()
-
 
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -95,7 +95,7 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'INSURE_DATA_QUERY', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'INSURE_DATA_QUERY', data=json.dumps(data), headers=headers)
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -143,7 +143,7 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'INSURE', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'INSURE', data=json.dumps(data), headers=headers)
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -280,7 +280,7 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'CREDIT_GRANTING', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'CREDIT_GRANTING', data=json.dumps(data), headers=headers)
         requit = re.json()
         # print(requit)
         if re.status_code == 200 and requit["result"] == True:
@@ -326,7 +326,7 @@ class Hyzllg:
             print(a)
             print(f"请求报文：{data}")
             time.sleep(1)
-            re = requests.post(self.url+'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
+            re = requests.post(self.url + 'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
             requit = re.json()
             if re.status_code == 200 and requit["result"] == True:
                 requit["data"] = eval(requit["data"])
@@ -342,7 +342,7 @@ class Hyzllg:
                     else:
                         print("授信失败！")
                         if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                            print(requit["data"]["errorCode"],requit["data"]["errorMsg"])
+                            print(requit["data"]["errorCode"], requit["data"]["errorMsg"])
                         raw_input("Press <enter>")
                 except BaseException as e:
                     print(f'orrer:{requit["data"]["message"]}')
@@ -356,7 +356,7 @@ class Hyzllg:
             print("拍拍贷授信时间过长！可能由于授信挡板问题，结束程序！")
             raw_input("Press <enter>")
 
-        return self.url, a, requit,n
+        return self.url, a, requit, n
 
     def disburse(self):
         data = {
@@ -377,7 +377,7 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data}")
         # time.sleep(1)
-        re = requests.post(self.url+'DISBURSE', data=json.dumps(data), headers=headers)
+        re = requests.post(self.url + 'DISBURSE', data=json.dumps(data), headers=headers)
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -422,7 +422,7 @@ class Hyzllg:
             print(a)
             print(f"请求报文：{data}")
             time.sleep(6)
-            re = requests.post(self.url+'DISBURSE_IN_QUERY', data=json.dumps(data), headers=headers)
+            re = requests.post(self.url + 'DISBURSE_IN_QUERY', data=json.dumps(data), headers=headers)
             requit = re.json()
             if re.status_code == 200 and requit["result"] == True:
                 requit["data"] = eval(requit["data"])
@@ -449,7 +449,7 @@ class Hyzllg:
         return self.url, a, requit
 
 
-def main(a,hhh):
+def main(a, hhh):
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
@@ -458,44 +458,46 @@ def main(a,hhh):
         HB_phone = Collect.phone()
         generate__ID = Collect.id_card().generate_ID()
         HB_bankcard = Collect.bankcard()
-        #借款金额
+        # 借款金额
         loanAmount = 5000
-        #期数
+        # 期数
         periods = "6"
-        #客户等级上下限
+        # 客户等级上下限
         # custGrde = list(Collect.sql_cha(Collect.hxSIT_ORACLE,"select t.attribute1 from code_library t where t.codeno ='PaiPaiDai'and t.itemno = '{}'".format(periods))[0])[0]
         custGrde = 26.32
-
 
         if a == 0:
             # hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, "陈裕明", "421182199509162919", "18789769070", loanAmount, periods, HB_bankcard,
             #                 "建设银行", HB_phone,Collect.sit_url_pp,custGrde)
-            hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
-                            "建设银行", HB_phone,Collect.sit_url_pp,custGrde)
+            hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
+                            HB_bankcard,
+                            "建设银行", HB_phone, Collect.sit_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
             hyzllg.insure(Insure_Data_Query[3])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
-                        "5000", periods, HB_bankcard, "建设银行", HB_phone,Collect.sit_url_pp,custGrde])
+                        "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.sit_url_pp, custGrde])
         elif a == 1:
-            hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
-                            "建设银行", HB_phone,Collect.uat_url_pp,custGrde)
+            hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
+                            HB_bankcard,
+                            "建设银行", HB_phone, Collect.uat_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
             hyzllg.insure(Insure_Data_Query[3])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
-                        "5000", periods, HB_bankcard, "建设银行", HB_phone,Collect.uat_url_pp,custGrde])
+                        "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.uat_url_pp, custGrde])
         elif a == 2:
-            hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, HB_bankcard,
-                            "建设银行", HB_phone,Collect.dev_url_pp,custGrde)
+            hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
+                            HB_bankcard,
+                            "建设银行", HB_phone, Collect.dev_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
             hyzllg.insure(Insure_Data_Query[3])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
-                        loanAmount, periods, HB_bankcard, "建设银行", HB_phone,Collect.dev_url_pp,custGrde])
+                        loanAmount, periods, HB_bankcard, "建设银行", HB_phone, Collect.dev_url_pp, custGrde])
         else:
             print("........")
 
@@ -504,13 +506,13 @@ def main(a,hhh):
     n = 0
     while len(abc):
         for i in abc:
-            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7],i[8], i[9],i[10],i[11])
+            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11])
             if hyzllg.credit_inquiry()[-1]:
                 hyzllg.disburse()
                 abc.remove(i)
                 nnn = True
-            n+=1
-            if n>30 and nnn == False:
+            n += 1
+            if n > 30 and nnn == False:
                 raw_input("Press <enter>")
             test_info = f'''
                             姓名：{i[2]}
@@ -523,9 +525,10 @@ def main(a,hhh):
                         '''
             print(test_info)
 
+
 if __name__ == '__main__':
-    #0是SIT
-    #1是UAT
-    #2是DEV
-    #main()第一个参数控制测试环境，第二个参数控制数据笔数
-    main(0,1)
+    # 0是SIT
+    # 1是UAT
+    # 2是DEV
+    # main()第一个参数控制测试环境，第二个参数控制数据笔数
+    main(0, 1)
