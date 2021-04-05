@@ -90,14 +90,13 @@ def check_id_card(n):
     else:
         return 0
 
-def sql_cha(setting,my_sql_c):
+def sql_cha(cursor,my_sql_c):
     try:
-        conn = cx_Oracle.connect(setting[0],setting[1],setting[2])
-        cursor = conn.cursor()
+
         cursor.execute(my_sql_c)
         all_data = cursor.fetchall()
         oo = list(all_data)
-        conn.close()
+        # conn.close()
         return oo
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
