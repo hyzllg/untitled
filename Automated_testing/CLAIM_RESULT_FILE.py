@@ -4,6 +4,7 @@ import time
 import winreg
 import cx_Oracle
 import Collect
+import yaml
 
 class CLAIM_RESULT:
 
@@ -140,16 +141,21 @@ def productid(environment,loanNo):
     return int(productid)
 
 def environments(environment):
-    if environment == 1:
+    if environment == "sit":
         environment = Collect.zwSIT_ORACLE
-    elif environment == 2:
+    elif environment == "uat":
         environment = Collect.zwUAT_ORACLE
     else:
-        print("环境选择错误，1是sit环境，2是uat环境！")
+        print("环境选择错误，sit/uat！")
     return environment
+def loanNos():
+    with open("CLAIM_RESULT_DATAS.yaml", encoding="utf-8") as f:
+        datas = yaml.load(f, Loader=yaml.SafeLoader)  # 手动指定加载程序yaml.SafeLoader
+    return datas
 
-def main(loanNo,a):
+def main(a):
     print("运行中……")
+    loanNo = loanNos()
     #借据笔数
     loan_numbers = len(loanNo)
     #环境
@@ -191,9 +197,7 @@ def main(loanNo,a):
 
 if __name__ == '__main__':
     start = time.time()
-    #借据号
-    loanNo = ['787-502807223301439865','787-502807223301439885','787-502807223301440705']
-    #第一个参数是借据号list格式，第二个参数是环境，1代表sit环境，2代表uat环境
-    main(loanNo,1)
+    #main()内参数:sit/uat
+    main("sit")
     end = time.time()
     print(f"运行时间：{end - start}")
