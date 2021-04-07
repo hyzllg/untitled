@@ -1,0 +1,57 @@
+{
+  "uid" : "695324ac31d77257",
+  "name" : "test001[a1]",
+  "fullName" : "testcase.test.Test_MONTHPERIOD#test001",
+  "historyId" : "c7c0f9e6dc06a6999895957d16adcecb",
+  "time" : {
+    "start" : 1615538060302,
+    "stop" : 1615538060935,
+    "duration" : 633
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "testcase"
+  }, {
+    "name" : "suite",
+    "value" : "test"
+  }, {
+    "name" : "subSuite",
+    "value" : "Test_MONTHPERIOD"
+  }, {
+    "name" : "host",
+    "value" : "LAPTOP-E7PE1LN5"
+  }, {
+    "name" : "thread",
+    "value" : "18176-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "testcase.test"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "a",
+    "value" : "[22.22, 3, 6.2]"
+  } ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "695324ac31d77257.json",
+  "parameterValues" : [ "[22.22, 3, 6.2]" ]
+}

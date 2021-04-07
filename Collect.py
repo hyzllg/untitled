@@ -10,7 +10,7 @@ hxDEV_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1523/PDEV12UF"]
 hxUAT_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1521/puat12uf"]
 # 账务数据库配置
 zwSIT_ORACLE = ["gdbzdev", "ccic1234", "10.2.3.203:1521/R2TST16GPDB"]
-zwUAT_ORACLE = ["gdbzbusi","ccic9879","10.2.3.203:1521 R2UAT16GPDB"]
+zwUAT_ORACLE = ["gdbzbusi","ccic9879","10.2.3.203:1521/R2UAT16GPDB"]
 #360
 sit_url_360 = 'http://10.1.14.106:27405/channel/apitest/QFIN/'
 uat_url_360 = 'http://10.1.14.117:27405/channel/apitest/QFIN/'

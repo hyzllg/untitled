@@ -100,6 +100,7 @@ class CLAIM_RESULT:
         '''
         number = {
             7014: "533000004000001",
+            7016: "533010003000001",
             7011: "533010015000001",
             7017: "533010003000001",
             7018: "533000007000001"
@@ -208,10 +209,16 @@ def main(a):
         # 生成理赔申请文件，路径是桌面
         key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
                              r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
+        #微众文件
         with open(winreg.QueryValueEx(key, "Desktop")[
                       0] + f"\INS_CLAIM_REQUEST_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
                   mode="a") as h:
             h.write(datas[0] + '\n')
+        #交行文件
+        # with open(winreg.QueryValueEx(key, "Desktop")[
+        #               0] + f"\CLAIM_RESULT_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
+        #           mode="a") as h:
+        #     h.write(datas[0] + '\n')
 
         # with open(os.path.join(os.path.expanduser("~"), 'Desktop') + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
         #     h.write(datas[0])
@@ -223,6 +230,6 @@ def main(a):
 if __name__ == '__main__':
     start = time.time()
     # main()内参数:sit/uat
-    main("sit")
+    main("uat")
     end = time.time()
     print(f"运行时间：{end - start}")

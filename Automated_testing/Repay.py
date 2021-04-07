@@ -799,10 +799,10 @@ def main(a,loanNo,Pay_time,repayType):
     Set_time(Pay_time,hxSIT_ORACLE).set_zw_time()
     Set_time(Pay_time,hxSIT_ORACLE).set_hx_time()
     #判断还款计划是否是最新
-    b = Collect().acct_payment_schedule_update_time(loanNo,ACCT_PAYMENT_SCHEDULE)
-    Collect().ifnow_update_time(ACCT_PAYMENT_SCHEDULE,b,Collect().pay_time(Pay_time))
+    # b = Collect().acct_payment_schedule_update_time(loanNo,ACCT_PAYMENT_SCHEDULE)
+    # Collect().ifnow_update_time(ACCT_PAYMENT_SCHEDULE,b,Collect().pay_time(Pay_time))
     #判断该借据是否逾期
-    acct_loan_type = list(My_plsq().sql_cha(zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(loanNo))[0])
+    # acct_loan_type = list(My_plsq().sql_cha(zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(loanNo))[0])
 
     if prodect == "7014":
         hyzllg = TC_repqy(channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
@@ -819,9 +819,9 @@ def main(a,loanNo,Pay_time,repayType):
 
 if __name__ == '__main__':
     #还款时间
-    Pay_time = "2029/03/15"
+    Pay_time = "2029/03/20"
     #借据号
-    loanNo = "787-502901243301540151"
+    loanNo = "787-502812173301532448"
     #还款类型 00正常或预期还款，01正常结清或逾期结清
     repayType = "00"
     main(0,loanNo,Pay_time,repayType)
