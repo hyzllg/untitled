@@ -230,6 +230,6 @@ def main(a):
 if __name__ == '__main__':
     start = time.time()
     # main()内参数:sit/uat
-    main("uat")
+    main("sit")
     end = time.time()
     print(f"运行时间：{end - start}")

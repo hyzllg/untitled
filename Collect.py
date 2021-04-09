@@ -75,7 +75,7 @@ def PMT(custGrde,periods,businessrate):#执行年利率，期数，客户等级
     b = numpy.pmt(businessrate/100/12,periods,-1)
     c = (a - b)*100
     pmt = round(c,3)
-    return  pmt
+    return  abs(pmt)
 
 def check_id_card(n):
     var = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]

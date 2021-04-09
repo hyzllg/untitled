@@ -1,6 +1,8 @@
+import cx_Oracle
 import json
 import os
 import time
+import re as res
 
 import requests
 from past.builtins import raw_input
@@ -78,21 +80,26 @@ class Hyzllg:
             requit["data"] = eval(requit["data"])
             print(f"响应报文：{requit}")
             print("投保信息接口成功！")
+            a = requit["data"]["insurAgencyUrl"]
+            b = res.search("lp=(.*)", a)
+            c = b.group()[3:]
             if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                 print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
                 raw_input("Press <enter>")
         else:
             print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
-        return self.url, a, requit
+        return self.url, a, requit,c
 
-    def insure_data_query(self):
+    def insure_data_query(self, token):
         url = 'http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_DATA_QUERY'
         data = {
-            "loanReqNo": "20200613910199001"
+            "loanReqNo": "20200613910199001",
+            "token":""
 
         }
         data["loanReqNo"] = self.loanReqNo
+        data["token"] = token
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
@@ -330,10 +337,11 @@ def main(a):
     # 客户等级
     custGrde = 26.00
     # 折后利率
-    discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
-                                        "select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(
-                                            periods))[0])[0]
 
+    # discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
+    #                                     "select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(
+    #                                         periods))[0])[0]
+    discountRate = 18
     if a == 0:
         # hyzllg = Hyzllg(HB_loanReqNo,"测试","412702199810032718",HB_phone,loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
@@ -356,8 +364,8 @@ def main(a):
                     借款期次:{periods}
                     loanReqNo:{HB_loanReqNo}
                 '''
-    hyzllg.insure_info()  # 投保信息接口
-    Insure_Data_Query = hyzllg.insure_data_query()  # 投保资料查询接口
+    insure_infos = hyzllg.insure_info()  # 投保信息接口
+    Insure_Data_Query = hyzllg.insure_data_query(insure_infos[-1])  # 投保资料查询接口
     hyzllg.insure(Insure_Data_Query[3])  # 投保接口
     hyzllg.disburse()  # 支用接口
     time.sleep(1)

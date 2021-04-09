@@ -193,7 +193,7 @@ class Hyzllg:
             a = "**********授信结果查询！**********"
             print(a)
             print(f"请求报文：{data}")
-            time.sleep(5)
+            time.sleep(1)
             re = requests.post(self.url + 'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
             requit = re.json()
             requit["data"] = eval(requit["data"])
