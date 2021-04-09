@@ -209,7 +209,8 @@ class Set_time:
 
 
 class TC_repqy:
-    def __init__(self,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+        self.paytime = paytime
         self.channelCustId = channelCustId
         self.loanNo = loanNo
         self.repayReqNo = repayReqNo
@@ -304,6 +305,8 @@ class TC_repqy:
                 normal_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
                                                                                       "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
                                                                                           self.loanNo)),["11","12"]))
+                print(int(Collect().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])))
+                Collect().pay_time(self.paytime)
                 #判断是否是还款日，如不是则不能做还款
                 if int(Collect().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collect().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
@@ -339,7 +342,8 @@ class TC_repqy:
 
 
 class PP_repqy:
-    def __init__(self,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+        self.paytime = paytime
         self.channelCustId = channelCustId
         self.loanNo = loanNo
         self.repayReqNo = repayReqNo
@@ -805,10 +809,10 @@ def main(a,loanNo,Pay_time,repayType):
     acct_loan_type = list(My_plsq().sql_cha(zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(loanNo))[0])
 
     if prodect == "7014":
-        hyzllg = TC_repqy(channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
+        hyzllg = TC_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
         hyzllg.pay()
     elif prodect == "7018":
-        hyzllg = PP_repqy(channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
+        hyzllg = PP_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
         hyzllg.pay()
     elif prodect == "7017":
         hyzllg = HB_repqy(Pay_time,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
@@ -819,9 +823,9 @@ def main(a,loanNo,Pay_time,repayType):
 
 if __name__ == '__main__':
     #还款时间
-    Pay_time = "2029/04/15"
+    Pay_time = "2029/04/16"
     #借据号
-    loanNo = "787-502903203301552341"
+    loanNo = "787-502902163301545609"
     #还款类型 00正常或预期还款，01正常结清或逾期结清
     repayType = "00"
     main(0,loanNo,Pay_time,repayType)
