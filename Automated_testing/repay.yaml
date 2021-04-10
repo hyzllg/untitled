@@ -1,0 +1,33 @@
+environment: sit #环境 sit dev uat
+Pay_time: 2029/04/16 #还款时间
+loanNo: 787-502807223301439911 #借据号
+repayType: "00" #还款类型 00正常或预期还款，01正常结清或逾期结清
+
+sit:
+  oracle:
+    hx_oracle: ["xbhxbusi","ccic1234","10.1.12.141:1521/PTST12UF"]
+    zw_oracle: ["gdbzdev","ccic1234","10.2.3.203:1521/R2TST16GPDB"]
+  url:
+    7014: http://10.1.14.106:27405/channel/apitest/TCJQ/
+    7015: http://10.1.14.106:27405/channel/apitest/QFIN/
+    7017: http://10.1.14.106:27405/channel/apitest/HUANBEI/
+    7018: http://10.1.14.106:27405/channel/apitest/PPDAI/
+dev:
+  oracle:
+    hx_oracle: ["xbhxbusi","ccic1234","10.1.12.141:1523/PDEV12UF"]
+    zw_oracle: [ "gdbzdev","ccic1234","10.2.3.203:1521/R2TST16GPDB" ]
+  url:
+    7014: http://10.1.14.106:27405/channel-dev/apitest/TCJQ/
+    7015: http://10.1.14.106:27405/channel-dev/apitest/QFIN/
+    7017: http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/
+    7018: http://10.1.14.106:27405/channel-dev/apitest/PPDAI/
+uat:
+  oracle:
+    hx_oracle: ["xbhxbusi","ccic1234","10.1.12.141:1521/puat12uf"]
+    zw_oracle: ["gdbzbusi","ccic9879","10.2.3.203:1521/R2UAT16GPDB"]
+  url:
+    7014: http://10.1.14.106:27405/channel/apitest/TCJQ/
+    7015: http://10.1.14.106:27405/channel/apitest/QFIN/
+    7017: http://10.1.14.106:27405/channel/apitest/HUANBEI/
+    7018: http://10.1.14.106:27405/channel/apitest/PPDAI/
+

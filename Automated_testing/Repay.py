@@ -4,44 +4,20 @@ import datetime
 import requests
 import cx_Oracle
 import json
+import Collect
+
+import yaml
 from past.builtins import raw_input
 
 
 
-class My_plsq:
-    def sql_cha(self,setting,my_sql_c):
-        try:
-            conn = cx_Oracle.connect(setting[0],setting[1],setting[2])
-            cursor = conn.cursor()
-            cursor.execute(my_sql_c)
-            all_data = cursor.fetchall()
-            oo = list(all_data)
-            return oo
-        except cx_Oracle.DatabaseError:
-            return print("无效的SQL语句")
-
-    def sql_update(self,time,setting,table,systemid,v,vv,n):
-        try:
-            conn = cx_Oracle.connect(setting[0], setting[1], setting[2])
-            cursor = conn.cursor()
-            my_sql_c = "UPDATE {} SET businessdate = :v,batchdate = :vv WHERE {} = :n".format(table,systemid)
-            cursor.execute(my_sql_c, {'v': v,'vv': vv, 'n': n})
-            conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
-            print("核心数据库时间更改成功  {}".format(time))
-
-        except cx_Oracle.DatabaseError:
-            return print("无效的SQL语句")
 
 
 
-class Collect:
-    def seqid(self,l,b):
-        for i in l:
-            if i[1] in b:
-                hyz = i
-                break
 
-        return hyz
+
+class Collects:
+
 
     # 计算两个日期相差天数，自定义函数名，和两个日期的变量名。
     def Caltime(self,date1, date2):
@@ -59,9 +35,9 @@ class Collect:
         return date2 - date1
 
     #查该数据账务数据库还款计划的更新时间
-    def acct_payment_schedule_update_time(self,loanNo,Period):
-        sql = "select updated_date from ACCT_PAYMENT_SCHEDULE where objectno = '{}' and seqid = '{}'".format(loanNo, Period[0])
-        a = My_plsq().sql_cha(zwSIT_ORACLE,sql)
+    def acct_payment_schedule_update_time(self,zw_cursor,loanNo,Period):
+        sql = "select updated_date from ACCT_PAYMENT_SCHEDULE where objectno = '{}' and seqid = '{}'".format(loanNo, Period)
+        a = Collect.sql_cha(zw_cursor,sql)
         c = str(list(a[0])[0])[0:10]
         c = c.replace("-", "")
         return c
@@ -84,93 +60,23 @@ class Collect:
         re = requests.post(url, data=json.dumps(data), headers=headers)
         requit = re.json()
         print(f"响应报文：{requit}")
-    #配置
-    def configuration(self,a,loanNo):
-        url = 0
-        hx_ORACLE = 0
-        zw_ORACLE = 0
-        if a == 0:
-            hx_ORACLE = hxSIT_ORACLE
-            zw_ORACLE = zwSIT_ORACLE
-            prodect = list(My_plsq().sql_cha(hx_ORACLE,
-                                             "select a.productid from acct_loan a where a.serialno = '{}'".format(
-                                                 loanNo))[0])[0]
-            if prodect == "7014":
-                url = TC_sit_url
-            elif prodect == "7015":
-                url = QY_sit_url
-            elif prodect == "7017":
-                url = HB_sit_url
-            elif prodect == "7018":
-                url = PP_sit_url
-            else:
-                print("-------")
 
-        elif a == 1:
-            hx_ORACLE = hxUAT_ORACLE
-            zw_ORACLE = zwUAT_ORACLE
-            prodect = list(My_plsq().sql_cha(hx_ORACLE,
-                                             "select a.productid from acct_loan a where a.serialno = '{}'".format(
-                                                 loanNo))[0])[0]
-            if prodect == "7014":
-                url = TC_uat_url
-            elif prodect == "7015":
-                url = QY_uat_url
-            elif prodect == "7017":
-                url = HB_uat_url
-            elif prodect == "7018":
-                url = PP_uat_url
-            else:
-                print("-------")
-
-        elif a == 2:
-            hx_ORACLE = hxDEV_ORACLE
-            zw_ORACLE = zwSIT_ORACLE
-            prodect = list(My_plsq().sql_cha(hx_ORACLE,
-                                             "select a.productid from acct_loan a where a.serialno = '{}'".format(
-                                                 loanNo))[0])[0]
-            if prodect == "7014":
-                url = TC_dev_url
-            elif prodect == "7015":
-                url = QY_dev_url
-            elif prodect == "7017":
-                url = HB_dev_url
-            elif prodect == "7018":
-                url = PP_dev_url
-            else:
-                print("-------")
-
-        else:
-            print("0是SIT 1是UAT 2是DEV")
-
-        return url,hx_ORACLE, zw_ORACLE,prodect
-
-    def repayReqNo(self):
-        a = str(random.randint(1, 1000))
-        b = time.strftime("%Y%m%d%H%M%S")
-        repayReqNo = b + '88' + a
-        return repayReqNo
 
     #将2020/01/01更新成20200101格式
     def pay_time(self,time):
         a = time
         a = a.replace("/","")
         return a
-    #查该数据的channelcustid用于甜橙还款
-    def channelCustId(self,loanNo):
-        channelCustId = list(My_plsq().sql_cha(hxSIT_ORACLE,
-                                               "select channelcustid from channel_apply_info where creditreqno = (select creditreqno from putout_approve where relativeobjectno = '{}')".format(
-                                                   loanNo))[0])[0]
-        return channelCustId
+
 
     #判断改数据的还款计划是否是最新，如不是会去同步最新的还款计划
-    def ifnow_update_time(self,Period,b,Pay_time):
+    def ifnow_update_time(self,zw_cursor,Period,loanNo,b,Pay_time):
         if Period[1] == "12" and int(b) != int(Pay_time):
-            Collect().webankRepayPlanQueryTask()
+            Collects().webankRepayPlanQueryTask()
             time.sleep(30)
             qqq = 0
             while qqq >= 8:
-                if int(Collect().acct_payment_schedule_update_time(loanNo,Period)) != int(Pay_time):
+                if int(Collects().acct_payment_schedule_update_time(zw_cursor,loanNo,Period)) != int(Pay_time):
                     time.sleep(5)
                     break
                 else:
@@ -203,13 +109,13 @@ class Set_time:
         b = self.time
         a = "**********改线上核心系统时间！**********"
         print(a)
-        My_plsq().sql_update(self.time,self.setting,"system_setup","systemid",b,b,"1")
+        Collect.sql_update(self.time,self.setting,"system_setup","systemid",b,b,"1")
 
 
 
 
 class TC_repqy:
-    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor):
         self.paytime = paytime
         self.channelCustId = channelCustId
         self.loanNo = loanNo
@@ -217,8 +123,8 @@ class TC_repqy:
         self.Period = Period
         self.url = url
         self.repayType = repayType
-        self.hx_ORACLE = hx_ORACLE
-        self.zw_ORACLE = zw_ORACLE
+        self.hx_cursor = hx_cursor
+        self.zw_cursor = zw_cursor
 
     def ADVANCE_SETTLE_TRIAL(self):
         data = {
@@ -294,7 +200,7 @@ class TC_repqy:
 
     def pay(self):
         # 判断该借据是否逾期
-        acct_loan_type = list(My_plsq().sql_cha(self.zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0])[0]
+        acct_loan_type = Collect.sql_cha(self.zw_cursor,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0][0]
         if self.repayType == "01":
             repayAmt = self.ADVANCE_SETTLE_TRIAL()
             self.PAYMENT_NOTICE(repayAmt[-1])
@@ -302,13 +208,9 @@ class TC_repqy:
             if acct_loan_type == "0":
                 print("借据为正常状态！")
                 # 查询借据最远未还期次信息
-                normal_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
-                print(int(Collect().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])))
-                Collect().pay_time(self.paytime)
+                normal_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #判断是否是还款日，如不是则不能做还款
-                if int(Collect().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collect().pay_time(self.paytime)):
+                if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
                     print(f"还款金额：{repayamt}")
                     self.PAYMENT_NOTICE(repayamt)
@@ -319,18 +221,9 @@ class TC_repqy:
                 print("借据为逾期状态！")
                 overdue = []
                 overdueamt = 0
-                # a = My_plsq().sql_cha(self.zw_ORACLE,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and a.status = '12'".format(loanNo))
-                overdue_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
+                overdue_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor ,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
                 print(f"还款金额：{overdueamt}")
-                # for i in a:
-                #     list(i)
-                #     overdue.append(i)
-                # for i in overdue:
-                #     a = i[3]+i[4]+i[5]+i[6]+i[7]
-                #     overdueamt += a
                 self.PAYMENT_NOTICE(overdueamt)
 
 
@@ -342,7 +235,7 @@ class TC_repqy:
 
 
 class PP_repqy:
-    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor):
         self.paytime = paytime
         self.channelCustId = channelCustId
         self.loanNo = loanNo
@@ -350,8 +243,8 @@ class PP_repqy:
         self.Period = Period
         self.repayType = repayType
         self.url = url
-        self.hx_ORACLE =hx_ORACLE
-        self.zw_ORACLE = zw_ORACLE
+        self.hx_cursor =hx_cursor
+        self.zw_cursor = zw_cursor
 
     def ADVANCE_SETTLE_TRIAL(self):
         data = {
@@ -429,7 +322,7 @@ class PP_repqy:
 
     def pay(self):
         # 判断该借据是否逾期
-        acct_loan_type = list(My_plsq().sql_cha(self.zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0])[0]
+        acct_loan_type = Collect.sql_cha(self.zw_cursor,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0][0]
         if self.repayType == "01":
             repayAmt = self.ADVANCE_SETTLE_TRIAL()
             self.PAYMENT_NOTICE(repayAmt[-1])
@@ -437,11 +330,9 @@ class PP_repqy:
             if acct_loan_type == "0":
                 print("借据为正常状态！")
                 # 查询借据最远未还期次信息
-                normal_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
+                normal_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #判断是否是还款日，如不是则不能做还款
-                if int(Collect().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collect().pay_time(self.paytime)):
+                if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
                     print(f"还款金额：{repayamt}")
                     self.PAYMENT_NOTICE(repayamt)
@@ -452,16 +343,9 @@ class PP_repqy:
                 print("借据为逾期状态！")
                 overdue = []
                 overdueamt = 0
-                # a = My_plsq().sql_cha(self.zw_ORACLE,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and a.status = '12'".format(loanNo))
-                overdue_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(self.loanNo)),["11","12"]))
+                overdue_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor ,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
                 print(f"还款金额：{overdueamt}")
-                # for i in a:
-                #     list(i)
-                #     overdue.append(i)
-                # for i in overdue:
-                #     a = i[3]+i[4]+i[5]+i[6]+i[7]
-                #     overdueamt += a
                 self.PAYMENT_NOTICE(overdueamt)
 
 
@@ -473,15 +357,15 @@ class PP_repqy:
 
 
 class HB_repqy:
-    def __init__(self,paytime,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+    def __init__(self,paytime,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor):
         self.paytime = paytime
         self.loanNo = loanNo
         self.repayReqNo = repayReqNo
         self.Period = Period
         self.repayType = repayType
         self.url = url
-        self.hx_ORACLE = hx_ORACLE
-        self.zw_ORACLE = zw_ORACLE
+        self.hx_cursor = hx_cursor
+        self.zw_cursor = zw_cursor
 
     def ADVANCE_SETTLE_TRIAL(self):
         data = {
@@ -564,7 +448,7 @@ class HB_repqy:
 
     def pay(self):
         # 判断该借据是否逾期
-        acct_loan_type = list(My_plsq().sql_cha(self.zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0])[0]
+        acct_loan_type = Collect.sql_cha(self.zw_cursor,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0][0]
         if self.repayType == "01":
             repayAmt = self.ADVANCE_SETTLE_TRIAL()
             self.PAYMENT_NOTICE(repayAmt[-1])
@@ -572,14 +456,11 @@ class HB_repqy:
             if acct_loan_type == "0":
                 print("借据为正常状态！")
                 # 查询借据最远未还期次信息
-                normal_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
-
+                normal_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #判断是否是还款日，如不是则不能做还款
-                if int(Collect().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collect().pay_time(self.paytime)):
+                if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
-                    print(f"还款金额:{repayamt}")
+                    print(f"还款金额：{repayamt}")
                     self.PAYMENT_NOTICE(repayamt)
                 else:
                     print("不能做提前还当期操作！")
@@ -588,18 +469,9 @@ class HB_repqy:
                 print("借据为逾期状态！")
                 overdue = []
                 overdueamt = 0
-                # a = My_plsq().sql_cha(self.zw_ORACLE,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and a.status = '12'".format(loanNo))
-                overdue_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
+                overdue_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor ,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
                 print(f"还款金额：{overdueamt}")
-                # for i in a:
-                #     list(i)
-                #     overdue.append(i)
-                # for i in overdue:
-                #     a = i[3]+i[4]+i[5]+i[6]+i[7]
-                #     overdueamt += a
                 self.PAYMENT_NOTICE(overdueamt)
 
 
@@ -611,7 +483,7 @@ class HB_repqy:
 
 
 class QY_repqy:
-    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE):
+    def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor):
         self.paytime = paytime
         self.channelCustId = channelCustId
         self.loanNo = loanNo
@@ -619,8 +491,8 @@ class QY_repqy:
         self.Period = Period
         self.repayType = repayType
         self.url = url
-        self.hx_ORACLE = hx_ORACLE
-        self.zw_ORACLE = zw_ORACLE
+        self.hx_cursor = hx_cursor
+        self.zw_cursor = zw_cursor
 
     def PAYMENT_NOTICE(self,repayAmt,principal,interest):
         data = {
@@ -674,20 +546,16 @@ class QY_repqy:
 
     def pay(self):
         # 判断该借据是否逾期
-        acct_loan_type = list(My_plsq().sql_cha(self.zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0])[0]
+        acct_loan_type = Collect.sql_cha(self.zw_cursor,"select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0][0]
         # 未还本金
-        principal = round(sum(list(My_plsq().sql_cha(self.zw_ORACLE,
-                                                     "select normalbalance,overduebalance from acct_loan where serialno = '{}'".format(
-                                                         self.loanNo))[0])), 2)
+        principal = round(sum(Collect.sql_cha(self.zw_cursor,"select normalbalance,overduebalance from acct_loan where serialno = '{}'".format(self.loanNo))[0]), 2)
+
         if self.repayType == "01":
 
             if acct_loan_type == "0":
-                lon_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.intedate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
-                # print(lon_ACCT_PAYMENT_SCHEDULE)
+                lon_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.intedate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #天数
-                days = Collect().Caltime(lon_ACCT_PAYMENT_SCHEDULE[3],self.paytime).days
+                days = Collects().Caltime(lon_ACCT_PAYMENT_SCHEDULE[3],self.paytime).days
                 #息费
                 interest = round((lon_ACCT_PAYMENT_SCHEDULE[5] + lon_ACCT_PAYMENT_SCHEDULE[8]) / 30 * days,2)
                 repayamt = round(principal+interest,2)
@@ -695,16 +563,15 @@ class QY_repqy:
                 self.PAYMENT_NOTICE(repayamt,principal,interest)
             elif acct_loan_type == "1":
                 amt = 0
-                overdue_ACCT_PAYMENT_SCHEDULE = list(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and a.status = '12'".format(
-                                                                                          self.loanNo)))
+                overdue_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and a.status = '12'".format(
+                                                                                          self.loanNo))
                 for i in overdue_ACCT_PAYMENT_SCHEDULE:
                     a = round(i[4]+i[5]+i[6]+i[7],2)
                     amt += a
 
-                a = Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,"select a.seqid,a.status,a.paydate,a.intedate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 from ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(self.loanNo)),["11"])
+                a = Collect.sql_cha(self.zw_cursor,"select a.seqid,a.status,a.paydate,a.intedate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 from ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status = '11'".format(self.loanNo))
                 #天数
-                days = Collect().Caltime(a[3],self.paytime).days
+                days = Collects().Caltime(a[3],self.paytime).days
                 interest = round((a[5]+a[8]) / 30 * days + amt,2)
                 repayamt = round(interest+principal,2)
                 print(f"还款金额：{repayamt}")
@@ -717,11 +584,9 @@ class QY_repqy:
             if acct_loan_type == "0":
                 print("借据为正常状态！")
                 # 查询借据最远未还期次信息
-                normal_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
+                normal_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))
                 #判断是否是还款日，如不是则不能做还款
-                if int(Collect().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collect().pay_time(self.paytime)):
+                if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
 
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
                     principal = round(normal_ACCT_PAYMENT_SCHEDULE[3],2)
@@ -735,10 +600,7 @@ class QY_repqy:
                 print("借据为逾期状态！")
                 overdue = []
                 overdueamt = 0
-                # a = My_plsq().sql_cha(self.zw_ORACLE,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and a.status = '12'".format(loanNo))
-                overdue_ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(self.zw_ORACLE,
-                                                                                      "SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(
-                                                                                          self.loanNo)),["11","12"]))
+                overdue_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
                 principal = round(overdue_ACCT_PAYMENT_SCHEDULE[3],2)
                 interest = round(overdue_ACCT_PAYMENT_SCHEDULE[4]+overdue_ACCT_PAYMENT_SCHEDULE[5]+overdue_ACCT_PAYMENT_SCHEDULE[6]+overdue_ACCT_PAYMENT_SCHEDULE[7],2)
@@ -758,90 +620,65 @@ class QY_repqy:
         else:
             print("还款类型有误！")
 
-#sit环境甜橙、拍拍、还呗、360的提请结清试算接口和还款通知接口地址
-TC_sit_url = 'http://10.1.14.106:27405/channel/apitest/TCJQ/'
-TC_uat_url = 'http://10.1.14.117:27405/channel/apitest/TCJQ/'
-TC_dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/TCJQ/'
+def datas():
+    with open("repay.yaml",encoding="utf-8") as f:
+        datas = yaml.load(f, Loader=yaml.SafeLoader)
+        return  datas
 
-PP_sit_url = 'http://10.1.14.106:27405/channel/apitest/PPDAI/'
-PP_uat_url = 'http://10.1.14.117:27405/channel/apitest/PPDAI/'
-PP_dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/PPDAI/'
+def channelCust(hx_cursor,loanNo):
+    data = Collect.sql_cha(hx_cursor,"select channelcustid from channel_apply_info where creditreqno = (select creditreqno from putout_approve where relativeobjectno = '{}')".format(
+                                               loanNo))[0][0]
+    return data
 
-HB_sit_url = 'http://10.1.14.106:27405/channel/apitest/HUANBEI/'
-HB_uat_url = 'http://10.1.14.117:27405/channel/apitest/HUANBEI/'
-HB_dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/'
-
-QY_sit_url = 'http://10.1.14.106:27405/channel/apitest/QFIN/'
-QY_uat_url = 'http://10.1.14.117:27405/channel/apitest/QFIN/'
-QY_dev_url = 'http://10.1.14.106:27405/channel-dev/apitest/QFIN/'
-
-#核心数据库配置
-hxSIT_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1521/PTST12UF"]
-hxDEV_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1523/PDEV12UF"]
-hxUAT_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1521/puat12uf"]
-#账务数据库配置
-zwSIT_ORACLE = ["gdbzdev","ccic1234","10.2.3.203:1521/R2TST16GPDB"]
-zwUAT_ORACLE = ["gdbzbusi","ccic9879","10.2.3.203:1521 R2UAT16GPDB"]
-
-def main(a,loanNo,Pay_time,repayType):
+def main():
+    data = datas()
+    environment = data["environment"]
+    loanNo = data["loanNo"]
+    Pay_time = data["Pay_time"]
+    repayType = data["repayType"]
     #测试环境及数据库配置
-    configuration = Collect().configuration(a,loanNo)
-    url = configuration[0]
-    hx_ORACLE = configuration[1]
-    zw_ORACLE = configuration[2]
+    hx_ORACLE = data[environment]["oracle"]["hx_oracle"]
+    hx_conn = cx_Oracle.connect(hx_ORACLE[0], hx_ORACLE[1], hx_ORACLE[2])
+    hx_cursor = hx_conn.cursor()
+    zw_ORACLE = data[environment]["oracle"]["zw_oracle"]
+    zw_conn = cx_Oracle.connect(zw_ORACLE[0], zw_ORACLE[1], zw_ORACLE[2])
+    zw_cursor = zw_conn.cursor()
     #产品号  7014是甜橙   7018是拍拍    7017是还呗    7015是360
-    prodect = configuration[3]
+    prodect = Collect.sql_cha(hx_cursor,"select a.productid from acct_loan a where a.serialno = '{}'".format(
+                                                 loanNo))[0][0]
+    url = data[environment]["url"][int(prodect)]
     #channelCustId
-    channelCustId = Collect().channelCustId(loanNo)
+    channelCustId = channelCust(hx_cursor,loanNo)
     #repayReqNo
-    repayReqNo = Collect().repayReqNo()
+    repayReqNo = Collect.creditReqNo()
     # 查询借据最远未还期次信息
-    ACCT_PAYMENT_SCHEDULE = list(Collect().seqid(My_plsq().sql_cha(zw_ORACLE,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}'".format(loanNo)),["11","12"]))
+    ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(loanNo))[0]
     Period = ACCT_PAYMENT_SCHEDULE[0]
     Paydate = ACCT_PAYMENT_SCHEDULE[2]
     # 改系统时间
-    Set_time(Pay_time,hxSIT_ORACLE).set_zw_time()
-    Set_time(Pay_time,hxSIT_ORACLE).set_hx_time()
+    Set_time(Pay_time,hx_ORACLE).set_zw_time()
+    Set_time(Pay_time,hx_ORACLE).set_hx_time()
     #判断还款计划是否是最新
-    b = Collect().acct_payment_schedule_update_time(loanNo,ACCT_PAYMENT_SCHEDULE)
-    Collect().ifnow_update_time(ACCT_PAYMENT_SCHEDULE,b,Collect().pay_time(Pay_time))
-    #判断该借据是否逾期
-    acct_loan_type = list(My_plsq().sql_cha(zw_ORACLE,"select loanstatus From acct_loan a where a.serialno = '{}'".format(loanNo))[0])
+    # b = Collects().acct_payment_schedule_update_time(zw_cursor,loanNo,Period)
+    # Collects().ifnow_update_time(zw_cursor,ACCT_PAYMENT_SCHEDULE,loanNo,b,Collects().pay_time(Pay_time))
+
 
     if prodect == "7014":
-        hyzllg = TC_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
+        hyzllg = TC_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor)
         hyzllg.pay()
     elif prodect == "7018":
-        hyzllg = PP_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
+        hyzllg = PP_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor)
         hyzllg.pay()
     elif prodect == "7017":
-        hyzllg = HB_repqy(Pay_time,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
+        hyzllg = HB_repqy(Pay_time,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor)
         hyzllg.pay()
     elif prodect == "7015":
-        hyzllg = QY_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_ORACLE,zw_ORACLE)
+        hyzllg = QY_repqy(Pay_time,channelCustId,loanNo,repayReqNo,Period,repayType,url,hx_cursor,zw_cursor)
         hyzllg.pay()
 
 if __name__ == '__main__':
-    #还款时间
-    Pay_time = "2029/04/16"
-    #借据号
-    loanNo = "787-502902163301545609"
-    #还款类型 00正常或预期还款，01正常结清或逾期结清
-    repayType = "00"
-    main(0,loanNo,Pay_time,repayType)
+    main()
 
-
-#还呗
-
-
-#拍拍
-#787-502901243301540443
-
-#甜橙
-#787-502901243301540154
-
-#360
-#787-502901243301540147
 
 
 
