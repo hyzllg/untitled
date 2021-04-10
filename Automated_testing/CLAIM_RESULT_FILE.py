@@ -152,19 +152,18 @@ def environments(environment):
     return environment
 
 
-def loanNos():
+def data():
     with open("CLAIM_RESULT_DATAS.yaml", encoding="utf-8") as f:
         datas = yaml.load(f, Loader=yaml.SafeLoader)  # 手动指定加载程序yaml.SafeLoader
     return datas
 
 
-def main(a):
+def main(environment,loanNo):
     print("------开始执行------")
-    loanNo = loanNos()
     # 借据笔数
     loan_numbers = len(loanNo)
     # 环境
-    environment = environments(a)
+    environment = environments(environment)
     # 连接数据库
     conn = cx_Oracle.connect(environment[0], environment[1], environment[2])
     cursor = conn.cursor()
@@ -229,7 +228,7 @@ def main(a):
 
 if __name__ == '__main__':
     start = time.time()
-    # main()内参数:sit/uat
-    main("sit")
+    datas = data()
+    main(datas["environment"],datas["loanNo"])
     end = time.time()
     print(f"运行时间：{end - start}")

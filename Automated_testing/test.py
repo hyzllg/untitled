@@ -1,4 +1,6 @@
 import Collect
+import yaml
 
-a  = Collect.PMT(6.2,12,26.55)
-print(a)
+with open("CLAIM_RESULT_DATAS.yaml",encoding="utf-8") as f:
+    f = yaml.load(f)
+print(f)
