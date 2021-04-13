@@ -109,7 +109,7 @@ class Set_time:
         b = self.time
         a = "**********改线上核心系统时间！**********"
         print(a)
-        Collect.sql_update(self.time,self.setting,"system_setup","systemid",b,b,"1")
+        Collect.sql_update(self.setting,b,b)
 
 
 
@@ -631,6 +631,8 @@ def channelCust(hx_cursor,loanNo):
     return data
 
 def main():
+    print("------开始执行------")
+
     data = datas()
     environment = data["environment"]
     loanNo = data["loanNo"]
@@ -643,9 +645,9 @@ def main():
     zw_ORACLE = data[environment]["oracle"]["zw_oracle"]
     zw_conn = cx_Oracle.connect(zw_ORACLE[0], zw_ORACLE[1], zw_ORACLE[2])
     zw_cursor = zw_conn.cursor()
-    #产品号  7014是甜橙   7018是拍拍    7017是还呗    7015是360
-    prodect = Collect.sql_cha(hx_cursor,"select a.productid from acct_loan a where a.serialno = '{}'".format(
-                                                 loanNo))[0][0]
+
+
+    prodect = Collect.sql_cha(hx_cursor,"select a.productid from acct_loan a where a.serialno = '{}'".format(loanNo))[0][0]
     url = data[environment]["url"][int(prodect)]
     #channelCustId
     channelCustId = channelCust(hx_cursor,loanNo)
@@ -653,6 +655,7 @@ def main():
     repayReqNo = Collect.creditReqNo()
     # 查询借据最远未还期次信息
     ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(loanNo))[0]
+    print(ACCT_PAYMENT_SCHEDULE)
     Period = ACCT_PAYMENT_SCHEDULE[0]
     Paydate = ACCT_PAYMENT_SCHEDULE[2]
     # 改系统时间

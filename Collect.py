@@ -5,7 +5,7 @@ import time
 import cx_Oracle
 
 # 核心数据库配置
-hxSIT_ORACLE = ["xbhxbusi", "ccic1234", "10.1.12.141:1521/PTST12UF"]
+hxSIT_ORACLE = ["xbhxbusi", "ccic1234","10.1.12.141:1521/PTST12UF"]
 hxDEV_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1523/PDEV12UF"]
 hxUAT_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1521/puat12uf"]
 # 账务数据库配置
@@ -101,14 +101,14 @@ def sql_cha(cursor,my_sql_c):
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
 
-def sql_update(time,setting,table,systemid,v,vv,n):
+def sql_update(setting,v,vv):
     try:
-        conn = cx_Oracle.connect(setting[0], setting[1], setting[2])
-        cursor = conn.cursor()
-        my_sql_c = "UPDATE {} SET businessdate = :v,batchdate = :vv WHERE {} = :n".format(table,systemid)
-        cursor.execute(my_sql_c, {'v': v,'vv': vv, 'n': n})
-        conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
-        conn.close()
+        conns = cx_Oracle.connect(setting[0], setting[1], setting[2])
+        cursor = conns.cursor()
+        my_sql_c = "UPDATE system_setup SET businessdate = :v,batchdate = :vv".format()
+        cursor.execute(my_sql_c, {'v': v,'vv': vv})
+        conns.commit()  # 这里一定要commit才行，要不然数据是不会插入的
+        conns.close()
         print("核心数据库时间更改成功  {}".format(time))
 
     except cx_Oracle.DatabaseError:

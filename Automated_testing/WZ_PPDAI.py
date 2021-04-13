@@ -104,9 +104,9 @@ class Hyzllg:
         else:
             print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
-        return self.url, a, requit, requit["data"]["premiumRate"]
+        return self.url, a, requit, requit["data"]["insurantName"],requit["data"]["premiumRate"]
 
-    def insure(self, a):
+    def insure(self, insurantName, premiumRate ):
         data = {
             "agentNo": "DingSheng",
             "agentName": "鼎盛保险经纪",
@@ -132,7 +132,8 @@ class Hyzllg:
         data["phone"] = self.phone
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
-        data["premiumRate"] = a
+        data["premiumRate"] = premiumRate
+        data["insurantName"] = insurantName
         # print(data)
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
@@ -474,7 +475,7 @@ def main(a, hhh):
                             "建设银行", HB_phone, Collect.sit_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
-            hyzllg.insure(Insure_Data_Query[3])  # 投保接口
+            hyzllg.insure(Insure_Data_Query[3],Insure_Data_Query[4])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.sit_url_pp, custGrde])
@@ -484,7 +485,7 @@ def main(a, hhh):
                             "建设银行", HB_phone, Collect.uat_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
-            hyzllg.insure(Insure_Data_Query[3])  # 投保接口
+            hyzllg.insure(Insure_Data_Query[3],Insure_Data_Query[4])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.uat_url_pp, custGrde])
@@ -494,7 +495,7 @@ def main(a, hhh):
                             "建设银行", HB_phone, Collect.dev_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
             Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
-            hyzllg.insure(Insure_Data_Query[3])  # 投保接口
+            hyzllg.insure(Insure_Data_Query[3],Insure_Data_Query[4])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         loanAmount, periods, HB_bankcard, "建设银行", HB_phone, Collect.dev_url_pp, custGrde])
