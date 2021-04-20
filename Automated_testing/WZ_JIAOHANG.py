@@ -581,6 +581,9 @@ def main(a):
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
                         periods,
                         JH_bankcard, "招商银行", JH_phone, Collect.sit_url_jh)
+        # hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, "羊河", "350321199407191072", JH_phone, loanAmount,
+        #                 periods,
+        #                 JH_bankcard, "招商银行", JH_phone, Collect.sit_url_jh)
     elif a == 1:
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
                         periods,

@@ -377,5 +377,5 @@ if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    for i in range(1):
+    for i in range(20):
         main(0)

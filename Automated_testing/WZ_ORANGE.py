@@ -387,7 +387,7 @@ def main(a, hhh):
         creditReqNo = Collect.creditReqNo()
         loanReqNo = Collect.loanReqNo()
         # 借款金额
-        loanAmount = 5000
+        loanAmount = 3000
         # 期数
         periods = "6"
         if a == 0:
