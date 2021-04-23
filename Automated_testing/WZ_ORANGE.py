@@ -300,7 +300,7 @@ class Hyzllg:
         data["loanReqNo"] = self.loanReqNo
         data["creditReqNo"] = self.creditReqNo
         data["capitalCode"] = capitalCode
-        # data["loanAmount"] = self.loanAmount
+        data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
         data["bankCard"] = self.bankcard
         data["bankPhone"] = self.phone
@@ -387,7 +387,7 @@ def main(a, hhh):
         creditReqNo = Collect.creditReqNo()
         loanReqNo = Collect.loanReqNo()
         # 借款金额
-        loanAmount = 3000
+        loanAmount = 8000
         # 期数
         periods = "6"
         if a == 0:
