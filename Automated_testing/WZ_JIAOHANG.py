@@ -609,6 +609,7 @@ def main(a):
     hyzllg.insure()
     credit_Granting = hyzllg.credit_granting()
     hyzllg.credit_inquiry(credit_Granting[3])
+    a = input("aaa")
     insure_put = hyzllg.insure_info_put(credit_Granting[3])
     hyzllg.insure_data_query_put(insure_put[-1])
     hyzllg.insure_put()

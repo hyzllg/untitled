@@ -304,6 +304,8 @@ class Hyzllg:
         data["periods"] = self.periods
         data["bankCard"] = self.bankcard
         data["bankPhone"] = self.phone
+        print(data)
+        a = input("aaaa")
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
