@@ -189,7 +189,7 @@ class Hyzllg:
 
         }
         n = False
-        while hhh < 8:
+        while hhh < 16:
             a = "**********授信结果查询！**********"
             print(a)
             print(f"请求报文：{data}")
@@ -304,8 +304,8 @@ class Hyzllg:
         data["periods"] = self.periods
         data["bankCard"] = self.bankcard
         data["bankPhone"] = self.phone
-        print(data)
-        a = input("aaaa")
+        # print(data)
+        # a = input("aaaa")
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "Host": "10.1.14.106:27405",
@@ -451,4 +451,4 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    main(0, 1)
+    main(2, 1)

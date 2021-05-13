@@ -3,6 +3,7 @@ import os
 import re as res
 import time
 
+import cx_Oracle
 import requests
 from past.builtins import raw_input
 
@@ -562,7 +563,16 @@ class Hyzllg:
             print("msg:{}".format(requit["msg"]))
             raw_input("Press <enter>")
         return self.url, a, requit
-
+def JH_sql_update(setting,creditreqno):
+    try:
+        conns = cx_Oracle.connect(setting[0], setting[1], setting[2])
+        cursor = conns.cursor()
+        my_sql_c = f"update business_apply set CUSTOMERGROUPLEVEL = 'A1' where customerid = (select customerid from channel_apply_info where creditreqno = '{creditreqno}')"
+        cursor.execute(my_sql_c)
+        conns.commit()  # 这里一定要commit才行，要不然数据是不会插入的
+        conns.close()
+    except cx_Oracle.DatabaseError:
+        return print("无效的SQL语句")
 
 def main(a):
     random__name = Collect.random_name()
@@ -578,6 +588,7 @@ def main(a):
     periods = '6'
 
     if a == 0:
+        environment = Collect.hxSIT_ORACLE
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
                         periods,
                         JH_bankcard, "招商银行", JH_phone, Collect.sit_url_jh)
@@ -585,10 +596,12 @@ def main(a):
         #                 periods,
         #                 JH_bankcard, "招商银行", JH_phone, Collect.sit_url_jh)
     elif a == 1:
+        environment = Collect.hxUAT_ORACLE
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
                         periods,
                         JH_bankcard, "招商银行", JH_phone, Collect.uat_url_jh)
     elif a == 2:
+        environment = Collect.hxDEV_ORACLE
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
                         periods,
                         JH_bankcard, "招商银行", JH_phone, Collect.dev_url_jh)
@@ -609,7 +622,9 @@ def main(a):
     hyzllg.insure()
     credit_Granting = hyzllg.credit_granting()
     hyzllg.credit_inquiry(credit_Granting[3])
-    a = input("aaa")
+    JH_sql_update(environment,JH_creditReqNo)
+
+    # a = input("aaa")
     insure_put = hyzllg.insure_info_put(credit_Granting[3])
     hyzllg.insure_data_query_put(insure_put[-1])
     hyzllg.insure_put()

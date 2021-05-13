@@ -369,7 +369,7 @@ def main(a):
     # 客户等级
     custGrde = 26.00
     # 资方代码 (微众：FBBANK，龙江：20062)
-    capitalCode = 20062
+    capitalCode = 'FBBANK'
 
     if a == 0:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
@@ -377,9 +377,9 @@ def main(a):
         # hyzllg = Hyzllg(HB_loanReqNo, "葛被寒", "330727199307087098", HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
 
     elif a == 1:
-        # hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
-        #                 Bank, Collect.uat_url_360)
-        hyzllg = Hyzllg(HB_loanReqNo, "葛玉", "230602199007072971", "16601065310", loanAmount, periods,custGrde,capitalCode,"6214661723532900",Collect.uat_url_360)
+        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
+                        Bank, Collect.uat_url_360)
+        # hyzllg = Hyzllg(HB_loanReqNo, "蔡娥", "230602199007071530", "16601065191", loanAmount, periods,custGrde,capitalCode,"6214661723536440",Collect.uat_url_360)
 
     elif a == 2:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
@@ -410,4 +410,4 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     for i in range(1):
-        main(1)
+        main(0)
