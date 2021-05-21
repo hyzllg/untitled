@@ -360,6 +360,11 @@ def main(a):
     random__name = Collect.random_name()
     HB_loanReqNo = Collect.loanReqNo()
     HB_phone = Collect.phone()
+    #指定姓名身份证手机号时使用
+    # random__name = ""
+    # HB_loanReqNo = ""
+    # HB_phone = ""
+
     Bank = Collect.bankcard()
     generate__ID = Collect.id_card().generate_ID()
     # 借款金额
@@ -374,13 +379,9 @@ def main(a):
     if a == 0:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
                         Bank, Collect.sit_url_360)
-        # hyzllg = Hyzllg(HB_loanReqNo, "葛被寒", "330727199307087098", HB_phone, loanAmount, periods,custGrde,capitalCode,Bank,Collect.sit_url_360)
-
     elif a == 1:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
                         Bank, Collect.uat_url_360)
-        # hyzllg = Hyzllg(HB_loanReqNo, "蔡娥", "230602199007071530", "16601065191", loanAmount, periods,custGrde,capitalCode,"6214661723536440",Collect.uat_url_360)
-
     elif a == 2:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
                         Bank, Collect.dev_url_360)

@@ -577,10 +577,15 @@ def JH_sql_update(setting,creditreqno):
 def main(a):
     random__name = Collect.random_name()
     generate__ID = Collect.id_card().generate_ID()
+    JH_phone = Collect.phone()
+    #指定姓名身份证手机号时使用
+    # random__name = ""
+    # generate__ID = ""
+    # JH_phone = ""
     JH_creditReqNo = Collect.creditReqNo()
     JH_loanReqNo1 = Collect.loanReqNo()
     JH_loanReqNo2 = Collect.loanReqNo()
-    JH_phone = Collect.phone()
+
     JH_bankcard = Collect.bankcard()
     # 借款金额
     loanAmount = 10000
@@ -592,9 +597,6 @@ def main(a):
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
                         periods,
                         JH_bankcard, "招商银行", JH_phone, Collect.sit_url_jh)
-        # hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, "羊河", "350321199407191072", JH_phone, loanAmount,
-        #                 periods,
-        #                 JH_bankcard, "招商银行", JH_phone, Collect.sit_url_jh)
     elif a == 1:
         environment = Collect.hxUAT_ORACLE
         hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
@@ -623,7 +625,6 @@ def main(a):
     credit_Granting = hyzllg.credit_granting()
     hyzllg.credit_inquiry(credit_Granting[3])
     JH_sql_update(environment,JH_creditReqNo)
-
     # a = input("aaa")
     insure_put = hyzllg.insure_info_put(credit_Granting[3])
     hyzllg.insure_data_query_put(insure_put[-1])

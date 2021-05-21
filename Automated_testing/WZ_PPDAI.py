@@ -454,10 +454,14 @@ def main(a, hhh):
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
+        generate__ID = Collect.id_card().generate_ID()
+        HB_phone = Collect.phone()
+        # 指定姓名身份证手机号时使用
+        # random__name = ""
+        # generate__ID = ""
+        # HB_phone = ""
         HB_loanReqNo = Collect.loanReqNo()
         HB_creditReqNo = Collect.creditReqNo()
-        HB_phone = Collect.phone()
-        generate__ID = Collect.id_card().generate_ID()
         HB_bankcard = Collect.bankcard()
         # 借款金额
         loanAmount = 5000
@@ -468,8 +472,6 @@ def main(a, hhh):
         custGrde = 26.32
 
         if a == 0:
-            # hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, "陈裕明", "421182199509162919", "18789769070", loanAmount, periods, HB_bankcard,
-            #                 "建设银行", HB_phone,Collect.sit_url_pp,custGrde)
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
                             HB_bankcard,
                             "建设银行", HB_phone, Collect.sit_url_pp, custGrde)

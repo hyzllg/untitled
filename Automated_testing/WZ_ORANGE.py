@@ -384,6 +384,10 @@ def main(a, hhh):
         random__name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         ORANGE_phone = Collect.phone()
+        # 指定姓名身份证手机号时使用
+        # random__name = ""
+        # generate__ID = ""
+        # ORANGE_phone = ""
         ORANGE_bankcard = Collect.bankcard()
         channelCustId = Collect.channelCustId()
         creditReqNo = Collect.creditReqNo()
@@ -393,8 +397,6 @@ def main(a, hhh):
         # 期数
         periods = "6"
         if a == 0:
-            # hyzllg = Hyzllg(channelCustId, creditReqNo,loanReqNo,"滕金炎", "530124199704032387", "16603191127",
-            #                 loanAmount, periods, ORANGE_bankcard,Collect.sit_url_tc)
             hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random__name, generate__ID, ORANGE_phone,
                             loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc)
             credit = hyzllg.credit_granting()[-1]
@@ -451,4 +453,4 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    main(2, 1)
+    main(0, 1)

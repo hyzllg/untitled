@@ -327,8 +327,12 @@ class Hyzllg:
 def main(a):
     random__name = Collect.random_name()
     generate__ID = Collect.id_card().generate_ID()
-    HB_loanReqNo = Collect.loanReqNo()
     HB_phone = Collect.phone()
+    # 指定姓名身份证手机号时使用
+    # random__name = ""
+    # generate__ID = ""
+    # HB_phone = ""
+    HB_loanReqNo = Collect.loanReqNo()
     HB_bankcard = Collect.bankcard()
     # 借款金额
     loanAmount = 5000
@@ -343,7 +347,7 @@ def main(a):
     #                                         periods))[0])[0]
     discountRate = 18
     if a == 0:
-        # hyzllg = Hyzllg(HB_loanReqNo,"测试","412702199810032718",HB_phone,loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
+        # hyzllg = Hyzllg(HB_loanReqNo,"大地测试","220102199003079958","17602178613",loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
                         Collect.sit_url_hb, discountRate)
 
