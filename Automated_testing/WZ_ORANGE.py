@@ -193,7 +193,7 @@ class Hyzllg:
             a = "**********授信结果查询！**********"
             print(a)
             print(f"请求报文：{data}")
-            time.sleep(1)
+            time.sleep(3)
             re = requests.post(self.url + 'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
             requit = re.json()
             requit["data"] = eval(requit["data"])
@@ -216,7 +216,7 @@ class Hyzllg:
             except BaseException as e:
                 print(f'orrer:{requit["data"]["message"]}')
                 raw_input("Press <enter>")
-        if hhh >= 8:
+        if hhh >= 16:
             print("甜橙授信时间过长！可能由于授信挡板问题，结束程序！")
             raw_input("Press <enter>")
 
@@ -419,7 +419,6 @@ def main(a, hhh):
         else:
             print("........")
 
-    time.sleep(5)
     nnn = False
     n = 0
     # a = input("aaa")

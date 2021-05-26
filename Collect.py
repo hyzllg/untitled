@@ -1,3 +1,4 @@
+import json
 import os
 import random
 import time
@@ -5,6 +6,8 @@ import time
 import cx_Oracle
 
 # 核心数据库配置
+import requests
+
 hxSIT_ORACLE = ["xbhxbusi", "ccic1234","10.1.12.141:1521/PTST12UF"]
 hxDEV_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1523/PDEV12UF"]
 hxUAT_ORACLE = ["xbhxbusi","ccic1234","10.1.12.141:1521/puat12uf"]
@@ -113,7 +116,15 @@ def sql_update(setting,v,vv):
 
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
+def test_api(url,data,title):
 
+    print(title)
+    print(f"请求报文：{data}")
+    re = requests.post(url, data=json.dumps(data))
+    requit = re.json()
+    requit["data"] = eval(requit["data"])
+    print(f"响应报文：{requit}")
+    return requit
 
 class id_card:
     def areaCodeDict(self,fileName):
