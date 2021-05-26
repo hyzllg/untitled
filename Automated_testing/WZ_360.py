@@ -357,16 +357,17 @@ class Hyzllg:
 
 
 def main(a):
-    random__name = Collect.random_name()
-    HB_loanReqNo = Collect.loanReqNo()
-    HB_phone = Collect.phone()
+    # random__name = Collect.random_name()
+    # generate__ID = Collect.id_card().generate_ID()
+    # HB_phone = Collect.phone()
+    # Bank = Collect.bankcard()
     #指定姓名身份证手机号时使用
-    # random__name = ""
-    # HB_loanReqNo = ""
-    # HB_phone = ""
+    random__name = "左彬"
+    generate__ID = "230602199007076315"
+    HB_phone = "16601061771"
+    Bank = "6214661723536283"
 
-    Bank = Collect.bankcard()
-    generate__ID = Collect.id_card().generate_ID()
+    HB_loanReqNo = Collect.loanReqNo()
     # 借款金额
     loanAmount = 5000
     # 期数
@@ -374,7 +375,7 @@ def main(a):
     # 客户等级
     custGrde = 26.00
     # 资方代码 (微众：FBBANK，龙江：20062)
-    capitalCode = 'FBBANK'
+    capitalCode = 20062
 
     if a == 0:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
