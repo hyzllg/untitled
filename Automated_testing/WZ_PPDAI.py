@@ -50,34 +50,21 @@ class Hyzllg:
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
         data["custGrde"] = self.custGrde
-        # print(data)
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********投保信息接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'INSURE_INFO', data=json.dumps(data), headers=headers)
-        requit = re.json()
 
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+        url = self.url + 'INSURE_INFO'
+        title = "**********投保信息接口！**********"
+        requit = Collect.test_api(url,data,title)
+
+
+        if requit["result"] == True:
             a = requit["data"]["insurUrl"]
             b = res.search("lp=(.*)", a)
             c = b.group()[3:]
-
             print("投保信息接口成功！")
-            if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                print(requit["data"]["errorCode"] + requit["data"]["errorMsg"])
-                raw_input("Press <enter>")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("投保信息接口失败！")
             raw_input("Press <enter>")
-        return self.url, a, requit, c
+        return c
 
     def insure_data_query(self, token):
         data = {
@@ -86,25 +73,17 @@ class Hyzllg:
         }
         data["loanReqNo"] = self.loanReqNo
         data["token"] = token
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********投保资料查询接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'INSURE_DATA_QUERY', data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+
+        url = self.url + 'INSURE_DATA_QUERY'
+        title = "**********投保资料查询接口！**********"
+        requit = Collect.test_api(url,data,title)
+
+        if requit["result"] == True:
             print("投保资料查询成功！")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("投保资料查询失败！")
             raw_input("Press <enter>")
-        return self.url, a, requit, requit["data"]["insurantName"],requit["data"]["premiumRate"]
+        return requit["data"]["insurantName"],requit["data"]["premiumRate"]
 
     def insure(self, insurantName, premiumRate ):
         data = {
@@ -134,33 +113,23 @@ class Hyzllg:
         data["periods"] = self.periods
         data["premiumRate"] = premiumRate
         data["insurantName"] = insurantName
-        # print(data)
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********投保接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'INSURE', data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+
+        url = self.url + 'INSURE'
+        title = "**********投保接口！**********"
+        requit = Collect.test_api(url,data,title)
+
+        if requit["result"] == True:
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
-                    print(f'errormsg:{requit["data"]["message"]}')
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"] == '01':
                     print("已受理，处理中！")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("未知异常！")
             raw_input("Press <enter>")
-        return self.url, a, requit
+
 
     def credit_granting(self):
         data = {
@@ -271,22 +240,12 @@ class Hyzllg:
         data["bankPhone"] = self.bankPhone
         data["docDate"] = time.strftime("%Y/%m/%d")
         data["channelDetail"]["custGrde"] = self.custGrde
-        # print(data)
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********授信接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'CREDIT_GRANTING', data=json.dumps(data), headers=headers)
-        requit = re.json()
-        # print(requit)
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+
+        url = self.url + 'CREDIT_GRANTING'
+        title = "**********授信接口！**********"
+        requit = Collect.test_api(url,data,title)
+
+        if requit["result"] == True:
             try:
 
                 if requit["data"]["status"] == "01":
@@ -294,18 +253,13 @@ class Hyzllg:
                 elif requit["data"]["status"] == "00":
                     print(requit)
                     print("受理失败！")
-                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                        print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                        raw_input("Press <enter>")
+                    raw_input("Press <enter>")
             except BaseException as e:
-                if requit["data"]["message"]:
-                    print(f'error:{requit["data"]["message"]}')
-
-
+                print("未知异常！")
+                raw_input("Press <enter>")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("未知异常！")
             raw_input("Press <enter>")
-        return self.url, a, requit
 
     def credit_inquiry(self):
         data = {
@@ -314,24 +268,16 @@ class Hyzllg:
         }
         # data["channelCustId"] = self.channelCustId
         data["creditReqNo"] = self.creditReqNo
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
 
-        }
+
         number = 0
         n = False
         while number <= 10:
-            a = "**********授信结果查询！**********"
-            print(a)
-            print(f"请求报文：{data}")
+            url = self.url + 'CREDIT_INQUIRY'
+            title = "**********授信结果查询！**********"
+            requit = Collect.test_api(url, data, title)
             time.sleep(3)
-            re = requests.post(self.url + 'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
-            requit = re.json()
-            if re.status_code == 200 and requit["result"] == True:
-                requit["data"] = eval(requit["data"])
-                print(f"响应报文：{requit}")
+            if requit["result"] == True:
                 print("授信查询接口调用成功！")
                 try:
                     if requit["data"]["status"] == "01":
@@ -342,22 +288,20 @@ class Hyzllg:
                         print("授信中！")
                     else:
                         print("授信失败！")
-                        if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                            print(requit["data"]["errorCode"], requit["data"]["errorMsg"])
                         raw_input("Press <enter>")
                 except BaseException as e:
-                    print(f'orrer:{requit["data"]["message"]}')
+                    print("未知异常！")
                     raw_input("Press <enter>")
 
             else:
-                print("msg:{}".format(requit["msg"]))
+                print("未知异常！")
                 raw_input("Press <enter>")
             number += 1
         if number >= 10:
             print("拍拍贷授信时间过长！可能由于授信挡板问题，结束程序！")
             raw_input("Press <enter>")
 
-        return self.url, a, requit, n
+        return n
 
     def disburse(self):
         data = {
@@ -368,40 +312,19 @@ class Hyzllg:
         }
         data["creditReqNo"] = self.creditReqNo
         data["loanReqNo"] = self.loanReqNo
-        # print(data)
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********支用接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'DISBURSE', data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
-            try:
 
-                if requit["data"]["status"] == "01":
-                    print("支用受理成功，处理中！")
-                elif requit["data"]["status"] == "00":
-                    print(requit)
-                    print("支用受理失败！")
-                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                        print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                        raw_input("Press <enter>")
-            except BaseException as e:
-                if requit["data"]["message"]:
-                    print(f'error:{requit["data"]["message"]}')
-
-
+        url = self.url + 'DISBURSE'
+        title = "**********支用接口！**********"
+        requit = Collect.test_api(url, data, title)
+        if requit["result"] == True:
+            if requit["data"]["status"] == "01":
+                print("支用受理成功，处理中！")
+            elif requit["data"]["status"] == "00":
+                print("支用受理失败！")
+                raw_input("Press <enter>")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("未知异常！")
             raw_input("Press <enter>")
-        return self.url, a, requit
 
     def disburse_in_query(self):
         data = {
@@ -411,43 +334,25 @@ class Hyzllg:
         }
         data["creditReqNo"] = self.creditReqNo
         data["loanReqNo"] = self.loanReqNo
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-
-        }
 
         while True:
-            a = "**********支用结果查询！**********"
-            print(a)
-            print(f"请求报文：{data}")
-            time.sleep(6)
-            re = requests.post(self.url + 'DISBURSE_IN_QUERY', data=json.dumps(data), headers=headers)
-            requit = re.json()
-            if re.status_code == 200 and requit["result"] == True:
-                requit["data"] = eval(requit["data"])
-                print(f"响应报文：{requit}")
+            url = self.url + 'DISBURSE_IN_QUERY'
+            title = "**********支用结果查询！**********"
+            requit = Collect.test_api(url, data, title)
+            if requit["result"] == True:
                 print("支用查询接口调用成功！")
-                try:
-                    if requit["data"]["status"] == "01":
-                        print("支用通过！")
-                        break
-                    elif requit["data"]["status"] == "00":
-                        print("支用中！")
-                    else:
-                        print("支用失败！")
-                        if requit["data"]["message"]:
-                            print(f'errormsg:{requit["data"]["message"]}')
-                            raw_input("Press <enter>")
-                except BaseException as e:
-                    print(f'orrer:{requit["data"]["message"]}')
+                if requit["data"]["status"] == "01":
+                    print("支用通过！")
+                    break
+                elif requit["data"]["status"] == "00":
+                    print("支用中！")
+                else:
+                    print("支用失败！")
                     raw_input("Press <enter>")
 
             else:
-                print("msg:{}".format(requit["msg"]))
+                print("未知异常！")
                 raw_input("Press <enter>")
-        return self.url, a, requit
 
 
 def main(a, hhh):
@@ -476,8 +381,8 @@ def main(a, hhh):
                             HB_bankcard,
                             "建设银行", HB_phone, Collect.sit_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
-            Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
-            hyzllg.insure(Insure_Data_Query[3],Insure_Data_Query[4])  # 投保接口
+            Insure_Data_Query = hyzllg.insure_data_query(insure)  # 投保资料查询接口
+            hyzllg.insure(Insure_Data_Query[0],Insure_Data_Query[1])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.sit_url_pp, custGrde])
@@ -486,8 +391,8 @@ def main(a, hhh):
                             HB_bankcard,
                             "建设银行", HB_phone, Collect.uat_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
-            Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
-            hyzllg.insure(Insure_Data_Query[3],Insure_Data_Query[4])  # 投保接口
+            Insure_Data_Query = hyzllg.insure_data_query(insure)  # 投保资料查询接口
+            hyzllg.insure(Insure_Data_Query[0],Insure_Data_Query[1])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.uat_url_pp, custGrde])
@@ -496,8 +401,8 @@ def main(a, hhh):
                             HB_bankcard,
                             "建设银行", HB_phone, Collect.dev_url_pp, custGrde)
             insure = hyzllg.insure_info()  # 投保信息接口
-            Insure_Data_Query = hyzllg.insure_data_query(insure[-1])  # 投保资料查询接口
-            hyzllg.insure(Insure_Data_Query[3],Insure_Data_Query[4])  # 投保接口
+            Insure_Data_Query = hyzllg.insure_data_query(insure)  # 投保资料查询接口
+            hyzllg.insure(Insure_Data_Query[0],Insure_Data_Query[1])  # 投保接口
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         loanAmount, periods, HB_bankcard, "建设银行", HB_phone, Collect.dev_url_pp, custGrde])
@@ -511,7 +416,7 @@ def main(a, hhh):
     while len(abc):
         for i in abc:
             hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11])
-            if hyzllg.credit_inquiry()[-1]:
+            if hyzllg.credit_inquiry():
                 hyzllg.disburse()
                 abc.remove(i)
                 nnn = True

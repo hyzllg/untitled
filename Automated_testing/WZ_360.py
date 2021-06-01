@@ -58,7 +58,7 @@ class Hyzllg:
         else:
             print("投保信息接口失败！")
             raw_input("Press <enter>")
-        return self.url, title, requit, c
+        return c
 
     def insure_data_query(self, token):
         data = {
@@ -76,7 +76,6 @@ class Hyzllg:
         else:
             print("投保资料查询失败！")
             raw_input("Press <enter>")
-        return self.url, title, requit
 
     def insure(self):
         data = {
@@ -118,7 +117,6 @@ class Hyzllg:
         else:
             print("未知错误！")
             raw_input("Press <enter>")
-        return self.url, title, requit
 
     def disburse(self):
         data = {
@@ -237,7 +235,6 @@ class Hyzllg:
         else:
             print("未知错误！")
             raw_input("Press <enter>")
-        return self.url, title, requit
 
     def disburse_in_query(self, test_info):
         data = {
@@ -278,18 +275,17 @@ class Hyzllg:
             else:
                 print("未知错误！")
                 raw_input("Press <enter>")
-            return self.url, title, requit
 
 
 def main(a):
     random__name = Collect.random_name()
-    generate__ID = Collect.id_card().generate_ID()
+    # generate__ID = Collect.id_card().generate_ID()
     HB_phone = Collect.phone()
     Bank = Collect.bankcard()
     #指定姓名身份证手机号时使用
-    # random__name = "左彬"
-    # generate__ID = "230602199007076315"
-    # HB_phone = "16601061771"
+    # random__name = "大地测试一"
+    generate__ID = "310104198110140056"
+    # HB_phone = "17602178613"
     # Bank = "6214661723536283"
 
     HB_loanReqNo = Collect.loanReqNo()
@@ -323,7 +319,7 @@ def main(a):
                     loanReqNo:{HB_loanReqNo}
                 '''
     insure = hyzllg.insure_info()
-    hyzllg.insure_data_query(insure[-1])
+    hyzllg.insure_data_query(insure)
     hyzllg.insure()
     hyzllg.disburse()
     # hyzllg.disburse_in_query(test_info)

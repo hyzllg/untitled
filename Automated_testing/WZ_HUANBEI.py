@@ -23,18 +23,17 @@ class Hyzllg:
         self.discountRate = discountRate
         self.custGrde = custGrde
 
-    def wrapper(func):
-        def inner(*args, **kwargs):
-            s = func(*args, **kwargs)
-            with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\HUANBEI.log", 'a+',
-                      encoding='utf-8') as hyzllg:
-                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
-            return s
-
-        return inner
+    # def wrapper(func):
+    #     def inner(*args, **kwargs):
+    #         s = func(*args, **kwargs)
+    #         with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\HUANBEI.log", 'a+',
+    #                   encoding='utf-8') as hyzllg:
+    #             hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
+    #         return s
+    #
+    #     return inner
 
     def insure_info(self):
-        url = 'http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_INFO'
         data = {
             "channelCustId": "",
             "loanReqNo": "2020051500000100011",
@@ -64,35 +63,23 @@ class Hyzllg:
         data["periods"] = self.periods
         data["discountRate"] = self.discountRate
         data["custGrde"] = self.custGrde
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********投保信息接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'INSURE_INFO', data=json.dumps(data), headers=headers)
-        requit = re.json()
 
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+        url = self.url + 'INSURE_INFO'
+        title = "**********投保信息接口！**********"
+        requit = Collect.test_api(url,data,title)
+
+        if requit["result"] == True:
             print("投保信息接口成功！")
             a = requit["data"]["insurAgencyUrl"]
             b = res.search("lp=(.*)", a)
             c = b.group()[3:]
-            if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                raw_input("Press <enter>")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("投保信息接口失败！")
             raw_input("Press <enter>")
-        return self.url, a, requit,c
+
+        return c
 
     def insure_data_query(self, token):
-        url = 'http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_DATA_QUERY'
         data = {
             "loanReqNo": "20200613910199001",
             "token":""
@@ -100,29 +87,19 @@ class Hyzllg:
         }
         data["loanReqNo"] = self.loanReqNo
         data["token"] = token
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********投保资料查询接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'INSURE_DATA_QUERY', data=json.dumps(data), headers=headers)
-        requit = re.json()
 
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+        url = self.url + 'INSURE_DATA_QUERY'
+        title = "**********投保资料查询接口！**********"
+        requit = Collect.test_api(url,data,title)
+
+        if requit["result"] == True:
             print("投保资料查询成功！")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("投保资料查询失败！")
             raw_input("Press <enter>")
-        return self.url, a, requit, requit["data"]["premiumRate"]
+        return requit["data"]["premiumRate"]
 
     def insure(self, a):
-        url = 'http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE'
         data = {
             "agentNo": "DingSheng",
             "agentName": "鼎盛保险经纪",
@@ -147,36 +124,24 @@ class Hyzllg:
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
         data["premiumRate"] = a
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********投保接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'INSURE', data=json.dumps(data), headers=headers)
-        requit = re.json()
 
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+        url = self.url + 'INSURE'
+        title = "**********投保接口！**********"
+        requit = Collect.test_api(url,data,title)
+        if requit["result"] == True:
             try:
                 if requit["data"]["message"]:
                     print("受理失败")
-                    print(f'errormsg:{requit["data"]["message"]}')
                     raw_input("Press <enter>")
             except BaseException as e:
                 if requit["data"]["status"] == '01':
                     print("已受理，处理中！")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("未知异常！")
             raw_input("Press <enter>")
-        return self.url, a, requit
+        return requit
 
     def disburse(self):
-        url = 'http://10.1.14.106:27405/channel/apitest/HUANBEI/DISBURSE'
         data = {
             "channelCustId": "",
             "loanReqNo": "20200613910199001",
@@ -289,39 +254,25 @@ class Hyzllg:
         data["discountRate"] = self.discountRate
         data["channelDetail"]["custGrde"] = self.custGrde
 
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********支用接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        # time.sleep(1)
-        re = requests.post(self.url + 'DISBURSE', data=json.dumps(data), headers=headers)
-        requit = re.json()
+        url = self.url + 'DISBURSE'
+        title = "**********支用接口！**********"
+        requit = Collect.test_api(url,data,title)
 
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(f"响应报文：{requit}")
+
+        if requit["result"] == True:
             try:
 
                 if requit["data"]["status"] == "01":
                     print("支用受理成功，处理中！")
                 elif requit["data"]["status"] == "00":
                     print("受理失败！")
-                    if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
-                        print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                        raw_input("Press <enter>")
+                    raw_input("Press <enter>")
             except BaseException as e:
-                if requit["data"]["message"]:
-                    print(f'error:{requit["data"]["message"]}')
-
-
+                print("未知异常！")
+                raw_input("Press <enter>")
         else:
-            print("msg:{}".format(requit["msg"]))
+            print("未知异常！")
             raw_input("Press <enter>")
-        return self.url, a, requit
 
 
 def main(a):
@@ -347,10 +298,8 @@ def main(a):
     #                                         periods))[0])[0]
     discountRate = 18
     if a == 0:
-        # hyzllg = Hyzllg(HB_loanReqNo,"大地测试","220102199003079958","17602178613",loanAmount,periods,custGrde,HB_bankcard,Collect.sit_url_hb,discountRate)
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
                         Collect.sit_url_hb, discountRate)
-
     elif a == 1:
         hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
                         Collect.uat_url_hb, discountRate)
@@ -369,8 +318,8 @@ def main(a):
                     loanReqNo:{HB_loanReqNo}
                 '''
     insure_infos = hyzllg.insure_info()  # 投保信息接口
-    Insure_Data_Query = hyzllg.insure_data_query(insure_infos[-1])  # 投保资料查询接口
-    hyzllg.insure(Insure_Data_Query[3])  # 投保接口
+    Insure_Data_Query = hyzllg.insure_data_query(insure_infos)  # 投保资料查询接口
+    hyzllg.insure(Insure_Data_Query)  # 投保接口
     hyzllg.disburse()  # 支用接口
     time.sleep(1)
     print(test_info)
