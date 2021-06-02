@@ -66,4 +66,12 @@ print(page_text)
 for i in page_text:
     title = i["title"]
     score = i["score"]
-    print(title,score)
+    types = i["types"]
+    regions = i["regions"]
+    url = i["url"]
+    release_date = i["release_date"]
+    actors = i["actors"]
+    datas = f"电影名：{title}\n评分：{score}\n电影类型：{types}\n国家：{regions}\n地址：{url}\n上映时间：{release_date}\n演员：{actors}\n"
+    print(datas)
+    with open ('./datas.txt' , 'a' , encoding='utf-8') as fp:
+        fp.write(datas)
