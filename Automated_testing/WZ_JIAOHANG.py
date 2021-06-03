@@ -575,13 +575,13 @@ def JH_sql_update(setting,creditreqno):
         return print("无效的SQL语句")
 
 def main(a):
-    # random__name = Collect.random_name()
+    random__name = Collect.random_name()
     # generate__ID = Collect.id_card().generate_ID()
     JH_phone = Collect.phone()
     JH_bankcard = Collect.bankcard()
     #指定姓名身份证手机号时使用
-    random__name = "'丁名泗"
-    generate__ID = "430426196904074831"
+    # random__name = "'丁名泗"
+    generate__ID = "511123199603083522"
     # JH_phone = "16605254115"
     # JH_bankcard = "6214660525152114"
 

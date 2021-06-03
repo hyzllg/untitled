@@ -280,13 +280,13 @@ def main(a):
     generate__ID = Collect.id_card().generate_ID()
     HB_phone = Collect.phone()
     # 指定姓名身份证手机号时使用
-    # random__name = ""
-    # generate__ID = ""
-    # HB_phone = ""
+    # random__name = "黄器翠"
+    # generate__ID = "511123199603083522"
+    # HB_phone = "16605315868"
     HB_loanReqNo = Collect.loanReqNo()
     HB_bankcard = Collect.bankcard()
     # 借款金额
-    loanAmount = 5000
+    loanAmount = 3000
     # 期数
     periods = "6"
     # 客户等级
