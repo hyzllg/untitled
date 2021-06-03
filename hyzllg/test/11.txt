@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>明星图库-校花网</title>
+<meta name="keywords" content="明星图库" />
+<meta name="description" content="校花网明星图库专门为大家分享数千位国内外明星的高清图片库。" />
+<link rel="stylesheet" href="/moban5/css/main.css" type="text/css">
+<link rel="stylesheet" href="/moban5/css/swiper-3.3.1.min.css" type="text/css">
+<script src="/moban5/js/jquery.min.js" type="text/javascript"></script>
+<script src="/moban5/js/swiper-3.4.1.min.js" type="text/javascript"></script>
+<script src="/moban5/js/default.js" type="text/javascript"></script>
+<script src="/moban5/js/all.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageid="index";
+ /*检测是否移动设备来访否则跳转*/
+       if (browserRedirect()) {
+            var url = location.href;
+            if(url.indexOf("www.") == -1){  //不包含
+            location.href ="m." +url;
+            }else{
+            location.href = url.replace("www.", "m.");
+            }
+           
+        }
+        //检测是否移动设备来访
+        function browserRedirect() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+            var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+            var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+            var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+            var bIsAndroid = sUserAgent.match(/android/i) == "android";
+            var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+            var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+            if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+                return true;
+            } else {
+                return false;
+            }
+        } 
+</script>
+</head>
+<body>
+<div class="header">
+  <div class="nav-background"></div>
+  <div class="main">
+    <div class="logo"><a href="/"><img src="/moban5/images/logo.png"></a></div>
+    <div class="contain">
+      <ul class="nav-list">
+        <li><a href="/">首页</a></li>
+        <li><a class="" href="/ziliao/" target="_blank">资料</a>
+          <ul>
+																
+	<li><a href="/ziliao/neidi/">内地明星</a></li>															
+																
+	<li><a href="/ziliao/gangtai/">港台明星</a></li>															
+																
+	<li><a href="/ziliao/rihan/">日韩明星</a></li>															
+																
+	<li><a href="/ziliao/oumei/">欧美明星</a></li>															
+																
+          </ul>
+        </li>
+        <li><a class="curr" href="/tuku/" target="_blank">图库</a>
+          <ul>
+																
+	<li><a href="/tuku/mxxz/">明星写真</a></li>															
+																
+	<li><a href="/tuku/shz/">生活照</a></li>															
+																
+	<li><a href="/tuku/hdxz/">活动现场</a></li>															
+																
+	<li><a href="/tuku/ysjz/">影视剧照</a></li>															
+          </ul>
+        </li>
+        <li><a class="" href="/news/" target="_blank">星闻</a>
+          <ul>
+																
+	<li><a href="/news/huodong/">活动</a></li>															
+																
+	<li><a href="/news/feiwen/">绯闻</a></li>															
+																
+	<li><a href="/news/zongyi/">综艺</a></li>															
+																
+	<li><a href="/news/dianshi/">电视</a></li>															
+																
+	<li><a href="/news/dianying/">电影</a></li>															
+																
+	<li><a href="/news/yinle/">音乐</a></li>															
+																
+	<li><a href="/news/dongtai/">动态</a></li>															
+          </ul>
+        </li>
+        <li><a href="/yule/" target="_blank">娱乐</a>
+          <ul>
+	       <li><a href="/yule/xxyz/" title="休闲益智">休闲益智</a></li>
+
+              <li><a href="/yule/ysmt/" title="影视媒体">影视媒体</a></li>
+
+              <li><a href="/yule/xxrj/" title="学习软件">学习软件</a></li>
+
+              <li><a href="/yule/sjrj/" title="社交软件">社交软件</a></li>
+
+              <li><a href="/yule/sysx/" title="摄影摄像">摄影摄像</a></li>
+
+              <li><a href="/yule/ydxz/" title="阅读下载">阅读下载</a></li>												
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="h_operate"> <span class="history"> <a href="#"><i></i>
+      <h4>历史</h4>
+      </a>
+        <ul class="history_inner">
+      </ul>
+      <div class="jilua"></div>
+      </span> <span class="collect"><a href="javascript:alert('亲，请Ctrl+D收藏哦');"><i></i>
+      <h4>收藏</h4>
+      </a></span> </div>
+  </div>
+</div>
+<div class="main">
+</div>
+<div class="blank40"></div>
+<div class="main">
+  <div class="t_05">
+    <h3> 
+        <a href="/tuku/" class="on">全部分类</a>        
+																
+	    <a href="/tuku/mxxz/">明星写真</a>														
+																
+	    <a href="/tuku/shz/">生活照</a>														
+																
+	    <a href="/tuku/hdxz/">活动现场</a>														
+																
+	    <a href="/tuku/ysjz/">影视剧照</a>														
+		
+    </h3>
+  </div>
+  <div class="blank20"></div>
+  <div class="inn">
+    <ul class="pbl ">
+
+<li> 
+    <a href="/tuku/1227.html" title="厦大校花程熙媛最新照片 又纯又欲你心动了吗?">
+        <img src="/d/file/p/2021/05-12/ef3b186417980c1729655690ed7bc8ff.jpg" alt="厦大校花程熙媛最新照片 又纯又欲你心动了吗?" />
+        <p>厦大校花程熙媛最新照片 又纯又欲你心动了吗?</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1211.html" title="李兰迪写真大片曝光 淡黄蕾丝裙柔美恬静">
+        <img src="/d/file/p/2021/03-02/c189713de3556813c0bd33647e3b420b.jpg" alt="李兰迪写真大片曝光 淡黄蕾丝裙柔美恬静" />
+        <p>李兰迪写真大片曝光 淡黄蕾丝裙柔美恬静</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1212.html" title="王晓晨紫调梦幻大片曝光 黑白短裙气质优雅灵动">
+        <img src="/d/file/p/2021/03-02/131a948d1589325dd89ee8bd4500b1b5.jpg" alt="王晓晨紫调梦幻大片曝光 黑白短裙气质优雅灵动" />
+        <p>王晓晨紫调梦幻大片曝光 黑白短裙气质优雅灵动</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1214.html" title="长泽雅美登杂志封面 短发飒爽帅气">
+        <img src="/d/file/p/2021/03-03/b0f5254aeb19742a54f57f0c1768f085.jpg" alt="长泽雅美登杂志封面 短发飒爽帅气" />
+        <p>长泽雅美登杂志封面 短发飒爽帅气</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1213.html" title="唐嫣穿白色西装干净利落 黑长直造型搭配烈焰红唇又酷又飒">
+        <img src="/d/file/p/2021/03-03/7bd981f050d810f937c3c9e35e924f50.jpg" alt="唐嫣穿白色西装干净利落 黑长直造型搭配烈焰红唇又酷又飒" />
+        <p>唐嫣穿白色西装干净利落 黑长直造型搭配烈焰红唇又酷又飒</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1215.html" title="桐谷美玲登《25ans》 拍摄无性别时尚大片">
+        <img src="/d/file/p/2021/03-03/1d94a1df9165be589a625bbc8e7696d4.jpg" alt="桐谷美玲登《25ans》 拍摄无性别时尚大片" />
+        <p>桐谷美玲登《25ans》 拍摄无性别时尚大片</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1220.html" title="Angelbaby一袭香槟色长裙温柔满分 阳光洒在裙身温柔唯美">
+        <img src="/d/file/p/2021/03-08/98c40585986c2580b7ba2628b0866274.jpg" alt="Angelbaby一袭香槟色长裙温柔满分 阳光洒在裙身温柔唯美" />
+        <p>Angelbaby一袭香槟色长裙温柔满分 阳光洒在裙身温柔唯美</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1222.html" title="高圆圆穿裸背蓝裙拍大片 41岁依旧优雅大气美艳绝伦">
+        <img src="/d/file/p/2021/03-09/2d778bbca24a664d3ea019bb140ef336.jpg" alt="高圆圆穿裸背蓝裙拍大片 41岁依旧优雅大气美艳绝伦" />
+        <p>高圆圆穿裸背蓝裙拍大片 41岁依旧优雅大气美艳绝伦</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1223.html" title="张钧甯封面大片 油画质感显复古格调">
+        <img src="/d/file/p/2021/03-09/24cb2bc2fa889e6c86600ceb4ed3ab09.jpg" alt="张钧甯封面大片 油画质感显复古格调" />
+        <p>张钧甯封面大片 油画质感显复古格调</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1224.html" title="赵丽颖黑色深V长裙优雅大方 秀出精致天鹅颈十分吸睛">
+        <img src="/d/file/p/2021/03-10/255e9e44ae9cf99d1918713da5a8a0e6.jpg" alt="赵丽颖黑色深V长裙优雅大方 秀出精致天鹅颈十分吸睛" />
+        <p>赵丽颖黑色深V长裙优雅大方 秀出精致天鹅颈十分吸睛</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1225.html" title="佟丽娅穿刺绣白裙气质清雅 一头微卷短发精致时髦">
+        <img src="/d/file/p/2021/03-11/228ddc593be5e59c79cd1cfe3c834817.jpg" alt="佟丽娅穿刺绣白裙气质清雅 一头微卷短发精致时髦" />
+        <p>佟丽娅穿刺绣白裙气质清雅 一头微卷短发精致时髦</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1217.html" title="金晨王子合体亮相新剧开机仪式 穿着粉嫩cp感十足">
+        <img src="/d/file/p/2021/03-04/9087ed866ec89fd5d4f768459fa77d38.jpg" alt="金晨王子合体亮相新剧开机仪式 穿着粉嫩cp感十足" />
+        <p>金晨王子合体亮相新剧开机仪式 穿着粉嫩cp感十足</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1221.html" title="Angelababy变身复古少女漫步古堡 车厘子红唇妆显别样风情">
+        <img src="/d/file/p/2021/03-09/6e7addfae4a6507b80bfc3f853a6ea3b.jpg" alt="Angelababy变身复古少女漫步古堡 车厘子红唇妆显别样风情" />
+        <p>Angelababy变身复古少女漫步古堡 车厘子红唇妆显别样风情</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1219.html" title="容祖儿穿别样纱裙又甜又酷 新歌首秀化身情歌天后感动全场">
+        <img src="/d/file/p/2021/03-08/ef9d7cfea5f0ec11568a4b8c76809fc9.jpg" alt="容祖儿穿别样纱裙又甜又酷 新歌首秀化身情歌天后感动全场" />
+        <p>容祖儿穿别样纱裙又甜又酷 新歌首秀化身情歌天后感动全场</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1218.html" title="周冬雨春雨大片灵动十足 闭眼站立贴墙拍出满满电影感">
+        <img src="/d/file/p/2021/03-05/bb3c8111077a9b51111b1cbe222d7367.jpg" alt="周冬雨春雨大片灵动十足 闭眼站立贴墙拍出满满电影感" />
+        <p>周冬雨春雨大片灵动十足 闭眼站立贴墙拍出满满电影感</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1216.html" title="袁冰妍长发披肩笑容温柔 对手机整理刘海随时保持精致">
+        <img src="/d/file/p/2021/03-04/9e951567b427eade48156bd289effa42.jpg" alt="袁冰妍长发披肩笑容温柔 对手机整理刘海随时保持精致" />
+        <p>袁冰妍长发披肩笑容温柔 对手机整理刘海随时保持精致</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1210.html" title="关晓彤微博之夜造型仿佛花滑选手">
+        <img src="/d/file/p/2021/03-01/3cbbfd7b1ace4d52e2d4a2043cbb0c7b.jpg" alt="关晓彤微博之夜造型仿佛花滑选手" />
+        <p>关晓彤微博之夜造型仿佛花滑选手</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1209.html" title="古力娜扎靓丽时尚写真图片">
+        <img src="/d/file/p/2020/09-25/6ab67951ecfed30e1a4bd108f8ff5f12.jpg" alt="古力娜扎靓丽时尚写真图片" />
+        <p>古力娜扎靓丽时尚写真图片</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1208.html" title="杨幂2018嘉人中国风盛典写真图片">
+        <img src="/d/file/p/202009/277db969901d721b092752755516570b.png" alt="杨幂2018嘉人中国风盛典写真图片" />
+        <p>杨幂2018嘉人中国风盛典写真图片</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1207.html" title="王珞丹现身冬奥学院 携世界冠军刘佳宇助力冬奥会">
+        <img src="/d/file/p/202009/0a2819c35a8cb5b2bc40d3e6e8d2b8c9.jpg" alt="王珞丹现身冬奥学院 携世界冠军刘佳宇助力冬奥会" />
+        <p>王珞丹现身冬奥学院 携世界冠军刘佳宇助力冬奥会</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1206.html" title="演员邓竞新年写真独树一帜">
+        <img src="/d/file/p/202009/96b167b4150889f17c3cc16d72c509dd.jpg" alt="演员邓竞新年写真独树一帜" />
+        <p>演员邓竞新年写真独树一帜</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1205.html" title="《只为遇见你》曝“新春海报” 张铭恩要带文咏珊“回家过年”">
+        <img src="/d/file/p/202009/512554147dfd5ebdcc9fe74b37d72f25.jpg" alt="《只为遇见你》曝“新春海报” 张铭恩要带文咏珊“回家过年”" />
+        <p>《只为遇见你》曝“新春海报” 张铭恩要带文咏珊“回家过年”</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1204.html" title="柴碧云都市质感写真 演绎现代女性的纯净色彩">
+        <img src="/d/file/p/202009/c8d075bffc0e28a08753d2e3ec0c2198.jpg" alt="柴碧云都市质感写真 演绎现代女性的纯净色彩" />
+        <p>柴碧云都市质感写真 演绎现代女性的纯净色彩</p>
+    </a>
+</li>
+
+<li> 
+    <a href="/tuku/1203.html" title="天蜂娱乐唱片创始人 歌手 刘天骐2019写真集">
+        <img src="/d/file/p/202009/efec540d09ea0efe4dfe7710e1863f36.jpg" alt="天蜂娱乐唱片创始人 歌手 刘天骐2019写真集" />
+        <p>天蜂娱乐唱片创始人 歌手 刘天骐2019写真集</p>
+    </a>
+</li>
+
+    </ul>
+    <div class="pages">
+      <div class="page"><a href="javascript:;" class="ft">首页</a>&nbsp;<a href="javascript:;" class="nt"><span class="lt"></span></a>&nbsp;<a class="st active">1</a>&nbsp;<a href="/tuku/index_2.html" class="st">2</a>&nbsp;<a href="/tuku/index_3.html" class="st">3</a>&nbsp;<a href="/tuku/index_4.html" class="st">4</a>&nbsp;<a href="/tuku/index_5.html" class="st">5</a>&nbsp;<a href="/tuku/index_6.html" class="st">6</a>&nbsp;<a href="/tuku/index_2.html" class="nt"><span class="gt"></span></a>&nbsp;<a href="/tuku/index_52.html" class="ft">尾页</a></div>
+    </div>
+  </div>
+</div>
+<div class="blank30"></div>
+<script>
+	(function($) {
+    $.fn.extend({
+        pubuliu: function(option) {
+            var max = 0,
+                d = [],
+                bijiao = 0;
+            for (var i = 0; i < option.lie; i++) {
+                d[i] = 0;
+            };
+            $(this).children('li').each(function() {
+                var h = $(this).height();
+                var bijiao = 0;
+                for (var i = 0; i < option.lie; i++) {
+                    if (d[i] < d[bijiao]) {
+                        bijiao = i;
+                    }
+                }
+                $(this).css({ "position": "absolute" });
+                $(this).stop().animate({ "left": bijiao * option.width + "px", "top": d[bijiao] + "px" }, option.animateTime);
+                d[bijiao] += h;
+            });
+            for (var i = 0; i < option.lie; i++) {
+                if (d[i] > bijiao) {
+                    bijiao = d[i];
+                }
+            };
+            $(this).css('height', bijiao + "px");
+        }
+    });
+})(jQuery);
+	
+	
+	
+	
+	$(document).ready(function(){	
+		$('.pbl img').load(function(){
+			$('.pbl').pubuliu({
+			width:'275',
+			animateTime:0,
+			lie:4
+			});
+		})
+		
+			$('.pbl').pubuliu({
+			width:'275',
+			animateTime:0,
+			lie:4
+			});
+		
+		
+	})
+
+</script> 
+<!-- 尾部 -->
+<div class="blank30"></div>
+<!-- 尾部 -->
+<div class="footer">
+  <div class="main">
+    <div class="f_ct">
+      <div class="f_ul ul_r"> <a href="/ziliao/">
+        <h3>资料</h3>
+        </a>
+        <ul class="ul_w1">      
+																
+	<li><a href="/ziliao/neidi/">内地明星</a></li>															
+																
+	<li><a href="/ziliao/gangtai/">港台明星</a></li>															
+																
+	<li><a href="/ziliao/rihan/">日韩明星</a></li>															
+																
+	<li><a href="/ziliao/oumei/">欧美明星</a></li>															
+        </ul>
+      </div>
+      <div class="f_ul ul_r"> <a href="/tuku/">
+        <h3>图库</h3>
+        </a>
+        <ul class="ul_w1">
+																
+	<li><a href="/tuku/mxxz/">明星写真</a></li>															
+																
+	<li><a href="/tuku/shz/">生活照</a></li>															
+																
+	<li><a href="/tuku/hdxz/">活动现场</a></li>															
+																
+	<li><a href="/tuku/ysjz/">影视剧照</a></li>															
+        </ul>
+      </div>
+      <div class="f_ul ul_r"> <a href="/news/">
+        <h3>星闻</h3>
+        </a>
+        <ul class="ul_w2">												
+            <li><a href="/news/huodong/">活动现场</a></li>															
+                                                                        
+            <li><a href="/news/feiwen/">绯闻八卦</a></li>															                                                   														                                 														
+                                                                        
+            <li><a href="/news/zongyi/">综艺资讯</a></li>
+															                                                  
+            <li><a href="/news/dianshi/">电视资讯</a></li>															
+                                                                        
+            <li><a href="/news/dianying/">电影资讯</a></li>															
+                                                                        
+            <li><a href="/news/yinle/">音乐资讯</a></li>															
+                                                                        
+            <li><a href="/news/dongtai/">明星动态</a></li>	
+        </ul>
+      </div>
+      <div class="f_ul last">
+        <h3>剧照</h3>
+        <ul class="ul_w4">
+          <li><a href="/tuku/ysjz/">电视剧照</a></li>
+          <li><a href="/tuku/ysjz/">电影剧照</a></li>
+        </ul>
+      </div>
+     <div class="f_ul ul_r"> <a href="/yule/">
+        <h3>娱乐</h3>
+        </a>
+        <ul class="ul_w2">												
+              <li><a href="/yule/xxyz/" title="休闲益智">休闲益智</a></li>
+
+              <li><a href="/yule/ysmt/" title="影视媒体">影视媒体</a></li>
+
+              <li><a href="/yule/xxrj/" title="学习软件">学习软件</a></li>
+
+              <li><a href="/yule/sjrj/" title="社交软件">社交软件</a></li>
+
+              <li><a href="/yule/sysx/" title="摄影摄像">摄影摄像</a></li>
+
+              <li><a href="/yule/ydxz/" title="阅读下载">阅读下载</a></li>		
+        </ul>
+      </div>
+    </div>
+    <p>Copyrights © 2018-2020 校花网 www.521609.com, All rights reserved.<span style="padding-left: 10px;"></span>联系QQ:<a href="tencent://message/?uin=1797186283&Site=%E6%9C%89%E4%BA%8BQ%E6%88%91&Menu=yes" target="_blank">1797186283</a> 投稿邮箱:1797186283@qq.com </p>
+  </div>
+</div>
+<!-- 尾部 -->
+</body>
+</html>
