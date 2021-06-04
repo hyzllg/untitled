@@ -277,16 +277,16 @@ class Hyzllg:
 
 def main(a):
     random__name = Collect.random_name()
-    generate__ID = Collect.id_card().generate_ID()
+    # generate__ID = Collect.id_card().generate_ID()
     HB_phone = Collect.phone()
     # 指定姓名身份证手机号时使用
     # random__name = "黄器翠"
-    # generate__ID = "511123199603083522"
+    generate__ID = "511123199603083522"
     # HB_phone = "16605315868"
     HB_loanReqNo = Collect.loanReqNo()
     HB_bankcard = Collect.bankcard()
     # 借款金额
-    loanAmount = 3000
+    loanAmount = 4000
     # 期数
     periods = "6"
     # 客户等级

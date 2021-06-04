@@ -363,13 +363,13 @@ def main(a, hhh):
         HB_phone = Collect.phone()
         # 指定姓名身份证手机号时使用
         # random__name = ""
-        generate__ID = "522731199412052817"
+        generate__ID = "511123199603083522"
         # HB_phone = ""
         HB_loanReqNo = Collect.loanReqNo()
         HB_creditReqNo = Collect.creditReqNo()
         HB_bankcard = Collect.bankcard()
         # 借款金额
-        loanAmount = 30000
+        loanAmount = 4000
         # 期数
         periods = "6"
         # 客户等级上下限

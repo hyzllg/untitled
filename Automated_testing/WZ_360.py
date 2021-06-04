@@ -290,7 +290,7 @@ def main(a):
 
     HB_loanReqNo = Collect.loanReqNo()
     # 借款金额
-    loanAmount = 13000
+    loanAmount = 4000
     # 期数
     periods = '6'
     # 客户等级

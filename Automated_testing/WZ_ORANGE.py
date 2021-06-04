@@ -344,14 +344,14 @@ def main(a, hhh):
         ORANGE_phone = Collect.phone()
         # 指定姓名身份证手机号时使用
         # random__name = "刘海云"
-        # generate__ID = "43048219850215357X"
+        # generate__ID = "511123199603083522"
         # ORANGE_phone = "13800132597"
         ORANGE_bankcard = Collect.bankcard()
         channelCustId = Collect.channelCustId()
         creditReqNo = Collect.creditReqNo()
         loanReqNo = Collect.loanReqNo()
         # 借款金额
-        loanAmount = 8000
+        loanAmount = 18000
         # 期数
         periods = "6"
         #客户类型,0是新用户，1是存量活跃，2是存量静默
