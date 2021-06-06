@@ -220,7 +220,7 @@ def get_img():
 'https://sc.chinaz.com/'
 
 
-def get_jianli():
+def get_Resume():
     #创建文件夹
     dirname = 'Resume'#简历
     if not os.path.exists(dirname):
@@ -253,4 +253,4 @@ def get_jianli():
         except BaseException:
             pass
 
-# get_jianli()
+get_Resume()
