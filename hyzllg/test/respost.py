@@ -3,7 +3,6 @@ import urllib
 from pprint import pprint
 from lxml import etree
 import time
-
 import requests
 import re
 
@@ -178,6 +177,15 @@ xpath表达式如何更加具有通用性？
     子xpath表达式同时生效或则一个生效
 
 
+站长素材高清图片下载
+    反爬机制：图片懒加载，广泛应用在了一些图片的网站中
+        只有当图片被显示在浏览器可视化范围内才会将img的伪属性变成真正的属性，如果是requests发起的请求，
+        requests请求是没有可视化范围，因此我们一定要解析的是img伪数据的属性值（图片地址）
+学过的反爬机制
+    robots
+    ua伪装
+    动态加载数据的捕获
+    图片懒加载
 
 '''
 
@@ -192,6 +200,7 @@ def get_img():
     if not os.path.exists(dirname):
         os.mkdir(dirname)
     url = 'http://pic.netbian.com/4kmeinv/index_%d.html'
+    #for循环爬取多页
     for i in range(1,2):
         if i == 1:
             new_url = 'http://pic.netbian.com/4kmeinv/'
@@ -218,8 +227,6 @@ def get_img():
 
 #爬取站长之家 简历模板
 'https://sc.chinaz.com/'
-
-
 def get_Resume():
     #创建文件夹
     dirname = 'Resume'#简历
@@ -255,51 +262,87 @@ def get_Resume():
 
 # get_Resume()
 
-#爬取站长之家 高清图片
-
+#爬取站长之家 高清图片 有反爬机制懒加载 需处理 解析img伪数据的属性值
 def gaoing_img():
     url = 'https://sc.chinaz.com/tupian/index_%d.html'
+    #创建一个目录
     dirname = 'Gximgs'
     if not os.path.exists(dirname):
         os.mkdir(dirname)
+    #地址
+    new_url = 'https://sc.chinaz.com/tupian/siwameinvtupian.html'
 
-    for i in range(1,3):
-        if i == 1:
-            new_url = 'https://sc.chinaz.com/tupian/'
-        else:
-            new_url = format(url%i)
-        response = requests.get(url=new_url,headers=headers)
-        response.encoding='utf-8'
-        page_text = response.text
-        # print(page_text)
-        tree = etree.HTML(page_text)
-        a = tree.xpath('//div[@class="pic_wrap"]/div/div/div/a')
-        for i in a:
-            title = i.xpath('./@alt')[0]
-            img_url = 'https:' + i.xpath('./@href')[0]
-            print(title,img_url)
-            response1 = requests.get(url=img_url,headers=headers)
-            response1.encoding='utf-8'
-            page_text1 = response1.text
-            # print(page_text1)
-            tree1 = etree.HTML(page_text1)
-            bs = tree1.xpath('//div[@class="dian"]/a')[0]
-            img_path = dirname + '/' + title.strip()
-            img_urls = bs.xpath('./@href')[0]
-            lll = requests.get(url=img_urls,headers=headers).content
-            with open(img_path,'wb') as fp:
-                fp.write(lll)
-            print(title,"爬取成功！")
+    response = requests.get(url=new_url,headers=headers)
+    response.encoding='utf-8'
+    #获取到html数据
+    page_text = response.text
+    #解析数据
+    tree = etree.HTML(page_text)
+    #定位
+    a = tree.xpath('//div[@id="container"]/div/div/a')
+    for i in a:
+        #定位
+        title = i.xpath('./img/@alt')[0]
+        #获取到图片地址
+        img_url = 'https:' + i.xpath('./img/@src2')[0]
+        #设置图片保存路径
+        img_path = dirname + "/" + title + ".jpg"
+        #下载
+        requit = requests.get(url=img_url,headers=headers).content
+        with open(img_path,'wb') as fp:
+            fp.write(requit)
+        print(title,"爬取成功！")
+
+# gaoing_img()
 
 
+'''
+*cookie
+*代理机制
+*验证码的识别
+*模拟登录
 
+-cookie
+    是存储在客户端的一组键值对
+    web中cookie的典型应用
+        -免密登录
+    cookie和爬虫之间的关联
+        -sometimes，对一张页面进行请求的时候，如果请求的过程中不携带
+         cookie的话，那么我们是无法请求到正确的页面数据，因此cookie是爬虫中一个非常典型且常见的反爬机制
+            
 
-
-
-
-
-
-
-
-
-gaoing_img()
+'''
+'''
+-需求：爬取雪球网站中的咨询信息 https://xueqiu.com/
+-分析
+    -判定爬取的咨询数据是否为动态加载的
+        -相关的更多咨询数据是动态加载的，滚轮滑动到底部的时候会动态加载出更多的咨询数据
+    -定位到ajzx请求的数据包，提取出请求的url，响应数据为json形式的咨询数据
+        {'error_description': '遇到错误，请刷新页面或者重新登录帐号后再试', 'error_uri': '/statuses/hot/listV2.json', 'error_data': None, 'error_code': '400016'}
+        -问题：我们没有请求到想要的数据
+        -原因：我们没有严格意义上模拟浏览器发请求
+            -处理：可以将浏览器发请求携带的请求头，全部粘贴在headers字典中，将headers作用到requests的请求操作中即可
+            -cookie的处理方式
+                -方式一：手动处理
+                    -将抓包工具中cookie粘贴在headers中
+                    -弊端：cookie如果过了有效时常则该方式失效
+                -方式二：自动处理
+                    -基于session对象实现自动处理
+                    -如何获取一个session对象：requests.Session()返回一个session对象
+                    -session对象的作用：
+                        -该对象可以向requests一样调用get和post发起指定的请求，只不过如果在使用session发请求的过程中如果产生了cookie，
+                         则cookie会被自动储存到该session对象中，那么就意味着下次再次使用session对象发起请求，则该次请求就是携带cookie进行的请求发送
+                        -在爬虫中使用session的时候，session对象至少会被使用几次？
+                         -两次 第一次使用session是为了将cookie捕获且储存到session对象中，下次的时候就是携带cookie进行的请求发送
+                         
+            
+'''
+#创建session对象
+#第一次使用session捕获且储存cookie，猜测雪球网的首页发起的请求可能会产生cookie
+main_url = 'https://xueqiu.com/'
+session = requests.Session()
+session.get(main_url,headers=headers)
+url = 'https://xueqiu.com/statuses/hot/listV2.json?since_id=-1&max_id=213415&size=15'
+cookie = ''
+page_text = session.get(url,headers=headers).json()
+print(page_text)
