@@ -192,7 +192,7 @@ def get_img():
     if not os.path.exists(dirname):
         os.mkdir(dirname)
     url = 'http://pic.netbian.com/4kmeinv/index_%d.html'
-    for i in range(1,145):
+    for i in range(1,2):
         if i == 1:
             new_url = 'http://pic.netbian.com/4kmeinv/'
         else:
@@ -204,7 +204,7 @@ def get_img():
         a = tree.xpath('//div[@class="slist"]/ul/li')
         # print(a)
         for i in a:
-            title = i.xpath('./a/img/@alt')[0] + 'jpg'
+            title = i.xpath('./a/img/@alt')[0] + '.jpg'
             img_src = 'https://pic.netbian.com' + i.xpath('./a/img/@src')[0]
             img_path = dirname + "/" + title
             urllib.request.urlretrieve(img_src, img_path)
@@ -215,7 +215,7 @@ def get_img():
 # print(f"消耗时间{(end_time-start_time)/60}分钟")
 
 
-#爬取站长之家 高清图片
+
 #爬取站长之家 简历模板
 'https://sc.chinaz.com/'
 
@@ -253,4 +253,53 @@ def get_Resume():
         except BaseException:
             pass
 
-get_Resume()
+# get_Resume()
+
+#爬取站长之家 高清图片
+
+def gaoing_img():
+    url = 'https://sc.chinaz.com/tupian/index_%d.html'
+    dirname = 'Gximgs'
+    if not os.path.exists(dirname):
+        os.mkdir(dirname)
+
+    for i in range(1,3):
+        if i == 1:
+            new_url = 'https://sc.chinaz.com/tupian/'
+        else:
+            new_url = format(url%i)
+        response = requests.get(url=new_url,headers=headers)
+        response.encoding='utf-8'
+        page_text = response.text
+        # print(page_text)
+        tree = etree.HTML(page_text)
+        a = tree.xpath('//div[@class="pic_wrap"]/div/div/div/a')
+        for i in a:
+            title = i.xpath('./@alt')[0]
+            img_url = 'https:' + i.xpath('./@href')[0]
+            print(title,img_url)
+            response1 = requests.get(url=img_url,headers=headers)
+            response1.encoding='utf-8'
+            page_text1 = response1.text
+            # print(page_text1)
+            tree1 = etree.HTML(page_text1)
+            bs = tree1.xpath('//div[@class="dian"]/a')[0]
+            img_path = dirname + '/' + title.strip()
+            img_urls = bs.xpath('./@href')[0]
+            lll = requests.get(url=img_urls,headers=headers).content
+            with open(img_path,'wb') as fp:
+                fp.write(lll)
+            print(title,"爬取成功！")
+
+
+
+
+
+
+
+
+
+
+
+
+gaoing_img()
