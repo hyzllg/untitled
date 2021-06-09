@@ -359,17 +359,20 @@ def main(a, hhh):
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
-        # generate__ID = Collect.id_card().generate_ID()
+        generate__ID = Collect.id_card().generate_ID()
         HB_phone = Collect.phone()
+        HB_bankcard = Collect.bankcard()
+
         # 指定姓名身份证手机号时使用
         # random__name = ""
-        generate__ID = "511123199603083522"
+        # generate__ID = "511123199603083522"
         # HB_phone = ""
+        # HB_bankcard = ""
+
         HB_loanReqNo = Collect.loanReqNo()
         HB_creditReqNo = Collect.creditReqNo()
-        HB_bankcard = Collect.bankcard()
         # 借款金额
-        loanAmount = 4000
+        loanAmount = 5000
         # 期数
         periods = "6"
         # 客户等级上下限

@@ -284,13 +284,13 @@ def main(a):
     Bank = Collect.bankcard()
     #指定姓名身份证手机号时使用
     # random__name = "耿礼荷"
-    generate__ID = "511123199603083522"
+    generate__ID = "320831199604251833"
     # HB_phone = "16605128293"
     # Bank = "6214661723536283"
 
     HB_loanReqNo = Collect.loanReqNo()
     # 借款金额
-    loanAmount = 4000
+    loanAmount = 5000
     # 期数
     periods = '6'
     # 客户等级

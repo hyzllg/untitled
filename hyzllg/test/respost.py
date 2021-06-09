@@ -2,6 +2,7 @@ import os
 import urllib
 from pprint import pprint
 from lxml import etree
+from bs4 import BeautifulSoup
 import time
 import requests
 import re
@@ -14,33 +15,6 @@ headers = {
 #elenments中包含的显示的页面源码数据为当前页面所有的的数据加载完毕后对应的万丈的页面源码数据（包含了加载的动态加载数据）
 #network显示的页面源码数据仅仅为某一个单独的请求对应的响应数据（不包含动态加载的数据）
 #如果在进行数据解析的时候，一定是需要对页面布局进行分析如果当前网站没有动态加载的数据就可以直接使用Elements对页面布局进行分析，否则只可以使用network对页面数据进行分析
-
-#
-# #需求：爬取校花网中图片
-# url = 'www.521609.com'
-# #创建名字为imglibs的文件夹
-# dirname = 'Imglibs'
-# if not os.path.exists(dirname):
-#     os.mkdir(dirname)
-# #捕获到当前页面的页面源码数据
-# url_xiaohua = f'https://goss.vcg.com/html/creativeSub/solartopic.html'
-# response = requests.get(url=url_xiaohua,headers=headers)
-# response.encoding = "utf-8"
-# page_data = response.text
-# with open ('html.html', 'w' , encoding='utf-8') as fp:
-#     fp.write(page_data)
-# # print(page_data)
-#
-# ####re.S重点 用来除去换行回车
-# ex = '<div class=".*?<img src="(.*?)" alt="'
-# img_src_list = re.findall(ex,page_data,re.I|re.S|re.M)
-# print(img_src_list)
-# for src in img_src_list:
-#     src = 'https://goss.vcg.com/html/creativeSub/' + src
-#     imgpath = dirname +'/' + src.split('/')[-1]
-#     #将照片下载到本目录imglibs文件夹内
-#     urllib.request.urlretrieve(src,imgpath)
-#     print(imgpath,"下载成功！")
 
 '''
 数据解析的作用？
@@ -78,11 +52,6 @@ Beautifulsoup对象的实例化：
     tag['attrname']
 '''
 
-
-from bs4 import BeautifulSoup
-
-
-
 items_dict = {}
 urls_dict = {}
 
@@ -108,7 +77,6 @@ def git_img_url():
             page_text =b['href'] + b.text.strip()
             with open (dirname + '/' + items_dict[i] + '/'+ 'url.txt','a',encoding='utf-8') as fp:
                 fp.write(page_text + '\n')
-
 
 # git_img_url()
 
@@ -141,8 +109,6 @@ def get_books():
         fp.write(book_title + ':' + content + '\n')
         print(book_title,"爬取成功！")
     fp.close()
-
-
 
 # get_books()
 
@@ -188,8 +154,6 @@ xpath表达式如何更加具有通用性？
     图片懒加载
 
 '''
-
-
 
 
 #爬取多页
@@ -309,6 +273,28 @@ def gaoing_img():
     cookie和爬虫之间的关联
         -sometimes，对一张页面进行请求的时候，如果请求的过程中不携带
          cookie的话，那么我们是无法请求到正确的页面数据，因此cookie是爬虫中一个非常典型且常见的反爬机制
+         
+-代理操作
+    -在爬虫中，所谓的代理指的是什么？
+        -就是代理服务器
+    -代理服务器的作用是什么？
+        -就是用来转发请求和响应
+    -在爬虫中为什么需要使用代理服务器？
+        -如果我们的爬虫在短时间内对服务器发起了高频的请求，那么服务器会检测到这样的一个异常的行为请求，就会将该请求对应设备的ip禁掉，就以为client设备
+         无法对该服务器再次进行请求发送（ip被禁掉了）
+        -如果ip被禁，我们就可以使用代理服务器进行请求转发，破解ip被禁的反扒机制，因为使用代理后，服务器链接受到的请求对应的ip地址就是代理服务器而不是我们真正的客户端的
+    -代理服务器分为不同的匿名度：
+        -透明代理：如果使用了该形式的代理，服务端就知道你使用了代理机制也知道你的真实ip
+        -匿名代理：如果你使用代理，但是不知道你的真实ip
+        -高匿代理：不知道你使用了代理也不知道你的真实ip
+    -代理的类型
+        -https：代理只能转发https协议的请求
+        -http：转发http的请求
+    -代理服务器：
+        -快代理
+        -西祠代理
+        -goubanjia
+        -代理精灵 http://zhiliandaili.cn/
             
 
 '''
@@ -340,9 +326,50 @@ def gaoing_img():
 #创建session对象
 #第一次使用session捕获且储存cookie，猜测雪球网的首页发起的请求可能会产生cookie
 main_url = 'https://xueqiu.com/'
+#获取一个session对象
 session = requests.Session()
 session.get(main_url,headers=headers)
 url = 'https://xueqiu.com/statuses/hot/listV2.json?since_id=-1&max_id=213415&size=15'
 cookie = ''
 page_text = session.get(url,headers=headers).json()
-print(page_text)
+pprint(page_text)
+
+'''
+
+'''
+# #封装一个代理池
+# url = ''
+# page_text = requests.get(url,headers=headers).text
+# tree = etree.HTML(page_text)
+# proxy_list = tree.xpath()
+# http_proxy = []#代理池
+# for proxy in proxy_list:
+# 	dic = {
+# 		'http':proxy
+# 	}
+# 	http_proxy.append(dic)
+# http_proxy
+
+
+#url模板
+url = 'https://www.kuaidaili.com/free/intr/%d/'
+ips = []
+for page in range(1,100):
+    new_url = format(url%page)
+    #让当次的请求使用代理机制，就可以更换请求的ip地址
+	# page_text = requests.get(url=new_url,headers=headers,proxies={'http':ip:port}).text
+    page_text = requests.get(url=new_url,headers=headers).text
+
+    tree = etree.HTML(page_text)
+    #在xpath表达式中不可以出现tbody标签
+    tr_list = tree.xpath('//*[@id="list"]/table//tr')
+    for tr in tr_list:
+        ip = tr.xpath('./td[1]/text()')[0]
+        port = tr.xpath('./td[2]/text()')[0]
+        print(ip,port)
+        ips.append(ip)
+
+print(len(ips))
+
+
+
