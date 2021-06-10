@@ -466,7 +466,8 @@ def gushici_login():
 #需求
     #将段子王中的段子内容爬取到本地，然后基于语音合成将段子合成为mp3的音频文件，然后自己搭建一个web服务器，实时播放音频文件
     #爬取梨视频中的短视频数据，将最热板块下的短视频数据爬取且保存到本地
-def get_duanziwang():
+def get_duanziwang():#爬取段子网经典搞笑段子
+    texts = {}
     duanziwang_url = 'https://www.duanziwang.com/t/57uP5YW456yR6K%2Bd.html'
     #网站证书过期，运行程序报错equests.exceptions.SSLError: HTTPSConnectionPool
     #requests.get()添加verify=False,
@@ -480,14 +481,16 @@ def get_duanziwang():
     dl = tree.xpath('//div[@class="nr"]/dl')
     for i in dl:
         title = i.xpath('./span/dd/a/strong/text()')[0]
-        texts = i.xpath('./dd/text()')
+        dd = i.xpath('./dd/text()')
         text = ""
-        for i in texts:
-            # i = i.strip("")
+        for i in dd:
+            i = i.strip("")
             text = text  + i
-        # print(texts)
+        texts[title] = text
         print(title)
         print(text,"\n")
+    return texts
+
 
 # get_duanziwang()
 
@@ -505,14 +508,29 @@ def get_Token():
     return access_token
 # get_Token()
 
-
-""" 你的 APPID AK SK """
-APP_ID = '24350825'
-API_KEY = 'QrIW0GXrg46p7qUbsrQq44wF'
-SECRET_KEY = 'wS2IROfaZy7d96EjjkT2dNu49Xce1qyh'
-
-client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
-
+def esydl():
+    """ 你的 APPID AK SK """
+    #创建一个文件夹Mp3用来存放获取的MP3文件
+    file_path = 'Mp3'
+    if not os.path.exists(file_path):
+        os.mkdir(file_path)
+    APP_ID = '24350825'
+    API_KEY = 'QrIW0GXrg46p7qUbsrQq44wF'
+    SECRET_KEY = 'wS2IROfaZy7d96EjjkT2dNu49Xce1qyh'
+    #新建AipSpeech
+    client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
+    #获取到段子网段子
+    texts = get_duanziwang()
+    for i in texts.keys():
+        #将获取到的段子利用百度AI语音合成技术，生成MP3语音文件
+        result  = client.synthesis(texts[i], 'zh', 1, {
+            'vol': 5,
+        })
+        if not isinstance(result, dict):
+            with open(f'./{file_path}/{i}.mp3', 'wb') as f:
+                f.write(result)
+            print(i,"mp3语音文件获取成功！")
+# esydl()
 
 
 

@@ -23,4 +23,4 @@ def yuhun(h):
         print(f'第{n}次！')
 
 if __name__ == '__main__':
-    yuhun(150)
+    yuhun(120)
