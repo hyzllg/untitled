@@ -165,7 +165,9 @@ class TC_repqy:
                 "operateType":"00",
                 "repayAmt":"11.11",
                 "repayReqNo":"361706411",
-                "repayType":"00"
+                "repayType":"00",
+                "transTime": "2021/06/02 16:46:59",
+                "repayTime": "2021/06/02 16:46:59"
 }
         data["loanNo"] = self.loanNo
         #核心查channelCustId
@@ -174,6 +176,8 @@ class TC_repqy:
         data["repayAmt"] = repayAmt
         data["repayReqNo"] = self.repayReqNo
         data["repayType"] = self.repayType
+        data["transTime"] = "{} 13:14:00".format(self.paytime)
+        data["repayTime"] = "{} 13:14:00".format(self.paytime)
 
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
@@ -287,7 +291,11 @@ class PP_repqy:
                 "repayAmt":1.66,
                 "repayType":"00",
                 "operateType":"00",
-                "payChannel":"01"
+                "payChannel":"01",
+                "transTime":"2021/02/02 10:00:00",
+                "repayTime":"2021/02/02 10:00:00",
+                "adRepayAmt":0,
+                "adRepayChannel":"01"
 }
         data["loanNo"] = self.loanNo
         #核心查channelCustId
@@ -296,6 +304,8 @@ class PP_repqy:
         data["repayAmt"] = repayAmt
         data["repayReqNo"] = self.repayReqNo
         data["repayType"] = self.repayType
+        data["transTime"] = "{} 13:14:00".format(self.paytime)
+        data["repayTime"] = "{} 13:14:00".format(self.paytime)
 
         headers = {
             "Content-Type": "application/json;charset=UTF-8",

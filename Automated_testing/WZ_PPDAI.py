@@ -359,13 +359,13 @@ def main(a, hhh):
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
-        # generate__ID = Collect.id_card().generate_ID()
+        generate__ID = Collect.id_card().generate_ID()
         HB_phone = Collect.phone()
         HB_bankcard = Collect.bankcard()
 
         # 指定姓名身份证手机号时使用
         # random__name = ""
-        generate__ID = "450503199503300007"
+        # generate__ID = "450503199503300007"
         # HB_phone = ""
         # HB_bankcard = ""
 

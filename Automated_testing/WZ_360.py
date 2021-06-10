@@ -279,12 +279,12 @@ class Hyzllg:
 
 def main(a):
     random__name = Collect.random_name()
-    # generate__ID = Collect.id_card().generate_ID()
+    generate__ID = Collect.id_card().generate_ID()
     HB_phone = Collect.phone()
     Bank = Collect.bankcard()
     #指定姓名身份证手机号时使用
     # random__name = "耿礼荷"
-    generate__ID = "511123199603083522"
+    # generate__ID = "511123199603083522"
     # HB_phone = "16605128293"
     # Bank = "6214661723536283"
 

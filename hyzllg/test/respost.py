@@ -5,6 +5,7 @@ from lxml import etree
 from bs4 import BeautifulSoup
 import time
 import requests
+import Collect
 import re
 
 headers = {
@@ -352,24 +353,24 @@ def gaoing_img():
 
 
 #url模板
-url = 'https://www.kuaidaili.com/free/intr/%d/'
-ips = []
-for page in range(1,100):
-    new_url = format(url%page)
-    #让当次的请求使用代理机制，就可以更换请求的ip地址
-	# page_text = requests.get(url=new_url,headers=headers,proxies={'http':ip:port}).text
-    page_text = requests.get(url=new_url,headers=headers).text
-
-    tree = etree.HTML(page_text)
-    #在xpath表达式中不可以出现tbody标签
-    tr_list = tree.xpath('//*[@id="list"]/table//tr')
-    for tr in tr_list:
-        ip = tr.xpath('./td[1]/text()')[0]
-        port = tr.xpath('./td[2]/text()')[0]
-        print(ip,port)
-        ips.append(ip)
-
-print(len(ips))
+# url = 'https://www.kuaidaili.com/free/intr/%d/'
+# ips = []
+# for page in range(1,100):
+#     new_url = format(url%page)
+#     #让当次的请求使用代理机制，就可以更换请求的ip地址
+# 	# page_text = requests.get(url=new_url,headers=headers,proxies={'http':ip:port}).text
+#     page_text = requests.get(url=new_url,headers=headers).text
+#
+#     tree = etree.HTML(page_text)
+#     #在xpath表达式中不可以出现tbody标签
+#     tr_list = tree.xpath('//*[@id="list"]/table//tr')
+#     for tr in tr_list:
+#         ip = tr.xpath('./td[1]/text()')[0]
+#         port = tr.xpath('./td[2]/text()')[0]
+#         print(ip,port)
+#         ips.append(ip)
+#
+# print(len(ips))
 
 '''
 -验证码的识别
@@ -404,106 +405,69 @@ print(len(ips))
     -图像识别
     -语音识别&合成
     -自然语言处理
+    
+-使用流程：
+    -点击控制台进行登录
+    -选择想要实现的功能
+    -实现功能下创建一个app
+    -选择对应的pythonSDK文档进行代码实现
 
 '''
-# !/usr/bin/env python
-# coding:utf-8
-
-import requests
-from hashlib import md5
 
 
-class Chaojiying_Client(object):
 
-    def __init__(self, username, password, soft_id):
-        self.username = username
-        password = password.encode('utf8')
-        self.password = md5(password).hexdigest()
-        self.soft_id = soft_id
-        self.base_params = {
-            'user': self.username,
-            'pass2': self.password,
-            'softid': self.soft_id,
-        }
-        self.headers = {
-            'Connection': 'Keep-Alive',
-            'User-Agent': 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)',
-        }
+def gushici_login():
 
-    def PostPic(self, im, codetype):
-        """
-        im: 图片字节
-        codetype: 题目类型 参考 http://www.chaojiying.com/price.html
-        """
-        params = {
-            'codetype': codetype,
-        }
-        params.update(self.base_params)
-        files = {'userfile': ('ccc.jpg', im)}
-        r = requests.post('http://upload.chaojiying.net/Upload/Processing.php', data=params, files=files,
-                          headers=self.headers)
-        return r.json()
+    # 创建Session过cookie验证
+    url_session = 'https://so.gushiwen.cn'
+    session = requests.Session()
+    session.get(url=url_session, headers=headers)
 
-    def ReportError(self, im_id):
-        """
-        im_id:报错题目的图片ID
-        """
-        params = {
-            'id': im_id,
-        }
-        params.update(self.base_params)
-        r = requests.post('http://upload.chaojiying.net/Upload/ReportError.php', data=params, headers=self.headers)
-        return r.json()
+    #登录页面地址
+    url = 'https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx'
+    #登录接口地址
+    login_url = 'https://so.gushiwen.cn/user/login.aspx?from=http%3a%2f%2fso.gushiwen.cn%2fuser%2fcollect.aspx'
 
+    # 爬取验证码图片到本地 得到保存图片的本地地址
+    page_text1 = session.get(url, headers=headers).text
+    tree = etree.HTML(page_text1)
+    src = 'https://so.gushiwen.cn' + tree.xpath('//*[@id="imgCode"]/@src')[0]
+    page_text2 = session.get(url=src, headers=headers).content
+    with open('./yanzhengma.jpg', 'wb') as fp:
+        fp.write(page_text2)
+    #定义图片保存地址 并利用超级鹰打码解析验证码
+    img_path = './yanzhengma.jpg'
+    img_type = 1902
+    code = Collect.dranformImgCode(img_path, img_type)
+    print(f"验证码：{code}")
 
-def dranformImgCode(imgPath, imgType):
-    chaojiying = Chaojiying_Client('hyzllg', 'hyzllg', '918177')  # 用户中心>>软件ID 生成一个替换 96001
-    im = open(imgPath, 'rb').read()  # 本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
-    return chaojiying.PostPic(im, imgType)["pic_str"]
+    __VIEWSTATE = tree.xpath('//*[@id="__VIEWSTATE"]/@value')[0]
+    print(f"__VIEWSTATE:{__VIEWSTATE}")
+    __VIEWSTATEGENERATOR = tree.xpath('//*[@id="__VIEWSTATEGENERATOR"]/@value')[0]
+    print(f"__VIEWSTATEGENERATOR:{__VIEWSTATEGENERATOR}")
+    data = {
+        "__VIEWSTATE": __VIEWSTATE,
+        "__VIEWSTATEGENERATOR": __VIEWSTATEGENERATOR,
+        "from": "http://so.gushiwen.cn/user/collect.aspx",
+        "email": "16621381003@163.com",
+        "pwd": "hyzllg",
+        "code": code,
+        "denglu": "登录"
+    }
+    page = session.post(url=login_url, headers=headers, data=data)
+    page_text3 = page.text
+
+    # 登录成功 实例储存
+    with open('./html.html', 'w', encoding='utf-8') as fp:
+        fp.write(page_text3)
 
 
-# print(dranformImgCode('./a.jpg',1902))
+#需求
+    #将段子王中的段子内容爬取到本地，然后基于语音合成将段子合成为mp3的音频文件，然后自己搭建一个web服务器，实时播放音频文件
+    #爬取梨视频中的短视频数据，将最热板块下的短视频数据爬取且保存到本地
+def get_duanziwang():
+    pass
 
-
-# 创建Session过cookie验证
-url_session = 'https://so.gushiwen.cn'
-session = requests.Session()
-session.get(url=url_session, headers=headers)
-
-url = 'https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx'
-login_url = 'https://so.gushiwen.cn/user/login.aspx?from=http%3a%2f%2fso.gushiwen.cn%2fuser%2fcollect.aspx'
-
-# 爬取验证码图片到本地 得到保存图片的本地地址
-page_text1 = session.get(url, headers=headers).text
-tree = etree.HTML(page_text1)
-src = 'https://so.gushiwen.cn' + tree.xpath('//*[@id="imgCode"]/@src')[0]
-page_text2 = session.get(url=src, headers=headers).content
-with open('./yanzhengma.jpg', 'wb') as fp:
-    fp.write(page_text2)
-
-img_path = './yanzhengma.jpg'
-img_type = 1902
-code = dranformImgCode(img_path, img_type)
-print(f"验证码：{code}")
-__VIEWSTATE = tree.xpath('//*[@id="__VIEWSTATE"]/@value')[0]
-print(f"__VIEWSTATE:{__VIEWSTATE}")
-__VIEWSTATEGENERATOR = tree.xpath('//*[@id="__VIEWSTATEGENERATOR"]/@value')[0]
-print(f"__VIEWSTATEGENERATOR:{__VIEWSTATEGENERATOR}")
-data = {
-    "__VIEWSTATE": __VIEWSTATE,
-    "__VIEWSTATEGENERATOR": __VIEWSTATEGENERATOR,
-    "from": "http://so.gushiwen.cn/user/collect.aspx",
-    "email": "16621381003@163.com",
-    "pwd": "hyzllg",
-    "code": code,
-    "denglu": "登录"
-}
-page = session.post(url=login_url, headers=headers, data=data)
-page_text3 = page.text
-
-# 登录成功 实例储存
-with open('./html.html', 'w', encoding='utf-8') as fp:
-    fp.write(page_text3)
 
 
 
