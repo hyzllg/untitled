@@ -512,7 +512,6 @@ API_KEY = 'QrIW0GXrg46p7qUbsrQq44wF'
 SECRET_KEY = 'wS2IROfaZy7d96EjjkT2dNu49Xce1qyh'
 
 client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
-print(client)
 
 
 
