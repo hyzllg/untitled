@@ -3,6 +3,7 @@ import urllib
 from pprint import pprint
 from lxml import etree
 from bs4 import BeautifulSoup
+from aip import AipSpeech
 import time
 import requests
 import Collect
@@ -466,7 +467,52 @@ def gushici_login():
     #将段子王中的段子内容爬取到本地，然后基于语音合成将段子合成为mp3的音频文件，然后自己搭建一个web服务器，实时播放音频文件
     #爬取梨视频中的短视频数据，将最热板块下的短视频数据爬取且保存到本地
 def get_duanziwang():
-    pass
+    duanziwang_url = 'https://www.duanziwang.com/t/57uP5YW456yR6K%2Bd.html'
+    #网站证书过期，运行程序报错equests.exceptions.SSLError: HTTPSConnectionPool
+    #requests.get()添加verify=False,
+    # requests.packages.urllib3.disable_warnings()，添加一行代码，添加后可忽略告警
+    requests.packages.urllib3.disable_warnings()
+    response = requests.get(url=duanziwang_url,headers=headers,verify=False)
+    page_text = response.text
+    # print(page_text)
+    # xpath定位
+    tree = etree.HTML(page_text)
+    dl = tree.xpath('//div[@class="nr"]/dl')
+    for i in dl:
+        title = i.xpath('./span/dd/a/strong/text()')[0]
+        texts = i.xpath('./dd/text()')
+        text = ""
+        for i in texts:
+            # i = i.strip("")
+            text = text  + i
+        # print(texts)
+        print(title)
+        print(text,"\n")
+
+# get_duanziwang()
+
+#Access Token获取
+def get_Token():
+    # client_id 为官网获取的AK， client_secret 为官网获取的SK
+    Api_Key = 'QrIW0GXrg46p7qUbsrQq44wF'
+    Secret_Key = 'wS2IROfaZy7d96EjjkT2dNu49Xce1qyh'
+    host = f'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={Api_Key}&client_secret={Secret_Key}'
+    response = requests.get(host)
+    page_dict = response.json()
+    access_token = page_dict['session_key']
+    t = page_dict['expires_in']/60/60
+    print(f"token:{access_token}\n有效期：{t}小时")
+    return access_token
+# get_Token()
+
+
+""" 你的 APPID AK SK """
+APP_ID = '24350825'
+API_KEY = 'QrIW0GXrg46p7qUbsrQq44wF'
+SECRET_KEY = 'wS2IROfaZy7d96EjjkT2dNu49Xce1qyh'
+
+client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
+print(client)
 
 
 
