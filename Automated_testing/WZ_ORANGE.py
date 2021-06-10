@@ -340,12 +340,12 @@ def main(a, hhh):
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
-        generate__ID = Collect.id_card().generate_ID()
+        # generate__ID = Collect.id_card().generate_ID()
         ORANGE_phone = Collect.phone()
         ORANGE_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
         # random__name = "刘海云"
-        # generate__ID = "511123199603083522"
+        generate__ID = "450503199503300007"
         # ORANGE_phone = "13800132597"
         # ORANGE_bankcard = ""
         channelCustId = Collect.channelCustId()

@@ -323,16 +323,16 @@ def gaoing_img():
                          
             
 '''
-#创建session对象
-#第一次使用session捕获且储存cookie，猜测雪球网的首页发起的请求可能会产生cookie
-main_url = 'https://xueqiu.com/'
-#获取一个session对象
-session = requests.Session()
-session.get(main_url,headers=headers)
-url = 'https://xueqiu.com/statuses/hot/listV2.json?since_id=-1&max_id=213415&size=15'
-cookie = ''
-page_text = session.get(url,headers=headers).json()
-pprint(page_text)
+# #创建session对象
+# #第一次使用session捕获且储存cookie，猜测雪球网的首页发起的请求可能会产生cookie
+# main_url = 'https://xueqiu.com/'
+# #获取一个session对象
+# session = requests.Session()
+# session.get(main_url,headers=headers)
+# url = 'https://xueqiu.com/statuses/hot/listV2.json?since_id=-1&max_id=213415&size=15'
+# cookie = ''
+# page_text = session.get(url,headers=headers).json()
+# pprint(page_text)
 
 '''
 
@@ -370,6 +370,143 @@ for page in range(1,100):
         ips.append(ip)
 
 print(len(ips))
+
+'''
+-验证码的识别
+	-基于线上的打码平台识别验证码
+	-打码平台
+		-1、超级鹰
+			-1、注册
+            -2、登录
+                -1、查询余额，充值
+                -2、创建一个软件ID
+                -3、下载示例代码
+		-2、云打码
+		-3、打码兔
+
+'''
+'''
+-模拟登录
+    -流程
+        -对点击登录按钮对应的请求进行发送（post请求）
+        -处理请求参数
+            -用户名
+            -密码
+            -验证码
+            -其他的防伪参数
+-在请求参数中如果看到了一组乱序的请求参数，最好取验证码这组请求参数是否为动态化
+    -处理
+        方式一：常规来讲一般动态变化的请求参数会被隐藏在前台页面中，那么我们就要去前台页面源码中去找
+        方式二：如果前台页面如果没有的话，我们就可以基于抓包工具进行全局搜索
+
+
+-基于百度AI实现的爬虫功能
+    -图像识别
+    -语音识别&合成
+    -自然语言处理
+
+'''
+# !/usr/bin/env python
+# coding:utf-8
+
+import requests
+from hashlib import md5
+
+
+class Chaojiying_Client(object):
+
+    def __init__(self, username, password, soft_id):
+        self.username = username
+        password = password.encode('utf8')
+        self.password = md5(password).hexdigest()
+        self.soft_id = soft_id
+        self.base_params = {
+            'user': self.username,
+            'pass2': self.password,
+            'softid': self.soft_id,
+        }
+        self.headers = {
+            'Connection': 'Keep-Alive',
+            'User-Agent': 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)',
+        }
+
+    def PostPic(self, im, codetype):
+        """
+        im: 图片字节
+        codetype: 题目类型 参考 http://www.chaojiying.com/price.html
+        """
+        params = {
+            'codetype': codetype,
+        }
+        params.update(self.base_params)
+        files = {'userfile': ('ccc.jpg', im)}
+        r = requests.post('http://upload.chaojiying.net/Upload/Processing.php', data=params, files=files,
+                          headers=self.headers)
+        return r.json()
+
+    def ReportError(self, im_id):
+        """
+        im_id:报错题目的图片ID
+        """
+        params = {
+            'id': im_id,
+        }
+        params.update(self.base_params)
+        r = requests.post('http://upload.chaojiying.net/Upload/ReportError.php', data=params, headers=self.headers)
+        return r.json()
+
+
+def dranformImgCode(imgPath, imgType):
+    chaojiying = Chaojiying_Client('hyzllg', 'hyzllg', '918177')  # 用户中心>>软件ID 生成一个替换 96001
+    im = open(imgPath, 'rb').read()  # 本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
+    return chaojiying.PostPic(im, imgType)["pic_str"]
+
+
+# print(dranformImgCode('./a.jpg',1902))
+
+
+# 创建Session过cookie验证
+url_session = 'https://so.gushiwen.cn'
+session = requests.Session()
+session.get(url=url_session, headers=headers)
+
+url = 'https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx'
+login_url = 'https://so.gushiwen.cn/user/login.aspx?from=http%3a%2f%2fso.gushiwen.cn%2fuser%2fcollect.aspx'
+
+# 爬取验证码图片到本地 得到保存图片的本地地址
+page_text1 = session.get(url, headers=headers).text
+tree = etree.HTML(page_text1)
+src = 'https://so.gushiwen.cn' + tree.xpath('//*[@id="imgCode"]/@src')[0]
+page_text2 = session.get(url=src, headers=headers).content
+with open('./yanzhengma.jpg', 'wb') as fp:
+    fp.write(page_text2)
+
+img_path = './yanzhengma.jpg'
+img_type = 1902
+code = dranformImgCode(img_path, img_type)
+print(f"验证码：{code}")
+__VIEWSTATE = tree.xpath('//*[@id="__VIEWSTATE"]/@value')[0]
+print(f"__VIEWSTATE:{__VIEWSTATE}")
+__VIEWSTATEGENERATOR = tree.xpath('//*[@id="__VIEWSTATEGENERATOR"]/@value')[0]
+print(f"__VIEWSTATEGENERATOR:{__VIEWSTATEGENERATOR}")
+data = {
+    "__VIEWSTATE": __VIEWSTATE,
+    "__VIEWSTATEGENERATOR": __VIEWSTATEGENERATOR,
+    "from": "http://so.gushiwen.cn/user/collect.aspx",
+    "email": "16621381003@163.com",
+    "pwd": "hyzllg",
+    "code": code,
+    "denglu": "登录"
+}
+page = session.post(url=login_url, headers=headers, data=data)
+page_text3 = page.text
+
+# 登录成功 实例储存
+with open('./html.html', 'w', encoding='utf-8') as fp:
+    fp.write(page_text3)
+
+
+
 
 
 
