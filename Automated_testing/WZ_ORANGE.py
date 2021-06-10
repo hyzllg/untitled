@@ -33,16 +33,16 @@ class Hyzllg:
 
     def credit_granting(self):
         data = {
-            "channelCustId": "20200612886881020",
-            "creditReqNo": "20200612668661020",
-            "name": "荆宗",
+            "channelCustId": self.channelCustId,
+            "creditReqNo": self.creditReqNo,
+            "name": self.name,
             "spelling": "ZHANGTIAN",
             "sex": "01",
             "nationality": "中国",
             "nation": "汉族",
             "birthday": "1985/06/02",
             "idType": "00",
-            "idNo": "51343619900612877X",
+            "idNo": self.idNo,
             "idStartDate": "2016/01/18",
             "idEndDate": "2036/01/18",
             "idOffice": "北京市东城区",
@@ -66,7 +66,7 @@ class Hyzllg:
             "income": "03",
             "education": "06",
             "school": "北京大学",
-            "phone": "16606124020",
+            "phone": self.phone,
             "email": "email163@qq.com",
             "contacts": [{
                 "relation": "00",
@@ -77,14 +77,14 @@ class Hyzllg:
                 "name": "李四",
                 "phoneNo": "15638537486"
             }],
-            "bankCard": "6214852127765553",
+            "bankCard": self.bankcard,
             "bankName": "建设银行",
-            "bankPhone": "15638537487",
+            "bankPhone": self.phone,
             "applyProvince": "110000",
             "applyCity": "110000",
             "applyDistrict": "110101",
-            "loanAmount": "5000.00",
-            "periods": 6,
+            "loanAmount": self.loanAmount,
+            "periods": self.periods,
             "purpose": "01",
             "direction": "01",
             "payType": "00",
@@ -129,7 +129,7 @@ class Hyzllg:
                 "realNameFlag": "1",
                 "realNameGrade": "1",
                 "transFlag": "1",
-                "custType": "0",
+                "custType": self.custType,
                 "currLimit": 5000,
                 "currRemainLimit": 2000,
                 "currLimitOrg": "DD",
@@ -143,16 +143,16 @@ class Hyzllg:
                 "loanAmount": 3000
             }
         }
-        data["channelCustId"] = self.channelCustId
-        data["creditReqNo"] = self.creditReqNo
-        data["name"] = self.name
-        data["idNo"] = self.idNo
-        data["phone"] = self.phone
-        data["loanAmount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["bankCard"] = self.bankcard
-        data["bankPhone"] = self.phone
-        data["channelDetail"]["custType"] = self.custType
+        # data["channelCustId"] = self.channelCustId
+        # data["creditReqNo"] = self.creditReqNo
+        # data["name"] = self.name
+        # data["idNo"] = self.idNo
+        # data["phone"] = self.phone
+        # data["loanAmount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["bankCard"] = self.bankcard
+        # data["bankPhone"] = self.phone
+        # data["channelDetail"]["custType"] = self.custType
 
         url = self.url + 'CREDIT_GRANTING'
         title = "**********授信申请！**********"
@@ -175,13 +175,13 @@ class Hyzllg:
     def credit_inquiry(self, creditApplyNo):
         hhh = 0
         data = {
-            "channelCustId": "20200612886881021",
-            "creditReqNo": "20200612668661021",
-            "creditApplyNo": ""
+            "channelCustId": self.channelCustId,
+            "creditReqNo": self.creditReqNo,
+            "creditApplyNo": creditApplyNo
         }
-        data["channelCustId"] = self.channelCustId
-        data["creditReqNo"] = self.creditReqNo
-        data["creditApplyNo"] = creditApplyNo
+        # data["channelCustId"] = self.channelCustId
+        # data["creditReqNo"] = self.creditReqNo
+        # data["creditApplyNo"] = creditApplyNo
 
         time.sleep(2)
         n = False
@@ -211,13 +211,13 @@ class Hyzllg:
 
     def disburse_trial(self, capitalCode):
         data = {
-            "channelCustId": "20200612886881021",
-            "periods": 6,
-            "loanAmount": "1000.00"
+            "channelCustId": self.channelCustId,
+            "periods": self.periods,
+            "loanAmount": self.loanAmount
         }
-        data["channelCustId"] = self.channelCustId
-        data["loanAmount"] = self.loanAmount
-        data["periods"] = self.periods
+        # data["channelCustId"] = self.channelCustId
+        # data["loanAmount"] = self.loanAmount
+        # data["periods"] = self.periods
 
         url = self.url + 'DISBURSE_TRIAL'
         title = "**********支用试算！**********"
@@ -237,20 +237,20 @@ class Hyzllg:
 
     def disburse(self, capitalCode):
         data = {
-            "channelCustId": "20200612886881021",
-            "loanReqNo": "202006128866881022",
-            "creditReqNo": "20200612668661021",
-            "loanAmount": "1000.00",
-            "periods": 6,
+            "channelCustId": self.channelCustId,
+            "loanReqNo": self.loanReqNo,
+            "creditReqNo": self.creditReqNo,
+            "loanAmount": self.loanAmount,
+            "periods": self.periods,
             "purpose": "01",
-            "bankCard": "6214852127765553",
+            "bankCard": self.bankcard,
             "bankCode": "308584000013",
             "bankName": "建设银行",
-            "bankPhone": "13800000004",
+            "bankPhone": self.phone,
             "longitude": "121.551738",
             "latitude": "31.224634",
             "ip": "192.168.1.2",
-            "capitalCode": "HNTRUST",
+            "capitalCode": capitalCode,
             "channelDetail": {
                 "woolFlag": "1",
                 "phoneFlag": "1",
@@ -268,7 +268,7 @@ class Hyzllg:
                 "realNameFlag": "1",
                 "realNameGrade": "1",
                 "transFlag": "1",
-                "custType": "0",
+                "custType": self.custType,
                 "currLimit": 5000,
                 "currRemainLimit": 2000,
                 "currLimitOrg": "DD",
@@ -282,15 +282,15 @@ class Hyzllg:
                 "loanAmount": 3000
             }
         }
-        data["channelCustId"] = self.channelCustId
-        data["loanReqNo"] = self.loanReqNo
-        data["creditReqNo"] = self.creditReqNo
-        data["capitalCode"] = capitalCode
-        data["loanAmount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["bankCard"] = self.bankcard
-        data["bankPhone"] = self.phone
-        data["channelDetail"]["custType"] = self.custType
+        # data["channelCustId"] = self.channelCustId
+        # data["loanReqNo"] = self.loanReqNo
+        # data["creditReqNo"] = self.creditReqNo
+        # data["capitalCode"] = capitalCode
+        # data["loanAmount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["bankCard"] = self.bankcard
+        # data["bankPhone"] = self.phone
+        # data["channelDetail"]["custType"] = self.custType
 
         url = self.url + 'DISBURSE'
         title = "**********支用接口！**********"
@@ -308,9 +308,9 @@ class Hyzllg:
 
     def disburse_in_query(self, loanReqNo):
         data = {
-            "channelCustId": "20200612886881021",
-            "creditReqNo": "20200612668661021",
-            "loanReqNo": "202006128866881022"
+            "channelCustId": self.channelCustId,
+            "creditReqNo": loanReqNo,
+            "loanReqNo": self.creditReqNo
         }
         data["channelCustId"] = self.channelCustId
         data["loanReqNo"] = loanReqNo
@@ -340,12 +340,12 @@ def main(a, hhh):
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
-        # generate__ID = Collect.id_card().generate_ID()
+        generate__ID = Collect.id_card().generate_ID()
         ORANGE_phone = Collect.phone()
         ORANGE_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
         # random__name = "刘海云"
-        generate__ID = "450503199503300007"
+        # generate__ID = "450503199503300007"
         # ORANGE_phone = "13800132597"
         # ORANGE_bankcard = ""
         channelCustId = Collect.channelCustId()

@@ -36,14 +36,14 @@ class Hyzllg:
     def insure_info(self):
         data = {
             "channelCustId": "",
-            "loanReqNo": "2020051500000100011",
+            "loanReqNo": self.loanReqNo,
             "capitalCode": "FBBANK",
-            "custGrde": "GRD36",
-            "name": "哑巴湖大水怪",
-            "idNo": "412622198705223574",
-            "phone": "17613145209",
-            "amount": 1000,
-            "periods": 12,
+            "custGrde": self.custGrde,
+            "name": self.name,
+            "idNo": self.idNo,
+            "phone": self.phone,
+            "amount": self.loanAmount,
+            "periods": self.periods,
             "purpose": "01",
             "addProvince": "110000",
             "addCity": "110000",
@@ -52,17 +52,17 @@ class Hyzllg:
             "email": "ybhdsg@hrtx.com",
             "contactPhone": "contactPhone",
             "loanRate": 20.00,
-            "discountRate": 18.00
+            "discountRate": self.discountRate
         }
 
-        data["loanReqNo"] = self.loanReqNo
-        data["name"] = self.name
-        data["idNo"] = self.idNo
-        data["phone"] = self.phone
-        data["amount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["discountRate"] = self.discountRate
-        data["custGrde"] = self.custGrde
+        # data["loanReqNo"] = self.loanReqNo
+        # data["name"] = self.name
+        # data["idNo"] = self.idNo
+        # data["phone"] = self.phone
+        # data["amount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["discountRate"] = self.discountRate
+        # data["custGrde"] = self.custGrde
 
         url = self.url + 'INSURE_INFO'
         title = "**********投保信息接口！**********"
@@ -81,12 +81,12 @@ class Hyzllg:
 
     def insure_data_query(self, token):
         data = {
-            "loanReqNo": "20200613910199001",
-            "token":""
+            "loanReqNo": self.loanReqNo,
+            "token":token
 
         }
-        data["loanReqNo"] = self.loanReqNo
-        data["token"] = token
+        # data["loanReqNo"] = self.loanReqNo
+        # data["token"] = token
 
         url = self.url + 'INSURE_DATA_QUERY'
         title = "**********投保资料查询接口！**********"
@@ -103,27 +103,27 @@ class Hyzllg:
         data = {
             "agentNo": "DingSheng",
             "agentName": "鼎盛保险经纪",
-            "loanReqNo": "20200613910199001",
-            "insReqNo": "20200613910199001",
-            "name": "凤骅",
-            "idNo": "513436199006138839",
-            "phone": "16606137001",
-            "amount": 3000.0,
-            "periods": 6,
+            "loanReqNo": self.loanReqNo,
+            "insReqNo": self.loanReqNo,
+            "name": self.name,
+            "idNo": self.idNo,
+            "phone": self.phone,
+            "amount": self.loanAmount,
+            "periods": self.periods,
             "purpose": "01",
-            "premiumRate": 1.66,
+            "premiumRate": a,
             "insurantName": "鼎盛",
             "insurantAdd": "上海幸福村521弄1100号",
             "postCode": "110016"
         }
-        data["loanReqNo"] = self.loanReqNo
-        data["insReqNo"] = self.loanReqNo
-        data["name"] = self.name
-        data["idNo"] = self.idNo
-        data["phone"] = self.phone
-        data["amount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["premiumRate"] = a
+        # data["loanReqNo"] = self.loanReqNo
+        # data["insReqNo"] = self.loanReqNo
+        # data["name"] = self.name
+        # data["idNo"] = self.idNo
+        # data["phone"] = self.phone
+        # data["amount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["premiumRate"] = a
 
         url = self.url + 'INSURE'
         title = "**********投保接口！**********"
@@ -144,20 +144,20 @@ class Hyzllg:
     def disburse(self):
         data = {
             "channelCustId": "",
-            "loanReqNo": "20200613910199001",
+            "loanReqNo": self.loanReqNo,
             "loanRate": 20.00,
-            "discountRate": 20.00,
-            "name": "凤骅",
+            "discountRate": self.discountRate,
+            "name": self.name,
             "spelling": "LAIJING",
             "sex": "00",
             "nationality": "中国",
             "nation": "汉族",
             "birthday": "1993/12/12",
             "idType": "00",
-            "loanAmount": 3000.0,
-            "periods": 6,
-            "phone": "16606137001",
-            "idNo": "513436199006138839",
+            "loanAmount": self.loanAmount,
+            "periods": self.periods,
+            "phone": self.phone,
+            "idNo": self.idNo,
             "idStartDate": "2015/10/08",
             "idEndDate": "2025/10/08",
             "idOffice": "上海市崇明区太上皇路888弄001号",
@@ -182,9 +182,9 @@ class Hyzllg:
             "education": "08",
             "school": "哈弗大学",
             "email": "ybhdsg@hrtx.com",
-            "bankCard": "6214832192491115",
+            "bankCard": self.bankcard,
             "bankName": "建设银行",
-            "bankPhone": "19888128830",
+            "bankPhone": self.phone,
             "applyProvince": "110000",
             "applyCity": "110000",
             "applyDistrict": "110101",
@@ -219,7 +219,7 @@ class Hyzllg:
                 "oS": "ios"
             },
             "channelDetail": {
-                "custGrade": "GRD36",
+                "custGrade": self.custGrde,
                 "obtainCustType": "01",
                 "faceType": "01",
                 "faceScore": 70,
@@ -243,16 +243,16 @@ class Hyzllg:
                 "afterLoanSocre": ""
             }
         }
-        data["loanReqNo"] = self.loanReqNo
-        data["name"] = self.name
-        data["phone"] = self.phone
-        data["idNo"] = self.idNo
-        data["loanAmount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["bankCard"] = self.bankcard
-        data["bankPhone"] = self.phone
-        data["discountRate"] = self.discountRate
-        data["channelDetail"]["custGrde"] = self.custGrde
+        # data["loanReqNo"] = self.loanReqNo
+        # data["name"] = self.name
+        # data["phone"] = self.phone
+        # data["idNo"] = self.idNo
+        # data["loanAmount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["bankCard"] = self.bankcard
+        # data["bankPhone"] = self.phone
+        # data["discountRate"] = self.discountRate
+        # data["channelDetail"]["custGrde"] = self.custGrde
 
         url = self.url + 'DISBURSE'
         title = "**********支用接口！**********"
@@ -279,12 +279,14 @@ def main(a):
     random__name = Collect.random_name()
     generate__ID = Collect.id_card().generate_ID()
     HB_phone = Collect.phone()
+    HB_bankcard = Collect.bankcard()
     # 指定姓名身份证手机号时使用
     # random__name = "黄器翠"
     # generate__ID = "450503199503300007"
     # HB_phone = "16605315868"
+    # HB_bankcard = ""
     HB_loanReqNo = Collect.loanReqNo()
-    HB_bankcard = Collect.bankcard()
+
     # 借款金额
     loanAmount = 6000
     # 期数

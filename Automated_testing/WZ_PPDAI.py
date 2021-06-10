@@ -28,28 +28,28 @@ class Hyzllg:
     def insure_info(self):
         data = {
             "channelCustId": "",
-            "insuranceNo": "2020082066566007",
-            "name": "薛芒乙",
-            "idNo": "513436199003021045",
+            "insuranceNo": self.loanReqNo,
+            "name": self.name,
+            "idNo": self.idNo,
             "idAddress": "浙江省杭州市江干区高教路119号",
-            "phone": "16608205407",
-            "amount": "5000",
-            "periods": "12",
+            "phone": self.phone,
+            "amount": self.loanAmount,
+            "periods": self.periods,
             "purpose": "01",
             "capitalCode": "FBBANK",
-            "custGrde": "20.00",
+            "custGrde": self.custGrde,
             "email": "ybhdsg@hrtx.com",
             "contactPhone": "17613145209",
             "callbackurl": "callbackurl"
         }
 
-        data["insuranceNo"] = self.loanReqNo
-        data["name"] = self.name
-        data["idNo"] = self.idNo
-        data["phone"] = self.phone
-        data["amount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["custGrde"] = self.custGrde
+        # data["insuranceNo"] = self.loanReqNo
+        # data["name"] = self.name
+        # data["idNo"] = self.idNo
+        # data["phone"] = self.phone
+        # data["amount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["custGrde"] = self.custGrde
 
         url = self.url + 'INSURE_INFO'
         title = "**********投保信息接口！**********"
@@ -68,11 +68,11 @@ class Hyzllg:
 
     def insure_data_query(self, token):
         data = {
-            "loanReqNo": "20200613910199001",
-            "token": "20201124145854137000005034"
+            "loanReqNo": self.loanReqNo,
+            "token": token
         }
-        data["loanReqNo"] = self.loanReqNo
-        data["token"] = token
+        # data["loanReqNo"] = self.loanReqNo
+        # data["token"] = token
 
         url = self.url + 'INSURE_DATA_QUERY'
         title = "**********投保资料查询接口！**********"
@@ -89,30 +89,30 @@ class Hyzllg:
         data = {
             "agentNo": "DingSheng",
             "agentName": "鼎盛保险经纪",
-            "loanReqNo": "2020082066566007",
-            "insReqNo": "2020082066566007",
-            "name": "薛芒乙",
-            "idNo": "513436199003021045",
-            "phone": "16608205407",
-            "amount": "5000",
-            "periods": "12",
+            "loanReqNo": self.loanReqNo,
+            "insReqNo": self.loanReqNo,
+            "name": self.name,
+            "idNo": self.idNo,
+            "phone": self.phone,
+            "amount": self.loanAmount,
+            "periods": self.periods,
             "purpose": "01",
-            "premiumRate": "1.417",
-            "insurantName": "富邦华一银行",
+            "premiumRate": premiumRate,
+            "insurantName": insurantName,
             "insurantAdd": "上海浦东新区1239号",
             "postCode": "200300",
             "version": "DS_7018_V1.0",
             "docVersion": "V2.0-20200708"
         }
-        data["loanReqNo"] = self.loanReqNo
-        data["insReqNo"] = self.loanReqNo
-        data["name"] = self.name
-        data["idNo"] = self.idNo
-        data["phone"] = self.phone
-        data["amount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["premiumRate"] = premiumRate
-        data["insurantName"] = insurantName
+        # data["loanReqNo"] = self.loanReqNo
+        # data["insReqNo"] = self.loanReqNo
+        # data["name"] = self.name
+        # data["idNo"] = self.idNo
+        # data["phone"] = self.phone
+        # data["amount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["premiumRate"] = premiumRate
+        # data["insurantName"] = insurantName
 
         url = self.url + 'INSURE'
         title = "**********投保接口！**********"
@@ -134,19 +134,19 @@ class Hyzllg:
     def credit_granting(self):
         data = {
             "channelCustId": "",
-            "insuranceNo": "2020082066566007",
-            "creditReqNo": "2020082088588007",
-            "name": "薛芒乙",
+            "insuranceNo": self.loanReqNo,
+            "creditReqNo": self.creditReqNo,
+            "name": self.name,
             "spelling": "",
             "sex": "00",
             "nationality": "中国",
             "nation": "汉族",
             "birthday": "1985/06/02",
             "idType": "00",
-            "loanAmount": 5000,
-            "periods": 12,
-            "idNo": "513436199003021045",
-            "phone": "16608205407",
+            "loanAmount": self.loanAmount,
+            "periods": self.periods,
+            "idNo": self.idNo,
+            "phone": self.phone,
             "idStartDate": "2016/09/04",
             "idEndDate": "2026/09/04",
             "idOffice": "浩然天下宝瓶洲大骊王朝落坡山办祖师堂",
@@ -184,9 +184,9 @@ class Hyzllg:
                     "phoneNo": "17613145210"
                 }
             ],
-            "bankCard": "6230523610012118577",
-            "bankName": "中国农业银行",
-            "bankPhone": "17613145209",
+            "bankCard": self.bankCard,
+            "bankName": self.bankName,
+            "bankPhone": self.bankPhone,
             "applyProvince": "",
             "applyCity": "",
             "applyDistrict": "",
@@ -207,7 +207,7 @@ class Hyzllg:
             },
             "channelDetail": {
                 "capitalCode": "FBBANK",
-                "custGrde": "20.00",
+                "custGrde": self.custGrde,
                 "applyEntry": "applyEntry",
                 "faceRecoType": "LINKFACE",
                 "faceRecoScore": 99,
@@ -226,20 +226,20 @@ class Hyzllg:
                 "bankCheckResult": "1",
                 "telcoCheckResult": "1"
             },
-            "docDate": "2021/01/13"
+            "docDate": time.strftime("%Y/%m/%d")
         }
-        data["insuranceNo"] = self.loanReqNo
-        data["creditReqNo"] = self.creditReqNo
-        data["name"] = self.name
-        data["phone"] = self.phone
-        data["idNo"] = self.idNo
-        data["loanAmount"] = self.loanAmount
-        data["periods"] = self.periods
-        data["bankCard"] = self.bankCard
-        data["bankName"] = self.bankName
-        data["bankPhone"] = self.bankPhone
-        data["docDate"] = time.strftime("%Y/%m/%d")
-        data["channelDetail"]["custGrde"] = self.custGrde
+        # data["insuranceNo"] = self.loanReqNo
+        # data["creditReqNo"] = self.creditReqNo
+        # data["name"] = self.name
+        # data["phone"] = self.phone
+        # data["idNo"] = self.idNo
+        # data["loanAmount"] = self.loanAmount
+        # data["periods"] = self.periods
+        # data["bankCard"] = self.bankCard
+        # data["bankName"] = self.bankName
+        # data["bankPhone"] = self.bankPhone
+        # data["docDate"] = time.strftime("%Y/%m/%d")
+        # data["channelDetail"]["custGrde"] = self.custGrde
 
         url = self.url + 'CREDIT_GRANTING'
         title = "**********授信接口！**********"
@@ -264,7 +264,7 @@ class Hyzllg:
     def credit_inquiry(self):
         data = {
             "channelCustId": "",
-            "creditReqNo": "2020082088588007"
+            "creditReqNo": self.creditReqNo
         }
         # data["channelCustId"] = self.channelCustId
         data["creditReqNo"] = self.creditReqNo
@@ -306,9 +306,9 @@ class Hyzllg:
     def disburse(self):
         data = {
             "channelCustId": "",
-            "loanReqNo": "202008206656600622",
+            "loanReqNo": self.loanReqNo,
             "insuranceNo": "",
-            "creditReqNo": "202008206656600622"
+            "creditReqNo": self.creditReqNo
         }
         data["creditReqNo"] = self.creditReqNo
         data["loanReqNo"] = self.loanReqNo
