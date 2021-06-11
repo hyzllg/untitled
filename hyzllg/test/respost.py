@@ -534,6 +534,95 @@ def esydl():
 
 
 
+#爬取梨视频美式短视频
+'''
+梨视频爬取思路：
+    将每一个视频详情页的url进行解析
+    对视频详情页的url惊醒请求发送
+    在视频详情页的页面源码中进行全局搜索，发现没有找到video标签
+        视频标签是动态加载出来
+        动态加载的数据方式
+            ajax
+            js
+        在页面源码中搜索.mp4，定位到视频地址（存在于一组js代码）
+            通过正则取出并发起请求
+            
+'''
+def Li_videos():
+    #header这个必须要加Referer，他妈的不加会报文章已下线
+    header = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+        'Referer': ''
+    }
+
+    Li_url = 'https://www.pearvideo.com/category_8'
+    response = requests.get(url=Li_url,headers=headers)
+    page_text = response.text
+    tree = etree.HTML(page_text)
+    #获取到短视频网页链接
+    urls = tree.xpath('//div[@class="vervideo-bd"]/a/@href')
+    for i in urls:
+        Referer = 'https://www.pearvideo.com' + '/' + i
+        contId = i.split("_")[-1]
+        header['Referer'] = Referer
+        #視頻地址不在頁面源碼中，是通過js或ajax动态加载，访问ajax接口获取到视频地址
+        videoStatusUrl = f"https://www.pearvideo.com/videoStatus.jsp?contId={contId}"
+        # print(videoStatusUrl)
+        #访问ajax接口获取视频地址
+        resp = requests.get(url=videoStatusUrl,headers=header)
+        #取出systemTime
+        systemTime = resp.json()['systemTime']
+        #取出srcUrl
+        srcUrl = resp.json()['videoInfo']['videos']['srcUrl']
+        #接口返回的地址,需要替换成真实的地址
+        #https://video.pearvideo.com/mp4/adshort/20210611/1623396279075-15693739_adpkg-ad_hd.mp4  #404的地址
+        #https://video.pearvideo.com/mp4/third/20210610/cont-1731794-11643402-111901-hd.mp4       #视频的真实地址
+        #把接口返回的地址中的systemTime替换成视频id
+        truthUrl = srcUrl.replace(systemTime,f'cont-{contId}')
+        print(truthUrl)
+
+
+
+
+Li_videos()
+
+
+
+
+
+
+def a():
+    # url = 'https://www.pearvideo.com/video_1727856'  # 这个就是点开的视频的样子，这个也是可以批量抓取的，抓不到的是视频的本身的地址。
+    url = 'https://www.pearvideo.com/video_1731833'  # 这个就是点开的视频的样子，这个也是可以批量抓取的，抓不到的是视频的本身的地址。
+
+
+    contId = url.split('_')[1]  # 妙啊妙啊，
+
+    header = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+        'Referer': 'https://www.pearvideo.com/video_1731833'
+    }
+    # 这个是那个，F12有链接，但是 源码没有连接的那个页面。需要我们刷新抓包 XHR中的那个包，
+    # TurthUrl = 'https://www.pearvideo.com/videoStatus.jsp?contId=1727856&mrd=0.18480170530072626' # 最后面的是 随机数，然后contID可以传参进来
+    videoStatusUrl = f"https://www.pearvideo.com/videoStatus.jsp?contId={contId}"
+    print(videoStatusUrl)
+
+    resp = requests.get(url=videoStatusUrl, headers=header)
+    print(resp.json()) # 变成json格式，便于获取变量，
+
+    systemTime = resp.json()['systemTime']
+    srcUrl = resp.json()['videoInfo']['videos']['srcUrl']
+
+    # print (srcUrl) # https://video.pearvideo.com/mp4/adshort/20210427/1620391070930-15665162_adpkg-ad_hd.mp4  .。这个还要替换一下
+    # 这个 是 真正的   https://video.pearvideo.com/mp4/adshort/20210427/cont-1727856-15665162_adpkg-ad_hd.mp4
+    truthUrl = srcUrl.replace(systemTime, f'cont-{contId}')
+    print(truthUrl)
+    #
+    # # 下载视频：
+    # with open('a.mp4', mode='wb') as f:
+    #     f.write(requests.get(url=truthUrl).content)
+    #     print("oh")
+# a()
 
 
 
