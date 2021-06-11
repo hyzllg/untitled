@@ -548,55 +548,16 @@ def esydl():
             通过正则取出并发起请求
             
 '''
-# def Li_videos():
-#     #header这个必须要加Referer，他妈的不加会报文章已下线
-#     header = {
-#         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
-#         'Referer': ''
-#     }
-#
-#     Li_url = 'https://www.pearvideo.com/category_8'
-#     response = requests.get(url=Li_url,headers=headers)
-#     page_text = response.text
-#     tree = etree.HTML(page_text)
-#     #获取到短视频网页链接
-#     urls = tree.xpath('//div[@class="vervideo-bd"]/a')
-#     for i in urls:
-#         # title = i.xpath('./div[2]/@text()')
-#         title = i.xpath('./div[2]/@text()')
-#
-#         print(title)
-#
-#         Referer = 'https://www.pearvideo.com' + '/' + i.xpath('./@href')[0]
-#         contId = Referer.split("_")[-1]
-#         header['Referer'] = Referer
-#         #視頻地址不在頁面源碼中，是通過js或ajax动态加载，访问ajax接口获取到视频地址
-#         videoStatusUrl = f"https://www.pearvideo.com/videoStatus.jsp?contId={contId}"
-#         # print(videoStatusUrl)
-#         #访问ajax接口获取视频地址
-#         resp = requests.get(url=videoStatusUrl,headers=header)
-#         #取出systemTime
-#         systemTime = resp.json()['systemTime']
-#         #取出srcUrl
-#         srcUrl = resp.json()['videoInfo']['videos']['srcUrl']
-#         #接口返回的地址,需要替换成真实的地址
-#         #https://video.pearvideo.com/mp4/adshort/20210611/1623396279075-15693739_adpkg-ad_hd.mp4  #404的地址
-#         #https://video.pearvideo.com/mp4/third/20210610/cont-1731794-11643402-111901-hd.mp4       #视频的真实地址
-#         #把接口返回的地址中的systemTime替换成视频id
-#         truthUrl = srcUrl.replace(systemTime,f'cont-{contId}')
-#         print(truthUrl)
-
-
-
-
-
 def Li_videos():
     #header这个必须要加Referer，他妈的不加会报文章已下线
     header = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
         'Referer': ''
     }
-
+    #创建一个文件夹用来存放mp4小视频
+    dirname = 'Mp4'
+    if not os.path.exists(dirname):
+        os.mkdir(dirname)
     Li_url = 'https://www.pearvideo.com/category_8'
     response = requests.get(url=Li_url,headers=headers)
     page_text = response.text
@@ -604,11 +565,10 @@ def Li_videos():
     #获取到短视频网页链接
     urls = tree.xpath('//div[@class="vervideo-bd"]/a')
     for i in urls:
-        # title = i.xpath('./div[2]/@text()')
-        title = i.xpath('./div[2]/@text()')
-
+        title = i.xpath('./div[2]/text()')[0]
+        #利用re.sub去除非法字符，不然创建文件时会报错
+        title = re.sub('[\/:*?"<>|]','',title)
         print(title)
-
         Referer = 'https://www.pearvideo.com' + '/' + i.xpath('./@href')[0]
         contId = Referer.split("_")[-1]
         header['Referer'] = Referer
@@ -628,7 +588,16 @@ def Li_videos():
         truthUrl = srcUrl.replace(systemTime,f'cont-{contId}')
         print(truthUrl)
 
+        #发送请求下载视频文件
+        Mp4_video = requests.get(url=truthUrl,headers=headers).content
+        #保存mp4视频文件
+        Mp4_path = dirname + '/' + title + re.findall(r'hd(.*)',truthUrl)[0]
+        with open(Mp4_path,'wb') as fp:
+            fp.write(Mp4_video)
+        print(Mp4_path,"爬取成功！")
+
 Li_videos()
+
 
 
 
