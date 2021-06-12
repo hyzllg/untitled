@@ -288,7 +288,7 @@ class Chaojiying_Client(object):
 
 #超级鹰打码平台
 def dranformImgCode(imgPath, imgType):
-    chaojiying = Chaojiying_Client('hyzllg', 'hyzllg', '918177')  # 用户中心>>软件ID 生成一个替换 96001
+    chaojiying = Chaojiying_Client('Python_crawler', 'Python_crawler', '918177')  # 用户中心>>软件ID 生成一个替换 96001
     im = open(imgPath, 'rb').read()  # 本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
     return chaojiying.PostPic(im, imgType)["pic_str"]
 

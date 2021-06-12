@@ -27,8 +27,8 @@ class Hyzllg:
     #     def inner(*args, **kwargs):
     #         s = func(*args, **kwargs)
     #         with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\HUANBEI.log", 'a+',
-    #                   encoding='utf-8') as hyzllg:
-    #             hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
+    #                   encoding='utf-8') as Python_crawler:
+    #             Python_crawler.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
     #         return s
     #
     #     return inner

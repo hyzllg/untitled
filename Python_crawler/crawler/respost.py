@@ -4,6 +4,7 @@ from pprint import pprint
 from lxml import etree
 from bs4 import BeautifulSoup
 from aip import AipSpeech
+from flask import Flask,render_template
 import time
 import requests
 import Collect
@@ -59,7 +60,7 @@ urls_dict = {}
 
 def git_img_url():
     #读取html文件
-    fp = open('./html.html','r',encoding='utf-8')
+    fp = open('templates/html.html', 'r', encoding='utf-8')
     soup = BeautifulSoup(fp,'lxml')
 
     items = soup.select('.side-nav li')
@@ -135,8 +136,8 @@ xpath解析
         -//div[contains(@class,'ng)]
         -//div[starts-with(@class,'tg')]
 取文本
-    -/test():直系文本内容
-    -//test():全部文本内容
+    -/crawler():直系文本内容
+    -//crawler():全部文本内容
 取属性
     -/@attrname
     
@@ -451,7 +452,7 @@ def gushici_login():
         "__VIEWSTATEGENERATOR": __VIEWSTATEGENERATOR,
         "from": "http://so.gushiwen.cn/user/collect.aspx",
         "email": "16621381003@163.com",
-        "pwd": "hyzllg",
+        "pwd": "Python_crawler",
         "code": code,
         "denglu": "登录"
     }
@@ -459,7 +460,7 @@ def gushici_login():
     page_text3 = page.text
 
     # 登录成功 实例储存
-    with open('./html.html', 'w', encoding='utf-8') as fp:
+    with open('templates/html.html', 'w', encoding='utf-8') as fp:
         fp.write(page_text3)
 
 
@@ -596,7 +597,11 @@ def Li_videos():
             fp.write(Mp4_video)
         print(Mp4_path,"爬取成功！")
 
-Li_videos()
+# Li_videos()
+
+
+
+
 
 
 

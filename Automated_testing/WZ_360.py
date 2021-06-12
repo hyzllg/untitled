@@ -322,7 +322,7 @@ def main(a):
     hyzllg.insure_data_query(insure)
     hyzllg.insure()
     hyzllg.disburse()
-    # hyzllg.disburse_in_query(test_info)
+    # Python_crawler.disburse_in_query(test_info)
     time.sleep(1)
     print(test_info)
     # raw_input("Press <enter>")
