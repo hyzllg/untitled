@@ -1,14 +1,16 @@
 import os
 import urllib
+import requests
+import Collect
+import time
+import re
 from pprint import pprint
 from lxml import etree
 from bs4 import BeautifulSoup
 from aip import AipSpeech
 from flask import Flask,render_template
-import time
-import requests
-import Collect
-import re
+from selenium import webdriver
+
 
 headers = {
     "User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
@@ -600,6 +602,25 @@ def Li_videos():
 # Li_videos()
 
 
+
+def get_12306():
+
+    url = 'https://kyfw.12306.cn/otn/leftTicket/query'
+    prames = {
+        "leftTicketDTO.train_date": "2021-06-13",
+        "leftTicketDTO.from_station": "SHH",
+        "leftTicketDTO.to_station": "ERN",
+        "purpose_codes": "ADULT"
+    }
+    #请求接口需要传输cookie，利用session解决cookie反爬机制
+    session = requests.Session()
+    session.get(url='https://kyfw.12306.cn/',headers=headers)
+    response = session.get(url=url,headers=headers,params=prames)
+    page_text = response.json()
+    print(page_text)
+
+
+get_12306()
 
 
 
