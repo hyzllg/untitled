@@ -57,7 +57,7 @@ Beautifulsoup对象的实例化：
     tag['attrname']
 '''
 
-items_dict = {}
+page_texts_dict = {}
 urls_dict = {}
 
 def git_img_url():
@@ -65,22 +65,22 @@ def git_img_url():
     fp = open('templates/html.html', 'r', encoding='utf-8')
     soup = BeautifulSoup(fp,'lxml')
 
-    items = soup.select('.side-nav li')
-    for i in items:
-        items_dict[i['id'][0:4] + i['id'][-1]] = i.text.strip()
-    for i in items_dict.keys():
-        a = soup.select(f'#{i} .item a')
+    page_texts = soup.select('.side-nav li')
+    for i in page_texts:
+        page_texts_dict[i['id'][0:4] + i['id'][-1]] = i.text.strip()
+    for i in page_texts_dict.keys():
+        a = soup.select(f'#{i} .page_text a')
         dirname = 'Imglibs'
         if not os.path.exists(dirname):
             os.mkdir(dirname)
-        if not os.path.exists(dirname + '/' + items_dict[i]):
-            os.mkdir(dirname + '/' + items_dict[i])
+        if not os.path.exists(dirname + '/' + page_texts_dict[i]):
+            os.mkdir(dirname + '/' + page_texts_dict[i])
         for b in a:
             url_dict = {}
             url_dict[b.text.strip()] = b['href']
-            urls_dict[items_dict[i]] = url_dict
+            urls_dict[page_texts_dict[i]] = url_dict
             page_text =b['href'] + b.text.strip()
-            with open (dirname + '/' + items_dict[i] + '/'+ 'url.txt','a',encoding='utf-8') as fp:
+            with open (dirname + '/' + page_texts_dict[i] + '/'+ 'url.txt','a',encoding='utf-8') as fp:
                 fp.write(page_text + '\n')
 
 # git_img_url()
@@ -602,26 +602,103 @@ def Li_videos():
 # Li_videos()
 
 
-
-def get_12306():
-
+#12306余票检测
+def get_12306(train_date,start_city,end_city):
+    data = []
     url = 'https://kyfw.12306.cn/otn/leftTicket/query'
     prames = {
-        "leftTicketDTO.train_date": "2021-06-13",
-        "leftTicketDTO.from_station": "SHH",
-        "leftTicketDTO.to_station": "ERN",
+        "leftTicketDTO.train_date": train_date,
+        "leftTicketDTO.from_station": start_city,
+        "leftTicketDTO.to_station": end_city,
         "purpose_codes": "ADULT"
     }
     #请求接口需要传输cookie，利用session解决cookie反爬机制
     session = requests.Session()
     session.get(url='https://kyfw.12306.cn/',headers=headers)
     response = session.get(url=url,headers=headers,params=prames)
-    page_text = response.json()
-    print(page_text)
+    page_texts = response.json()['data']['result']
+    for page_text in page_texts:
+        page_text = page_text.split('|')
+        #状态
+        status = page_text[1]
+        #车票号
+        train_no = page_text[2]
+        # 车次
+        station_train_code = page_text[3]
+        # 起始站代号
+        start_station_code = page_text[4]
+        # 终点站代号
+        end_station_code = page_text[5]
+        # 出发站代号
+        from_station_code = page_text[6]
+        # 到达站代号
+        to_station_code = page_text[7]
+        # 出发时间
+        start_time = page_text[8]
+        # 到达时间
+        arrive_time = page_text[9]
+        # 运行时长
+        run_time = page_text[10]
+        # 是否可买
+        can_buy = page_text[11]
+        # 出发日期
+        start_train_date = page_text[13]
+        # 软卧
+        rw_num = page_text[23]
+        # 软座
+        rz_num = page_text[24]
+        tz_num = page_text[25]
+        # 无座
+        wz_num = page_text[26]
+        yb_num = page_text[27]
+        # 硬卧
+        yw_num = page_text[28]
+        # 硬座
+        yz_num = page_text[29]
+        # 二等座
+        edz_num = page_text[30]
+        # 一等座
+        ydz_num = page_text[31]
+        # 商务特等座
+        swz_num = page_text[32]
+        # 动卧
+        dw_num = page_text[33]
+        itme_dict = {
+            '状态': status,
+            '车次': station_train_code,
+            '起始站代号': start_station_code,
+            '终点站代号': end_station_code,
+            '出发站代号': from_station_code,
+            '到达站代号': to_station_code,
+            '出发时间': start_time,
+            '到达时间': arrive_time,
+            '运行时长': run_time,
+            '是否可买': can_buy,
+            '出发日期': start_train_date,
+            '软卧': rw_num,
+            '软座': rz_num,
+            '无座': wz_num,
+            '硬卧': yw_num,
+            '二等座': edz_num,
+            '一等座': ydz_num,
+            '商务特等座': swz_num,
+            '动卧': dw_num
+        }
+        data.append(itme_dict)
+    print(data)
+    # for a in data[0].keys():
+    #     print(a + '|', end="")
+    # for i in data:
+    #     print('\n')
+    #     for b in i.values():
+    #         print(b + '|' , end="")
+
+train_date = "2021-06-20"
+start_city = "ERN"
+end_city = "SHH"
 
 
-get_12306()
-
+page_text = get_12306(train_date,start_city,end_city)
 
 
 

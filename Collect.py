@@ -287,9 +287,24 @@ class Chaojiying_Client(object):
         return r.json()
 
 #超级鹰打码平台
-def dranformImgCode(imgPath, imgType):
-    chaojiying = Chaojiying_Client('Python_crawler', 'Python_crawler', '918177')  # 用户中心>>软件ID 生成一个替换 96001
+def chaojiyingdranformImgCode(imgPath, imgType):
+    chaojiying = Chaojiying_Client('hyzllg', 'hyzllg', '918345')  # 用户中心>>软件ID 生成一个替换 96001
     im = open(imgPath, 'rb').read()  # 本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
-    return chaojiying.PostPic(im, imgType)["pic_str"]
+    data = chaojiying.PostPic(im, imgType)
+    print(data)
+    return data["pic_str"],data["pic_id"]
+    # return chaojiying.PostPic(im, imgType)
+
+def error_chaojiying(id):
+    data = {
+        "user":"hyzllg",
+        "pass":"hyzllg",
+        "id":id,
+        "softid":"918345"
+    }
+    # print(data)
+    chaojiying = requests.post(url='http://upload.chaojiying.net/Upload/ReportError.php',data=data)
+    print(chaojiying.json())
+# error_chaojiying('1144108386480600061')
 
 
