@@ -275,62 +275,62 @@ class Hyzllg:
             raw_input("Press <enter>")
 
 
-def main(a):
-    random__name = Collect.random_name()
-    generate__ID = Collect.id_card().generate_ID()
-    HB_phone = Collect.phone()
-    HB_bankcard = Collect.bankcard()
-    # 指定姓名身份证手机号时使用
-    # random__name = "黄器翠"
-    # generate__ID = "450503199503300007"
-    # HB_phone = "16605315868"
-    # HB_bankcard = ""
-    HB_loanReqNo = Collect.loanReqNo()
+def main(a,b):
+    for i in range(b):
+        random__name = Collect.random_name()
+        generate__ID = Collect.id_card().generate_ID()
+        HB_phone = Collect.phone()
+        HB_bankcard = Collect.bankcard()
+        # 指定姓名身份证手机号时使用
+        # random__name = "黄器翠"
+        # generate__ID = "450503199503300007"
+        # HB_phone = "16605315868"
+        # HB_bankcard = ""
+        HB_loanReqNo = Collect.loanReqNo()
 
-    # 借款金额
-    loanAmount = 6000
-    # 期数
-    periods = "6"
-    # 客户等级
-    custGrde = 26.00
-    # 折后利率
+        # 借款金额
+        loanAmount = 6000
+        # 期数
+        periods = "6"
+        # 客户等级
+        custGrde = 26.00
+        # 折后利率
 
-    # discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
-    #                                     "select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(
-    #                                         periods))[0])[0]
-    discountRate = 18
-    if a == 0:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
-                        Collect.sit_url_hb, discountRate)
-    elif a == 1:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
-                        Collect.uat_url_hb, discountRate)
-    elif a == 2:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
-                        Collect.dev_url_hb, discountRate)
-    else:
-        print("........")
+        # discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
+        #                                     "select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(
+        #                                         periods))[0])[0]
+        discountRate = 18
+        if a == 0:
+            hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
+                            Collect.sit_url_hb, discountRate)
+        elif a == 1:
+            hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
+                            Collect.uat_url_hb, discountRate)
+        elif a == 2:
+            hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
+                            Collect.dev_url_hb, discountRate)
+        else:
+            print("........")
 
-    test_info = f'''
-                    姓名：{random__name}
-                    身份证号：{generate__ID}
-                    手机号：{HB_phone}
-                    借款金额:{loanAmount}
-                    借款期次:{periods}
-                    loanReqNo:{HB_loanReqNo}
-                '''
-    insure_infos = hyzllg.insure_info()  # 投保信息接口
-    Insure_Data_Query = hyzllg.insure_data_query(insure_infos)  # 投保资料查询接口
-    hyzllg.insure(Insure_Data_Query)  # 投保接口
-    hyzllg.disburse()  # 支用接口
-    time.sleep(1)
-    print(test_info)
-    # raw_input("Press <enter>")
+        test_info = f'''
+                        姓名：{random__name}
+                        身份证号：{generate__ID}
+                        手机号：{HB_phone}
+                        借款金额:{loanAmount}
+                        借款期次:{periods}
+                        loanReqNo:{HB_loanReqNo}
+                    '''
+        insure_infos = hyzllg.insure_info()  # 投保信息接口
+        Insure_Data_Query = hyzllg.insure_data_query(insure_infos)  # 投保资料查询接口
+        hyzllg.insure(Insure_Data_Query)  # 投保接口
+        hyzllg.disburse()  # 支用接口
+        time.sleep(1)
+        print(test_info)
+        # raw_input("Press <enter>")
 
 
 if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    for i in range(1):
-        main(0)
+    main(0,1)

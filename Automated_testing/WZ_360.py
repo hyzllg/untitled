@@ -277,61 +277,61 @@ class Hyzllg:
                 raw_input("Press <enter>")
 
 
-def main(a):
-    random__name = Collect.random_name()
-    generate__ID = Collect.id_card().generate_ID()
-    HB_phone = Collect.phone()
-    Bank = Collect.bankcard()
-    #指定姓名身份证手机号时使用
-    # random__name = "耿礼荷"
-    # generate__ID = "511123199603083522"
-    # HB_phone = "16605128293"
-    # Bank = "6214661723536283"
+def main(a,b):
+    for i in range(b):
+        random__name = Collect.random_name()
+        generate__ID = Collect.id_card().generate_ID()
+        HB_phone = Collect.phone()
+        Bank = Collect.bankcard()
+        #指定姓名身份证手机号时使用
+        # random__name = "耿礼荷"
+        # generate__ID = "511123199603083522"
+        # HB_phone = "16605128293"
+        # Bank = "6214661723536283"
 
-    HB_loanReqNo = Collect.loanReqNo()
-    # 借款金额
-    loanAmount = 6000
-    # 期数
-    periods = '6'
-    # 客户等级
-    custGrde = 26.00
-    # 资方代码 (微众：FBBANK，龙江：20062)
-    capitalCode = "FBBANK"
+        HB_loanReqNo = Collect.loanReqNo()
+        # 借款金额
+        loanAmount = 6000
+        # 期数
+        periods = '6'
+        # 客户等级
+        custGrde = 26.00
+        # 资方代码 (微众：FBBANK，龙江：20062)
+        capitalCode = "FBBANK"
 
-    if a == 0:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
-                        Bank, Collect.sit_url_360)
-    elif a == 1:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
-                        Bank, Collect.uat_url_360)
-    elif a == 2:
-        hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
-                        Bank, Collect.dev_url_360)
-    else:
-        print("........")
+        if a == 0:
+            hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
+                            Bank, Collect.sit_url_360)
+        elif a == 1:
+            hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
+                            Bank, Collect.uat_url_360)
+        elif a == 2:
+            hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
+                            Bank, Collect.dev_url_360)
+        else:
+            print("........")
 
-    test_info = f'''
-                    姓名：{random__name}
-                    身份证号：{generate__ID}
-                    手机号：{HB_phone}
-                    借款金额:{loanAmount}
-                    借款期次:{periods}
-                    loanReqNo:{HB_loanReqNo}
-                '''
-    insure = hyzllg.insure_info()
-    hyzllg.insure_data_query(insure)
-    hyzllg.insure()
-    hyzllg.disburse()
-    # Python_crawler.disburse_in_query(test_info)
-    time.sleep(1)
-    print(test_info)
-    # raw_input("Press <enter>")
+        test_info = f'''
+                        姓名：{random__name}
+                        身份证号：{generate__ID}
+                        手机号：{HB_phone}
+                        借款金额:{loanAmount}
+                        借款期次:{periods}
+                        loanReqNo:{HB_loanReqNo}
+                    '''
+        insure = hyzllg.insure_info()
+        hyzllg.insure_data_query(insure)
+        hyzllg.insure()
+        hyzllg.disburse()
+        # Python_crawler.disburse_in_query(test_info)
+        time.sleep(1)
+        print(test_info)
+        # raw_input("Press <enter>")
 
 
 if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    for i in range(1):
-        main(0)
+    main(0,1)
 

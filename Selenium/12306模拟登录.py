@@ -93,6 +93,7 @@ while True:
     sleep(8)
     try:
         el = driver.find_element_by_xpath('//*[@id="nc_1_n1z"]')
+        #判断元素坐标是否存在
         if el.is_displayed():
             break
     except:

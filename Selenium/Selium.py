@@ -6,6 +6,9 @@ from time import sleep
 driver = webdriver.Chrome()
 driver.get('https://www.baidu.com/')
 
+#浏览器窗口最大化
+driver.maximize_window()
+
 #隐式等待 等待页面元素全部加载
 driver.implicitly_wait(10)
 #设置按钮
