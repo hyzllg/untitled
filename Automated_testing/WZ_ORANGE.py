@@ -185,7 +185,7 @@ class Hyzllg:
 
         time.sleep(2)
         n = False
-        while hhh < 16:
+        while hhh < 30:
             time.sleep(3)
             url = self.url + 'CREDIT_INQUIRY'
             title = "**********授信结果查询！**********"

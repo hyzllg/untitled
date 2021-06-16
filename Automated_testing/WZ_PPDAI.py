@@ -272,7 +272,7 @@ class Hyzllg:
 
         number = 0
         n = False
-        while number <= 10:
+        while number <= 30:
             url = self.url + 'CREDIT_INQUIRY'
             title = "**********授信结果查询！**********"
             requit = Collect.test_api(url, data, title)

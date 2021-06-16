@@ -21,5 +21,5 @@ if __name__ == '__main__':
 
     pool.map(Func_360,a)
     pool.map(Func_HUANBEI,a)
-    # pool.map(Func_PPDAI,a)
+    pool.map(Func_PPDAI,a)
     pool.map(Func_ORANGE,a)
