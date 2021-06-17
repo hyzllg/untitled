@@ -1,0 +1,19 @@
+Index: Pytest/test_api.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pytest\r\nimport requests\r\nimport xlrd\r\nimport json\r\n\r\nbook = xlrd.open_workbook('./1111.xlsx')\r\nsheet1 = book.sheets()[0]\r\n# print(sheet1.nrows)\r\ndatas_list = []\r\nnew_datas_list = []\r\nfor i in range(1,sheet1.nrows):\r\n\r\n    data = sheet1.row_values(i)[1]\r\n    data = data.replace('\\n','').replace(' ','')\r\n    datas_list.append(data)\r\n\r\nfor i in datas_list:\r\n    data = json.loads(i,strict=False)\r\n    new_datas_list.append(data)\r\n\r\nprint(new_datas_list)\r\n\r\n\r\n\r\n\r\n# def get_func(data):\r\n#     url = 'http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO'\r\n#     response = requests.post(url,data=json.dumps(data))\r\n#     page = response.json()\r\n#     page['data'] = eval(page['data'])\r\n#\r\n#     return page['data']['code']\r\n# # get_func(new_datas_list[0])\r\n#\r\n#\r\n#\r\n# class Testinsureinfo:\r\n#     def test01(self):\r\n#         data = get_func(new_datas_list[0])\r\n#         assert data == '0001'\r\n#\r\n#     def test02(self):\r\n#         data = get_func(new_datas_list[1])\r\n#         assert data == '0001'\r\n#\r\n#\r\n#\r\n#\r\n# if __name__ == '__main__':\r\n#\r\n#     pytest.main(['-vs','./test_api.py::Testinsureinfo'])
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Pytest/test_api.py b/Pytest/test_api.py
+--- a/Pytest/test_api.py	(revision b7f7aabf4af83a01a5c24027f23542257cf278e8)
++++ b/Pytest/test_api.py	(date 1623836167372)
+@@ -15,7 +15,7 @@
+     datas_list.append(data)
+ 
+ for i in datas_list:
+-    data = json.loads(i,strict=False)
++    data = json.loads(i)
+     new_datas_list.append(data)
+ 
+ print(new_datas_list)

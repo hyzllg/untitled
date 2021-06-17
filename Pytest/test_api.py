@@ -2,16 +2,18 @@ import pytest
 import requests
 import xlrd
 import json
-import ast
 
 book = xlrd.open_workbook('./1111.xlsx')
 sheet1 = book.sheets()[0]
 # print(sheet1.nrows)
 datas_list = []
 for i in range(1,sheet1.nrows):
+
     data = sheet1.row_values(i)[1]
     data = data.replace('\n','').replace(' ','')
-    datas_list.append(ast.literal_eval(data))
+    datas_list.append(json.loads(data))
+
+
 
 
 
@@ -30,12 +32,15 @@ def get_func(data):
 class Testinsureinfo:
     def test01(self):
         data = get_func(datas_list[0])
-        assert data == '0001'
+        assert data == '0001',"非空校验"
 
     def test02(self):
         data = get_func(datas_list[1])
-        assert data == '0001'
+        assert data == '0001',"非空校验"
+
+
+
 
 if __name__ == '__main__':
 
-    pytest.main(['-vs','./test_api.py::Testinsureinfo'])
+    pytest.main(['-vs','./test_api.py::Testinsureinfo','--html=./report/report.html'])
