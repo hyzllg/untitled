@@ -19,7 +19,7 @@ if __name__ == '__main__':
     def Func_ORANGE(a):
         WZ_ORANGE.main(0, 1)
 
-    pool.map(Func_360,a)
-    pool.map(Func_HUANBEI,a)
-    pool.map(Func_PPDAI,a)
-    pool.map(Func_ORANGE,a)
+    # pool.map(Func_360,a)
+    # pool.map(Func_HUANBEI,a)
+    # pool.map(Func_PPDAI,a)
+    # pool.map(Func_ORANGE,a)

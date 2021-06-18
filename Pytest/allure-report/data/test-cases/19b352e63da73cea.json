@@ -1,0 +1,56 @@
+{
+  "uid" : "19b352e63da73cea",
+  "name" : "test02",
+  "fullName" : "Pytest.test_api.Testinsureinfo#test02",
+  "historyId" : "02587e429313ddc045351cff0511027f",
+  "time" : {
+    "start" : 1624002824815,
+    "stop" : 1624002824967,
+    "duration" : 152
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "Pytest"
+  }, {
+    "name" : "suite",
+    "value" : "test_api"
+  }, {
+    "name" : "subSuite",
+    "value" : "Testinsureinfo"
+  }, {
+    "name" : "host",
+    "value" : "LAPTOP-7N0V27JS"
+  }, {
+    "name" : "thread",
+    "value" : "21180-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "Pytest.test_api"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "19b352e63da73cea.json",
+  "parameterValues" : [ ]
+}

@@ -58,7 +58,7 @@ class Hyzllg:
         else:
             print("投保信息接口失败！")
             raw_input("Press <enter>")
-        return c
+        return c,data
 
     def insure_data_query(self, token):
         data = {
@@ -319,7 +319,7 @@ def main(a,b):
                         借款期次:{periods}
                         loanReqNo:{HB_loanReqNo}
                     '''
-        insure = hyzllg.insure_info()
+        insure = hyzllg.insure_info()[0]
         hyzllg.insure_data_query(insure)
         hyzllg.insure()
         hyzllg.disburse()

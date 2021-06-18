@@ -1,3 +1,4 @@
+import os
 import pytest
 import requests
 import xlrd
@@ -23,9 +24,10 @@ def get_func(data):
     response = requests.post(url,data=json.dumps(data))
     page = response.json()
     page['data'] = eval(page['data'])
+    print(page)
 
     return page['data']['code']
-# get_func(new_datas_list[0])
+# get_func(datas_list[4])
 
 
 
@@ -74,5 +76,7 @@ class Testinsureinfo:
 
 
 if __name__ == '__main__':
-
-    pytest.main(['-vs','./test_api.py::Testinsureinfo','--html=./report/report.html'])
+    #--allure=./allure-results指定原始报告存放路径，--clean-alluredir生成新报告之前先删除旧报告
+    pytest.main(['-vs','./test_api.py::Testinsureinfo','--alluredir=./allure-results','--clean-alluredir'])
+    #命令行模式运行，先解析原始报告然后生成allure报告
+    os.system("allure generate ./allure-results -c -o allure-report")
