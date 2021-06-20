@@ -820,3 +820,270 @@ cd <repository>
 pip install -e .
 ```
 
+## 七、allure定制测试报告
+
+```
+#--allure=./allure-results指定原始报告存放路径，--clean-alluredir生成新报告之前先删除旧报告pytest.main(['-vs','./test_api.py::TestDemoAllure','--alluredir=./allure-results','--clean-alluredir'])#命令行模式运行，先解析原始报告然后生成allure报告os.system("allure generate ./allure-results -c -o allure-report")
+```
+
+### 7.1定制报告
+
+ Feature: 标注主要功能模块
+ Story: 标注Features功能模块下的分支功能
+ Severity: 标注测试用例的重要级别
+ Step: 标注测试用例的重要步骤
+ Issue和TestCase: 标注Issue、Case，可加入URL
+ attach: 标注增加附件
+ Environment: 标注环境Environment字段
+
+##### 1、Features定制详解
+
+```python
+# -*- coding: utf-8 -*-
+# @Time    : 2018/8/17 上午10:10
+# @Author  : WangJuan
+# @File    : test_case.py
+import allure
+import pytest
+
+
+@allure.feature('test_module_01')
+def test_case_01():
+    """
+    用例描述：Test case 01
+    """
+    assert 0
+    
+@allure.feature('test_module_02')
+def test_case_02():
+    """
+    用例描述：Test case 02
+    """
+    assert 0 == 0
+    
+    
+if __name__ == '__main__':
+    pytest.main(['-s', '-q', '--alluredir', './report/xml'])
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-34d91858f41404dd.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp) 
+
+##### 2、Story定制详解
+
+```python
+# -*- coding: utf-8 -*-
+# @Time    : 2018/8/17 上午10:10
+# @Author  : WangJuan
+# @File    : test_case.py
+import allure
+import pytest
+
+
+@allure.feature('test_module_01')
+@allure.story('test_story_01')
+def test_case_01():
+    """
+    用例描述：Test case 01
+    """
+    assert 0
+
+@allure.feature('test_module_01')
+@allure.story('test_story_02')
+def test_case_02():
+    """
+    用例描述：Test case 02
+    """
+    assert 0 == 0
+
+
+if __name__ == '__main__':
+    pytest.main(['-s', '-q', '--alluredir', './report/xml'])
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-c86c989d8c00b747.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp) 
+
+##### 3、用例标题和用例描述定制详解
+
+```python
+# -*- coding: utf-8 -*-
+# @Time    : 2018/8/17 上午10:10
+# @Author  : WangJuan
+# @File    : test_case.py
+import allure
+import pytest
+
+@allure.feature('test_module_01')
+@allure.story('test_story_01')
+#test_case_01为用例title
+def test_case_01():
+    """
+    用例描述：这是用例描述，Test case 01，描述本人
+    """
+    #注释为用例描述
+    assert 0
+
+if __name__ == '__main__':
+    pytest.main(['-s', '-q', '--alluredir', './report/xml'])
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-6c77422b75a3b584.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp) 
+
+##### 4 、Severity定制详解
+
+```python
+# -*- coding: utf-8 -*-
+# @Time    : 2018/8/17 上午10:10
+# @Author  : WangJuan
+# @File    : test_case.py
+import allure
+import pytest
+
+
+
+Allure中对严重级别的定义：
+1、 Blocker级别：中断缺陷（客户端程序无响应，无法执行下一步操作）
+2、 Critical级别：临界缺陷（ 功能点缺失）
+3、 Normal级别：普通缺陷（数值计算错误）
+4、 Minor级别：次要缺陷（界面错误与UI需求不符）
+5、 Trivial级别：轻微缺陷（必输项无提示，或者提示不规范）
+
+
+@allure.feature('test_module_01')
+@allure.story('test_story_01')
+@allure.severity('blocker')
+def test_case_01():
+    """
+    用例描述：Test case 01
+    """
+    assert 0
+
+@allure.feature('test_module_01')
+@allure.story('test_story_01')
+@allure.severity('critical')
+def test_case_02():
+    """
+    用例描述：Test case 02
+    """
+    assert 0 == 0
+
+@allure.feature('test_module_01')
+@allure.story('test_story_02')
+@allure.severity('normal')
+def test_case_03():
+    """
+    用例描述：Test case 03
+    """
+    assert 0
+
+@allure.feature('test_module_01')
+@allure.story('test_story_02')
+@allure.severity('minor')
+def test_case_04():
+    """
+    用例描述：Test case 04
+    """
+    assert 0 == 0
+
+    
+if __name__ == '__main__':
+    pytest.main(['-s', '-q', '--alluredir', './report/xml'])
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-7324eeb837451954.png?imageMogr2/auto-orient/strip|imageView2/2/w/1190/format/webp) 
+
+##### 5、Step定制详解
+
+```ruby
+# -*- coding: utf-8 -*-
+# @Time    : 2018/8/17 上午10:10
+# @Author  : WangJuan
+# @File    : test_case.py
+import allure
+import pytest
+
+@allure.step("字符串相加：{0}，{1}")     
+# 测试步骤，可通过format机制自动获取函数参数
+def str_add(str1, str2):
+    if not isinstance(str1, str):
+        return "%s is not a string" % str1
+    if not isinstance(str2, str):
+        return "%s is not a string" % str2
+    return str1 + str2
+
+@allure.feature('test_module_01')
+@allure.story('test_story_01')
+@allure.severity('blocker')
+def test_case():
+    str1 = 'hello'
+    str2 = 'world'
+    assert str_add(str1, str2) == 'helloworld'
+
+
+if __name__ == '__main__':
+    pytest.main(['-s', '-q', '--alluredir', './report/xml'])
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-83365d11522d9c26.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp) 
+
+##### 6、Issue和TestCase定制详解
+
+```ruby
+# -*- coding: utf-8 -*-
+# @Time    : 2018/8/17 上午10:10
+# @Author  : WangJuan
+# @File    : test_case.py
+import allure
+import pytest
+
+
+@allure.step("字符串相加：{0}，{1}")     # 测试步骤，可通过format机制自动获取函数参数
+def str_add(str1, str2):
+    print('hello')
+    if not isinstance(str1, str):
+        return "%s is not a string" % str1
+    if not isinstance(str2, str):
+        return "%s is not a string" % str2
+    return str1 + str2
+
+@allure.feature('test_module_01')
+@allure.story('test_story_01')
+@allure.severity('blocker')
+@allure.issue("http://www.baidu.com")
+@allure.testcase("http://www.testlink.com")
+def test_case():
+    str1 = 'hello'
+    str2 = 'world'
+    assert str_add(str1, str2) == 'helloworld'
+
+
+if __name__ == '__main__':
+    pytest.main(['-s', '-q', '--alluredir', './report/xml'])
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-7c04858d0217c422.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp) 
+
+##### 7、Environment定制详解
+
+```bash
+# 具体Environment参数可自行设置
+allure.environment(app_package='com.mobile.fm')
+allure.environment(app_activity='com.mobile.fm.activity')
+allure.environment(device_name='aad464')
+allure.environment(platform_name='Android')
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-ce80c24217beae29.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp) 
+
+##### 8、attach定制详解
+
+```bash
+ file = open('../test.png', 'rb').read()
+ allure.attach(name='cart_pay_err', body=file, attachment_type=allure.attachment_type.PNG)
+在报告中增加附件：allure.attach(’arg1’,’arg2’,’arg3’)：
+arg1：表示添加附件的内容
+arg2：是在报告中显示的附件名称
+arg3：表示添加的类型(支持:HTML,JPG,PNG,JSON,OTHER,TEXTXML)
+
+```
+
+ ![img](https://upload-images.jianshu.io/upload_images/7116457-20dcfe5dca911bf7.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp) 

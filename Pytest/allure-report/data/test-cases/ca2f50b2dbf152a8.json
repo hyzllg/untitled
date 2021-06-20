@@ -1,0 +1,134 @@
+{
+  "uid" : "ca2f50b2dbf152a8",
+  "name" : "用例的标题",
+  "fullName" : "Pytest.test_api.TestDemoAllure#test_case_1",
+  "historyId" : "54fed1998e99c0201e24ad4fc615517b",
+  "time" : {
+    "start" : 1624196375296,
+    "stop" : 1624196375296,
+    "duration" : 0
+  },
+  "description" : "case description:作者：上海-悠悠 qq交流群：874033608\n        1.点文章分类导航标签 -跳转编辑页面\n        2.编辑页面输入，分类名称，如:上海-悠悠-可以输入\n        3.点保存按钮保存成功\n        ",
+  "descriptionHtml" : "<p>case description:作者：上海-悠悠 qq交流群：874033608\n1.点文章分类导航标签 -跳转编辑页面\n2.编辑页面输入，分类名称，如:上海-悠悠-可以输入\n3.点保存按钮保存成功</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "login_fixture",
+    "time" : {
+      "start" : 1624196375293,
+      "stop" : 1624196375293,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0
+  } ],
+  "testStage" : {
+    "description" : "case description:作者：上海-悠悠 qq交流群：874033608\n        1.点文章分类导航标签 -跳转编辑页面\n        2.编辑页面输入，分类名称，如:上海-悠悠-可以输入\n        3.点保存按钮保存成功\n        ",
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "步骤1",
+      "time" : {
+        "start" : 1624196375296,
+        "stop" : 1624196375296,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "hasContent" : false,
+      "stepsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "attachmentsCount" : 0
+    }, {
+      "name" : "步骤2",
+      "time" : {
+        "start" : 1624196375296,
+        "stop" : 1624196375296,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "hasContent" : false,
+      "stepsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "attachmentsCount" : 0
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 2,
+    "shouldDisplayMessage" : false,
+    "attachmentsCount" : 0
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "epic",
+    "value" : "epic对大Story的一个描述性标签"
+  }, {
+    "name" : "severity",
+    "value" : "critical"
+  }, {
+    "name" : "story",
+    "value" : "用户故事：1"
+  }, {
+    "name" : "feature",
+    "value" : "测试模块"
+  }, {
+    "name" : "parentSuite",
+    "value" : "Pytest"
+  }, {
+    "name" : "suite",
+    "value" : "test_api"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestDemoAllure"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-RE1VJJ7"
+  }, {
+    "name" : "thread",
+    "value" : "8188-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "Pytest.test_api"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ {
+    "name" : "http://49.235.x.x:8080/zentao/bug-view-1.html",
+    "url" : "http://49.235.x.x:8080/zentao/bug-view-1.html",
+    "type" : "issue"
+  }, {
+    "name" : "http://49.235.x.x:8080/zentao/testcase-view-6-1.html",
+    "url" : "http://49.235.x.x:8080/zentao/testcase-view-6-1.html",
+    "type" : "test_case"
+  } ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "critical",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "ca2f50b2dbf152a8.json",
+  "parameterValues" : [ ]
+}

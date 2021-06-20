@@ -1,4 +1,15 @@
 {
-  "total" : 13,
-  "items" : [ ]
+  "total" : 1,
+  "items" : [ {
+    "uid" : "4146ca5fc46ad2ea0d9d63e9c1c442ac",
+    "name" : "epic对大Story的一个描述性标签",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    }
+  } ]
 }
