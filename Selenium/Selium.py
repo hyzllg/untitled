@@ -32,7 +32,7 @@ print(alerts.text)
 sleep(2)
 #接受同意框
 alerts.accept()
-sleep(8)
+sleep(2)
 driver.quit()
 
 

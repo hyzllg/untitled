@@ -164,7 +164,7 @@
 ## 二、Pytest的setup和teardown函数
 
  	1.setup和teardown主要分为：模块级,类级，功能级，函数级。
-	 2.存在于测试类内部 
+ 	 2.存在于测试类内部 
 
 ### 2.1函数级别setup()／teardown()
 
@@ -364,7 +364,7 @@ if __name__ == '__main__':
          .
 ```
 
-## 5.3.fixture第二个例子(通过函数引用)
+### 5.3.fixture第二个例子(通过函数引用)
 
  示例： 
 
@@ -390,7 +390,7 @@ if __name__ == '__main__':
       .
 ```
 
-## 5.4.fixture第三个例子(默认设置为运行)
+### 5.4.fixture第三个例子(默认设置为运行)
 
  示例： 
 
@@ -415,7 +415,7 @@ if __name__ == '__main__':
         .
 ```
 
-## 5.5.fixture第四个例子(设置作用域为function)
+### 5.5.fixture第四个例子(设置作用域为function)
 
  示例： 
 
@@ -446,7 +446,7 @@ if __name__ == '__main__':
         .
 ```
 
-## 5.6.fixture第五个例子(设置作用域为class)
+### 5.6.fixture第五个例子(设置作用域为class)
 
  示例： 
 
@@ -477,7 +477,7 @@ if __name__ == '__main__':
         .
 ```
 
-## 5.7.fixture第六个例子(返回值)
+### 5.7.fixture第六个例子(返回值)
 
  示例一: 
 
@@ -560,7 +560,7 @@ python_classes = Test_*
 python_functions = test_*
 ```
 
-## 6.1.跳过测试函数
+### 6.1.跳过测试函数
 
 ```
 根据特定的条件，不执行标识的测试函数.
@@ -600,7 +600,7 @@ class Test_ABC:
  
 ```
 
-## 6.2 标记为预期失败函数
+### 6.2 标记为预期失败函数
 
 ```
 标记测试函数为失败函数
@@ -639,7 +639,7 @@ class Test_ABC:
        x  # 失败标记
 ```
 
-## 6.3 函数数据参数化
+### 6.3 函数数据参数化
 
 ```
 方便测试函数对测试属于的获取。
@@ -736,7 +736,7 @@ def test_a(self,a,b):
         ------->teardown_class
 ```
 
-## 6.4 修改 Python traceback 输出
+### 6.4 修改 Python traceback 输出
 
 ```
 pytest --showlocals     # show local variables in tracebacks
@@ -752,7 +752,7 @@ pytest --tb=no          # no traceback at all
 
  **--full-trace** 参数会打印更多的错误输出信息，比参数 --tb=long 还多，即使是 Ctrl+C 触发的错误，也会打印出来 
 
-## 6.5 执行失败的时候跳转到 PDB
+### 6.5 执行失败的时候跳转到 PDB
 
  执行用例的时候，跟参数 --pdb，这样失败的时候，每次遇到失败，会自动跳转到 PDB 
 
@@ -762,7 +762,7 @@ pytest -x --pdb           # 第一次遇到失败就跳转到 PDB，结束测试
 pytest --pdb --maxfail=3  # 只有前三次失败跳转到 PDB 
 ```
 
-## 6.6 设置断点
+### 6.6 设置断点
 
  在用例脚本中加入如下python代码，pytest会自动关闭执行输出的抓取，这里，其他test脚本不会受到影响，带断点的test上一个test正常输出 
 
@@ -770,7 +770,7 @@ pytest --pdb --maxfail=3  # 只有前三次失败跳转到 PDB
  import pdb; pdb.set_trace()
 ```
 
-## 6.7 获取用例执行性能数据
+### 6.7 获取用例执行性能数据
 
  获取最慢的10个用例的执行耗时 
 
@@ -778,7 +778,7 @@ pytest --pdb --maxfail=3  # 只有前三次失败跳转到 PDB
 pytest --durations=10
 ```
 
-## 6.8 生成 JUnitXML 格式的结果文件
+### 6.8 生成 JUnitXML 格式的结果文件
 
  这种格式的结果文件可以被Jenkins或其他CI工具解析 
 
@@ -786,7 +786,7 @@ pytest --durations=10
 pytest --junitxml=path
 ```
 
-## 6.9禁用插件
+### 6.9禁用插件
 
  例如，关闭 doctest 插件 
 
@@ -794,7 +794,7 @@ pytest --junitxml=path
 pytest -p no:doctest
 ```
 
-## 6.10 从Python代码中调用pytest
+### 6.10 从Python代码中调用pytest
 
 ```
 pytest.main()                      # 基本用法
@@ -811,7 +811,7 @@ class MyPlugin(object):
 pytest.main(["-qq"], plugins=[MyPlugin()])
 ```
 
-## 6.11 测试脚本迁移后快速部署包含pytest的virtualenv
+### 6.11 测试脚本迁移后快速部署包含pytest的virtualenv
 
  例如你从Gitlab仓库里clone了项目组的刀刀同学编写的测试脚本到你自己的电脑里，你想修改些东西，并调试，咋办？可以通过下面的操作快速创建 VirtualEnv 
 

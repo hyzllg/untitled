@@ -2,60 +2,34 @@
   "uid" : "83edc06c07f9ae9e47eb6dd1b683e4e2",
   "name" : "packages",
   "children" : [ {
-    "name" : "Pytest.test_api",
+    "name" : "Pytest.CustomerTrafficQuery",
     "children" : [ {
-      "name" : "用例的标题",
-      "uid" : "ca2f50b2dbf152a8",
-      "parentUid" : "145b19105da8ed4b72f28b25f39da6de",
+      "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（未查询到该客户信息）",
+      "uid" : "57c5a7f63c8f9554",
+      "parentUid" : "22fceafa78b864c6d4f44f9ed5db9ee2",
       "status" : "passed",
       "time" : {
-        "start" : 1624196375296,
-        "stop" : 1624196375296,
-        "duration" : 0
+        "start" : 1624262907758,
+        "stop" : 1624262907875,
+        "duration" : 117
       },
       "flaky" : false,
       "newFailed" : false,
       "parameters" : [ ]
     }, {
-      "name" : "验证非空校验！",
-      "uid" : "aae8c2e94b62aac7",
-      "parentUid" : "145b19105da8ed4b72f28b25f39da6de",
+      "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（身份证校验失败）",
+      "uid" : "80b3feec893bb99b",
+      "parentUid" : "22fceafa78b864c6d4f44f9ed5db9ee2",
       "status" : "passed",
       "time" : {
-        "start" : 1624196375299,
-        "stop" : 1624196375299,
-        "duration" : 0
-      },
-      "flaky" : false,
-      "newFailed" : false,
-      "parameters" : [ ]
-    }, {
-      "name" : "test_case_3",
-      "uid" : "68c9123b87dd1a38",
-      "parentUid" : "145b19105da8ed4b72f28b25f39da6de",
-      "status" : "passed",
-      "time" : {
-        "start" : 1624196375302,
-        "stop" : 1624196375302,
-        "duration" : 0
-      },
-      "flaky" : false,
-      "newFailed" : false,
-      "parameters" : [ ]
-    }, {
-      "name" : "test_case_4",
-      "uid" : "fa47d4bb4135ecf2",
-      "parentUid" : "145b19105da8ed4b72f28b25f39da6de",
-      "status" : "passed",
-      "time" : {
-        "start" : 1624196375304,
-        "stop" : 1624196375304,
-        "duration" : 0
+        "start" : 1624262907878,
+        "stop" : 1624262908036,
+        "duration" : 158
       },
       "flaky" : false,
       "newFailed" : false,
       "parameters" : [ ]
     } ],
-    "uid" : "Pytest.test_api"
+    "uid" : "Pytest.CustomerTrafficQuery"
   } ]
 }

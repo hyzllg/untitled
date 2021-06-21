@@ -1,40 +1,20 @@
 [ {
-  "uid" : "ca2f50b2dbf152a8",
-  "name" : "用例的标题",
+  "uid" : "57c5a7f63c8f9554",
+  "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（未查询到该客户信息）",
   "time" : {
-    "start" : 1624196375296,
-    "stop" : 1624196375296,
-    "duration" : 0
-  },
-  "status" : "passed",
-  "severity" : "critical"
-}, {
-  "uid" : "aae8c2e94b62aac7",
-  "name" : "验证非空校验！",
-  "time" : {
-    "start" : 1624196375299,
-    "stop" : 1624196375299,
-    "duration" : 0
+    "start" : 1624262907758,
+    "stop" : 1624262907875,
+    "duration" : 117
   },
   "status" : "passed",
   "severity" : "normal"
 }, {
-  "uid" : "fa47d4bb4135ecf2",
-  "name" : "test_case_4",
+  "uid" : "80b3feec893bb99b",
+  "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（身份证校验失败）",
   "time" : {
-    "start" : 1624196375304,
-    "stop" : 1624196375304,
-    "duration" : 0
-  },
-  "status" : "passed",
-  "severity" : "normal"
-}, {
-  "uid" : "68c9123b87dd1a38",
-  "name" : "test_case_3",
-  "time" : {
-    "start" : 1624196375302,
-    "stop" : 1624196375302,
-    "duration" : 0
+    "start" : 1624262907878,
+    "stop" : 1624262908036,
+    "duration" : 158
   },
   "status" : "passed",
   "severity" : "normal"

@@ -2,84 +2,38 @@
   "uid" : "b1a8273437954620fa374b796ffaacdd",
   "name" : "behaviors",
   "children" : [ {
-    "name" : "epic对大Story的一个描述性标签",
+    "name" : "0618版本接口测试用例",
     "children" : [ {
-      "name" : "测试模块",
+      "name" : "异常场景",
       "children" : [ {
-        "name" : "用户故事：1",
-        "children" : [ {
-          "name" : "用例的标题",
-          "uid" : "ca2f50b2dbf152a8",
-          "parentUid" : "bd1cbb882222cfb82453bca47efd98f5",
-          "status" : "passed",
-          "time" : {
-            "start" : 1624196375296,
-            "stop" : 1624196375296,
-            "duration" : 0
-          },
-          "flaky" : false,
-          "newFailed" : false,
-          "parameters" : [ ]
-        } ],
-        "uid" : "bd1cbb882222cfb82453bca47efd98f5"
+        "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（未查询到该客户信息）",
+        "uid" : "57c5a7f63c8f9554",
+        "parentUid" : "407de06a37589e674f01d79f584f6087",
+        "status" : "passed",
+        "time" : {
+          "start" : 1624262907758,
+          "stop" : 1624262907875,
+          "duration" : 117
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
       }, {
-        "name" : "用户故事：2",
-        "children" : [ {
-          "name" : "验证非空校验！",
-          "uid" : "aae8c2e94b62aac7",
-          "parentUid" : "b5d0686ba9c235d701b6ddad5ed11c21",
-          "status" : "passed",
-          "time" : {
-            "start" : 1624196375299,
-            "stop" : 1624196375299,
-            "duration" : 0
-          },
-          "flaky" : false,
-          "newFailed" : false,
-          "parameters" : [ ]
-        } ],
-        "uid" : "b5d0686ba9c235d701b6ddad5ed11c21"
+        "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（身份证校验失败）",
+        "uid" : "80b3feec893bb99b",
+        "parentUid" : "407de06a37589e674f01d79f584f6087",
+        "status" : "passed",
+        "time" : {
+          "start" : 1624262907878,
+          "stop" : 1624262908036,
+          "duration" : 158
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
       } ],
-      "uid" : "aed46829503d63829a8f5d59384393b9"
-    }, {
-      "name" : "模块2",
-      "children" : [ {
-        "name" : "用户故事：3",
-        "children" : [ {
-          "name" : "test_case_3",
-          "uid" : "68c9123b87dd1a38",
-          "parentUid" : "1ebc17075cf0cefc3c9ed0b540182cce",
-          "status" : "passed",
-          "time" : {
-            "start" : 1624196375302,
-            "stop" : 1624196375302,
-            "duration" : 0
-          },
-          "flaky" : false,
-          "newFailed" : false,
-          "parameters" : [ ]
-        } ],
-        "uid" : "1ebc17075cf0cefc3c9ed0b540182cce"
-      }, {
-        "name" : "用户故事：4",
-        "children" : [ {
-          "name" : "test_case_4",
-          "uid" : "fa47d4bb4135ecf2",
-          "parentUid" : "4261914d6823f679481c8f67773e21d2",
-          "status" : "passed",
-          "time" : {
-            "start" : 1624196375304,
-            "stop" : 1624196375304,
-            "duration" : 0
-          },
-          "flaky" : false,
-          "newFailed" : false,
-          "parameters" : [ ]
-        } ],
-        "uid" : "4261914d6823f679481c8f67773e21d2"
-      } ],
-      "uid" : "3056c62a8fb6a9d1725a210444cfe1d1"
+      "uid" : "407de06a37589e674f01d79f584f6087"
     } ],
-    "uid" : "4146ca5fc46ad2ea0d9d63e9c1c442ac"
+    "uid" : "9a9cd584bba9547e3a2f499dc6fab68d"
   } ]
 }

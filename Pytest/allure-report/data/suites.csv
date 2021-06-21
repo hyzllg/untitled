@@ -1,9 +1,11 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sun Jun 20 21:39:35 CST 2021","Sun Jun 20 21:39:35 CST 2021","0","Pytest","test_api","TestDemoAllure","","","验证非空校验！",""
-"passed","Sun Jun 20 21:39:35 CST 2021","Sun Jun 20 21:39:35 CST 2021","0","Pytest","test_api","TestDemo2","","","test_case_4",""
-"passed","Sun Jun 20 21:39:35 CST 2021","Sun Jun 20 21:39:35 CST 2021","0","Pytest","test_api","TestDemoAllure","","","用例的标题","case description:作者：上海-悠悠 qq交流群：874033608
-        1.点文章分类导航标签 -跳转编辑页面
-        2.编辑页面输入，分类名称，如:上海-悠悠-可以输入
-        3.点保存按钮保存成功
+"passed","Mon Jun 21 16:08:27 CST 2021","Mon Jun 21 16:08:27 CST 2021","117","Pytest","CustomerTrafficQuery","TestDemo2","","","客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（未查询到该客户信息）","
+        1、客服系统调用线上核心客户申请信息查询接口
+        2、查询不存在客户信息
+        3、线上核心返回（未查询到该客户信息）
         "
-"passed","Sun Jun 20 21:39:35 CST 2021","Sun Jun 20 21:39:35 CST 2021","0","Pytest","test_api","TestDemo2","","","test_case_3",""
+"passed","Mon Jun 21 16:08:27 CST 2021","Mon Jun 21 16:08:28 CST 2021","158","Pytest","CustomerTrafficQuery","TestDemo2","","","客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（身份证校验失败）","
+        1、客服系统调用线上核心客户申请信息查询接口
+        2、查询身份证校验失败
+        3、线上核心返回（身份证校验失败）
+        "

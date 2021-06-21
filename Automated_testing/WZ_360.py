@@ -284,10 +284,10 @@ def main(a,b):
         HB_phone = Collect.phone()
         Bank = Collect.bankcard()
         #指定姓名身份证手机号时使用
-        # random__name = "耿礼荷"
-        # generate__ID = "511123199603083522"
-        # HB_phone = "16605128293"
-        # Bank = "6214661723536283"
+        # random__name = "殷言"
+        # generate__ID = "230602199007074598"
+        # HB_phone = "16601065242"
+        # Bank = "6214661723533450"
 
         HB_loanReqNo = Collect.loanReqNo()
         # 借款金额
@@ -297,7 +297,7 @@ def main(a,b):
         # 客户等级
         custGrde = 26.00
         # 资方代码 (微众：FBBANK，龙江：20062)
-        capitalCode = "FBBANK"
+        capitalCode = "20062"
 
         if a == 0:
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,

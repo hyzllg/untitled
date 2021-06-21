@@ -2,64 +2,38 @@
   "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
   "name" : "timeline",
   "children" : [ {
-    "name" : "DESKTOP-RE1VJJ7",
+    "name" : "LAPTOP-7N0V27JS",
     "children" : [ {
-      "name" : "8188-MainThread",
+      "name" : "13440-MainThread",
       "children" : [ {
-        "name" : "用例的标题",
-        "uid" : "ca2f50b2dbf152a8",
-        "parentUid" : "dd95100f960fca48bed385cff33e94ec",
+        "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（未查询到该客户信息）",
+        "uid" : "57c5a7f63c8f9554",
+        "parentUid" : "e8df6787bd178a23d4d5b3103899582d",
         "status" : "passed",
         "time" : {
-          "start" : 1624196375296,
-          "stop" : 1624196375296,
-          "duration" : 0
+          "start" : 1624262907758,
+          "stop" : 1624262907875,
+          "duration" : 117
         },
         "flaky" : false,
         "newFailed" : false,
         "parameters" : [ ]
       }, {
-        "name" : "验证非空校验！",
-        "uid" : "aae8c2e94b62aac7",
-        "parentUid" : "dd95100f960fca48bed385cff33e94ec",
+        "name" : "客服系统调用线上核心客户申请信息查询接口，线上核心返回对应客户对应的授信信息（身份证校验失败）",
+        "uid" : "80b3feec893bb99b",
+        "parentUid" : "e8df6787bd178a23d4d5b3103899582d",
         "status" : "passed",
         "time" : {
-          "start" : 1624196375299,
-          "stop" : 1624196375299,
-          "duration" : 0
-        },
-        "flaky" : false,
-        "newFailed" : false,
-        "parameters" : [ ]
-      }, {
-        "name" : "test_case_4",
-        "uid" : "fa47d4bb4135ecf2",
-        "parentUid" : "dd95100f960fca48bed385cff33e94ec",
-        "status" : "passed",
-        "time" : {
-          "start" : 1624196375304,
-          "stop" : 1624196375304,
-          "duration" : 0
-        },
-        "flaky" : false,
-        "newFailed" : false,
-        "parameters" : [ ]
-      }, {
-        "name" : "test_case_3",
-        "uid" : "68c9123b87dd1a38",
-        "parentUid" : "dd95100f960fca48bed385cff33e94ec",
-        "status" : "passed",
-        "time" : {
-          "start" : 1624196375302,
-          "stop" : 1624196375302,
-          "duration" : 0
+          "start" : 1624262907878,
+          "stop" : 1624262908036,
+          "duration" : 158
         },
         "flaky" : false,
         "newFailed" : false,
         "parameters" : [ ]
       } ],
-      "uid" : "dd95100f960fca48bed385cff33e94ec"
+      "uid" : "e8df6787bd178a23d4d5b3103899582d"
     } ],
-    "uid" : "d5f4119b4751737aefacd714f83486b1"
+    "uid" : "ce1a5d8e06c2a7decda74f267f34a79c"
   } ]
 }

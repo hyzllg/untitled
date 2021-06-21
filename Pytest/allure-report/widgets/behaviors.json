@@ -1,15 +1,15 @@
 {
   "total" : 1,
   "items" : [ {
-    "uid" : "4146ca5fc46ad2ea0d9d63e9c1c442ac",
-    "name" : "epic对大Story的一个描述性标签",
+    "uid" : "9a9cd584bba9547e3a2f499dc6fab68d",
+    "name" : "0618版本接口测试用例",
     "statistic" : {
       "failed" : 0,
       "broken" : 0,
       "skipped" : 0,
-      "passed" : 2,
+      "passed" : 1,
       "unknown" : 0,
-      "total" : 2
+      "total" : 1
     }
   } ]
 }
