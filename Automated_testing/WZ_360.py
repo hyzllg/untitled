@@ -147,7 +147,7 @@ class Hyzllg:
             "addDistrict": "",
             "addDetail": "",
             "industry": "C",
-            "profession": "12",
+            "profession": "18",
             "workplaceName": "大地保险公司",
             "workTel": "13196853698",
             "workProvince": "",

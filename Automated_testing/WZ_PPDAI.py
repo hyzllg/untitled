@@ -160,7 +160,7 @@ class Hyzllg:
             "addDistrict": "",
             "addDetail": "",
             "industry": "C",
-            "profession": "profession",
+            "profession": "20",
             "workplaceName": "大地保险公司",
             "workTel": "",
             "workProvince": "",
