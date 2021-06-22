@@ -297,7 +297,7 @@ def main(a,b):
         # 客户等级
         custGrde = 26.00
         # 资方代码 (微众：FBBANK，龙江：20062)
-        capitalCode = "20062"
+        capitalCode = "FBBANK"
 
         if a == 0:
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
