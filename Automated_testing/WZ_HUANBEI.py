@@ -170,7 +170,7 @@ class Hyzllg:
             "addDistrict": "110101",
             "addDetail": "学霸路学渣小区250弄38号",
             "industry": "C",
-            "profession": "",
+            "profession": "01",
             "workplaceName": "中国大地保险公司",
             "workTel": "0521-11122844",
             "workProvince": "上海市",

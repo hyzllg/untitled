@@ -55,7 +55,7 @@ class Hyzllg:
             "addDistrict": "110101",
             "addDetail": "东大街东大院",
             "industry": "C",
-            "profession": "25",
+            "profession": "11",
             "workplaceName": "AAA单位",
             "workTel": "13162314539",
             "workProvince": "110000",
