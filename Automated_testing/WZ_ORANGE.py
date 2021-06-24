@@ -186,7 +186,6 @@ class Hyzllg:
         time.sleep(2)
         n = False
         while hhh < 30:
-            time.sleep(3)
             url = self.url + 'CREDIT_INQUIRY'
             title = "**********授信结果查询！**********"
             requit = Collect.test_api(url, data, title)
@@ -197,11 +196,13 @@ class Hyzllg:
                 break
             elif requit["data"]["body"]["status"] == "00":
                 print("授信中！")
+                time.sleep(3)
                 hhh += 1
                 continue
             else:
                 print("授信失败！")
                 raw_input("Press <enter>")
+
 
         if hhh >= 16:
             print("甜橙授信时间过长！可能由于授信挡板问题，结束程序！")

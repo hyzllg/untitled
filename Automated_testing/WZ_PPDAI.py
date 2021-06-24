@@ -276,7 +276,6 @@ class Hyzllg:
             url = self.url + 'CREDIT_INQUIRY'
             title = "**********授信结果查询！**********"
             requit = Collect.test_api(url, data, title)
-            time.sleep(3)
             if requit["result"] == True:
                 print("授信查询接口调用成功！")
                 try:
@@ -286,6 +285,7 @@ class Hyzllg:
                         break
                     elif requit["data"]["status"] == "00":
                         print("授信中！")
+                        time.sleep(3)
                     else:
                         print("授信失败！")
                         raw_input("Press <enter>")

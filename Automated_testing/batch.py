@@ -3,23 +3,37 @@ import WZ_360
 import WZ_HUANBEI
 import WZ_PPDAI
 import WZ_ORANGE
+from time import time
+from time import sleep
+
+a = range(5)
+# 测试环境选择
+test = 0
+# 走数据的笔数
+number = 5
+
+# def WZ_360_(a):
+#     WZ_360.main(test, number)
+# def WZ_HUANBEI_(a):
+#     WZ_HUANBEI.main(test, number)
+# def WZ_PPDAI_(a):
+#     WZ_PPDAI.main(test, number)
+# def WZ_ORANGE_(a):
+#     WZ_ORANGE.main(test, number)
+
+def batch(a):
+    WZ_360.main(test, number)
+    WZ_HUANBEI.main(test, number)
+    WZ_PPDAI.main(test, number)
+    WZ_ORANGE.main(test, number)
 
 
 if __name__ == '__main__':
+    start = time()
     #建立线程数
-    pool = Pool(40)
-    #走数据的笔数
-    a = range(10)
-    def Func_360(a):
-        WZ_360.main(0, 1)
-    def Func_HUANBEI(a):
-        WZ_HUANBEI.main(0, 1)
-    def Func_PPDAI(a):
-        WZ_PPDAI.main(0, 1)
-    def Func_ORANGE(a):
-        WZ_ORANGE.main(0, 1)
+    # pool = Pool(10)
+    # pool.map(batch,a)
+    batch(a)
+    end = time()
+    print(f"消耗时间：{end-start}")
 
-    # pool.map(Func_360,a)
-    # pool.map(Func_HUANBEI,a)
-    # pool.map(Func_PPDAI,a)
-    # pool.map(Func_ORANGE,a)
