@@ -54,7 +54,7 @@ class CLAIM_RESULT:
         except cx_Oracle.DatabaseError:
             return print("无效的SQL语句")
 
-    def Payamt(self, datetime1):
+    def Payamt(self, datetime1,loanrate):
         # 未还本金
         a = Collect.sql_cha(self.cursor,
                             "select sum(paycorpusamt),sum(actualpaycorpusamt) from acct_payment_schedule s  where s.objectno = '{}'".format(
@@ -81,7 +81,7 @@ class CLAIM_RESULT:
                                     f"select paydate from acct_payment_schedule s  where s.objectno = '{self.loanNo}' and seqid = '{n + 2}'")[
             0][0]
         days = self.Caltime(datetime1, datetime2)
-        payinteamt = round(zc_corpusamt * 0.062 / 360 * days + yq_inteamt, 2)
+        payinteamt = round(zc_corpusamt * loanrate / 360 * days + yq_inteamt, 2)
 
         # 罚息
         a = Collect.sql_cha(self.cursor,
@@ -158,7 +158,7 @@ def data():
     return datas
 
 
-def main(environment,loanNo):
+def main(environment,loanNo,loanrate):
     print("------开始执行------")
     # 借据笔数
     loan_numbers = len(loanNo)
@@ -185,43 +185,43 @@ def main(environment,loanNo):
         # 理赔日
         datatime3 = CLAIM_RESULTS.get_date(datetime0, 80)
         # 各科目金额（正常本金，逾期本金，本金，利息，罚息，总和）
-        payamt = CLAIM_RESULTS.Payamt(datatime3)
+        payamt = CLAIM_RESULTS.Payamt(datatime3,loanrate)
         print(
             f"借据号：{loanNo}，正常本金：{payamt[0]}，逾期本金：{payamt[1]}，本金：{payamt[2]}，利息：{payamt[3]}，罚息：{payamt[4]}，总和：{payamt[5]}")
-        # 更新借据表中的逾期金额，正常金额
-        print(f"更新acct_loan表逾期金额（{payamt[0]}）和正常金额（{payamt[1]}）")
-        CLAIM_RESULTS.sql_update_acct_loan(payamt[0], payamt[1], loanNo)
-        print("------更新成功------")
-        # 生成申请文件数据
-        datas = CLAIM_RESULTS.data(productid(cursor, loanNo), datetime0, datatime3, payamt, TASK_ID)
-        # datatime4 = CLAIM_RESULTS.datatime_cap(datatime3)
-        # data插入acct_file_task_detail
-        print("将数据插入acct_file_task_detail表")
-        CLAIM_RESULTS.insert_data_acct_file_task_detail(datas[1])
-        print("------插入成功------")
-        if tab:
-            # 更改acct_file_task表数据
-            CLAIM_RESULTS.insert_data_acct_file_task(loan_numbers, TASK_ID, CLAIM_RESULTS.get_date(datatime3, -1))
-            tab = False
-        print(f"TASK_ID:{TASK_ID}")
-        print(f"索赔日：{CLAIM_RESULTS.datatime_cap(datatime3)}")
-        # 生成理赔申请文件，路径是桌面
-        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
-                             r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
-        #微众文件
-        with open(winreg.QueryValueEx(key, "Desktop")[
-                      0] + f"\INS_CLAIM_REQUEST_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
-                  mode="a") as h:
-            h.write(datas[0] + '\n')
-        #交行文件
-        # with open(winreg.QueryValueEx(key, "Desktop")[
-        #               0] + f"\CLAIM_RESULT_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
-        #           mode="a") as h:
-        #     h.write(datas[0] + '\n')
-
-        # with open(os.path.join(os.path.expanduser("~"), 'Desktop') + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
-        #     h.write(datas[0])
-    # 关闭数据库连接
+    #     # 更新借据表中的逾期金额，正常金额
+    #     print(f"更新acct_loan表逾期金额（{payamt[0]}）和正常金额（{payamt[1]}）")
+    #     CLAIM_RESULTS.sql_update_acct_loan(payamt[0], payamt[1], loanNo)
+    #     print("------更新成功------")
+    #     # 生成申请文件数据
+    #     datas = CLAIM_RESULTS.data(productid(cursor, loanNo), datetime0, datatime3, payamt, TASK_ID)
+    #     # datatime4 = CLAIM_RESULTS.datatime_cap(datatime3)
+    #     # data插入acct_file_task_detail
+    #     print("将数据插入acct_file_task_detail表")
+    #     CLAIM_RESULTS.insert_data_acct_file_task_detail(datas[1])
+    #     print("------插入成功------")
+    #     if tab:
+    #         # 更改acct_file_task表数据
+    #         CLAIM_RESULTS.insert_data_acct_file_task(loan_numbers, TASK_ID, CLAIM_RESULTS.get_date(datatime3, -1))
+    #         tab = False
+    #     print(f"TASK_ID:{TASK_ID}")
+    #     print(f"索赔日：{CLAIM_RESULTS.datatime_cap(datatime3)}")
+    #     # 生成理赔申请文件，路径是桌面
+    #     key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+    #                          r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
+    #     #微众文件
+    #     with open(winreg.QueryValueEx(key, "Desktop")[
+    #                   0] + f"\INS_CLAIM_REQUEST_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
+    #               mode="a") as h:
+    #         h.write(datas[0] + '\n')
+    #     #交行文件
+    #     # with open(winreg.QueryValueEx(key, "Desktop")[
+    #     #               0] + f"\CLAIM_RESULT_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
+    #     #           mode="a") as h:
+    #     #     h.write(datas[0] + '\n')
+    #
+    #     # with open(os.path.join(os.path.expanduser("~"), 'Desktop') + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
+    #     #     h.write(datas[0])
+    # # 关闭数据库连接
     conn.close()
     print("理赔申请文件生成成功！在桌面")
 
@@ -229,6 +229,6 @@ def main(environment,loanNo):
 if __name__ == '__main__':
     start = time.time()
     datas = data()
-    main(datas["environment"],datas["loanNo"])
+    main(datas["environment"],datas["loanNo"],datas["loanrate"])
     end = time.time()
     print(f"运行时间：{end - start}")

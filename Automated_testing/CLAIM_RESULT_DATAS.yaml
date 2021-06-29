@@ -1,6 +1,8 @@
 #格式要统一
+#年利率
+loanrate : 0.0585
 #环境 sit、uat
-environment : uat
+environment : sit
 #借据号，多笔按格式往下排
 loanNo :
-  - 787-503008283301607572
+  - 20062-W210628000021071
