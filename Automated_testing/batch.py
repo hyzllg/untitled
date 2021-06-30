@@ -10,7 +10,7 @@ a = range(5)
 # 测试环境选择
 test = 0
 # 走数据的笔数
-number = 5
+number = 3
 
 # def WZ_360_(a):
 #     WZ_360.main(test, number)
