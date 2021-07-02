@@ -24,16 +24,16 @@ import pyautogui
 def yuhun(number,lists):
     n = 0
     while n<number:
-        pyautogui.click(x=random.randint(lists[0],lists[1]), y=random.randint(lists[4],lists[5]),duration=0.6)
+        pyautogui.click(x=random.randint(lists[0]+8,lists[1]-8), y=random.randint(lists[4]+8,lists[5]-8),duration=0.6)
         time.sleep(27)
-        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[6], lists[7]), duration=0.6)
-        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[8], lists[9]), duration=0.6)
+        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[6], lists[7]-30), duration=0.6)
+        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[8], lists[9]-30), duration=0.6)
         time.sleep(random.randint(5, 10) / 10)
-        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[6], lists[7]), duration=0.6)
-        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[8], lists[9]), duration=0.6)
+        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[6], lists[7]-30), duration=0.6)
+        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[8], lists[9]-30), duration=0.6)
         time.sleep(random.randint(1, 5) / 10)
-        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[6], lists[7]), duration=0.6)
-        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[8], lists[9]), duration=0.6)
+        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[6], lists[7]-30), duration=0.6)
+        pyautogui.click(x=random.randint(lists[2], lists[3]), y=random.randint(lists[8], lists[9]-30), duration=0.6)
         time.sleep(random.randint(15, 20) / 10)
         n+=1
         print(f'第{n}次！')
@@ -58,17 +58,7 @@ def main(number):
     lists.append(yin_y*2)
     yuhun(number,lists)
 
-
-
-    x2 = int(yin_x/32*31)
-    x3 = hx
-    x4 = yin_x
-    y1 = int(yin_y/15*13)
-    y2 = int(yin_y/15*14)
-    y3 = hy*8
-
-
 if __name__ == '__main__':
-    main(120)
+    main(88)
 
 
