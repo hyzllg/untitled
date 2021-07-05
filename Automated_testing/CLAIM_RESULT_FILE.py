@@ -54,7 +54,7 @@ class CLAIM_RESULT:
         except cx_Oracle.DatabaseError:
             return print("无效的SQL语句")
 
-    def Payamt(self, datetime1,loanrate):
+    def Payamt(self, datetime1,loanrate,day):
         # 未还本金
         a = Collect.sql_cha(self.cursor,
                             "select sum(paycorpusamt),sum(actualpaycorpusamt) from acct_payment_schedule s  where s.objectno = '{}'".format(
@@ -80,7 +80,7 @@ class CLAIM_RESULT:
         datetime2 = Collect.sql_cha(self.cursor,
                                     f"select paydate from acct_payment_schedule s  where s.objectno = '{self.loanNo}' and seqid = '{n + 2}'")[
             0][0]
-        days = self.Caltime(datetime1, datetime2)
+        days = self.Caltime(datetime1, datetime2) + (day - 80)
         payinteamt = round(zc_corpusamt * loanrate / 360 * days + yq_inteamt, 2)
 
         # 罚息
@@ -158,7 +158,7 @@ def data():
     return datas
 
 
-def main(environment,loanNo,loanrate):
+def main(environment,loanNo,loanrate,day):
     print("------开始执行------")
     # 借据笔数
     loan_numbers = len(loanNo)
@@ -185,7 +185,7 @@ def main(environment,loanNo,loanrate):
         # 理赔日
         datatime3 = CLAIM_RESULTS.get_date(datetime0, 80)
         # 各科目金额（正常本金，逾期本金，本金，利息，罚息，总和）
-        payamt = CLAIM_RESULTS.Payamt(datatime3,loanrate)
+        payamt = CLAIM_RESULTS.Payamt(datatime3,loanrate,day)
         print(
             f"借据号：{loanNo}，正常本金：{payamt[0]}，逾期本金：{payamt[1]}，本金：{payamt[2]}，利息：{payamt[3]}，罚息：{payamt[4]}，总和：{payamt[5]}")
     #     # 更新借据表中的逾期金额，正常金额
@@ -229,6 +229,6 @@ def main(environment,loanNo,loanrate):
 if __name__ == '__main__':
     start = time.time()
     datas = data()
-    main(datas["environment"],datas["loanNo"],datas["loanrate"])
+    main(datas["environment"],datas["loanNo"],datas["loanrate"],datas["day"])
     end = time.time()
     print(f"运行时间：{end - start}")
