@@ -179,7 +179,7 @@ class Hyzllg:
             "workDetailAdd": "证大五道口1199弄",
             "workAge": 5,
             "income": "02",
-            "education": "08",
+            "education": "05",
             "school": "哈弗大学",
             "email": "ybhdsg@hrtx.com",
             "bankCard": self.bankcard,

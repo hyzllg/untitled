@@ -138,7 +138,8 @@ class Hyzllg:
             "idStartDate": "2015/10/08",
             "idEndDate": "2025/10/08",
             "idOffice": "杭州市公安局江干区分局",
-            "marriage": "04",
+            "marriage": "03",
+            "education": "06",
             "children": "00",
             "supplyPeople": 0,
             "house": "00",
@@ -156,7 +157,6 @@ class Hyzllg:
             "workDetailAdd": "学院路100号小杨制造厂",
             "workAge": 10,
             "income": "02",
-            "education": "08",
             "school": "清华大学",
             "email": "1264311721@hrtx.com",
             "contacts": [
@@ -295,7 +295,7 @@ def main(a,b):
         # 期数
         periods = '6'
         # 客户等级
-        custGrde = 26.00
+        custGrde = 27.31
         # 资方代码 (微众：FBBANK，龙江：20062)
         capitalCode = "FBBANK"
 

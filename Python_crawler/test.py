@@ -1,3 +1,4 @@
+a = input("--------")
 all_list = []
 code_xy = '217,285'
 if '|' in code_xy:
@@ -14,3 +15,4 @@ else:
 
 
 print(all_list)
+

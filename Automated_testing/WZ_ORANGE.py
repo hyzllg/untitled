@@ -71,11 +71,11 @@ class Hyzllg:
             "contacts": [{
                 "relation": "00",
                 "name": "张三",
-                "phoneNo": "15638537485"
+                "phoneNo": "15638530000"
             }, {
                 "relation": "01",
                 "name": "李四",
-                "phoneNo": "15638537486"
+                "phoneNo": "15638539999"
             }],
             "bankCard": self.bankcard,
             "bankName": "建设银行",
@@ -345,9 +345,9 @@ def main(a, hhh):
         ORANGE_phone = Collect.phone()
         ORANGE_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
-        # random__name = "刘海云"
-        # generate__ID = "450503199503300007"
-        # ORANGE_phone = "13800132597"
+        # random__name = "瞿友惠"
+        # generate__ID = "360782199412156008"
+        # ORANGE_phone = "16607139521"
         # ORANGE_bankcard = ""
         channelCustId = Collect.channelCustId()
         creditReqNo = Collect.creditReqNo()
@@ -414,7 +414,7 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    main(0, 1)
+    main(1, 1)
 
 
 
