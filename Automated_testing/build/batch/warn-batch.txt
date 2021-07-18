@@ -51,7 +51,7 @@ missing module named grp - imported by subprocess (optional), shutil (optional),
 missing module named pwd - imported by posixpath (delayed, conditional), subprocess (optional), shutil (optional), tarfile (optional), pathlib (delayed, conditional, optional), http.server (delayed, optional), webbrowser (delayed), netrc (delayed, conditional), getpass (delayed), distutils.util (delayed, conditional, optional), distutils.archive_util (optional), py._path.local (delayed)
 missing module named pyimod03_importers - imported by E:\Python\Python39\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgutil.py (top-level)
 missing module named cffi - imported by win32ctypes.core (optional), PIL.Image (optional), PIL.PyAccess (optional), scipy._lib._ccallback (delayed, optional), PIL.ImageTk (delayed, conditional, optional)
-missing module named olefile - imported by PIL.MicImagePlugin (top-level), PIL.FpxImagePlugin (top-level)
+missing module named olefile - imported by PIL.FpxImagePlugin (top-level), PIL.MicImagePlugin (top-level)
 missing module named 'PySide2.QtGui' - imported by PIL.ImageQt (conditional, optional)
 missing module named 'PyQt5.QtGui' - imported by PIL.ImageQt (conditional, optional)
 missing module named 'PySide6.QtGui' - imported by PIL.ImageQt (conditional, optional)
