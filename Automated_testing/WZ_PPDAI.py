@@ -355,7 +355,7 @@ class Hyzllg:
                 raw_input("Press <enter>")
 
 
-def main(a, hhh):
+def pp_main(a, hhh):
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
@@ -443,4 +443,4 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    main(1, 1)
+    pp_main(1, 1)

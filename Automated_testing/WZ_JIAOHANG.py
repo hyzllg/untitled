@@ -574,7 +574,7 @@ def JH_sql_update(setting,creditreqno):
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
 
-def main(a):
+def jh_main(a):
     random__name = Collect.random_name()
     # generate__ID = Collect.id_card().generate_ID()
     JH_phone = Collect.phone()
@@ -640,4 +640,4 @@ if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    main(0)
+    jh_main(0)

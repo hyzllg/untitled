@@ -275,7 +275,7 @@ class Hyzllg:
             raw_input("Press <enter>")
 
 
-def main(a,b):
+def hb_main(a,b):
     for i in range(b):
         random__name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
@@ -333,4 +333,4 @@ if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    main(0,1)
+    hb_main(0,1)
