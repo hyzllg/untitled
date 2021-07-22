@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['batch.py'],
-             pathex=['E:\\Pythonprojects\\untitled\\Automated_testing'],
+             pathex=['D:\\Pythonprojects\\untitled\\Automated_testing'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -37,4 +37,4 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None )
+          entitlements_file=None , icon='tubiao.ico')

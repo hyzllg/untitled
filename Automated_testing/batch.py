@@ -1,6 +1,8 @@
 import json
 import re as res
 import time
+
+import cx_Oracle
 import requests
 from past.builtins import raw_input
 import Collect
@@ -1647,7 +1649,7 @@ def main_tc(a, hhh):
     # a = input("aaa")
     while len(abc):
         for i in abc:
-            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
+            hyzllg = Hyzllg_tc(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
             if hyzllg.credit_inquiry(i[-1]):
                 hyzllg.disburse_trial('FBBANK')
                 hyzllg.disburse('FBBANK')
@@ -2077,7 +2079,7 @@ def main_pp(a, hhh):
     n = 0
     while len(abc):
         for i in abc:
-            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11])
+            hyzllg = Hyzllg_pp(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11])
             if hyzllg.credit_inquiry():
                 hyzllg.disburse()
                 abc.remove(i)
@@ -2125,12 +2127,13 @@ def main():
     elif values[1] == '7017':
         main_hb(values[0],int(values[2]))
     elif values[1] == '7018':
-        main_hb(values[0],int(values[2]))
+        main_pp(values[0],int(values[2]))
 
 
 if __name__ == '__main__':
-
     main()
+    raw_input("Press <enter>")
+
 
 
 

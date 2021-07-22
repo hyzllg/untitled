@@ -286,7 +286,7 @@ def main_360(a,b):
         #指定姓名身份证手机号时使用
         # random__name = "殷言"
         # generate__ID = "230602199007074598"
-        # HB_phone = "16601065242"
+        # HB_phone = "15868763522"
         # Bank = "6214661723533450"
 
         HB_loanReqNo = Collect.loanReqNo()

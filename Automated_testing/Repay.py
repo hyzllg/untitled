@@ -213,6 +213,7 @@ class TC_repqy:
                 print("借据为正常状态！")
                 # 查询借据最远未还期次信息
                 normal_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
+                # print(normal_ACCT_PAYMENT_SCHEDULE[2])
                 #判断是否是还款日，如不是则不能做还款
                 if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
@@ -594,8 +595,11 @@ class QY_repqy:
             if acct_loan_type == "0":
                 print("借据为正常状态！")
                 # 查询借据最远未还期次信息
-                normal_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))
+                normal_ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(self.zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #判断是否是还款日，如不是则不能做还款
+                # print(normal_ACCT_PAYMENT_SCHEDULE)
+                # print(normal_ACCT_PAYMENT_SCHEDULE[2])
+                # print(self.paytime)
                 if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
 
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
