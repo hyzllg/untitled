@@ -1,7 +1,6 @@
 import json
 import re as res
 import time
-
 import requests
 from past.builtins import raw_input
 
