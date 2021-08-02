@@ -82,7 +82,7 @@ def main(number):
     yuhun(number,lists)
 
 if __name__ == '__main__':
-    main(40)
+    main(160)
     # yuhun(150)
     # yeyuanhuo(50)
 
