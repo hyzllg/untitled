@@ -363,9 +363,9 @@ def pp_main(a, hhh):
         HB_bankcard = Collect.bankcard()
 
         # 指定姓名身份证手机号时使用
-        # random__name = ""
-        # generate__ID = "450503199503300007"
-        # HB_phone = ""
+        # random__name = "刘生"
+        # generate__ID = "310101199106127639"
+        # HB_phone = "13866666666"
         # HB_bankcard = ""
 
         HB_loanReqNo = Collect.loanReqNo()
@@ -376,7 +376,7 @@ def pp_main(a, hhh):
         periods = "6"
         # 客户等级上下限
         # custGrde = list(Collect.sql_cha(Collect.hxSIT_ORACLE,"select t.attribute1 from code_library t where t.codeno ='PaiPaiDai'and t.itemno = '{}'".format(periods))[0])[0]
-        custGrde = 26.32
+        custGrde = 18
 
         if a == 0:
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,

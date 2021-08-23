@@ -580,7 +580,7 @@ class QY_repqy:
                     a = round(i[4]+i[5]+i[6]+i[7],2)
                     amt += a
 
-                a = Collect.sql_cha(self.zw_cursor,"select a.seqid,a.status,a.paydate,a.intedate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 from ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status = '11'".format(self.loanNo))
+                a = Collect.sql_cha(self.zw_cursor,"select a.seqid,a.status,a.paydate,a.intedate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 from ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status = '11'".format(self.loanNo))[0]
                 #天数
                 days = Collects().Caltime(a[3],self.paytime).days
                 interest = round((a[5]+a[8]) / 30 * days + amt,2)

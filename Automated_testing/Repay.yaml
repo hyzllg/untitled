@@ -1,7 +1,7 @@
 environment: sit #环境 sit dev uat
-Pay_time: 2032/07/21 #还款时间
-loanNo: 787-503206213301690219 #借据号
-repayType: "00" #还款类型 00正常或预期还款，01正常结清或逾期结清
+Pay_time: 2032/11/01 #还款时间
+loanNo: 787-503207213301693294 #借据号
+repayType: "01" #还款类型 00正常或预期还款，01正常结清或逾期结清
 
 sit:
   oracle:

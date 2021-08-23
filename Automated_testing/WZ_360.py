@@ -284,9 +284,9 @@ def main_360(a,b):
         HB_phone = Collect.phone()
         Bank = Collect.bankcard()
         #指定姓名身份证手机号时使用
-        # random__name = "殷言"
-        # generate__ID = "230602199007074598"
-        # HB_phone = "15868763522"
+        # random__name = "羊卡国"
+        # generate__ID = "220403199512301943"
+        # HB_phone = "16608058360"
         # Bank = "6214661723533450"
 
         HB_loanReqNo = Collect.loanReqNo()
@@ -295,7 +295,7 @@ def main_360(a,b):
         # 期数
         periods = '6'
         # 客户等级
-        custGrde = 27.31
+        custGrde = 18
         # 资方代码 (微众：FBBANK，龙江：20062)
         capitalCode = "FBBANK"
 
@@ -333,4 +333,4 @@ if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    main_360(0,1)
+    main_360(1,1)

@@ -576,13 +576,13 @@ def JH_sql_update(setting,creditreqno):
 
 def jh_main(a):
     random__name = Collect.random_name()
-    # generate__ID = Collect.id_card().generate_ID()
+    generate__ID = Collect.id_card().generate_ID()
     JH_phone = Collect.phone()
     JH_bankcard = Collect.bankcard()
     #指定姓名身份证手机号时使用
-    # random__name = "'丁名泗"
-    generate__ID = "450503199503300007"
-    # JH_phone = "16605254115"
+    # random__name = "刘生"
+    # generate__ID = "310101199106127639"
+    # JH_phone = "13866666666"
     # JH_bankcard = "6214660525152114"
 
     JH_creditReqNo = Collect.creditReqNo()

@@ -282,18 +282,18 @@ def hb_main(a,b):
         HB_phone = Collect.phone()
         HB_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
-        # random__name = "黄器翠"
-        # generate__ID = "450503199503300007"
-        # HB_phone = "16605315868"
+        # random__name = "刘生"
+        # generate__ID = "310101199106127639"
+        # HB_phone = "13866666666"
         # HB_bankcard = ""
         HB_loanReqNo = Collect.loanReqNo()
 
         # 借款金额
-        loanAmount = 6000
+        loanAmount = 6100
         # 期数
         periods = "6"
         # 客户等级
-        custGrde = 26.00
+        custGrde = 18
         # 折后利率
 
         # discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
@@ -333,4 +333,4 @@ if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    hb_main(0,1)
+    hb_main(1,1)

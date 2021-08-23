@@ -345,9 +345,9 @@ def tc_main(a, hhh):
         ORANGE_phone = Collect.phone()
         ORANGE_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
-        # random__name = "瞿友惠"
-        # generate__ID = "360782199412156008"
-        # ORANGE_phone = "16607139521"
+        # random__name = "刘生"
+        # generate__ID = "310101199106127639"
+        # ORANGE_phone = "13866666666"
         # ORANGE_bankcard = ""
         channelCustId = Collect.channelCustId()
         creditReqNo = Collect.creditReqNo()
@@ -414,7 +414,7 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(1, 1)
+    tc_main(0, 1)
 
 
 
