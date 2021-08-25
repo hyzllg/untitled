@@ -635,7 +635,7 @@ class QY_repqy:
             print("还款类型有误！")
 
 def datas():
-    with open("Repay.yaml", encoding="utf-8") as f:
+    with open("data_yaml/Repay.yaml", encoding="utf-8") as f:
         datas = yaml.load(f, Loader=yaml.SafeLoader)
         return  datas
 
