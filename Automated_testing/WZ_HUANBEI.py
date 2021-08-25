@@ -333,4 +333,4 @@ if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
-    hb_main(1,1)
+    hb_main(0,1)

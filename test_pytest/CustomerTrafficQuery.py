@@ -40,7 +40,7 @@ class TestDemoAllure():
         3.点保存按钮保存成功
         '''
         #为这条用例添加附件
-        file = open('./git.txt', encoding='utf-8').read()
+        file = open('git.txt', encoding='utf-8').read()
         allure.attach(name='cart_pay_err', body=file, attachment_type=allure.attachment_type.TEXT)
 
 
@@ -54,7 +54,7 @@ class TestDemoAllure():
     @allure.story("用户故事：2")
     def test_case_2(self, driver_fixture):
         #为这条用例添加附件
-        file = open('./git.txt', encoding='utf-8').read()
+        file = open('git.txt', encoding='utf-8').read()
         allure.attach(name='cart_pay_err', body=file, attachment_type=allure.attachment_type.TEXT)
 
 
@@ -72,7 +72,7 @@ class TestDemo2():
         2、查询不存在客户信息
         3、线上核心返回（未查询到该客户信息）
         '''
-        file = open('./git.txt', encoding='utf-8').read()
+        file = open('git.txt', encoding='utf-8').read()
         allure.attach(name='cart_pay_err', body=file, attachment_type=allure.attachment_type.TEXT)
         datas['data1']['requestBody']['certId'] = Collect.id_card().generate_ID()
         result = CustomerTrafficQueryService_api(datas['data1'])
@@ -86,7 +86,7 @@ class TestDemo2():
         2、查询身份证校验失败
         3、线上核心返回（身份证校验失败）
         '''
-        file = open('./git.txt', encoding='utf-8').read()
+        file = open('git.txt', encoding='utf-8').read()
         allure.attach(name='cart_pay_err', body=file, attachment_type=allure.attachment_type.TEXT)
         result = CustomerTrafficQueryService_api(datas['data2'])
         assert result['responseHead']['appCode'] == "05"

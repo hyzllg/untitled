@@ -376,7 +376,7 @@ def pp_main(a, hhh):
         periods = "6"
         # 客户等级上下限
         # custGrde = list(Collect.sql_cha(Collect.hxSIT_ORACLE,"select t.attribute1 from code_library t where t.codeno ='PaiPaiDai'and t.itemno = '{}'".format(periods))[0])[0]
-        custGrde = 18
+        custGrde = -1
 
         if a == 0:
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
@@ -442,4 +442,4 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    pp_main(1, 1)
+    pp_main(0, 1)

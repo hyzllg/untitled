@@ -188,7 +188,7 @@ class id_card:
     def generate_ID(self):
         while True:
             base_dir = os.path.dirname(os.path.dirname(__file__))
-            # fileName = base_dir + r"\untitled\Automated_testing\districtcode.txt"  # 区域文件地址
+            # fileName = base_dir + r"\untitled\automated_testing\districtcode.txt"  # 区域文件地址
             fileName = r'E:\Pythonprojects\untitled\districtcode.txt'
             # areaCodeDt=self.areaCodeDict(fileName)   #调用生成字典
             areaCd=self.areaCode(districtcode)     #生成区域码

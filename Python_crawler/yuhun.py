@@ -4,25 +4,25 @@ import win32api,win32con
 import pyautogui
 
 
-# def yuhun(h):
-#     n = 0
-#     while n<h:
+def yuhun(h):
+    n = 0
+    while n<h:
 
-#         pyautogui.click(x=random.randint(1630,1690), y=random.randint(900,960),duration=0.6)
-#         time.sleep(27)
-#         pyautogui.click(x=random.randint(1250, 1700), y=random.randint(940, 1000), duration=0.6)
-#         pyautogui.click(x=random.randint(1250, 1700), y=random.randint(2000, 2050), duration=0.6)
-#         time.sleep(random.randint(5, 10) / 10)
-#         pyautogui.click(x=random.randint(1250, 1700), y=random.randint(940, 1000), duration=0.6)
-#         pyautogui.click(x=random.randint(1250, 1700), y=random.randint(2000, 2050), duration=0.6)
-#         time.sleep(random.randint(1, 5) / 10)
-#         pyautogui.click(x=random.randint(1250, 1700), y=random.randint(940, 1000), duration=0.6)
-#         pyautogui.click(x=random.randint(1250, 1700), y=random.randint(2000, 2050), duration=0.6)
-#         time.sleep(random.randint(15, 20) / 10)
-#         time.sleep(random.randint(15, 20) / 10)
+        pyautogui.click(x=random.randint(1630,1690), y=random.randint(900,960),duration=0.6)
+        time.sleep(27)
+        pyautogui.click(x=random.randint(1250, 1700), y=random.randint(940, 1000), duration=0.6)
+        pyautogui.click(x=random.randint(1250, 1700), y=random.randint(2000, 2050), duration=0.6)
+        time.sleep(random.randint(5, 10) / 10)
+        pyautogui.click(x=random.randint(1250, 1700), y=random.randint(940, 1000), duration=0.6)
+        pyautogui.click(x=random.randint(1250, 1700), y=random.randint(2000, 2050), duration=0.6)
+        time.sleep(random.randint(1, 5) / 10)
+        pyautogui.click(x=random.randint(1250, 1700), y=random.randint(940, 1000), duration=0.6)
+        pyautogui.click(x=random.randint(1250, 1700), y=random.randint(2000, 2050), duration=0.6)
+        time.sleep(random.randint(15, 20) / 10)
+        time.sleep(random.randint(15, 20) / 10)
 
-#         n+=1
-#         print(f'第{n}次！')
+        n+=1
+        print(f'第{n}次！')
 
 def yeyuanhuo(h):
     n = 0
@@ -44,7 +44,7 @@ def yeyuanhuo(h):
         print(f"运行时间：{end-start}")
 
         print(f'第{n}次！')
-def yuhun(number,lists):
+def yuhun0(number,lists):
     n = 0
     while n<number:
         pyautogui.click(x=random.randint(lists[0]+8,lists[1]-8), y=random.randint(lists[4]+8,lists[5]-8),duration=0.6)
@@ -79,7 +79,7 @@ def main(number):
     lists.append(yin_y)
     lists.append(yin_y+hy*8)
     lists.append(yin_y*2)
-    yuhun(number,lists)
+    yuhun0(number,lists)
 
 if __name__ == '__main__':
     main(160)
