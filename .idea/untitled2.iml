@@ -5,14 +5,14 @@
       <sourceFolder url="file://$MODULE_DIR$/hyz" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/llg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/jiekouzidonghua" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Automated_testing" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Automated_testing/myunittest" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/image" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/untest" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/testcase" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Python_crawler" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/api_automation" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/notes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/automated_testing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/automated_testing/myunittest" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test_pytest" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test_selenium" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
