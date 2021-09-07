@@ -1,0 +1,70 @@
+Index: .idea/untitled2.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"PYTHON_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\">\n    <content url=\"file://$MODULE_DIR$\">\n      <sourceFolder url=\"file://$MODULE_DIR$/hyz\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/llg\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/jiekouzidonghua\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/image\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/untest\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/testcase\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/Python_crawler\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/api_automation\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/notes\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/automated_testing\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/automated_testing/myunittest\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/test_pytest\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/test_selenium\" isTestSource=\"false\" />\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\n    </content>\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.9 (untitled) (2)\" jdkType=\"Python SDK\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n  <component name=\"PyNamespacePackagesService\">\n    <option name=\"namespacePackageFolders\">\n      <list>\n        <option value=\"$MODULE_DIR$/automated_testing/batch\" />\n        <option value=\"$MODULE_DIR$/automated_testing/data_yaml\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"TemplatesService\">\n    <option name=\"TEMPLATE_CONFIGURATION\" value=\"Jinja2\" />\n    <option name=\"TEMPLATE_FOLDERS\">\n      <list>\n        <option value=\"$MODULE_DIR$/hyzllg/test/templates\" />\n      </list>\n    </option>\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/untitled2.iml b/.idea/untitled2.iml
+--- a/.idea/untitled2.iml	(revision 8c8c96760d2b562ae44472eba931030378ea9a0a)
++++ b/.idea/untitled2.iml	(date 1630120322910)
+@@ -17,14 +17,14 @@
+       <sourceFolder url="file://$MODULE_DIR$/test_selenium" isTestSource="false" />
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.9 (untitled) (2)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.9 (untitled)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+   <component name="PyNamespacePackagesService">
+     <option name="namespacePackageFolders">
+       <list>
+-        <option value="$MODULE_DIR$/automated_testing/batch" />
+-        <option value="$MODULE_DIR$/automated_testing/data_yaml" />
++        <option value="$MODULE_DIR$/Automated_testing/batch" />
++        <option value="$MODULE_DIR$/Automated_testing/data_yaml" />
+       </list>
+     </option>
+   </component>
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+new file mode 100644
+--- /dev/null	(date 1630934357534)
++++ b/.idea/dataSources.xml	(date 1630934357534)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
++    <data-source source="LOCAL" name="线上核心sit" uuid="42fd2474-0f0f-419f-82a3-938a9b9de1b3">
++      <driver-ref>oracle.19</driver-ref>
++      <synchronize>true</synchronize>
++      <auto-commit>false</auto-commit>
++      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
++      <jdbc-url>jdbc:oracle:thin:@//10.1.12.141:1521/PTST12UF</jdbc-url>
++      <working-dir>$ProjectFileDir$</working-dir>
++    </data-source>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"JavaScriptSettings\">\n    <option name=\"languageLevel\" value=\"ES6\" />\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.9 (untitled) (2)\" project-jdk-type=\"Python SDK\" />\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 8c8c96760d2b562ae44472eba931030378ea9a0a)
++++ b/.idea/misc.xml	(date 1630120322917)
+@@ -3,5 +3,5 @@
+   <component name="JavaScriptSettings">
+     <option name="languageLevel" value="ES6" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (untitled) (2)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (untitled)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
