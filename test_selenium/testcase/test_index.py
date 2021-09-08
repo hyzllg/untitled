@@ -1,18 +1,30 @@
 import pytest
 from test_selenium.page.index import Index
 from test_selenium.page.index import Login
+from page.get_ApiContentCensor_token import get_apicontentcensor_token
 
+
+@pytest.fixture(scope="class")
+def get_token():
+    return get_apicontentcensor_token()
 
 class TestCase:
-    # 对注册功能的测试
-    def test_001(self):
-        # 进入index，然后进入注册页填写信息
-        print(Index().index())
-    # 对login功能的测试
+    def test_001(self,get_token):
+        text = "我喜欢你！"
+        res = Index().index(get_token,text)
+        print(res)
+        assert res == "合规"
     # @pytest.mark.skip
-    def test_002(self):
-        # 从首页进入到注册页
-        print(Login().login())
+    def test_002(self,get_token):
+        text = "我讨厌你！"
+        res = Index().index(get_token,text)
+        print(res)
+        assert res == "合规"
+    def test_003(self,get_token):
+        text = "尼玛"
+        res = Index().index(get_token,text)
+        print(res)
+        assert res != "合规"
 
 
 if __name__ == '__main__':
