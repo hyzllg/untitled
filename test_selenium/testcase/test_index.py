@@ -1,15 +1,19 @@
+import pytest
 from test_selenium.page.index import Index
+from test_selenium.page.index import Login
 
 
-class TestIndex:
+class TestCase:
     # 对注册功能的测试
-    def test_register(self):
+    def test_001(self):
         # 进入index，然后进入注册页填写信息
-        self.index.goto_register().register("霍格沃兹测试学院")
+        print(Index().index())
     # 对login功能的测试
-    def test_login(self):
+    # @pytest.mark.skip
+    def test_002(self):
         # 从首页进入到注册页
-        register_page = self.index.goto_login().goto_registry()\
-            .register("测吧（北京）科技有限公司")
-        # 对填写结果进行断言，是否填写成功或者填写失败
-        assert "请选择" in "|".join(register_page.get_error_message())
+        print(Login().login())
+
+
+if __name__ == '__main__':
+    pytest.main(['-vs','test_index.py::TestCase'])
