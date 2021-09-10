@@ -14,7 +14,6 @@ class TestCase:
         res = Index().index(get_token,text)
         print(res)
         assert res == "合规"
-    # @pytest.mark.skip
     def test_002(self,get_token):
         text = "我讨厌你！"
         res = Index().index(get_token,text)
@@ -24,7 +23,7 @@ class TestCase:
         text = "尼玛"
         res = Index().index(get_token,text)
         print(res)
-        assert res != "合规"
+        assert res == "合规"
 
 
 if __name__ == '__main__':

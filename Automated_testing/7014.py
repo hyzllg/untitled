@@ -383,7 +383,6 @@ def tc_main(a, hhh):
 
     nnn = False
     n = 0
-    # a = input("aaa")
     while len(abc):
         for i in abc:
             hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
