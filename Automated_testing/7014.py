@@ -338,6 +338,10 @@ class Hyzllg:
             time.sleep(3)
 
 def tc_main(a, hhh):
+    #（参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
+    ljreqno = Collect.ljReqNo()
+    Collect.update_lj_mock("apply", ljreqno, time.strftime("%Y-%m-%d"))
+    Collect.update_lj_mock("query", ljreqno, time.strftime("%Y-%m-%d"))
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()

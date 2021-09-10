@@ -55,6 +55,11 @@ def channelCustId():
     b = time.strftime("%Y%m%d%H%M%S")
     channelCustId = b + '86' + a
     return channelCustId
+def ljReqNo():
+    a = str(random.randint(1, 10000))
+    b = time.strftime("cjl%Y%m%d%H%M%S")
+    ljreqno = b + '88' + a
+    return ljreqno
 
 def phone():
     a = str(random.randint(1000, 10000))
