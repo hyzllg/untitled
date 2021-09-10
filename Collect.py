@@ -56,8 +56,8 @@ def channelCustId():
     channelCustId = b + '86' + a
     return channelCustId
 def ljReqNo():
-    a = str(random.randint(1, 10000))
-    b = time.strftime("%Y%m%d%H%M%S")
+    a = str(random.randint(1, 1000))
+    b = time.strftime("%Y%m%d")
     ljreqno = b + '868' + a
     return ljreqno
 
