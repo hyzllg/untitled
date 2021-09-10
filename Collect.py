@@ -57,8 +57,8 @@ def channelCustId():
     return channelCustId
 def ljReqNo():
     a = str(random.randint(1, 10000))
-    b = time.strftime("cjl%Y%m%d%H%M%S")
-    ljreqno = b + '88' + a
+    b = time.strftime("%Y%m%d%H%M%S")
+    ljreqno = b + '868' + a
     return ljreqno
 
 def phone():
@@ -335,17 +335,17 @@ def update_lj_mock(api,loanNO,datetime):
    "id": "5fbf094bc9b25623b2c09d08"
 }
     loan_query_datas = {
-	"url": "/std/loan/query",
-	"mode": '{"data": {"code": 0,"message": "成功","data": {"loan_order_no": "%s","asset_status": "repay","grant_at": "%s"},"sucFlag": "true"}}' % (loanNO,datetime),
-	"method": "post",
-	"description": "借款申请结果查询",
-	"id": "5fbe001bc9b25623b2c09d00"
+    "url":"/std/loan/query",
+    "mode":'{"data": {"code": 0,"message": "成功","data": {"loan_order_no":"%s","create_at": "%s 10:00:00","grant_amount": "22000.00","period": "12","asset_status": "repay","grant_at": "%s","debt_no": "W%s"}}}' % (loanNO,datetime,datetime,loanNO),
+    "method":"post",
+    "description":"借款申请结果查询",
+    "id":"5fbe001bc9b25623b2c09d00"
 }
     if api == "apply":
         requit = requests.post(url=url,headers=headers,json=loan_apply_datas)
         print(requit.json())
     elif api == "query":
-        requit = requests.post(url=url, headers=headers, json=loan_apply_datas)
+        requit = requests.post(url=url, headers=headers, json=loan_query_datas)
         print(requit.json())
     else:
         print("未知错误！")
