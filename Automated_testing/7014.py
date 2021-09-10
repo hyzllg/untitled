@@ -358,6 +358,8 @@ def tc_main(a, hhh):
         periods = "6"
         #客户类型,0是新用户，1是存量活跃，2是存量静默
         custType = "0"
+        #资方编码 富邦银行：FBBANK 龙江银行：LJBANK
+        capitalCode = "LJBANK"
         if a == 0:
             hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random__name, generate__ID, ORANGE_phone,
                             loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc,custType)
@@ -387,8 +389,8 @@ def tc_main(a, hhh):
         for i in abc:
             hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
             if hyzllg.credit_inquiry(i[-1]):
-                hyzllg.disburse_trial('FBBANK')
-                hyzllg.disburse('FBBANK')
+                hyzllg.disburse_trial(capitalCode)
+                hyzllg.disburse(capitalCode)
                 # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
                 abc.remove(i)
                 nnn = True
