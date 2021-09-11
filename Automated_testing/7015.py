@@ -289,7 +289,7 @@ def main_360(a,b):
         # HB_phone = "16608058360"
         # Bank = "6214661723533450"
 
-        HB_loanReqNo = Collect.loanReqNo()
+        HB_loanReqNo = Collect.random_number_reqno()
         # 借款金额
         loanAmount = 6000
         # 期数

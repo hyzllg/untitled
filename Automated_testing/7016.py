@@ -585,9 +585,9 @@ def jh_main(a):
     # JH_phone = "13866666666"
     # JH_bankcard = "6214660525152114"
 
-    JH_creditReqNo = Collect.creditReqNo()
-    JH_loanReqNo1 = Collect.loanReqNo()
-    JH_loanReqNo2 = Collect.loanReqNo()
+    JH_creditReqNo = Collect.random_number_reqno()
+    JH_loanReqNo1 = Collect.random_number_reqno()
+    JH_loanReqNo2 = Collect.random_number_reqno()
 
 
     # 借款金额

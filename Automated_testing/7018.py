@@ -368,8 +368,8 @@ def pp_main(a, hhh):
         # HB_phone = "13866666666"
         # HB_bankcard = ""
 
-        HB_loanReqNo = Collect.loanReqNo()
-        HB_creditReqNo = Collect.creditReqNo()
+        HB_loanReqNo = Collect.random_number_reqno()
+        HB_creditReqNo = Collect.random_number_reqno()
         # 借款金额
         loanAmount = 6000
         # 期数

@@ -339,7 +339,7 @@ class Hyzllg:
 
 def tc_main(a, hhh):
     #（参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
-    ljreqno = Collect.ljReqNo()
+    ljreqno = Collect.random_number_reqno()
     Collect.update_lj_mock("apply", ljreqno, time.strftime("%Y-%m-%d"))
     Collect.update_lj_mock("query", ljreqno, time.strftime("%Y-%m-%d"))
     abc = []
@@ -353,9 +353,9 @@ def tc_main(a, hhh):
         # generate__ID = "310101199106127639"
         # ORANGE_phone = "13866666666"
         # ORANGE_bankcard = ""
-        channelCustId = Collect.channelCustId()
-        creditReqNo = Collect.creditReqNo()
-        loanReqNo = Collect.loanReqNo()
+        channelCustId = Collect.random_number_reqno()
+        creditReqNo = Collect.random_number_reqno()
+        loanReqNo = Collect.random_number_reqno()
         # 借款金额
         loanAmount = 5000
         # 期数
