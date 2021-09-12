@@ -94,7 +94,7 @@ psw: 123455
 
 （1）yaml文件中内容为键值对：
 
-# yaml键值对：即python中字典
+yaml键值对：即python中字典
 usr: my
 psw: 123455
 s: " abc\n"
@@ -105,7 +105,7 @@ python解析yaml文件后获取的数据：
 
 （2）yaml文件中内容为“键值对'嵌套"键值对"
 
-# yaml键值对嵌套：即python中字典嵌套字典
+yaml键值对嵌套：即python中字典嵌套字典
 usr1:
   name: a
   psw: 123
