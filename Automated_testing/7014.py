@@ -340,8 +340,9 @@ class Hyzllg:
 def tc_main(a, hhh):
     #（参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
     ljreqno = Collect.random_number_reqno()
-    Collect.update_lj_mock("apply", ljreqno, time.strftime("%Y-%m-%d"))
-    Collect.update_lj_mock("query", ljreqno, time.strftime("%Y-%m-%d"))
+    loan_datetime = "2021-09-13"
+    Collect.update_lj_mock("apply", ljreqno, loan_datetime)
+    Collect.update_lj_mock("query", ljreqno, loan_datetime)
     abc = []
     for i in range(hhh):
         random__name = Collect.random_name()
