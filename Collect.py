@@ -44,7 +44,7 @@ def random_number_reqno():
     reqno = b + a
     return reqno
 def phone():
-    phone = "166"+time.strftime("%m%d")+str(random.randint(1, 10000))
+    phone = "166"+time.strftime("%m%d")+str(random.randint(1000, 9999))
     return phone
 def bankcard():
     a = str(random.randint(1000, 10000))

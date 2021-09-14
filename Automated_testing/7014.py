@@ -337,30 +337,31 @@ class Hyzllg:
                 raw_input("Press <enter>")
             time.sleep(3)
 
-def tc_main(a, hhh):
-    #（参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
-    ljreqno = Collect.random_number_reqno()
-    loan_datetime = "2021-09-13"
-    Collect.update_lj_mock("apply", ljreqno, loan_datetime)
-    Collect.update_lj_mock("query", ljreqno, loan_datetime)
+def tc_main(a, number):
     abc = []
-    for i in range(hhh):
+    for i in range(number):
+        # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
+        ljreqno = Collect.random_number_reqno()
+        loan_datetime = "2021-09-13"
+        Collect.update_lj_mock("apply", ljreqno, loan_datetime)
+        Collect.update_lj_mock("query", ljreqno, loan_datetime)
         random__name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         ORANGE_phone = Collect.phone()
         ORANGE_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
-        # random__name = "刘生"
-        # generate__ID = "310101199106127639"
-        # ORANGE_phone = "13866666666"
-        # ORANGE_bankcard = ""
+        # random__name = "徒司江"
+        # generate__ID = "230602199007071178"
+        # ORANGE_phone = "16601068108"
+        # ORANGE_bankcard = "6214661723535062"
+
         channelCustId = Collect.random_number_reqno()
         creditReqNo = Collect.random_number_reqno()
         loanReqNo = Collect.random_number_reqno()
         # 借款金额
-        loanAmount = 5000
+        loanAmount = 6000
         # 期数
-        periods = "6"
+        periods = "3"
         #客户类型,0是新用户，1是存量活跃，2是存量静默
         custType = "0"
         #资方编码 富邦银行：FBBANK 龙江银行：LJBANK
@@ -420,7 +421,7 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(0, 1)
+    tc_main(0, 5)
 
 
 
