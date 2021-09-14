@@ -1,6 +1,6 @@
 environment: sit #环境 sit dev uat
 Pay_time: 2021/10/02 #还款时间
-loanNo: 20062-W2021091417014967774 #借据号
+loanNo: 20062-W2021091417042535146 #借据号
 repayType: "01" #还款类型 00正常或预期还款，01正常结清或逾期结清
 
 sit:

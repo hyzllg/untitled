@@ -337,91 +337,94 @@ class Hyzllg:
                 raw_input("Press <enter>")
             time.sleep(3)
 
-def tc_main(a, number):
-    abc = []
+
+def main(number,loanAmount,periods,custType,capitalCode,environment,random_name=Collect.random_name(),
+         generate__ID = Collect.id_card().generate_ID(),ORANGE_phone = Collect.phone(),ORANGE_bankcard = Collect.bankcard()):
+    abc=[]
     for i in range(number):
         # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
         ljreqno = Collect.random_number_reqno()
-        loan_datetime = "2021-09-13"
+        loan_datetime = "2021-09-14"
         Collect.update_lj_mock("apply", ljreqno, loan_datetime)
         Collect.update_lj_mock("query", ljreqno, loan_datetime)
-        random__name = Collect.random_name()
-        generate__ID = Collect.id_card().generate_ID()
-        ORANGE_phone = Collect.phone()
-        ORANGE_bankcard = Collect.bankcard()
-        # 指定姓名身份证手机号时使用
-        # random__name = "徒司江"
-        # generate__ID = "230602199007071178"
-        # ORANGE_phone = "16601068108"
-        # ORANGE_bankcard = "6214661723535062"
-
         channelCustId = Collect.random_number_reqno()
         creditReqNo = Collect.random_number_reqno()
         loanReqNo = Collect.random_number_reqno()
-        # 借款金额
-        loanAmount = 6000
-        # 期数
-        periods = "3"
-        #客户类型,0是新用户，1是存量活跃，2是存量静默
-        custType = "0"
-        #资方编码 富邦银行：FBBANK 龙江银行：LJBANK
-        capitalCode = "LJBANK"
-        if a == 0:
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random__name, generate__ID, ORANGE_phone,
+        if environment == 0:
+            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,
                             loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc,custType)
             credit = hyzllg.credit_granting()
             abc.append(
-                [channelCustId, creditReqNo, loanReqNo, random__name, generate__ID,
+                [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
                  ORANGE_phone, loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc, credit,custType])
-        elif a == 1:
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random__name, generate__ID, ORANGE_phone,
+        elif environment == 1:
+            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,
                             loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc,custType)
             credit = hyzllg.credit_granting()
             abc.append(
-                [channelCustId, creditReqNo, loanReqNo, random__name, generate__ID,
+                [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
                  ORANGE_phone, loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc, credit,custType])
-        elif a == 2:
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random__name, generate__ID, ORANGE_phone,
+        elif environment == 2:
+            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,
                             loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc,custType)
             credit = hyzllg.credit_granting()
-            abc.append([channelCustId, creditReqNo, loanReqNo, random__name, generate__ID,
+            abc.append([channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
                         ORANGE_phone, loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc, credit,custType])
         else:
             print("........")
 
-    nnn = False
-    n = 0
-    while len(abc):
-        for i in abc:
-            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
-            if hyzllg.credit_inquiry(i[-1]):
-                hyzllg.disburse_trial(capitalCode)
-                hyzllg.disburse(capitalCode)
-                # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
-                abc.remove(i)
-                nnn = True
-            n += 1
-            if n > 30 and nnn == False:
-                raw_input("Press <enter>")
-            test_info = f'''
-                    姓名：{i[3]}
-                    身份证号：{i[4]}
-                    手机号：{i[5]}
-                    借款金额:{i[6]}
-                    借款期次:{i[7]}
-                    channelCustId：{i[0]}
-                    creditReqNo：{i[1]}
-                    loanReqNo:{i[2]}
-                    '''
-            print(test_info)
+        nnn = False
+        n = 0
+        while len(abc):
+            for i in abc:
+                hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
+                if hyzllg.credit_inquiry(i[-1]):
+                    hyzllg.disburse_trial(capitalCode)
+                    hyzllg.disburse(capitalCode)
+                    # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
+                    abc.remove(i)
+                    nnn = True
+                n += 1
+                if n > 30 and nnn == False:
+                    raw_input("Press <enter>")
+                test_info = f'''
+                        姓名：{i[3]}
+                        身份证号：{i[4]}
+                        手机号：{i[5]}
+                        借款金额:{i[6]}
+                        借款期次:{i[7]}
+                        channelCustId：{i[0]}
+                        creditReqNo：{i[1]}
+                        loanReqNo:{i[2]}
+                        '''
+                print(test_info)
 
+def tc_main(environment, number):
+
+    # 指定姓名身份证手机号时使用
+    # random_name = "徒司江"
+    # generate__ID = "230602199007071178"
+    # ORANGE_phone = "16601068108"
+    # ORANGE_bankcard = "6214661723535062"
+    # 借款金额
+    loanAmount = 6000
+    # 期数
+    periods = "3"
+    # 客户类型,0是新用户，1是存量活跃，2是存量静默
+    custType = "0"
+    # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK
+    capitalCode = "LJBANK"
+    # 指定姓名身份证时用这个，不用时注释掉
+    # main(number,loanAmount,periods,custType,capitalCode,environment,random_name,generate__ID,ORANGE_phone,ORANGE_bankcard)
+    # 正常不需要指定姓名身份证时用这个
+    main(number,loanAmount,periods,custType,capitalCode,environment)
 
 if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(0, 5)
+    tc_main(0,1)
 
 
 
