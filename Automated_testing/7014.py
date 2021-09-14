@@ -339,12 +339,12 @@ class Hyzllg:
 
 
 def main(number,loanAmount,periods,custType,capitalCode,environment,random_name=Collect.random_name(),
-         generate__ID = Collect.id_card().generate_ID(),ORANGE_phone = Collect.phone(),ORANGE_bankcard = Collect.bankcard()):
+         generate__ID = Collect.id_card().generate_ID(),ORANGE_phone = Collect.phone(),ORANGE_bankcard = Collect.bankcard(),
+         loan_datetime=time.strftime("%Y-%m-%d")):
     abc=[]
     for i in range(number):
         # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
         ljreqno = Collect.random_number_reqno()
-        loan_datetime = "2021-09-14"
         Collect.update_lj_mock("apply", ljreqno, loan_datetime)
         Collect.update_lj_mock("query", ljreqno, loan_datetime)
         channelCustId = Collect.random_number_reqno()
@@ -414,10 +414,12 @@ def tc_main(environment, number):
     custType = "0"
     # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK
     capitalCode = "LJBANK"
+    #龙江放款mock，设定放款日期
+    loan_datetime = "2021-09-15"
     # 指定姓名身份证时用这个，不用时注释掉
-    # main(number,loanAmount,periods,custType,capitalCode,environment,random_name,generate__ID,ORANGE_phone,ORANGE_bankcard)
+    # main(number,loanAmount,periods,custType,capitalCode,environment,random_name=random_name,generate__ID=generate__ID,ORANGE_phone=ORANGE_phone,ORANGE_bankcard=ORANGE_bankcard)
     # 正常不需要指定姓名身份证时用这个
-    main(number,loanAmount,periods,custType,capitalCode,environment)
+    main(number,loanAmount,periods,custType,capitalCode,environment,loan_datetime=loan_datetime)
 
 if __name__ == '__main__':
     # 0是SIT
