@@ -338,11 +338,20 @@ class Hyzllg:
             time.sleep(3)
 
 
-def main(number,loanAmount,periods,custType,capitalCode,environment,random_name=Collect.random_name(),
-         generate__ID = Collect.id_card().generate_ID(),ORANGE_phone = Collect.phone(),ORANGE_bankcard = Collect.bankcard(),
-         loan_datetime=time.strftime("%Y-%m-%d")):
+def main(number,loanAmount,periods,custType,capitalCode,environment,loan_datetime=time.strftime("%Y-%m-%d")):
+
     abc=[]
     for i in range(number):
+        # 指定姓名身份证手机号时使用
+        # random_name = "弘世"
+        # generate__ID = "230602199007075611"
+        # ORANGE_phone = "16601067837"
+        # ORANGE_bankcard = "6214661723532890"
+        random_name = Collect.random_name()
+        generate__ID = Collect.id_card().generate_ID()
+        ORANGE_phone = Collect.phone()
+        ORANGE_bankcard = Collect.bankcard()
+
         channelCustId = Collect.random_number_reqno()
         creditReqNo = Collect.random_number_reqno()
         loanReqNo = Collect.random_number_reqno()
@@ -400,14 +409,8 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,random_name=
             print(test_info)
 
 def tc_main(environment, number):
-
-    # 指定姓名身份证手机号时使用
-    # random_name = "徒司江"
-    # generate__ID = "230602199007071178"
-    # ORANGE_phone = "16601068108"
-    # ORANGE_bankcard = "6214661723535062"
     # 借款金额
-    loanAmount = 6000
+    loanAmount = 1000
     # 期数
     periods = "3"
     # 客户类型,0是新用户，1是存量活跃，2是存量静默
@@ -416,9 +419,7 @@ def tc_main(environment, number):
     capitalCode = "LJBANK"
     #龙江放款mock，设定放款日期
     loan_datetime = "2021-09-15"
-    # 指定姓名身份证时用这个，不用时注释掉
-    # main(number,loanAmount,periods,custType,capitalCode,environment,random_name=random_name,generate__ID=generate__ID,ORANGE_phone=ORANGE_phone,ORANGE_bankcard=ORANGE_bankcard)
-    # 正常不需要指定姓名身份证时用这个
+
     main(number,loanAmount,periods,custType,capitalCode,environment,loan_datetime=loan_datetime)
 
 if __name__ == '__main__':
@@ -426,7 +427,7 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(0,2)
+    tc_main(0,1)
 
 
 
