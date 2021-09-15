@@ -4,14 +4,8 @@ import requests
 import cx_Oracle
 import json
 import Collect
-
 import yaml
 from past.builtins import raw_input
-
-
-
-
-
 
 
 

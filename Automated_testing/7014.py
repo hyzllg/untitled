@@ -92,7 +92,7 @@ class Hyzllg:
             "authFlag": "01",
             "deviceDetail": {
                 "deviceId": "10-45-5-486",
-                "mac": "sjdfsjdfhskldjf ",
+                "mac": "3a:b6:c6:5d:2e:f9",
                 "longitude": "121.551738",
                 "latitude": "31.224634",
                 "gpsCity": "上海市",
@@ -343,10 +343,6 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,random_name=
          loan_datetime=time.strftime("%Y-%m-%d")):
     abc=[]
     for i in range(number):
-        # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
-        ljreqno = Collect.random_number_reqno()
-        Collect.update_lj_mock("apply", ljreqno, loan_datetime)
-        Collect.update_lj_mock("query", ljreqno, loan_datetime)
         channelCustId = Collect.random_number_reqno()
         creditReqNo = Collect.random_number_reqno()
         loanReqNo = Collect.random_number_reqno()
@@ -373,31 +369,35 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,random_name=
         else:
             print("........")
 
-        nnn = False
-        n = 0
-        while len(abc):
-            for i in abc:
-                hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
-                if hyzllg.credit_inquiry(i[-1]):
-                    hyzllg.disburse_trial(capitalCode)
-                    hyzllg.disburse(capitalCode)
-                    # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
-                    abc.remove(i)
-                    nnn = True
-                n += 1
-                if n > 30 and nnn == False:
-                    raw_input("Press <enter>")
-                test_info = f'''
-                        姓名：{i[3]}
-                        身份证号：{i[4]}
-                        手机号：{i[5]}
-                        借款金额:{i[6]}
-                        借款期次:{i[7]}
-                        channelCustId：{i[0]}
-                        creditReqNo：{i[1]}
-                        loanReqNo:{i[2]}
-                        '''
-                print(test_info)
+    nnn = False
+    n = 0
+    while len(abc):
+        for i in abc:
+            # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
+            ljreqno = Collect.random_number_reqno()
+            Collect.update_lj_mock("apply", ljreqno, loan_datetime)
+            Collect.update_lj_mock("query", ljreqno, loan_datetime)
+            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
+            if hyzllg.credit_inquiry(i[-1]):
+                hyzllg.disburse_trial(capitalCode)
+                hyzllg.disburse(capitalCode)
+                # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
+                abc.remove(i)
+                nnn = True
+            n += 1
+            if n > 30 and nnn == False:
+                raw_input("Press <enter>")
+            test_info = f'''
+                    姓名：{i[3]}
+                    身份证号：{i[4]}
+                    手机号：{i[5]}
+                    借款金额:{i[6]}
+                    借款期次:{i[7]}
+                    channelCustId：{i[0]}
+                    creditReqNo：{i[1]}
+                    loanReqNo:{i[2]}
+                    '''
+            print(test_info)
 
 def tc_main(environment, number):
 
@@ -426,7 +426,7 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(0,1)
+    tc_main(0,2)
 
 
 

@@ -1,7 +1,15 @@
-import Collect
-import time
+#! /usr/bin/python
 
+import cx_Oracle
 
-ljreqno = Collect.random_number_reqno()
-Collect.update_lj_mock("apply", ljreqno, time.strftime("%Y-%m-%d"))
-Collect.update_lj_mock("query", ljreqno, time.strftime("%Y-%m-%d"))
+import os
+
+os.environ['NLS_LANG'] = 'SIMPLIFIED CHINESE_CHINA.UTF8'
+dsnStr = cx_Oracle.makedsn("127.0.0.1", "1521", "orcl")
+conn = cx_Oracle.connect(user="test", password="test", dsn=dsnStr)
+c=conn.cursor()
+x=c.execute('select * from customer_info')
+print (x.fetchone())
+c.lose()
+
+conn.close()
