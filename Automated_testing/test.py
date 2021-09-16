@@ -1,5 +1,2 @@
-def hyz(*args,**kwargs):
-    print(args,kwargs)
+import cx_Oracle
 
-
-hyz(1,2,a=1,b=2)
