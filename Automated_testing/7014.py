@@ -386,7 +386,6 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,loan_datetim
             ljreqno = Collect.random_number_reqno()
             Collect.update_lj_mock("apply", ljreqno, loan_datetime)
             Collect.update_lj_mock("query", ljreqno, loan_datetime)
-            time.sleep(10)
             hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
             if hyzllg.credit_inquiry(i[-1]):
                 hyzllg.disburse_trial(capitalCode)
@@ -420,6 +419,8 @@ def tc_main(environment, number):
     capitalCode = "LJBANK"
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"
+    #是否启用修改龙江放款mock参数
+    lj_mock_start = True
 
     main(number,loanAmount,periods,custType,capitalCode,environment)
 
