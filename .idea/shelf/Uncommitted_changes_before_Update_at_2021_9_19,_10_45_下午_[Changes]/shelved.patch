@@ -1,0 +1,57 @@
+Index: Automated_testing/aaa.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import requests\nimport sys\n\ndef response():\n    url = 'https://aip.baidubce.com/oauth/2.0/token'\n    grant_type = 'client_credentials'\n    client_id = 'LWKrUcRsztPuaerCk56f5ndU'\n    client_secret = 'rEi9812yzgtXZqHQh2MNFbpbOaNDVcbH'\n    data = {\n        \"grant_type\" : grant_type,\n        \"client_id\" : client_id,\n        \"client_secret\" : client_secret\n    }\n    #获取access_token\n    try:\n        requit = requests.post(url,data=data)\n        print(\"cookies:%s\" % (requit.cookies))\n        print(\"headers:%s\" % (requit.headers))\n        print(\"url:%s\" % (requit.url))\n\n\n    except:\n        print(\"获取token错误！\")\n        sys.exit()\n    return requit.json()['access_token']\n\nresponse()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Automated_testing/aaa.py b/Automated_testing/aaa.py
+--- a/Automated_testing/aaa.py	(revision 0b306c008973750e9571e5476c6358945e21d14b)
++++ b/Automated_testing/aaa.py	(date 1632014760676)
+@@ -1,27 +1,0 @@
+-import requests
+-import sys
+-
+-def response():
+-    url = 'https://aip.baidubce.com/oauth/2.0/token'
+-    grant_type = 'client_credentials'
+-    client_id = 'LWKrUcRsztPuaerCk56f5ndU'
+-    client_secret = 'rEi9812yzgtXZqHQh2MNFbpbOaNDVcbH'
+-    data = {
+-        "grant_type" : grant_type,
+-        "client_id" : client_id,
+-        "client_secret" : client_secret
+-    }
+-    #获取access_token
+-    try:
+-        requit = requests.post(url,data=data)
+-        print("cookies:%s" % (requit.cookies))
+-        print("headers:%s" % (requit.headers))
+-        print("url:%s" % (requit.url))
+-
+-
+-    except:
+-        print("获取token错误！")
+-        sys.exit()
+-    return requit.json()['access_token']
+-
+-response()
+\ No newline at end of file
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"dataSourceStorageLocal\" created-in=\"PY-212.4746.96\">\n    <data-source name=\"线上核心sit\" uuid=\"1fabf4ec-2cf9-454f-ab06-3301669a482c\">\n      <database-info product=\"Oracle\" version=\"Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production&#10;With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options\" jdbc-version=\"4.2\" driver-name=\"Oracle JDBC driver\" driver-version=\"21.1.0.0.0\" dbms=\"ORACLE\" exact-version=\"12.1.0.2.0\" exact-driver-version=\"21.1\">\n        <extra-name-characters>$#</extra-name-characters>\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"upper\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>xbhxbusi</user-name>\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\" qname=\"@\" />\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n    <data-source name=\"线上核心dev\" uuid=\"8a83135c-a8dd-452c-92c2-361872a0d06e\">\n      <database-info product=\"Oracle\" version=\"Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production\" jdbc-version=\"4.2\" driver-name=\"Oracle JDBC driver\" driver-version=\"21.1.0.0.0\" dbms=\"ORACLE\" exact-version=\"12.2.0.1.0\" exact-driver-version=\"21.1\">\n        <extra-name-characters>$#</extra-name-characters>\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"upper\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>xbhxbusi</user-name>\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\">\n            <name qname=\"@\" />\n            <name qname=\"PUBLIC\" />\n          </node>\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n    <data-source name=\"线上核心uat\" uuid=\"1a59646d-539c-4317-926a-17c86a743726\">\n      <database-info product=\"Oracle\" version=\"Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production&#10;With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options\" jdbc-version=\"4.2\" driver-name=\"Oracle JDBC driver\" driver-version=\"21.1.0.0.0\" dbms=\"ORACLE\" exact-version=\"12.1.0.2.0\" exact-driver-version=\"21.1\">\n        <extra-name-characters>$#</extra-name-characters>\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"upper\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>xbhxbusi</user-name>\n      <schema-mapping />\n    </data-source>\n    <data-source name=\"账务资金sit\" uuid=\"58abc28d-252f-459d-9685-07be4243ec3b\">\n      <database-info product=\"Oracle\" version=\"Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production\" jdbc-version=\"4.2\" driver-name=\"Oracle JDBC driver\" driver-version=\"21.1.0.0.0\" dbms=\"ORACLE\" exact-version=\"12.2.0.1.0\" exact-driver-version=\"21.1\">\n        <extra-name-characters>$#</extra-name-characters>\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"upper\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>gdbzdev</user-name>\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\">\n            <name qname=\"@\" />\n            <name qname=\"PUBLIC\" />\n          </node>\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n    <data-source name=\"账务资金uat\" uuid=\"b3acc474-f8a9-479c-8ff6-092e11f7ef95\">\n      <database-info product=\"Oracle\" version=\"Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production\" jdbc-version=\"4.2\" driver-name=\"Oracle JDBC driver\" driver-version=\"21.1.0.0.0\" dbms=\"ORACLE\" exact-version=\"12.2.0.1.0\">\n        <extra-name-characters>$#</extra-name-characters>\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"upper\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>gdbzbusi</user-name>\n      <schema-mapping />\n    </data-source>\n    <data-source name=\"三方平台sit\" uuid=\"b2afa556-84e4-4d34-ada4-e059b8133eb1\">\n      <database-info product=\"Oracle\" version=\"Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production\" jdbc-version=\"4.2\" driver-name=\"Oracle JDBC driver\" driver-version=\"21.1.0.0.0\" dbms=\"ORACLE\" exact-version=\"12.2.0.1.0\" exact-driver-version=\"21.1\">\n        <extra-name-characters>$#</extra-name-characters>\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"upper\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>gdspbusi</user-name>\n      <schema-mapping />\n    </data-source>\n    <data-source name=\"三方平台uat\" uuid=\"b0e7292a-714a-46d5-927d-7178e18fffc4\">\n      <database-info product=\"Oracle\" version=\"Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production\" jdbc-version=\"4.2\" driver-name=\"Oracle JDBC driver\" driver-version=\"21.1.0.0.0\" dbms=\"ORACLE\" exact-version=\"12.2.0.1.0\" exact-driver-version=\"21.1\">\n        <extra-name-characters>$#</extra-name-characters>\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"upper\" quoted-identifiers=\"exact\" />\n      <secret-storage>master_key</secret-storage>\n      <user-name>gdspbusi</user-name>\n      <schema-mapping />\n    </data-source>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	(revision 0b306c008973750e9571e5476c6358945e21d14b)
++++ b/.idea/dataSources.local.xml	(date 1632014760858)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="dataSourceStorageLocal" created-in="PY-212.4746.96">
++  <component name="dataSourceStorageLocal" created-in="PY-212.5080.64">
+     <data-source name="线上核心sit" uuid="1fabf4ec-2cf9-454f-ab06-3301669a482c">
+       <database-info product="Oracle" version="Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production&#10;With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options" jdbc-version="4.2" driver-name="Oracle JDBC driver" driver-version="21.1.0.0.0" dbms="ORACLE" exact-version="12.1.0.2.0" exact-driver-version="21.1">
+         <extra-name-characters>$#</extra-name-characters>
