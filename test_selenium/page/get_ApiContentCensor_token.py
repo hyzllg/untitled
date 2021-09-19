@@ -15,10 +15,10 @@ def get_apicontentcensor_token():
     #获取access_token
     try:
         requit = requests.post(url,data=data)
-
+        access_token = requit.json()['access_token']
     except:
         print("获取token错误！")
         sys.exit()
-    return requit.json()['access_token']
+    return access_token
 
 

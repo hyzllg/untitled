@@ -1,10 +1,5 @@
-import json
-import os
 import time
-
-import requests
 from past.builtins import raw_input
-
 import Collect
 
 
@@ -143,16 +138,7 @@ class Hyzllg:
                 "loanAmount": 3000
             }
         }
-        # data["channelCustId"] = self.channelCustId
-        # data["creditReqNo"] = self.creditReqNo
-        # data["name"] = self.name
-        # data["idNo"] = self.idNo
-        # data["phone"] = self.phone
-        # data["loanAmount"] = self.loanAmount
-        # data["periods"] = self.periods
-        # data["bankCard"] = self.bankcard
-        # data["bankPhone"] = self.phone
-        # data["channelDetail"]["custType"] = self.custType
+
 
         url = self.url + 'CREDIT_GRANTING'
         title = "**********授信申请！**********"
@@ -179,9 +165,6 @@ class Hyzllg:
             "creditReqNo": self.creditReqNo,
             "creditApplyNo": creditApplyNo
         }
-        # data["channelCustId"] = self.channelCustId
-        # data["creditReqNo"] = self.creditReqNo
-        # data["creditApplyNo"] = creditApplyNo
 
         time.sleep(2)
         n = False
@@ -216,9 +199,7 @@ class Hyzllg:
             "periods": self.periods,
             "loanAmount": self.loanAmount
         }
-        # data["channelCustId"] = self.channelCustId
-        # data["loanAmount"] = self.loanAmount
-        # data["periods"] = self.periods
+
 
         url = self.url + 'DISBURSE_TRIAL'
         title = "**********支用试算！**********"
@@ -283,16 +264,6 @@ class Hyzllg:
                 "loanAmount": 3000
             }
         }
-        # data["channelCustId"] = self.channelCustId
-        # data["loanReqNo"] = self.loanReqNo
-        # data["creditReqNo"] = self.creditReqNo
-        # data["capitalCode"] = capitalCode
-        # data["loanAmount"] = self.loanAmount
-        # data["periods"] = self.periods
-        # data["bankCard"] = self.bankcard
-        # data["bankPhone"] = self.phone
-        # data["channelDetail"]["custType"] = self.custType
-
         url = self.url + 'DISBURSE'
         title = "**********支用接口！**********"
         requit = Collect.test_api(url, data, title)
@@ -338,7 +309,7 @@ class Hyzllg:
             time.sleep(3)
 
 
-def main(number,loanAmount,periods,custType,capitalCode,environment,loan_datetime=time.strftime("%Y-%m-%d")):
+def main(number,loanAmount,periods,custType,capitalCode,environment,if_mock,loan_datetime=time.strftime("%Y-%m-%d")):
 
     abc=[]
     for i in range(number):
@@ -383,9 +354,10 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,loan_datetim
     while len(abc):
         for i in abc:
             # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
-            ljreqno = Collect.random_number_reqno()
-            Collect.update_lj_mock("apply", ljreqno, loan_datetime)
-            Collect.update_lj_mock("query", ljreqno, loan_datetime)
+            if if_mock:
+                ljreqno = Collect.random_number_reqno()
+                Collect.update_lj_mock("apply", ljreqno, loan_datetime)
+                Collect.update_lj_mock("query", ljreqno, loan_datetime)
             hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
             if hyzllg.credit_inquiry(i[-1]):
                 hyzllg.disburse_trial(capitalCode)
@@ -422,7 +394,7 @@ def tc_main(environment, number):
     #是否启用修改龙江放款mock参数
     lj_mock_start = True
 
-    main(number,loanAmount,periods,custType,capitalCode,environment)
+    main(number,loanAmount,periods,custType,capitalCode,environment,lj_mock_start)
 
 if __name__ == '__main__':
     # 0是SIT
