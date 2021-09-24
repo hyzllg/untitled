@@ -382,13 +382,13 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,if_mock,loan
 
 def tc_main(environment, number):
     # 借款金额
-    loanAmount = 1000
+    loanAmount = 2000
     # 期数
     periods = "3"
     # 客户类型,0是新用户，1是存量活跃，2是存量静默
     custType = "0"
     # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK
-    capitalCode = "LJBANK"
+    capitalCode = "FBBANK"
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"
     #是否启用修改龙江放款mock参数
@@ -401,7 +401,7 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(0,1)
+    tc_main(1,1)
 
 
 

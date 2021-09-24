@@ -9,7 +9,8 @@ def get_token():
     return get_apicontentcensor_token()
 
 class TestCase:
-    with open('./datas.yaml','r',encoding='utf-8') as f:
+    #文本审核接口测试用例
+    with open('../datas/datas.yaml', 'r', encoding='utf-8') as f:
         texts = yaml.load(f,Loader=yaml.SafeLoader)
     @pytest.mark.parametrize("text",texts)
     def test_001(self,get_token,text):
