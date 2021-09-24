@@ -17,8 +17,13 @@ def rd_excle_data():
         datas.append([table.row_values(i)[2],table.row_values(i)[4],table.row_values(i)[5],table.row_values(i)[6],table.row_values(i)[7]])
     return datas
 def InsureInfo_request(data):
-    response = requests.request(data[3],url=data[2],data=json.dumps(eval(data[4])))
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request(data[3],url=data[2],headers=headers,data=json.dumps(eval(data[4])))
     result = response.json()
+    result["data"] = eval(result["data"])
+
     return result
 
 

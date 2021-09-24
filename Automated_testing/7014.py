@@ -392,7 +392,7 @@ def tc_main(environment, number):
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"
     #是否启用修改龙江放款mock参数
-    lj_mock_start = True
+    lj_mock_start = False
 
     main(number,loanAmount,periods,custType,capitalCode,environment,lj_mock_start)
 
@@ -401,7 +401,7 @@ if __name__ == '__main__':
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(1,1)
+    tc_main(0,1)
 
 
 
