@@ -300,7 +300,7 @@ def update_lj_mock(api,loanNO,datetime):
     url = "http://10.1.14.146:7300/api/mock/update"
     headers = {
         "Content-Type":"application/json;charset=UTF-8",
-        "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjk0ZDQ0NmQ5ZGZjMmRkYTU1ODlhMSIsImlhdCI6MTYzMTI1Nzg5MSwiZXhwIjoxNjMyNDY3NDkxfQ.xahESAnAuiYd9yQftvvnJ0vGHc0AJYHqslrH05lBatY",
+        "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjk0ZDQ0NmQ5ZGZjMmRkYTU1ODlhMSIsImlhdCI6MTYzMjgwNzM3MSwiZXhwIjoxNjM0MDE2OTcxfQ.QWtX3jQxvUB349m2zvvllqmnWveDd3R4lP-X9TnnuNE",
         # "Cookie":"easy-mock_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNjk0ZDQ0NmQ5ZGZjMmRkYTU1ODlhMSIsImlhdCI6MTYzMTI1Nzg5MSwiZXhwIjoxNjMyNDY3NDkxfQ.xahESAnAuiYd9yQftvvnJ0vGHc0AJYHqslrH05lBatY",
         "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36",
         "Host":"10.1.14.146:7300"
