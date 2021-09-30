@@ -61,5 +61,5 @@ ljreqno = Collect.random_number_reqno()
 loan_datetime=time.strftime("%Y-%m-%d")
 update_lj_mock("apply", ljreqno, loan_datetime)
 update_lj_mock("query", ljreqno, loan_datetime)
-time.sleep(3)
+# time.sleep(3)
 

@@ -4,7 +4,7 @@ import Collect
 
 
 class Hyzllg:
-    def __init__(self, channelCustId, creditReqNo, loanReqNo, name, idNo, phone, loanAmount, periods, bankcard, url,custType):
+    def __init__(self, channelCustId, creditReqNo,loanReqNo, name, idNo, phone, repayAmount,loanAmount, periods, bankcard, url,custType):
         self.channelCustId = channelCustId
         self.creditReqNo = creditReqNo
         self.loanReqNo = loanReqNo
@@ -12,6 +12,7 @@ class Hyzllg:
         self.idNo = idNo
         self.phone = phone
         self.loanAmount = loanAmount
+        self.repayAmount = repayAmount
         self.periods = periods
         self.bankcard = bankcard
         self.url = url
@@ -78,7 +79,7 @@ class Hyzllg:
             "applyProvince": "110000",
             "applyCity": "110000",
             "applyDistrict": "110101",
-            "loanAmount": self.loanAmount,
+            "loanAmount": self.repayAmount,
             "periods": self.periods,
             "purpose": "01",
             "direction": "01",
@@ -200,11 +201,10 @@ class Hyzllg:
             "loanAmount": self.loanAmount
         }
 
-
-        url = self.url + 'DISBURSE_TRIAL'
-        title = "**********支用试算！**********"
-        requit = Collect.test_api(url, data, title)
         while True:
+            url = self.url + 'DISBURSE_TRIAL'
+            title = "**********支用试算！**********"
+            requit = Collect.test_api(url, data, title)
             if requit["result"] == True:
                 print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
                 if requit["data"]["body"]["status"] == "01" and requit["data"]["body"]["capitalCode"] == capitalCode:
@@ -309,15 +309,15 @@ class Hyzllg:
             time.sleep(3)
 
 
-def main(number,loanAmount,periods,custType,capitalCode,environment,if_mock,loan_datetime=time.strftime("%Y-%m-%d")):
+def main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,if_mock,loan_datetime=time.strftime("%Y-%m-%d")):
 
     abc=[]
     for i in range(number):
         # 指定姓名身份证手机号时使用
-        # random_name = "弘世"
-        # generate__ID = "230602199007075611"
-        # ORANGE_phone = "16601067837"
-        # ORANGE_bankcard = "6214661723532890"
+        # random_name = "范之"
+        # generate__ID = "370214199505124126"
+        # ORANGE_phone = "16609291815"
+        # ORANGE_bankcard = "6214660929165806"
         random_name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         ORANGE_phone = Collect.phone()
@@ -327,25 +327,25 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,if_mock,loan
         creditReqNo = Collect.random_number_reqno()
         loanReqNo = Collect.random_number_reqno()
         if environment == 0:
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,
+            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
                             loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc,custType)
             credit = hyzllg.credit_granting()
             abc.append(
                 [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
-                 ORANGE_phone, loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc, credit,custType])
+                 ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc, credit,custType])
         elif environment == 1:
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,
+            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
                             loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc,custType)
             credit = hyzllg.credit_granting()
             abc.append(
                 [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
-                 ORANGE_phone, loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc, credit,custType])
+                 ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc, credit,custType])
         elif environment == 2:
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,
+            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
                             loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc,custType)
             credit = hyzllg.credit_granting()
             abc.append([channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
-                        ORANGE_phone, loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc, credit,custType])
+                        ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc, credit,custType])
         else:
             print("........")
 
@@ -358,8 +358,8 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,if_mock,loan
                 ljreqno = Collect.random_number_reqno()
                 Collect.update_lj_mock("apply", ljreqno, loan_datetime)
                 Collect.update_lj_mock("query", ljreqno, loan_datetime)
-            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[11])
-            if hyzllg.credit_inquiry(i[-1]):
+            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[10],i[12])
+            if hyzllg.credit_inquiry(i[-2]):
                 hyzllg.disburse_trial(capitalCode)
                 hyzllg.disburse(capitalCode)
                 # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
@@ -381,6 +381,8 @@ def main(number,loanAmount,periods,custType,capitalCode,environment,if_mock,loan
             print(test_info)
 
 def tc_main(environment, number):
+    #放款金额
+    repayAmount = 5000
     # 借款金额
     loanAmount = 2000
     # 期数
@@ -388,20 +390,20 @@ def tc_main(environment, number):
     # 客户类型,0是新用户，1是存量活跃，2是存量静默
     custType = "0"
     # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK
-    capitalCode = "LJBANK"
+    capitalCode = "FBBANK"
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"
     #是否启用修改龙江放款mock参数
     lj_mock_start = True
 
-    main(number,loanAmount,periods,custType,capitalCode,environment,lj_mock_start)
+    main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,lj_mock_start)
 
 if __name__ == '__main__':
     # 0是SIT
     # 1是UAT
     # 2是DEV
     # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(1,1)
+    tc_main(0,1)
 
 
 
