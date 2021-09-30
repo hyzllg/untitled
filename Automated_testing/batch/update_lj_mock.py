@@ -1,6 +1,6 @@
-import Collect
 import time
 import requests
+import random
 
 def esay_mock_login():
     url = "http://10.1.14.146:7300/api/u/login"
@@ -12,8 +12,11 @@ def esay_mock_login():
         print("获取token失败！")
     return token
 
-esay_mock_login()
-
+def random_number_reqno():
+    a = str(random.randint(1, 100000))
+    b = time.strftime("%Y%m%d%H%M%S")
+    reqno = b + a
+    return reqno
 def update_lj_mock(api,loanNO,datetime):
     token = esay_mock_login()
     url = "http://10.1.14.146:7300/api/mock/update"
@@ -57,7 +60,7 @@ def update_lj_mock(api,loanNO,datetime):
     else:
         print("未知错误！")
 
-ljreqno = Collect.random_number_reqno()
+ljreqno = random_number_reqno()
 loan_datetime=time.strftime("%Y-%m-%d")
 update_lj_mock("apply", ljreqno, loan_datetime)
 update_lj_mock("query", ljreqno, loan_datetime)
