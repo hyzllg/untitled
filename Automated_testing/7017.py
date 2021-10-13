@@ -275,8 +275,9 @@ class Hyzllg:
             raw_input("Press <enter>")
 
 
-def hb_main(a,b):
-    for i in range(b):
+def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
+    for i in range(number):
+        HB_loanReqNo = Collect.random_number_reqno()
         random__name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         HB_phone = Collect.phone()
@@ -286,27 +287,15 @@ def hb_main(a,b):
         # generate__ID = "310101199106127639"
         # HB_phone = "13866666666"
         # HB_bankcard = ""
-        HB_loanReqNo = Collect.random_number_reqno()
 
-        # 借款金额
-        loanAmount = 6100
-        # 期数
-        periods = "6"
-        # 客户等级
-        custGrde = 18
-        # 折后利率
 
-        # discountRate = list(Collect.sql_cha(Collect.hxSIT_ORACLE,
-        #                                     "select attribute1 t from code_library t where t.codeno ='HuanbeiArte' and t.itemno = '{}'".format(
-        #                                         periods))[0])[0]
-        discountRate = 18
-        if a == 0:
+        if environment == "SIT":
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
                             Collect.sit_url_hb, discountRate)
-        elif a == 1:
+        elif environment == "UAT":
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
                             Collect.uat_url_hb, discountRate)
-        elif a == 2:
+        elif environment == "DEV":
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, HB_bankcard,
                             Collect.dev_url_hb, discountRate)
         else:
@@ -328,9 +317,20 @@ def hb_main(a,b):
         print(test_info)
         # raw_input("Press <enter>")
 
+def main():
+    #环境（sit,uat,dev）
+    environment = "sit"
+    #走数据笔数
+    number = 1
+    # 借款金额
+    loanAmount = 6100
+    # 期数
+    periods = "6"
+    # 客户等级
+    custGrde = 18
+    # 折后利率
+    discountRate = 18
+    hb_main(environment.upper(),number,loanAmount,periods,custGrde,discountRate)
 
 if __name__ == '__main__':
-    # 0是SIT
-    # 1是UAT
-    # 2是DEV
-    hb_main(0,1)
+    main()

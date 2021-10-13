@@ -309,7 +309,7 @@ class Hyzllg:
             time.sleep(3)
 
 
-def main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,if_mock,loan_datetime=time.strftime("%Y-%m-%d")):
+def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,if_mock,loan_datetime=time.strftime("%Y-%m-%d")):
 
     abc=[]
     for i in range(number):
@@ -326,21 +326,21 @@ def main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,
         channelCustId = Collect.random_number_reqno()
         creditReqNo = Collect.random_number_reqno()
         loanReqNo = Collect.random_number_reqno()
-        if environment == 0:
+        if environment == "SIT":
             hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
                             loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc,custType)
             credit = hyzllg.credit_granting()
             abc.append(
                 [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
                  ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc, credit,custType])
-        elif environment == 1:
+        elif environment == "UAT":
             hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
                             loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc,custType)
             credit = hyzllg.credit_granting()
             abc.append(
                 [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
                  ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc, credit,custType])
-        elif environment == 2:
+        elif environment == "DEV":
             hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
                             loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc,custType)
             credit = hyzllg.credit_granting()
@@ -381,7 +381,11 @@ def main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,
                     '''
             print(test_info)
 
-def tc_main(environment, number):
+def main():
+    #环境（sit,uat,dev）
+    environment = "sit"
+    #走数据笔数
+    number = 1
     #放款金额
     repayAmount = 5000
     # 借款金额
@@ -396,15 +400,10 @@ def tc_main(environment, number):
     # loan_datetime = "2021-09-16"
     #是否启用修改龙江放款mock参数
     lj_mock_start = True
-
-    main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,lj_mock_start)
+    tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment.upper(),lj_mock_start)
 
 if __name__ == '__main__':
-    # 0是SIT
-    # 1是UAT
-    # 2是DEV
-    # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    tc_main(0,1)
+    main()
 
 
 

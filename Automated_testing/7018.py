@@ -354,31 +354,22 @@ class Hyzllg:
                 raw_input("Press <enter>")
 
 
-def pp_main(a, hhh):
+def pp_main(environment,number,loanAmount,periods,custGrde):
     abc = []
-    for i in range(hhh):
+    for i in range(number):
+        HB_loanReqNo = Collect.random_number_reqno()
+        HB_creditReqNo = Collect.random_number_reqno()
+
         random__name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         HB_phone = Collect.phone()
         HB_bankcard = Collect.bankcard()
-
         # 指定姓名身份证手机号时使用
         # random__name = "刘生"
         # generate__ID = "310101199106127639"
         # HB_phone = "13866666666"
         # HB_bankcard = ""
-
-        HB_loanReqNo = Collect.random_number_reqno()
-        HB_creditReqNo = Collect.random_number_reqno()
-        # 借款金额
-        loanAmount = 6000
-        # 期数
-        periods = "6"
-        # 客户等级上下限
-        # custGrde = list(Collect.sql_cha(Collect.hxSIT_ORACLE,"select t.attribute1 from code_library t where t.codeno ='PaiPaiDai'and t.itemno = '{}'".format(periods))[0])[0]
-        custGrde = -1
-
-        if a == 0:
+        if environment == "SIT":
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
                             HB_bankcard,
                             "建设银行", HB_phone, Collect.sit_url_pp, custGrde)
@@ -388,7 +379,7 @@ def pp_main(a, hhh):
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.sit_url_pp, custGrde])
-        elif a == 1:
+        elif environment == "UAT":
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
                             HB_bankcard,
                             "建设银行", HB_phone, Collect.uat_url_pp, custGrde)
@@ -398,7 +389,7 @@ def pp_main(a, hhh):
             hyzllg.credit_granting()  # 授信接口
             abc.append([HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone,
                         "5000", periods, HB_bankcard, "建设银行", HB_phone, Collect.uat_url_pp, custGrde])
-        elif a == 2:
+        elif environment == "DEV":
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
                             HB_bankcard,
                             "建设银行", HB_phone, Collect.dev_url_pp, custGrde)
@@ -437,9 +428,19 @@ def pp_main(a, hhh):
             print(test_info)
 
 
+
+def main():
+    #环境（sit,uat,dev）
+    environment = "sit"
+    #走数据笔数
+    number = 1
+    # 借款金额
+    loanAmount = 6000
+    # 期数
+    periods = "6"
+    # 客户等级上下限
+    custGrde = 18
+    pp_main(environment.upper(),number,loanAmount,periods,custGrde)
+
 if __name__ == '__main__':
-    # 0是SIT
-    # 1是UAT
-    # 2是DEV
-    # main()第一个参数控制测试环境，第二个参数控制数据笔数
-    pp_main(1, 1)
+    main()

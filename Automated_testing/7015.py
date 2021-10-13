@@ -38,14 +38,6 @@ class Hyzllg:
             "contactPhone": "18968523600",
             "callbackUrl": "https://www.baidu.com"
         }
-        # data["insuranceNo"] = self.loanReqNo
-        # data["name"] = self.name
-        # data["idNo"] = self.idNo
-        # data["phone"] = self.phone
-        # data["amount"] = self.loanAmount
-        # data["periods"] = self.periods
-        # data["custGrde"] = self.custGrde
-        # data["capitalCode"] = self.capitalCode
 
         url = self.url + 'INSURE_INFO'
         title = "**********投保信息接口！**********"
@@ -95,13 +87,6 @@ class Hyzllg:
             "postCode": "110016",
             "productId": "7015"
         }
-        # data["loanReqNo"] = self.loanReqNo
-        # data["insReqNo"] = self.loanReqNo
-        # data["name"] = self.name
-        # data["idNo"] = self.idNo
-        # data["phone"] = self.phone
-        # data["amount"] = self.loanAmount
-        # data["periods"] = self.periods
 
         title = "**********投保接口！**********"
         url = self.url + 'INSURE'
@@ -212,16 +197,6 @@ class Hyzllg:
                 "telcoCheckResult": "1"
             }
         }
-        # data["loanReqNo"] = self.loanReqNo
-        # data["insuranceNo"] = self.loanReqNo
-        # data["name"] = self.name
-        # data["phone"] = self.phone
-        # data["idNo"] = self.idNo
-        # data["loanAmount"] = self.loanAmount
-        # data["periods"] = self.periods
-        # data["bankCard"] = self.bankcard
-        # data["channelDetail"]["custGrde"] = self.custGrde
-        # data["channelDetail"]["capitalCode"] = self.capitalCode
 
         title = "**********支用接口！**********"
         url = self.url + 'DISBURSE'
@@ -277,8 +252,9 @@ class Hyzllg:
                 raw_input("Press <enter>")
 
 
-def main_360(a,b):
-    for i in range(b):
+def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
+    for i in range(number):
+        HB_loanReqNo = Collect.random_number_reqno()
         random__name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         HB_phone = Collect.phone()
@@ -289,15 +265,6 @@ def main_360(a,b):
         # HB_phone = "16608058360"
         # Bank = "6214661723533450"
 
-        HB_loanReqNo = Collect.random_number_reqno()
-        # 借款金额
-        loanAmount = 6000
-        # 期数
-        periods = '6'
-        # 客户等级
-        custGrde = 18
-        # 资方代码 (微众：FBBANK，龙江：LJBANK)
-        capitalCode = "FBBANK"
         # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
         if capitalCode == "LJBANK":
             loan_datetime = time.strftime("%Y-%m-%d")
@@ -306,13 +273,13 @@ def main_360(a,b):
             Collect.update_lj_mock("apply", ljreqno, loan_datetime)
             Collect.update_lj_mock("query", ljreqno, loan_datetime)
 
-        if a == 0:
+        if environment == "SIT":
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
                             Bank, Collect.sit_url_360)
-        elif a == 1:
+        elif environment == "UAT":
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
                             Bank, Collect.uat_url_360)
-        elif a == 2:
+        elif environment == "DEV":
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
                             Bank, Collect.dev_url_360)
         else:
@@ -336,8 +303,21 @@ def main_360(a,b):
         # raw_input("Press <enter>")
 
 
+
+def main():
+    #环境（sit,uat,dev）
+    environment = "sit"
+    #走数据笔数
+    number = 1
+    # 借款金额
+    loanAmount = 6000
+    # 期数
+    periods = '6'
+    # 客户等级
+    custGrde = 18
+    # 资方代码 (微众：FBBANK，龙江：LJBANK)
+    capitalCode = "FBBANK"
+    main_360(environment.upper(),number,loanAmount,periods,custGrde,capitalCode)
+
 if __name__ == '__main__':
-    # 0是SIT
-    # 1是UAT
-    # 2是DEV
-    main_360(0,1)
+    main()
