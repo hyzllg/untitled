@@ -1,7 +1,6 @@
 import time
 import requests
 import random
-
 def esay_mock_login():
     url = "http://10.1.14.146:7300/api/u/login"
     data = {"name":"gdzwzj","password":"Pass01!"}
@@ -11,6 +10,13 @@ def esay_mock_login():
     except:
         print("获取token失败！")
     return token
+
+#启用龙江放款mock
+def start_lj_mock():
+    import requests
+    url = "http://10.1.14.191:26275/sys/setMockStatus?fundCode=20062&status=1"
+    response = requests.request("GET", url)
+    print("龙江放款mock开启成功！")
 
 def random_number_reqno():
     a = str(random.randint(1, 100000))
@@ -59,7 +65,7 @@ def update_lj_mock(api,loanNO,datetime):
             print("更改龙江mock借款申请接口结果查询参数失败!")
     else:
         print("未知错误！")
-
+start_lj_mock()
 ljreqno = random_number_reqno()
 loan_datetime=time.strftime("%Y-%m-%d")
 update_lj_mock("apply", ljreqno, loan_datetime)

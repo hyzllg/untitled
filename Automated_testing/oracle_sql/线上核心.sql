@@ -180,4 +180,3 @@ select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno = '200
 select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno = '787-503008283301607572';
 
 
-
