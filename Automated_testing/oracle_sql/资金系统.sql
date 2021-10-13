@@ -4,7 +4,7 @@ SELECT * FROM CODE_LIBRARY where codeNo='repay_way';
 select * from business_config aa where aa.catalog_code='WEIGHT_RANDOM' and aa.product_code ='7014';
 select * from business_config aa where aa.product_code ='7014';
 --资方放款状态
-select * from ACCT_FUND_APPLY where apply_no = '20210929000000015';
+select * from ACCT_FUND_APPLY where apply_no = '20211013000000001';
 select * from ACCT_FUND_APPLY where apply_no = '20210928000000004';
 --借据
 select * from acct_loan where serialno = '20062-W2021092915414699797';

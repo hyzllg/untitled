@@ -44,7 +44,7 @@ select * from COURT_HEIGHT_LIMIT where object_no = '202108050000000007';
 
 select * from queue_model where modelno = 'BizApply360';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211011000002001'
+select * from queue_task qm where qm.objectno = '20211013000000001'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
@@ -144,6 +144,8 @@ select * from claim_prepare_info where  billno = '20062-W210702000021114' order 
 select * from customer_info where customerid = '320000001217594' ;
 select overduedays from Acct_Loan where customerid = '320000001217594'; --借据表改逾期时间
 
+--查还款交易类型
+SELECT operatetype FROM loan_batch_notice where billno in ('787-503403193301772087','');
 
 select * from queue_task qm where qm.objectno = '20210927000002003'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
@@ -161,10 +163,21 @@ select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno = '787
 select count(1) as claimNums from claim_payment_schedule cps where  cps.PAYDATE=to_char(sysdate-1,'yyyy/MM/dd');
 select * from push_message_info where to_char(to_date(sendtime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')and MESSAGETYPE in ('gd604','gd607');
 
-select * from push_message_info pm where  pm.sendtime=to_char(sysdate,'yyyy/MM/dd') and (pm.messagetype='gd604'or pm.messagetype='gd607')
+select * from push_message_info pm where  pm.sendtime=to_char(sysdate,'yyyy/MM/dd') and (pm.messagetype='gd604'or pm.messagetype='gd607');
 
 select * from SECONDCREDIT_THIRD_RECORD where reportno is not null order by create_date desc
 
+
+
+--理赔客户数
+select * from claim_payment_schedule where OBJECTNO in ('20062-W210712000021245','787-503008283301607572');
+
+--征信上报数
+select * from push_message_info where messagetype in ('gd604','gd607') and sendtime like '2021/10/12%';
+
+--预理赔
+select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno = '20062-W210712000021245';
+select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno = '787-503008283301607572';
 
 
 

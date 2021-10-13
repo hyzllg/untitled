@@ -296,8 +296,14 @@ def main_360(a,b):
         periods = '6'
         # 客户等级
         custGrde = 18
-        # 资方代码 (微众：FBBANK，龙江：20062)
+        # 资方代码 (微众：FBBANK，龙江：LJBANK)
         capitalCode = "FBBANK"
+        # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
+        if capitalCode == "LJBANK":
+            loan_datetime = time.strftime("%Y-%m-%d")
+            ljreqno = Collect.random_number_reqno()
+            Collect.update_lj_mock("apply", ljreqno, loan_datetime)
+            Collect.update_lj_mock("query", ljreqno, loan_datetime)
 
         if a == 0:
             hyzllg = Hyzllg(HB_loanReqNo, random__name, generate__ID, HB_phone, loanAmount, periods, custGrde, capitalCode,
