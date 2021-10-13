@@ -88,7 +88,11 @@
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>gdspbusi</user-name>
-      <schema-mapping />
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="GDSPBUSI" />
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
     <data-source name="三方平台uat" uuid="b0e7292a-714a-46d5-927d-7178e18fffc4">
       <database-info product="Oracle" version="Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production" jdbc-version="4.2" driver-name="Oracle JDBC driver" driver-version="21.1.0.0.0" dbms="ORACLE" exact-version="12.2.0.1.0" exact-driver-version="21.1">
