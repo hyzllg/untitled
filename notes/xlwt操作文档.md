@@ -32,14 +32,16 @@ sheet.write(1, 0, '带样式的写入', style)
 xl.save('C:\\Users\\15136\\Desktop\\字体.xls')
 ```
 
-## 3、设置单元格宽度
+## 3、设置单元格宽度｜高度
 
 ```python
 import xlwt
 xl = xlwt.Workbook(encoding='utf-8')
 sheet = xl.add_sheet('单元格宽度', cell_overwrite_ok=True)
 sheet.write(0, 0, '第一个行第一列内容')
-sheet.col(0).width = 5000
+sheet.col(0).width = 256*72 #设置列宽,256为基准数
+sheet.row(0).height_mismatch = True
+sheet.row(0).height = 20*40 #20为基准数，40意为40磅
 xl.save('C:\\Users\\15136\\Desktop\\单元格宽度.xls')
 ```
 

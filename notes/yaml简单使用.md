@@ -159,5 +159,4 @@ print(datas)
 
       [{'usr1': 'aaa'}, {'psw1': 111, 'usr2': 'bbb', 'psw2': 222}]
 
-5. ### yaml文件中基本数据类型
 
