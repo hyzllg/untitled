@@ -165,7 +165,7 @@ select * from push_message_info where to_char(to_date(sendtime,'yyyy-mm-dd hh24:
 
 select * from push_message_info pm where  pm.sendtime=to_char(sysdate,'yyyy/MM/dd') and (pm.messagetype='gd604'or pm.messagetype='gd607');
 
-select * from SECONDCREDIT_THIRD_RECORD where reportno is not null order by create_date desc
+select * from SECONDCREDIT_THIRD_RECORD where reportno is not null order by create_date desc;
 
 
 

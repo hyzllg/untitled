@@ -395,7 +395,7 @@ def main():
     # 客户类型,0是新用户，1是存量活跃，2是存量静默
     custType = "0"
     # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK
-    capitalCode = "FBBANK"
+    capitalCode = "LJBANK"
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"
     #是否启用修改龙江放款mock参数

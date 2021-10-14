@@ -316,7 +316,7 @@ def main():
     # 客户等级
     custGrde = 18
     # 资方代码 (微众：FBBANK，龙江：LJBANK)
-    capitalCode = "FBBANK"
+    capitalCode = "LJBANK"
     main_360(environment.upper(),number,loanAmount,periods,custGrde,capitalCode)
 
 if __name__ == '__main__':
