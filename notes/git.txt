@@ -48,7 +48,7 @@ git branch -d dev
 #删除远程分支
 git push origin --delete 分支名
 #合并分支
-git merge 分支
+git   分支
 #注释分支
 git merge -no-ff -m "注释" 分支
 #强制拉取远程仓库代码覆盖本地
@@ -56,5 +56,4 @@ git fetch --all && git reset --hard origin/master && git pull
 git pull
 
 ceshi
-
 

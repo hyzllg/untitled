@@ -318,5 +318,10 @@
     git revert dfb02e6e4f2f7b5
     ```
 
-    
+42. 强制拉取远程仓库代码覆盖本地
 
+    ```shell
+    git fetch --all && git reset --hard origin/master && git pull
+    ```
+
+    
