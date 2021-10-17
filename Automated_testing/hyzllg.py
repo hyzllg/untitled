@@ -29,3 +29,8 @@
 # sheet.row(0).height = 20*40
 # #保存文件
 # webook.save("我是菜鸟.xls")
+
+a = 1
+
+data = lambda x:x*6
+print(data(a))
