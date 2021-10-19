@@ -309,7 +309,7 @@ class Hyzllg:
             time.sleep(3)
 
 
-def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,if_mock,loan_datetime=time.strftime("%Y-%m-%d")):
+def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,loan_datetime=time.strftime("%Y-%m-%d")):
 
     abc=[]
     for i in range(number):
@@ -354,7 +354,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
     while len(abc):
         for i in abc:
             # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
-            if if_mock:
+            if capitalCode == "LJBANK":
                 Collect.start_lj_mock()
                 ljreqno = Collect.random_number_reqno()
                 Collect.update_lj_mock("apply", ljreqno, loan_datetime)
@@ -398,9 +398,7 @@ def main():
     capitalCode = "LJBANK"
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"
-    #是否启用修改龙江放款mock参数
-    lj_mock_start = True
-    tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment.upper(),lj_mock_start)
+    tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment.upper())
 
 if __name__ == '__main__':
     main()

@@ -3,10 +3,8 @@ import json
 import os
 import time
 import re as res
-
 import requests
 from past.builtins import raw_input
-
 import Collect
 
 
