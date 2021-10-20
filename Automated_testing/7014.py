@@ -284,9 +284,6 @@ class Hyzllg:
             "creditReqNo": loanReqNo,
             "loanReqNo": self.creditReqNo
         }
-        data["channelCustId"] = self.channelCustId
-        data["loanReqNo"] = loanReqNo
-        data["creditReqNo"] = self.creditReqNo
 
         time.sleep(5)
         while True:
