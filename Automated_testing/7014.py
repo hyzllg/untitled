@@ -348,6 +348,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
 
     nnn = False
     n = 0
+    # input("输入")
     while len(abc):
         for i in abc:
             # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
@@ -392,7 +393,7 @@ def main():
     # 客户类型,0是新用户，1是存量活跃，2是存量静默
     custType = "0"
     # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK
-    capitalCode = "LJBANK"
+    capitalCode = "FBBANK"
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"
     tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment.upper())

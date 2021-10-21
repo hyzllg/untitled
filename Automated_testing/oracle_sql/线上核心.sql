@@ -38,13 +38,12 @@ select * from customer_tel where applyno='20210917000000002';
 select *from customer_realname where regid ='320000000662825';
 select *from customer_realname_log where regid ='20201202000002005';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202110200000012005'
+select * from queue_task qm where qm.objectno = '202110210000002042'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
-select * from COURT_HEIGHT_LIMIT where object_no = '202108050000000007';
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211020000000001'
+select * from queue_task qm where qm.objectno = '20211021000002013'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
