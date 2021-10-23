@@ -22,7 +22,7 @@ select * from loan_credit_records where id_card='320681198909240017' and status=
 select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select *from channel_apply_info where creditreqno ='2020120410404386556';
-select *from channel_apply_info where customerid ='320000001231136' ;
+select *from channel_apply_info where customerid ='320000001232091' ;
 select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889';
 --授信信息
 select * from business_apply where customerid ='320000001228058';
@@ -38,12 +38,12 @@ select * from customer_tel where applyno='20210917000000002';
 select *from customer_realname where regid ='320000000662825';
 select *from customer_realname_log where regid ='20201202000002005';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202110220000004003'
+select * from queue_task qm where qm.objectno = '202110230000004002'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211023000000001'
+select * from queue_task qm where qm.objectno = '20211023000002001'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
@@ -71,7 +71,7 @@ select * from acct_payment_schedule where objectno = '787-503302173301732221';
 --不缩期还款计划
 select * from acct_payment_schedule_not where objectno = '787-503302173301732221';
 --还款通知
-select * from loan_batch_notice where billno='20062-W2021101113541315948';
+select * from loan_batch_notice where billno='20062-W210923004201302';
 --还款记录
 select * from loan_batch_info where objectno='20062-W210923004201302';
 select * from loan_batch_info where objectno='20062-W210923004201302';
@@ -191,4 +191,9 @@ select maxCardOverdueNumLast5 from ED_ILOG_PBOC_DATA where serialno = '202110220
 select * from ED_ILOG_PBOC_DATA order by serialno
 
 
-select CUSTGRADE from CHANNEL_APPLY_INFO where customerid = '320000001232088';
+select CUSTGRADE,CREDITREQNO from CHANNEL_APPLY_INFO where customerid = '320000001232110';
+
+
+select NORMALBALANCE as 正常本金,OVERDUEBALANCE as 逾期本金 from acct_loan where serialno = '20062-W210923004201302';
+
+select CUSTGRADE from FINANCE360_CHANNEL_DETAIL where creditreqno = '2021102319050979012';
