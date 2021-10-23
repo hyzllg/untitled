@@ -22,7 +22,7 @@ select * from loan_credit_records where id_card='320681198909240017' and status=
 select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select *from channel_apply_info where creditreqno ='2020120410404386556';
-select *from channel_apply_info where customerid ='320000001217029' ;
+select *from channel_apply_info where customerid ='320000001231136' ;
 select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889';
 --授信信息
 select * from business_apply where customerid ='320000001228058';
@@ -38,12 +38,12 @@ select * from customer_tel where applyno='20210917000000002';
 select *from customer_realname where regid ='320000000662825';
 select *from customer_realname_log where regid ='20201202000002005';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202110210000002042'
+select * from queue_task qm where qm.objectno = '202110220000004003'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211021000002013'
+select * from queue_task qm where qm.objectno = '20211023000000001'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
@@ -78,11 +78,11 @@ select * from loan_batch_info where objectno='20062-W210923004201302';
 --扣款记录
 select * from loan_batch_cutpayment where billno='787-502805153301143206';
 --四要素成功落库
-select * from CUSTOMER_BANK_CARD where customerid = '320000001217029';
+select * from CUSTOMER_BANK_CARD where customerid = '320000001231136';
 --四要素是否调用
-select * from customer_auth  where certid='432524199810111425';
+select * from customer_auth  where certid='450102199407088327';
 --四要素是否复用
-select * from third_relative where customerid = '320000000663325';
+select * from third_relative where customerid = '320000001232002';
 --调三要素
 select * from PHONETHREE_VERITY_RESULT  where servicecode='12001' and responsecode = '0';
 --授信规则校验
@@ -92,7 +92,9 @@ select * from IMAGE_LIST where CUSTOMERID = '20200826000002008';
 --黑瞳复用
 select * from third_relative where customerid = '320000000670153';
 --黑瞳调用
-select * from HEITONG_RESULT WHERE customerid = '320000000670153';
+select * from HEITONG_RESULT WHERE customerid = '320000001232004';
+select * from heitong_high_risk where OBJECT_NO = '20211022000002004';
+select * from trans_log where applyno = '20211022000002004' and Servicename = 'HeiTongAntiFraudService';
 --ilog规则集结果
 SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '20200722000000006';
 SELECT * FROM ILOG_RULES_RESULT c WHERE c.customerid = '320000001219556';
@@ -185,5 +187,8 @@ select serialno from SECONDCREDIT_THIRD_RECORD where serialno in(
 (select customerid from CHANNEL_APPLY_INFO where serialno = '202110200000006001'))));
 
 
-
+select maxCardOverdueNumLast5 from ED_ILOG_PBOC_DATA where serialno = '20211022000002004';
 select * from ED_ILOG_PBOC_DATA order by serialno
+
+
+select CUSTGRADE from CHANNEL_APPLY_INFO where customerid = '320000001232088';

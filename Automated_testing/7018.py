@@ -365,10 +365,10 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
         HB_phone = Collect.phone()
         HB_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
-        # random__name = "刘生"
-        # generate__ID = "310101199106127639"
-        # HB_phone = "13866666666"
-        # HB_bankcard = ""
+        # random__name = "自动化汪佳婵"
+        # generate__ID = "350182199207234324"
+        # HB_phone = "18492850576"
+        # HB_bankcard = "6226090265655661"
         if environment == "SIT":
             hyzllg = Hyzllg(HB_loanReqNo, HB_creditReqNo, random__name, generate__ID, HB_phone, loanAmount, periods,
                             HB_bankcard,
@@ -439,7 +439,7 @@ def main():
     # 期数
     periods = "6"
     # 客户等级上下限
-    custGrde = 18
+    custGrde = 20
     pp_main(environment.upper(),number,loanAmount,periods,custGrde)
 
 if __name__ == '__main__':

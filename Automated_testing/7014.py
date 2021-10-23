@@ -311,10 +311,10 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
     abc=[]
     for i in range(number):
         # 指定姓名身份证手机号时使用
-        # random_name = "范之"
-        # generate__ID = "370214199505124126"
-        # ORANGE_phone = "16609291815"
-        # ORANGE_bankcard = "6214660929165806"
+        # random_name = "张八"
+        # generate__ID = "542128196305226980"
+        # ORANGE_phone = "13800138001"
+        # ORANGE_bankcard = "5555666677778889"
         random_name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         ORANGE_phone = Collect.phone()

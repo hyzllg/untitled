@@ -258,10 +258,10 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         HB_phone = Collect.phone()
         Bank = Collect.bankcard()
         #指定姓名身份证手机号时使用
-        # random__name = "羊卡国"
-        # generate__ID = "220403199512301943"
-        # HB_phone = "16608058360"
-        # Bank = "6214661723533450"
+        # random__name = "居贝亚"
+        # generate__ID = "450102199407088327"
+        # HB_phone = "16610221838"
+        # Bank = "6214661022113802"
 
         # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
         if capitalCode == "LJBANK":

@@ -281,10 +281,10 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         HB_phone = Collect.phone()
         HB_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
-        # random__name = "刘生"
-        # generate__ID = "310101199106127639"
-        # HB_phone = "13866666666"
-        # HB_bankcard = ""
+        # random__name = "张八"
+        # generate__ID = "542128196305226980"
+        # HB_phone = "13800138001"
+        # HB_bankcard = "5555666677778889"
 
 
         if environment == "SIT":
