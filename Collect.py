@@ -102,13 +102,16 @@ def sql_update(setting,v,vv):
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
 def test_api(url,data,title):
-
-    print(title)
-    print(f"请求报文：{data}")
-    re = requests.post(url, data=json.dumps(data))
-    requit = re.json()
-    requit["data"] = eval(requit["data"])
-    print(f"响应报文：{requit}")
+    try:
+        print(title)
+        print(f"请求报文：{data}")
+        re = requests.post(url, data=json.dumps(data))
+        requit = re.json()
+        requit["data"] = eval(requit["data"])
+        print(f"响应报文：{requit}")
+    except:
+        # print(re.text)
+        print("接口响应异常")
     return requit
 
 class id_card:

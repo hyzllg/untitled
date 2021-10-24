@@ -18,14 +18,6 @@ class Hyzllg:
         self.url = url
         self.custType = custType
 
-    # def wrapper(func):
-    #     def inner(*args, **kwargs):
-    #         s = func(*args, **kwargs)
-    #         with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\ORANGE.log", 'a+',
-    #                   encoding='utf-8') as Python_crawler:
-    #             Python_crawler.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
-    #
-    #     return inner
 
     def credit_granting(self):
         data = {

@@ -37,6 +37,7 @@ class Hyzllg:
             "callbackUrl": "https://www.baidu.com"
         }
 
+
         url = self.url + 'INSURE_INFO'
         title = "**********投保信息接口！**********"
         requit = Collect.test_api(url,data,title)
