@@ -1,0 +1,34 @@
+#大地线上核心数据库配置
+xshx_oracle :
+ xsxb_sit_oracle : ["xbhxbusi", "ccic1234","10.1.12.141:1521/PTST12UF"]
+ xsxb_uat_oracle : ["xbhxbusi","ccic1234","10.1.12.141:1523/PDEV12UF"]
+ xsxb_dev_oracle : ["xbhxbusi","ccic1234","10.1.12.141:1521/PUAT12uf"]
+#大地线下核心、账务系统数据库配置
+xxhx_oracle :
+ xxhx_sit_oracle : ["gdbzdev","ccic1234","10.2.3.203:1521/R2TST16GPDB"]
+ xxhx_uat_oracle : ["gdbzbusi","ccic9879","10.2.3.203:1521/R2UAT16GPDB"]
+#360产品前置系统调用地址
+api_url_360 :
+ sit_url_360 : 'http://10.1.14.106:27405/channel/apitest/QFIN/'
+ uat_url_360 : 'http://10.1.14.117:27405/channel/apitest/QFIN/'
+ dev_url_360 : 'http://10.1.14.106:27405/channel-dev/apitest/QFIN/'
+#还呗产品前置系统调用地址
+api_url_hb :
+ sit_url_hb : 'http://10.1.14.106:27405/channel/apitest/HUANBEI/'
+ uat_url_hb : 'http://10.1.14.117:27405/channel/apitest/HUANBEI/'
+ dev_url_hb : 'http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/'
+#甜橙产品前置系统调用地址
+api_url_tc :
+ sit_url_tc : 'http://10.1.14.106:27405/channel/apitest/TCJQ/'
+ urt_url_tc : 'http://10.1.14.117:27405/channel/apitest/TCJQ/'
+ dev_url_tc : 'http://10.1.14.106:27405/channel-dev/apitest/TCJQ/'
+#拍拍贷产品前置系统调用地址
+api_url_pp :
+ sit_url_pp : 'http://10.1.14.106:27405/channel/TEST/PPDAI/'
+ uat_url_pp : 'http://10.1.14.117:27405/channel/apitest/PPDAI/'
+ dev_url_pp : 'http://10.1.14.106:27405/channel-dev/apitest/PPDAI/'
+#交行产品前置系统调用地址
+api_url_jh :
+ sit_url_jh : 'http://10.1.14.106:27405/channel/apitest/BCM/'
+ uat_url_jh : 'http://10.1.14.117:27405/channel/apitest/BCM/'
+ dev_url_jh : 'http://10.1.14.106:27405/channel-dev/apitest/BCM/'

@@ -13,8 +13,9 @@
       <sourceFolder url="file://$MODULE_DIR$/notes" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/automated_testing" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/automated_testing/myunittest" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test_pytest" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test_selenium" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/api_test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/dadi_project" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (untitled)" jdkType="Python SDK" />
@@ -23,8 +24,8 @@
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
-        <option value="$MODULE_DIR$/Automated_testing/batch" />
-        <option value="$MODULE_DIR$/Automated_testing/data_yaml" />
+        <option value="$MODULE_DIR$/dadi_project/batch" />
+        <option value="$MODULE_DIR$/dadi_project/datas" />
       </list>
     </option>
   </component>

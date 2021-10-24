@@ -158,7 +158,7 @@ def environments(environment):
 
 
 def data():
-    with open("../data_yaml/CLAIM_RESULT_DATAS.yaml", encoding="utf-8") as f:
+    with open("../datas/CLAIM_RESULT_DATAS.yaml", encoding="utf-8") as f:
         datas = yaml.load(f, Loader=yaml.SafeLoader)  # 手动指定加载程序yaml.SafeLoader
     return datas
 
