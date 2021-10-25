@@ -1,185 +1,88 @@
 import time
 from past.builtins import raw_input
 import Collect
+import yaml
 
 
 class Hyzllg:
-    def __init__(self, channelCustId, creditReqNo,loanReqNo, name, idNo, phone, repayAmount,loanAmount, periods, bankcard, url,custType):
-        self.channelCustId = channelCustId
-        self.creditReqNo = creditReqNo
-        self.loanReqNo = loanReqNo
-        self.name = name
-        self.idNo = idNo
-        self.phone = phone
-        self.loanAmount = loanAmount
-        self.repayAmount = repayAmount
-        self.periods = periods
-        self.bankcard = bankcard
-        self.url = url
-        self.custType = custType
+    def __init__(self, **kwargs):
+        self.channelCustId = kwargs["channelCustId"]
+        self.creditReqNo = kwargs["creditReqNo"]
+        self.loanReqNo = kwargs["loanReqNo"]
+        self.name = kwargs["name"]
+        self.idNo = kwargs["idNo"]
+        self.phone = kwargs["phone"]
+        self.loanAmount = kwargs["loanAmount"]
+        self.repayAmount = kwargs["repayAmount"]
+        self.periods = kwargs["periods"]
+        self.bankcard = kwargs["bankcard"]
+        self.url = kwargs["url"]
+        self.res_data = kwargs["res_data"]
+        self.custType = kwargs["custType"]
 
 
     def credit_granting(self):
-        data = {
-            "channelCustId": self.channelCustId,
-            "creditReqNo": self.creditReqNo,
-            "name": self.name,
-            "spelling": "ZHANGTIAN",
-            "sex": "01",
-            "nationality": "中国",
-            "nation": "汉族",
-            "birthday": "1985/06/02",
-            "idType": "00",
-            "idNo": self.idNo,
-            "idStartDate": "2016/01/18",
-            "idEndDate": "2036/01/18",
-            "idOffice": "北京市东城区",
-            "marriage": "01",
-            "children": "00",
-            "supplyPeople": 3,
-            "house": "00",
-            "addProvince": "110000",
-            "addCity": "110000",
-            "addDistrict": "110101",
-            "addDetail": "东大街东大院",
-            "industry": "C",
-            "profession": "11",
-            "workplaceName": "AAA单位",
-            "workTel": "13162314539",
-            "workProvince": "110000",
-            "workCity": "110000",
-            "workDistrict": "110101",
-            "workDetailAdd": "西大街西大院",
-            "workAge": 8,
-            "income": "03",
-            "education": "06",
-            "school": "北京大学",
-            "phone": self.phone,
-            "email": "email163@qq.com",
-            "contacts": [{
-                "relation": "00",
-                "name": "张三",
-                "phoneNo": "15638530000"
-            }, {
-                "relation": "01",
-                "name": "李四",
-                "phoneNo": "15638539999"
-            }],
-            "bankCard": self.bankcard,
-            "bankName": "建设银行",
-            "bankPhone": self.phone,
-            "applyProvince": "110000",
-            "applyCity": "110000",
-            "applyDistrict": "110101",
-            "loanAmount": self.repayAmount,
-            "periods": self.periods,
-            "purpose": "01",
-            "direction": "01",
-            "payType": "00",
-            "payMerchantNo": "26666",
-            "authFlag": "01",
-            "deviceDetail": {
-                "deviceId": "10-45-5-486",
-                "mac": "3a:b6:c6:5d:2e:f9",
-                "longitude": "121.551738",
-                "latitude": "31.224634",
-                "gpsCity": "上海市",
-                "ip": "106.14.135.199",
-                "ipCity": "上海",
-                "os": "android",
-                "docDate": "2019/09/12"
-            },
-            "channelDetail": {
-                "citizenshipCheckResult": "1",
-                "bankCheckResult": "1",
-                "telcoCheckResult": "1",
-                "consumeTimes": "1",
-                "creditTimes": "1",
-                "consumeScene": "1",
-                "frontId": "11",
-                "reverseId": "11",
-                "faceId": "11",
-                "woolFlag": "1",
-                "phoneFlag": "1",
-                "phoneTelco": "1",
-                "compScore": "650",
-                "repayAbilityScore": "650",
-                "comsAmount": "1",
-                "finAmount": "1",
-                "redPacket": "1",
-                "phoneAreaName": "上海市",
-                "modelScore": "650",
-                "whiteListFlag": "0",
-                "sugAmount": "3000.00",
-                "sugBasis": "2",
-                "loanGrade": "A",
-                "registerTime": "1",
-                "realNameFlag": "1",
-                "realNameGrade": "1",
-                "transFlag": "1",
-                "custType": self.custType,
-                "currLimit": 5000,
-                "currRemainLimit": 2000,
-                "currLimitOrg": "DD",
-                "currLimitStartDate": "2021/05/31",
-                "currLimitEndDate": "2021/07/31",
-                "currTotalPrice": 28.11,
-                "firstLoanFlag": "1",
-                "unsettleLoanLimit": 1,
-                "settleLoanLimit": 1,
-                "lastLoanDate": "2021/04/21",
-                "loanAmount": 3000
-            }
-        }
-
-
-        url = self.url + 'CREDIT_GRANTING'
-        title = "**********授信申请！**********"
-        requit = Collect.test_api(url,data,title)
-
-        if requit["result"] == True:
-            creditApplyNo = requit["data"]["body"]["creditApplyNo"]
-            print("授信接口调用成功！")
-            if requit["data"]["body"]["status"] == "01":
-                print("授信受理成功，处理中！")
+        #获取res默认data并替换其中参数
+        data = self.res_data["credit_granting"]
+        data["channelCustId"]=self.channelCustId
+        data["creditReqNo"]=self.creditReqNo
+        data["name"]=self.name
+        data["idNo"]=self.idNo
+        data["phone"]=self.phone
+        data["repayAmount"]=self.repayAmount
+        data["periods"]=self.periods
+        data["bankcard"]=self.bankcard
+        data["custType"]=self.custType
+        url = self.url["credit_granting"]
+        print("**********授信申请**********")
+        requit = Collect.test_api(url,data)
+        try:
+            if requit["result"] == True:
+                creditApplyNo = requit["data"]["body"]["creditApplyNo"]
+                print("授信接口调用成功！")
+                if requit["data"]["body"]["status"] == "01":
+                    print("授信受理成功，处理中！")
+                else:
+                    print("授信受理失败！")
+                    exit()
             else:
-                print("授信受理失败！")
-                raw_input("Press <enter>")
-
-        else:
-            print("未知异常！")
-            raw_input("Press <enter>")
+                print("未知异常！")
+                exit()
+        except KeyError:
+            print("甜橙授信接口响应异常！")
+            exit()
         return creditApplyNo
 
     def credit_inquiry(self, creditApplyNo):
         hhh = 0
-        data = {
-            "channelCustId": self.channelCustId,
-            "creditReqNo": self.creditReqNo,
-            "creditApplyNo": creditApplyNo
-        }
+        data = self.res_data["credit_inquiry"]
+        data["channelCustId"] = self.channelCustId
+        data["creditReqNo"] = self.creditReqNo
+        data["creditApplyNo"] = creditApplyNo
 
         time.sleep(2)
         n = False
-        while hhh < 30:
-            url = self.url + 'CREDIT_INQUIRY'
-            title = "**********授信结果查询！**********"
-            requit = Collect.test_api(url, data, title)
+        while hhh < 16:
+            url = self.url["credit_inquiry"]
+            print("**********授信结果查询**********")
+            requit = Collect.test_api(url, data)
             print("授信查询接口调用成功！")
-            if requit["data"]["body"]["status"] == "01":
-                print("授信通过！")
-                n = True
-                break
-            elif requit["data"]["body"]["status"] == "00":
-                print("授信中！")
-                time.sleep(3)
-                hhh += 1
-                continue
-            else:
-                print("授信失败！")
-                raw_input("Press <enter>")
-
-
+            try:
+                if requit["data"]["body"]["status"] == "01":
+                    print("授信通过！")
+                    n = True
+                    break
+                elif requit["data"]["body"]["status"] == "00":
+                    print("授信中！")
+                    time.sleep(3)
+                    hhh += 1
+                    continue
+                else:
+                    print("授信失败！")
+                    exit()
+            except KeyError:
+                print("甜橙授信查询接口响应异常！")
+                exit()
         if hhh >= 16:
             print("甜橙授信时间过长！可能由于授信挡板问题，结束程序！")
             raw_input("Press <enter>")
@@ -187,119 +90,97 @@ class Hyzllg:
         return n
 
     def disburse_trial(self, capitalCode):
-        data = {
-            "channelCustId": self.channelCustId,
-            "periods": self.periods,
-            "loanAmount": self.loanAmount
-        }
+        data = self.res_data["disburse_trial"]
+        data["channelCustId"] = self.channelCustId
+        data["periods"] = self.periods
+        data["loanAmount"] = self.loanAmount
 
         while True:
-            url = self.url + 'DISBURSE_TRIAL'
-            title = "**********支用试算！**********"
-            requit = Collect.test_api(url, data, title)
-            if requit["result"] == True:
-                print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
-                if requit["data"]["body"]["status"] == "01" and requit["data"]["body"]["capitalCode"] == capitalCode:
-                    print("支用试算成功！")
-                    break
+            url = self.url["disburse_trial"]
+            print("**********支用试算**********")
+            requit = Collect.test_api(url,data)
+            try:
+                if requit["result"] == True:
+                    print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
+                    if requit["data"]["body"]["status"] == "01" and requit["data"]["body"]["capitalCode"] == capitalCode:
+                        print("支用试算成功！")
+                        break
+                    else:
+                        time.sleep(3)
+                        continue
                 else:
-                    time.sleep(3)
-                    continue
-            else:
-                print("未知异常！")
-                raw_input("Press <enter>")
+                    print("未知异常！")
+                    raw_input("Press <enter>")
+            except KeyError:
+                print("甜橙支用试算接口响应异常！")
+                exit()
 
     def disburse(self, capitalCode):
-        data = {
-            "channelCustId": self.channelCustId,
-            "loanReqNo": self.loanReqNo,
-            "creditReqNo": self.creditReqNo,
-            "loanAmount": self.loanAmount,
-            "periods": self.periods,
-            "purpose": "01",
-            "bankCard": self.bankcard,
-            "bankCode": "308584000013",
-            "bankName": "建设银行",
-            "bankPhone": self.phone,
-            "longitude": "121.551738",
-            "latitude": "31.224634",
-            "ip": "192.168.1.2",
-            "capitalCode": capitalCode,
-            "channelDetail": {
-                "woolFlag": "1",
-                "phoneFlag": "1",
-                "phoneTelco": "1",
-                "compScore": "80",
-                "repayAbilityScore": "80",
-                "comsAmount": "4",
-                "finAmount": "2",
-                "redPacket": "2",
-                "phoneAreaName": "上海市",
-                "modelScore": "80",
-                "whiteListFlag": "0",
-                "loanGrade": "A",
-                "registerTime": "2",
-                "realNameFlag": "1",
-                "realNameGrade": "1",
-                "transFlag": "1",
-                "custType": self.custType,
-                "currLimit": 5000,
-                "currRemainLimit": 2000,
-                "currLimitOrg": "DD",
-                "currLimitStartDate": "2021/05/31",
-                "currLimitEndDate": "2021/07/31",
-                "currTotalPrice": 28.11,
-                "firstLoanFlag": "1",
-                "unsettleLoanLimit": 1,
-                "settleLoanLimit": 1,
-                "lastLoanDate": "2021/04/21",
-                "loanAmount": 3000
-            }
-        }
-        url = self.url + 'DISBURSE'
-        title = "**********支用接口！**********"
-        requit = Collect.test_api(url, data, title)
-        if requit["result"] == True:
-            print("支用接口调用成功！")
-            if requit["data"]["body"]["status"] == "01":
-                print("受理成功，处理中!")
-            else:
-                print("受理失败")
-                raw_input("Press <enter>")
-        else:
-            print("未知异常！")
-            raw_input("Press <enter>")
+        data = self.res_data["disburse"]
+        data["channelCustId"] = self.channelCustId
+        data["loanReqNo"] = self.loanReqNo
+        data["creditReqNo"] = self.creditReqNo
+        data["loanAmount"] = self.loanAmount
+        data["periods"] = self.periods
+        data["bankcard"] = self.bankcard
+        data["phone"] = self.phone
+        data["capitalCode"] = capitalCode
+        data["custType"] = self.custType
 
-    def disburse_in_query(self, loanReqNo):
-        data = {
-            "channelCustId": self.channelCustId,
-            "creditReqNo": loanReqNo,
-            "loanReqNo": self.creditReqNo
-        }
-
-        time.sleep(5)
-        while True:
-            url = self.url + 'DISBURSE_IN_QUERY'
-            title = "**********支用结果查询！**********"
-            requit = Collect.test_api(url, data, title)
+        url = self.url["disburse"]
+        print("**********支用接口**********")
+        requit = Collect.test_api(url, data)
+        try:
             if requit["result"] == True:
-                print("支用结果查询接口调用成功！")
+                print("支用接口调用成功！")
                 if requit["data"]["body"]["status"] == "01":
-                    print("支用成功")
-                    break
-                elif requit["data"]["body"]["status"] == "00":
-                    print("处理中！")
+                    print("受理成功，处理中!")
                 else:
-                    print("支用失败！")
+                    print("受理失败")
                     raw_input("Press <enter>")
             else:
                 print("未知异常！")
                 raw_input("Press <enter>")
-            time.sleep(3)
+        except KeyError:
+            print("甜橙支用接口响应异常！")
+            exit()
+
+    def disburse_in_query(self, loanReqNo):
+        data = self.res_data["disburse_in_query"]
+        data["channelCustId"] = self.channelCustId
+        data["creditReqNo"] = loanReqNo
+        data["loanReqNo"] = self.creditReqNo
+        time.sleep(5)
+        while True:
+            url = self.url["disburse_in_query"]
+            print("**********支用结果查询**********")
+            requit = Collect.test_api(url, data)
+            try:
+                if requit["result"] == True:
+                    print("支用结果查询接口调用成功！")
+                    if requit["data"]["body"]["status"] == "01":
+                        print("支用成功")
+                        break
+                    elif requit["data"]["body"]["status"] == "00":
+                        print("处理中！")
+                    else:
+                        print("支用失败！")
+                        raw_input("Press <enter>")
+                else:
+                    print("未知异常！")
+                    raw_input("Press <enter>")
+                time.sleep(3)
+            except KeyError:
+                print("甜橙支用结果查询接口响应异常！")
+                exit()
+
 
 
 def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,loan_datetime=time.strftime("%Y-%m-%d")):
-
+    #获取配置信息
+    get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
+    res_url = get_yaml_data('./setting/Config.yaml')["api_url_tc"]
+    res_data = get_yaml_data('./setting/request_data.yaml')["tc_res_data"]
     abc=[]
     for i in range(number):
         # 指定姓名身份证手机号时使用
@@ -316,25 +197,95 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
         creditReqNo = Collect.random_number_reqno()
         loanReqNo = Collect.random_number_reqno()
         if environment == "SIT":
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
-                            loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc,custType)
+            hyzllg = Hyzllg(channelCustId=channelCustId,
+                            creditReqNo=creditReqNo,
+                            loanReqNo = loanReqNo,
+                            name = random_name,
+                            idNo = generate__ID,
+                            phone = ORANGE_phone,
+                            repayAmount = repayAmount,
+                            loanAmount = loanAmount,
+                            periods = periods,
+                            bankcard = ORANGE_bankcard,
+                            url = res_url["sit_url_tc"],
+                            res_data = res_data,
+                            custType = custType)
             credit = hyzllg.credit_granting()
             abc.append(
-                [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
-                 ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.sit_url_tc, credit,custType])
+                {"channelCustId" : channelCustId,
+                 "creditReqNo" : creditReqNo,
+                 "loanReqNo" : loanReqNo,
+                 "name" : random_name,
+                 "idNo" : generate__ID,
+                 "phone" : ORANGE_phone,
+                 "repayAmount" : repayAmount,
+                 "loanAmount" : loanAmount,
+                 "periods" : periods,
+                 "bankcard" : ORANGE_bankcard,
+                 "url" : res_url["sit_url_tc"],
+                 "res_data" : res_data,
+                 "credit" : credit,
+                 "custType" : custType})
         elif environment == "UAT":
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
-                            loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc,custType)
+            hyzllg = Hyzllg(channelCustId=channelCustId,
+                            creditReqNo=creditReqNo,
+                            loanReqNo = loanReqNo,
+                            name = random_name,
+                            idNo = generate__ID,
+                            phone = ORANGE_phone,
+                            repayAmount = repayAmount,
+                            loanAmount = loanAmount,
+                            periods = periods,
+                            bankcard = ORANGE_bankcard,
+                            url = res_url["uat_url_tc"],
+                            res_data=res_data,
+                            custType = custType)
             credit = hyzllg.credit_granting()
             abc.append(
-                [channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
-                 ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.uat_url_tc, credit,custType])
+                {"channelCustId" : channelCustId,
+                 "creditReqNo" : creditReqNo,
+                 "loanReqNo" : loanReqNo,
+                 "name" : random_name,
+                 "idNo" : generate__ID,
+                 "phone" : ORANGE_phone,
+                 "repayAmount" : repayAmount,
+                 "loanAmount" : loanAmount,
+                 "periods" : periods,
+                 "bankcard" : ORANGE_bankcard,
+                 "url" : res_url["uat_url_tc"],
+                 "res_data": res_data,
+                 "credit" : credit,
+                 "custType" : custType})
         elif environment == "DEV":
-            hyzllg = Hyzllg(channelCustId, creditReqNo, loanReqNo, random_name, generate__ID, ORANGE_phone,repayAmount,
-                            loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc,custType)
+            hyzllg = Hyzllg(channelCustId=channelCustId,
+                            creditReqNo=creditReqNo,
+                            loanReqNo = loanReqNo,
+                            name = random_name,
+                            idNo = generate__ID,
+                            phone = ORANGE_phone,
+                            repayAmount = repayAmount,
+                            loanAmount = loanAmount,
+                            periods = periods,
+                            bankcard = ORANGE_bankcard,
+                            url = res_url["dev_url_tc"],
+                            res_data=res_data,
+                            custType = custType)
             credit = hyzllg.credit_granting()
-            abc.append([channelCustId, creditReqNo, loanReqNo, random_name, generate__ID,
-                        ORANGE_phone, repayAmount,loanAmount, periods, ORANGE_bankcard, Collect.dev_url_tc, credit,custType])
+            abc.append(
+                {"channelCustId" : channelCustId,
+                 "creditReqNo" : creditReqNo,
+                 "loanReqNo" : loanReqNo,
+                 "name" : random_name,
+                 "idNo" : generate__ID,
+                 "phone" : ORANGE_phone,
+                 "repayAmount" : repayAmount,
+                 "loanAmount" : loanAmount,
+                 "periods" : periods,
+                 "bankcard" : ORANGE_bankcard,
+                 "url" : res_url["dev_url_tc"],
+                 "res_data": res_data,
+                 "credit" : credit,
+                 "custType" : custType})
         else:
             print("........")
 
@@ -349,8 +300,20 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                 ljreqno = Collect.random_number_reqno()
                 Collect.update_lj_mock("apply", ljreqno, loan_datetime)
                 Collect.update_lj_mock("query", ljreqno, loan_datetime)
-            hyzllg = Hyzllg(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],i[10],i[12])
-            if hyzllg.credit_inquiry(i[-2]):
+            hyzllg = Hyzllg(channelCustId=i['channelCustId'],
+                            creditReqNo=i['creditReqNo'],
+                            loanReqNo = i['loanReqNo'],
+                            name = i['name'],
+                            idNo = i['idNo'],
+                            phone = i['phone'],
+                            repayAmount = i['repayAmount'],
+                            loanAmount = i['loanAmount'],
+                            periods =i['periods'],
+                            bankcard = i['bankcard'],
+                            url = i['url'],
+                            res_data = i["res_data"],
+                            custType = i['custType'])
+            if hyzllg.credit_inquiry(i['credit']):
                 hyzllg.disburse_trial(capitalCode)
                 hyzllg.disburse(capitalCode)
                 # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
@@ -360,14 +323,14 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
             if n > 30 and nnn == False:
                 raw_input("Press <enter>")
             test_info = f'''
-                    姓名：{i[3]}
-                    身份证号：{i[4]}
-                    手机号：{i[5]}
-                    借款金额:{i[6]}
-                    借款期次:{i[7]}
-                    channelCustId：{i[0]}
-                    creditReqNo：{i[1]}
-                    loanReqNo:{i[2]}
+                    姓名：{i['name']}
+                    身份证号：{i['idNo']}
+                    手机号：{i['phone']}
+                    借款金额:{i['loanAmount']}
+                    借款期次:{i['periods']}
+                    channelCustId：{i['channelCustId']}
+                    creditReqNo：{i['creditReqNo']}
+                    loanReqNo:{i['loanReqNo']}
                     '''
             print(test_info)
 

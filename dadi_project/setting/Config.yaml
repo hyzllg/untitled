@@ -12,77 +12,77 @@ xxhx_oracle :
 api_url_360 :
  sit_url_360 :
   #360投保信息接口
-  insure_info : http://10.1.14.106:27405/channel/apitest/qnif/insure_info
+  insure_info : http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
   #360投保资料查询接口
-  insure_data_query : http://10.1.14.106:27405/channel/apitest/qnif/insure_data_query
+  insure_data_query : http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
   #360投保接口
-  insure : http://10.1.14.106:27405/channel/apitest/qnif/insure
+  insure : http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
   #360支用接口
-  disburse : http://10.1.14.106:27405/channel/apitest/qnif/disburse
+  disburse : http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
   #360支用查询接口
-  disburse_in_query : http://10.1.14.106:27405/channel/apitest/qnif/disburse_in_query
+  disburse_in_query : http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE_IN_QUERY
 
  uat_url_360 :
   #360投保信息接口
-  insure_info: http://10.1.14.117:27405/channel/apitest/qnif/insure_info
+  insure_info: http://10.1.14.117:27405/channel/apitest/QFIN/INSURE_INFO
   #360投保资料查询接口
-  insure_data_query: http://10.1.14.117:27405/channel/apitest/qnif/insure_data_query
+  insure_data_query: http://10.1.14.117:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
   #360投保接口
-  insure: http://10.1.14.117:27405/channel/apitest/qnif/insure
+  insure: http://10.1.14.117:27405/channel/apitest/QFIN/INSURE
   #360支用接口
-  disburse: http://10.1.14.117:27405/channel/apitest/qnif/disburse
+  disburse: http://10.1.14.117:27405/channel/apitest/QFIN/DISBURSE
   #360支用查询接口
-  disburse_in_query: http://10.1.14.117:27405/channel/apitest/qnif/disburse_in_query
+  disburse_in_query: http://10.1.14.117:27405/channel/apitest/QFIN/DISBURSE_IN_QUERY
 
  dev_url_360 :
   #360投保信息接口
-  insure_info: http://10.1.14.106:27405/channel-dev/apitest/qnif/insure_info
+  insure_info: http://10.1.14.106:27405/channel-dev/apitest/QFIN/INSURE_INFO
   #360投保资料查询接口
-  insure_data_query: http://10.1.14.106:27405/channel-dev/apitest/qnif/insure_data_query
+  insure_data_query: http://10.1.14.106:27405/channel-dev/apitest/QFIN/INSURE_DATA_QUERY
   #360投保接口
-  insure: http://10.1.14.106:27405/channel-dev/apitest/qnif/insure
+  insure: http://10.1.14.106:27405/channel-dev/apitest/QFIN/INSURE
   #360支用接口
-  disburse: http://10.1.14.106:27405/channel-dev/apitest/qnif/disburse
+  disburse: http://10.1.14.106:27405/channel-dev/apitest/QFIN/DISBURSE
   #360支用查询接口
-  disburse_in_query: http://10.1.14.106:27405/channel-dev/apitest/qnif/disburse_in_query
+  disburse_in_query: http://10.1.14.106:27405/channel-dev/apitest/QFIN/DISBURSE_IN_QUERY
 
 #还呗产品前置系统调用地址
 api_url_hb :
  sit_url_hb :
   #还呗投保信息接口
-  insure_info: http://10.1.14.106:27405/channel/apitest/huanbei/insure_info
+  insure_info: http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_INFO
   #还呗投保资料查询接口
-  insure_data_query: http://10.1.14.106:27405/channel/apitest/huanbei/insure_data_query
+  insure_data_query: http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_DATA_QUERY
   #还呗投保接口
-  insure: http://10.1.14.106:27405/channel/apitest/huanbei/insure
+  insure: http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE
   #还呗支用接口
-  disburse: http://10.1.14.106:27405/channel/apitest/huanbei/disburse
+  disburse: http://10.1.14.106:27405/channel/apitest/HUANBEI/DISBURSE
   #还呗支用查询接口
-  disburse_in_query: http://10.1.14.106:27405/channel/apitest/huanbei/disburse_in_query
+  disburse_in_query: http://10.1.14.106:27405/channel/apitest/HUANBEI/DISBURSE_IN_QUERY
 
  uat_url_hb :
   #还呗投保信息接口
-  insure_info: http://10.1.14.117:27405/channel/apitest/huanbei/insure_info
+  insure_info: http://10.1.14.117:27405/channel/apitest/HUANBEI/INSURE_INFO
   #还呗投保资料查询接口
-  insure_data_query: http://10.1.14.117:27405/channel/apitest/huanbei/insure_data_query
+  insure_data_query: http://10.1.14.117:27405/channel/apitest/HUANBEI/INSURE_DATA_QUERY
   #还呗投保接口
-  insure: http://10.1.14.117:27405/channel/apitest/huanbei/insure
+  insure: http://10.1.14.117:27405/channel/apitest/HUANBEI/INSURE
   #还呗支用接口
-  disburse: http://10.1.14.117:27405/channel/apitest/huanbei/disburse
+  disburse: http://10.1.14.117:27405/channel/apitest/HUANBEI/DISBURSE
   #还呗支用查询接口
-  disburse_in_query: http://10.1.14.117:27405/channel/apitest/huanbei/disburse_in_query
+  disburse_in_query: http://10.1.14.117:27405/channel/apitest/HUANBEI/DISBURSE_IN_QUERY
 
  dev_url_hb :
   #还呗投保信息接口
-  insure_info: http://10.1.14.106:27405/channel-dev/apitest/huanbei/insure_info
+  insure_info: http://10.1.14.106:27405/channel-dev/apitest/huanbei/INSURE_INFO
   #还呗投保资料查询接口
-  insure_data_query: http://10.1.14.106:27405/channel-dev/apitest/huanbei/insure_data_query
+  insure_data_query: http://10.1.14.106:27405/channel-dev/apitest/huanbei/INSURE_DATA_QUERY
   #还呗投保接口
-  insure: http://10.1.14.106:27405/channel-dev/apitest/huanbei/insure
+  insure: http://10.1.14.106:27405/channel-dev/apitest/huanbei/INSURE
   #还呗支用接口
-  disburse: http://10.1.14.106:27405/channel-dev/apitest/huanbei/disburse
+  disburse: http://10.1.14.106:27405/channel-dev/apitest/huanbei/DISBURSE
   #还呗支用查询接口
-  disburse_in_query: http://10.1.14.106:27405/channel-dev/apitest/huanbei/disburse_in_query
+  disburse_in_query: http://10.1.14.106:27405/channel-dev/apitest/huanbei/DISBURSE_IN_QUERY
 
 #甜橙产品前置系统调用地址
 api_url_tc :
@@ -126,98 +126,98 @@ api_url_tc :
 api_url_pp :
  sit_url_pp :
   #拍拍贷投保信息接口
-  insure_info: http://10.1.14.106:27405/channel/test/ppdai/insure_info
+  insure_info: http://10.1.14.106:27405/channel/test/PPDAI/INSURE_INFO
   #拍拍贷投保资料查询接口
-  insure_data_query: http://10.1.14.106:27405/channel/test/ppdai/insure_data_query
+  insure_data_query: http://10.1.14.106:27405/channel/test/PPDAI/INSURE_DATA_QUERY
   #拍拍贷投保接口
-  insure: http://10.1.14.106:27405/channel/test/ppdai/insure
+  insure: http://10.1.14.106:27405/channel/test/PPDAI/INSURE
   #拍拍贷授信接口
-  credit_granting : http://10.1.14.106:27405/channel/test/ppdai/credit_granting
+  credit_granting : http://10.1.14.106:27405/channel/test/PPDAI/CREDIT_GRANTING
   #拍拍贷授信结果查询接口
-  credit_inquiry : http://10.1.14.106:27405/channel/test/ppdai/credit_inquiry
+  credit_inquiry : http://10.1.14.106:27405/channel/test/PPDAI/CREDIT_INQUIRY
   #拍拍贷支用接口
-  disburse : http://10.1.14.106:27405/channel/test/ppdai/disburse
+  disburse : http://10.1.14.106:27405/channel/test/PPDAI/DISBURSE
   #拍拍贷支用结果查询接口
-  disburse_in_query : http://10.1.14.106:27405/channel/test/ppdai/disburse_in_query
+  disburse_in_query : http://10.1.14.106:27405/channel/test/PPDAI/DISBURSE_IN_QUERY
 
  uat_url_pp :
   #拍拍贷投保信息接口
-  insure_info: http://10.1.14.117:27405/channel/test/ppdai/insure_info
+  insure_info: http://10.1.14.117:27405/channel/test/PPDAI/INSURE_INFO
   #拍拍贷投保资料查询接口
-  insure_data_query: http://10.1.14.117:27405/channel/test/ppdai/insure_data_query
+  insure_data_query: http://10.1.14.117:27405/channel/test/PPDAI/INSURE_DATA_QUERY
   #拍拍贷投保接口
-  insure: http://10.1.14.117:27405/channel/test/ppdai/insure
+  insure: http://10.1.14.117:27405/channel/test/PPDAI/INSURE
   #拍拍贷授信接口
-  credit_granting: http://10.1.14.117:27405/channel/test/ppdai/credit_granting
+  credit_granting: http://10.1.14.117:27405/channel/test/PPDAI/CREDIT_GRANTING
   #拍拍贷授信结果查询接口
-  credit_inquiry: http://10.1.14.117:27405/channel/test/ppdai/credit_inquiry
+  credit_inquiry: http://10.1.14.117:27405/channel/test/PPDAI/CREDIT_INQUIRY
   #拍拍贷支用接口
-  disburse: http://10.1.14.117:27405/channel/test/ppdai/disburse
+  disburse: http://10.1.14.117:27405/channel/test/PPDAI/DISBURSE
   #拍拍贷支用结果查询接口
-  disburse_in_query: http://10.1.14.117:27405/channel/test/ppdai/disburse_in_query
+  disburse_in_query: http://10.1.14.117:27405/channel/test/PPDAI/DISBURSE_IN_QUERY
 
  dev_url_pp :
   #拍拍贷投保信息接口
-  insure_info: http://10.1.14.106:27405/channel-dev/test/ppdai/insure_info
+  insure_info: http://10.1.14.106:27405/channel-dev/test/PPDAI/INSURE_INFO
   #拍拍贷投保资料查询接口
-  insure_data_query: http://10.1.14.106:27405/channel-dev/test/ppdai/insure_data_query
+  insure_data_query: http://10.1.14.106:27405/channel-dev/test/PPDAI/INSURE_DATA_QUERY
   #拍拍贷投保接口
-  insure: http://10.1.14.106:27405/channel-dev/test/ppdai/insure
+  insure: http://10.1.14.106:27405/channel-dev/test/PPDAI/INSURE
   #拍拍贷授信接口
-  credit_granting: http://10.1.14.106:27405/channel-dev/test/ppdai/credit_granting
+  credit_granting: http://10.1.14.106:27405/channel-dev/test/PPDAI/CREDIT_GRANTING
   #拍拍贷授信结果查询接口
-  credit_inquiry: http://10.1.14.106:27405/channel-dev/test/ppdai/credit_inquiry
+  credit_inquiry: http://10.1.14.106:27405/channel-dev/test/PPDAI/CREDIT_INQUIRY
   #拍拍贷支用接口
-  disburse: http://10.1.14.106:27405/channel-dev/test/ppdai/disburse
+  disburse: http://10.1.14.106:27405/channel-dev/test/PPDAI/DISBURSE
   #拍拍贷支用结果查询接口
-  disburse_in_query: http://10.1.14.106:27405/channel-dev/test/ppdai/disburse_in_query
+  disburse_in_query: http://10.1.14.106:27405/channel-dev/test/PPDAI/DISBURSE_IN_QUERY
 
 #交行产品前置系统调用地址
 api_url_jh :
  sit_url_jh :
   #交行投保信息接口
-  insure_info: http://10.1.14.106:27405/channel/bcm/insure_info
+  insure_info: http://10.1.14.106:27405/channel/BCM/INSURE_INFO
   #交行投保资料查询接口
-  insure_data_query: http://10.1.14.106:27405/channel/cm/insure_data_query
+  insure_data_query: http://10.1.14.106:27405/channel/BCM/INSURE_DATA_QUERY
   #交行投保接口
-  insure: http://10.1.14.106:27405/channel/bcm/insure
+  insure: http://10.1.14.106:27405/channel/BCM/INSURE
   #交行授信接口
-  credit_granting: http://10.1.14.106:27405/channel/bcm/credit_granting
+  credit_granting: http://10.1.14.106:27405/channel/BCM/CREDIT_GRANTING
   #交行授信结果查询接口
-  credit_inquiry: http://10.1.14.106:27405/channel/bcm/credit_inquiry
+  credit_inquiry: http://10.1.14.106:27405/channel/BCM/CREDIT_INQUIRY
   #交行支用接口
-  disburse: http://10.1.14.106:27405/channel/bcm/disburse
+  disburse: http://10.1.14.106:27405/channel/BCM/DISBURSE
   #交行支用结果查询接口
-  disburse_in_query: http://10.1.14.106:27405/channel/bcm/disburse_in_query
+  disburse_in_query: http://10.1.14.106:27405/channel/BCM/DISBURSE_IN_QUERY
 
  uat_url_jh :
   #交行投保信息接口
-  insure_info: http://10.1.14.117:27405/channel/bcm/insure_info
+  insure_info: http://10.1.14.117:27405/channel/BCM/INSURE_INFO
   #交行投保资料查询接口
-  insure_data_query: http://10.1.14.117:27405/channel/bcm/insure_data_query
+  insure_data_query: http://10.1.14.117:27405/channel/BCM/INSURE_DATA_QUERY
   #交行投保接口
-  insure: http://10.1.14.117:27405/channel/bcm/insure
+  insure: http://10.1.14.117:27405/channel/BCM/INSURE
   #交行授信接口
-  credit_granting: http://10.1.14.117:27405/channel/bcm/credit_granting
+  credit_granting: http://10.1.14.117:27405/channel/BCM/CREDIT_GRANTING
   #交行授信结果查询接口
-  credit_inquiry: http://10.1.14.117:27405/channel/bcm/credit_inquiry
+  credit_inquiry: http://10.1.14.117:27405/channel/BCM/CREDIT_INQUIRY
   #交行支用接口
-  disburse: http://10.1.14.117:27405/channel/bcm/disburse
+  disburse: http://10.1.14.117:27405/channel/BCM/DISBURSE
   #交行支用结果查询接口
-  disburse_in_query: http://10.1.14.106:27405/channel/bcm/disburse_in_query
+  disburse_in_query: http://10.1.14.106:27405/channel/BCM/DISBURSE_IN_QUERY
 
  dev_url_jh :
   #交行投保信息接口
-  insure_info: http://10.1.14.106:27405/channel-devbcm/insure_info
+  insure_info: http://10.1.14.106:27405/channel-dev/BCM/INSURE_INFO
   #交行投保资料查询接口
-  insure_data_query: http://10.1.14.106:27405/channel-dev/bcm/insure_data_query
+  insure_data_query: http://10.1.14.106:27405/channel-dev/BCM/INSURE_DATA_QUERY
   #交行投保接口
-  insure: http://10.1.14.106:27405/channel-dev/bcm/insure
+  insure: http://10.1.14.106:27405/channel-dev/BCM/INSURE
   #交行授信接口
-  credit_granting: http://10.1.14.106:27405/channel-dev/bcm/credit_granting
+  credit_granting: http://10.1.14.106:27405/channel-dev/BCM/CREDIT_GRANTING
   #交行授信结果查询接口
-  credit_inquiry: http://10.1.14.106:27405/channel-dev/bcm/credit_inquiry
+  credit_inquiry: http://10.1.14.106:27405/channel-dev/BCM/CREDIT_INQUIRY
   #交行支用接口
-  disburse: http://10.1.14.106:27405/channel-dev/bcm/disburse
+  disburse: http://10.1.14.106:27405/channel-dev/BCM/DISBURSE
   #交行支用结果查询接口
-  disburse_in_query: http://10.1.14.106:27405/channel-dev/bcm/disburse_in_query
+  disburse_in_query: http://10.1.14.106:27405/channel-dev/BCM/DISBURSE_IN_QUERY

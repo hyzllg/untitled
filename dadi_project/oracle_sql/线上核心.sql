@@ -22,7 +22,7 @@ select * from loan_credit_records where id_card='320681198909240017' and status=
 select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select *from channel_apply_info where creditreqno ='2020120410404386556';
-select *from channel_apply_info where customerid ='320000001232091' ;
+select *from channel_apply_info where customerid ='320000001232085' ;
 select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889';
 --授信信息
 select * from business_apply where customerid ='320000001228058';
@@ -38,7 +38,7 @@ select * from customer_tel where applyno='20210917000000002';
 select *from customer_realname where regid ='320000000662825';
 select *from customer_realname_log where regid ='20201202000002005';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202110230000004002'
+select * from queue_task qm where qm.objectno = '202110250000000004'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
@@ -78,9 +78,13 @@ select * from loan_batch_info where objectno='20062-W210923004201302';
 --扣款记录
 select * from loan_batch_cutpayment where billno='787-502805153301143206';
 --四要素成功落库
-select * from CUSTOMER_BANK_CARD where customerid = '320000001231136';
+select * from CUSTOMER_BANK_CARD where customerid = '320000001232085';
 --四要素是否调用
-select * from customer_auth  where certid='450102199407088327';
+select * from customer_auth  where certid='620122199410061093';
+select * from customer_auth  where certid in (select idno from CHANNEL_APPLY_INFO where customerid = '320000001220588');
+
+;
+
 --四要素是否复用
 select * from third_relative where customerid = '320000001232002';
 --调三要素

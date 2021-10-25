@@ -33,7 +33,7 @@ select * from GDTP_LT_PHONE_AUTH_RES where serial_no = '20325EF5-D4C9-494C-8FF2-
 select * from GDTP_LT_PHONE_AUTH_RES where serial_no = '20325EF5-D4C9-494C-8FF2-308570E52CA3';
 
 --四要素
-select * from GDTP_LOG_EX_PLATFORM_ZCX;
+select * from GDTP_LOG_EX_PLATFORM_ZCX where SERIAL_NO = 'E5054FEC-9015-45F6-B841-673993FB96AA';
 select * from GDTP_ZCX_BANK_CARD_REQ;
 select * from GDTP_ZCX_BANK_CARD_RES;
 
@@ -41,6 +41,6 @@ select * from GDTP_ZCX_BANK_CARD_RES;
 --调用比例
 select * from GDTP_XSHX_RULE_CONFIG where product_id = '7015';
 --interface_type 1=三要素，6=四要素
-select * from GDTP_XSHX_RULE_CONFIG_ITEM where serial_no in (select serial_no from GDTP_XSHX_RULE_CONFIG where product_id = '7014' and interface_type = '6');
+select * from GDTP_XSHX_RULE_CONFIG_ITEM where serial_no in (select serial_no from GDTP_XSHX_RULE_CONFIG where product_id = '7018' and interface_type = '6');
 
 select * from GDTP_XSHX_RULE_CONFIG where product_id = '7014' and interface_type = '1'
