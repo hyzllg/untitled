@@ -169,7 +169,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
     res_url = get_yaml_data('./setting/Config.yaml')["api_url_360"]
     res_data = get_yaml_data('./setting/request_data.yaml')["360_res_data"]
     for i in range(number):
-        HB_loanReqNo = Collect.random_number_reqno()
+        loanReqNo = Collect.random_number_reqno()
         random__name = Collect.random_name()
         generate__ID = Collect.id_card().generate_ID()
         HB_phone = Collect.phone()
@@ -188,7 +188,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
             Collect.update_lj_mock("apply", ljreqno, loan_datetime)
             Collect.update_lj_mock("query", ljreqno, loan_datetime)
         if environment == "SIT":
-            hyzllg = Hyzllg(loanReqNo = HB_loanReqNo,
+            hyzllg = Hyzllg(loanReqNo = loanReqNo,
                             name = random__name,
                             idNo = generate__ID,
                             phone = HB_phone,
@@ -201,7 +201,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
                             res_data = res_data
                             )
         elif environment == "UAT":
-            hyzllg = Hyzllg(loanReqNo = HB_loanReqNo,
+            hyzllg = Hyzllg(loanReqNo = loanReqNo,
                             name = random__name,
                             idNo = generate__ID,
                             phone = HB_phone,
@@ -214,7 +214,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
                             res_data = res_data
                             )
         elif environment == "DEV":
-            hyzllg = Hyzllg(loanReqNo = HB_loanReqNo,
+            hyzllg = Hyzllg(loanReqNo = loanReqNo,
                             name = random__name,
                             idNo = generate__ID,
                             phone = HB_phone,

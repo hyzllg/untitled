@@ -38,7 +38,7 @@ select * from customer_tel where applyno='20210917000000002';
 select *from customer_realname where regid ='320000000662825';
 select *from customer_realname_log where regid ='20201202000002005';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202110250000000004'
+select * from queue_task qm where qm.objectno = '202110250000000014'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
