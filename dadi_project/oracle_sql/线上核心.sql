@@ -21,8 +21,8 @@ select * from loan_credit_records where id_card='320681198909240017' and status=
 --额度状态表
 select * from loan_limit where id_card='410102199007183213';
 --渠道信息
-select *from channel_apply_info where creditreqno ='2020120410404386556';
-select *from channel_apply_info where customerid ='320000001232085' ;
+select * from channel_apply_info where creditreqno ='2020120410404386556';
+select * from channel_apply_info where customerid ='320000000034081' ;
 select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889';
 --授信信息
 select * from business_apply where customerid ='320000001228058';
@@ -92,8 +92,8 @@ select * from customer_auth  where certid in (select idno from CHANNEL_APPLY_INF
 select * from third_relative where customerid = '320000001232002';
 --调三要素
 select * from PHONETHREE_VERITY_RESULT  where servicecode='12001' and responsecode = '0';
---授信规则校验
-select * from ocr_operate_record where customerid = '20200708000000011';
+--OCR识别
+select * from ocr_operate_record where customerid = '320000000034081';
 --人脸照片
 select * from IMAGE_LIST where CUSTOMERID = '20200826000002008';
 --黑瞳复用
@@ -104,7 +104,7 @@ select * from heitong_high_risk where OBJECT_NO = '20211027000006001';
 select * from heitong_high_risk where CUSTOMERID = '320000000034092';
 select * from trans_log where applyno = '20211022000002004' and Servicename = 'HeiTongAntiFraudService';
 --ilog5,ilog9人行数据落库
-select * from ED_ILOG_PBOC_DATA;
+select baoXianQueryNumLast6 from ED_ILOG_PBOC_DATA where REPORTNO = '2021102610021207445' and serialno = '20211026000004011';
 --ilog规则集结果
 SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '20200722000000006';
 SELECT * FROM ILOG_RULES_RESULT c WHERE c.customerid = '320000001219556';

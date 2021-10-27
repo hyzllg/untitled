@@ -5,8 +5,7 @@ import cx_Oracle
 import json
 import Collect
 import yaml
-from past.builtins import raw_input
-
+from utils import customer_info
 
 
 class Collects:
@@ -659,7 +658,7 @@ def main():
     #channelCustId
     channelCustId = channelCust(hx_cursor,loanNo)
     #repayReqNo
-    repayReqNo = Collect.random_number_reqno()
+    repayReqNo = customer_info.customer().reqno(77)
     # 查询借据最远未还期次信息
     ACCT_PAYMENT_SCHEDULE = Collect.sql_cha(zw_cursor,"SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(loanNo))[0]
     # print(ACCT_PAYMENT_SCHEDULE)
