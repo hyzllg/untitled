@@ -27,7 +27,7 @@ select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889
 --授信信息
 select * from business_apply where customerid ='320000001228058';
 --支用信息
-select * from putout_approve where customerid = '320000001228373';
+select * from putout_approve where serialno = '20211027000004001';
 select * from putout_approve where serialno = '20210930000002012';
 --设备信息
 select * from CHANNEL_DEVICE_INFO where creditreqno = '2021091511112690919';--320000000033936
@@ -100,8 +100,8 @@ select * from IMAGE_LIST where CUSTOMERID = '20200826000002008';
 select * from third_relative where customerid = '320000000670153';
 --黑瞳调用
 select * from HEITONG_RESULT WHERE customerid = '320000001232004';
-select * from heitong_high_risk where OBJECT_NO = '20211027000000001';
-select * from heitong_high_risk where CUSTOMERID = '320000000034080';
+select * from heitong_high_risk where OBJECT_NO = '20211027000006001';
+select * from heitong_high_risk where CUSTOMERID = '320000000034092';
 select * from trans_log where applyno = '20211022000002004' and Servicename = 'HeiTongAntiFraudService';
 --ilog5,ilog9人行数据落库
 select * from ED_ILOG_PBOC_DATA;
@@ -202,8 +202,8 @@ select * from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000006586';
 
 
 select * from code_library cl where cl.codeno ='ImagetPayApply';
-update code_library set attribute2 = '/sftp/ccic/income/upload/image' where cl.codeno ='ImagetPayApply'
-update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='ImagetPayApply'
+update code_library set attribute2 = '/sftp/ccic/income/upload/image' where cl.codeno ='ImagetPayApply';
+update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='ImagetPayApply';
 
 
 

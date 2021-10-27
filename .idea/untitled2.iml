@@ -16,6 +16,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test_selenium" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/api_test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/dadi_project" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/dadi_project/utils" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (untitled)" jdkType="Python SDK" />
@@ -26,6 +27,9 @@
       <list>
         <option value="$MODULE_DIR$/dadi_project/batch" />
         <option value="$MODULE_DIR$/dadi_project/datas" />
+        <option value="$MODULE_DIR$/dadi_project/oracle_sql" />
+        <option value="$MODULE_DIR$/dadi_project/scripts" />
+        <option value="$MODULE_DIR$/dadi_project/setting" />
       </list>
     </option>
   </component>
@@ -33,7 +37,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/hyzllg/test/templates" />
+        <option value="$MODULE_DIR$/dadi_project/utils" />
       </list>
     </option>
   </component>

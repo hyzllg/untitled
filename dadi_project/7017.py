@@ -1,11 +1,7 @@
-import cx_Oracle
-import json
-import os
 import time
 import re as res
 import yaml
-import requests
-from base import idcard
+from utils import customer_info
 import Collect
 
 
@@ -140,11 +136,11 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
     res_url = get_yaml_data('./setting/Config.yaml')["api_url_hb"]
     res_data = get_yaml_data('./setting/request_data.yaml')["hb_res_data"]
     for i in range(number):
-        HB_loanReqNo = Collect.random_number_reqno()
-        idNo = idcard.id_card().idNo()
-        name = idcard.id_card().name()
-        HB_phone = Collect.phone()
-        HB_bankcard = Collect.bankcard()
+        HB_loanReqNo = customer_info.customer().reqno(66)
+        idNo = customer_info.customer().idNo()
+        name = customer_info.customer().name()
+        HB_phone = customer_info.customer().phone()
+        HB_bankcard = customer_info.customer().bankcard()
         # 指定姓名身份证手机号时使用
         # random__name = "张八"
         # generate__ID = "542128196305226980"

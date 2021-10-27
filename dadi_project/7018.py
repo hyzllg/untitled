@@ -1,9 +1,7 @@
-import json
 import re as res
 import time
-import requests
 import yaml
-from base import idcard
+from utils import customer_info
 import Collect
 
 
@@ -229,13 +227,13 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
     res_data = get_yaml_data('./setting/request_data.yaml')["pp_res_data"]
     abc = []
     for i in range(number):
-        loanReqNo = Collect.random_number_reqno()
-        creditReqNo = Collect.random_number_reqno()
+        loanReqNo = customer_info.customer().reqno(66)
+        creditReqNo = customer_info.customer().reqno(88)
 
-        idNo = idcard.id_card().idNo()
-        name = idcard.id_card().name()
-        phone = Collect.phone()
-        bankcard = Collect.bankcard()
+        idNo = customer_info.customer().idNo()
+        name = customer_info.customer().name()
+        phone = customer_info.customer().phone()
+        bankcard = customer_info.customer().bankcard()
         # 指定姓名身份证手机号时使用
         # name = "艾碧琼"
         # idNo = "321200199110278386"

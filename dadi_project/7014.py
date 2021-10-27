@@ -1,9 +1,7 @@
 import time
 import Collect
 import yaml
-from base import idcard
-from base import lj_mock
-
+from utils import customer_info, lj_mock
 
 
 class Hyzllg:
@@ -189,14 +187,14 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
         # generate__ID = "542128196305226980"
         # ORANGE_phone = "13800138001"
         # ORANGE_bankcard = "5555666677778889"
-        idNo = idcard.id_card().idNo()
-        name = idcard.id_card().name()
-        phone = Collect.phone()
-        bankcard = Collect.bankcard()
+        idNo = customer_info.customer().idNo()
+        name = customer_info.customer().name()
+        phone = customer_info.customer().phone()
+        bankcard = customer_info.customer().bankcard()
 
-        channelCustId = Collect.random_number_reqno()
-        creditReqNo = Collect.random_number_reqno()
-        loanReqNo = Collect.random_number_reqno()
+        channelCustId = customer_info.customer().reqno(66)
+        creditReqNo = customer_info.customer().reqno(88)
+        loanReqNo = customer_info.customer().reqno(99)
         if environment == "SIT":
             hyzllg = Hyzllg(channelCustId=channelCustId,
                             creditReqNo=creditReqNo,

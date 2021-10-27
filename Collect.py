@@ -6,23 +6,6 @@ import time
 from hashlib import md5
 import cx_Oracle
 import requests
-def random_number_reqno():
-    a = str(random.randint(1, 100000))
-    b = time.strftime("%Y%m%d%H%M%S")
-    reqno = b + a
-    return reqno
-def phone():
-    phone = "166"+time.strftime("%m%d")+str(random.randint(1000, 9999))
-    return phone
-def bankcard():
-    a = str(random.randint(1000, 10000))
-    b = time.strftime("%m%d%H%M%S")
-    bankcard = '621466' + b
-    return bankcard
-
-
-
-
 
 def sql_cha(cursor,my_sql_c):
     try:

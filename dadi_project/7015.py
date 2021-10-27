@@ -1,12 +1,8 @@
-import json
 import re as res
 import time
 import yaml
-import requests
 import Collect
-from base import idcard
-from base import lj_mock
-
+from utils import customer_info, lj_mock
 
 
 class Hyzllg:
@@ -171,11 +167,11 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
     res_url = get_yaml_data('./setting/Config.yaml')["api_url_360"]
     res_data = get_yaml_data('./setting/request_data.yaml')["360_res_data"]
     for i in range(number):
-        loanReqNo = Collect.random_number_reqno()
-        idNo = idcard.id_card().idNo()
-        name = idcard.id_card().name()
-        HB_phone = Collect.phone()
-        Bank = Collect.bankcard()
+        loanReqNo = customer_info.customer().reqno(66)
+        idNo = customer_info.customer().idNo()
+        name = customer_info.customer().name()
+        HB_phone = customer_info.customer().phone()
+        Bank = customer_info.customer().bankcard()
         #指定姓名身份证手机号时使用
         # name = "粱九广"
         # idNo = "330701199307093208"
@@ -186,7 +182,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         if capitalCode == "LJBANK":
             loan_datetime = time.strftime("%Y-%m-%d")
             lj_mock.start_lj_mock()
-            ljreqno = Collect.random_number_reqno()
+            ljreqno = customer_info.customer().reqno(88)
             lj_mock.update_lj_mock("apply", ljreqno, loan_datetime)
             lj_mock.update_lj_mock("query", ljreqno, loan_datetime)
         if environment == "SIT":

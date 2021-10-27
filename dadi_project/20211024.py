@@ -1,7 +1,7 @@
-from base import idcard
+from utils import customer_info
 
-name = idcard.id_card().idNo()
-idNo = idcard.id_card().name()
+name = customer_info.id_card().idNo()
+idNo = customer_info.id_card().name()
 
 print(name)
 print(idNo)
