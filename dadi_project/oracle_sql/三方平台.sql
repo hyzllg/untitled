@@ -37,6 +37,10 @@ select * from GDTP_LOG_EX_PLATFORM_ZCX where SERIAL_NO = 'E5054FEC-9015-45F6-B84
 select * from GDTP_ZCX_BANK_CARD_REQ;
 select * from GDTP_ZCX_BANK_CARD_RES;
 
+--ilog5,ilog9征信报告变量加工
+select * from GDTP_XSFK_ILOG5_RES_EXTEND;
+select * from GDTP_XSFK_ILOG9_RES_EXTEND;
+
 
 --调用比例
 select * from GDTP_XSHX_RULE_CONFIG where product_id = '7015';

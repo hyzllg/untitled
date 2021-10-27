@@ -2,9 +2,9 @@ import requests
 
 class lj_mock:
     #启用龙江放款mock
-    def start_lj_mock(self):
+    def start_lj_mock(self,ip):
         import requests
-        url = "http://10.1.14.191:26275/sys/setMockStatus?fundCode=20062&status=1"
+        url = f"http://10.1.14.{ip}/sys/setMockStatus?fundCode=20062&status=1"
         response = requests.request("GET", url)
         print("龙江放款mock开启成功！")
     def esay_mock_login(self):
@@ -16,9 +16,10 @@ class lj_mock:
         except:
             print("获取token失败！")
         return token
-    def update_lj_mock(self,api,loanNO,datetime):
+    def update_lj_mock(self,api,loanNO,datetime,environment):
+        dict1 = {"sit":"191:26275","uat":"191:26275","dev":"191:26001"}
         #启用龙江mock
-        self.start_lj_mock()
+        self.start_lj_mock(dict1[environment])
         #获取token
         token = self.esay_mock_login()
         url = "http://10.1.14.146:7300/api/mock/update"

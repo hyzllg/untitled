@@ -41,12 +41,12 @@ select * from customer_tel where applyno='20210917000000002';
 select *from customer_realname where regid ='320000000662825';
 select *from customer_realname_log where regid ='20201202000002005';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202110270000000007'
+select * from queue_task qm where qm.objectno = '202110270000006006'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211027000000001'
+select * from queue_task qm where qm.objectno = '20211027000006001'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
@@ -93,7 +93,7 @@ select * from third_relative where customerid = '320000001232002';
 --调三要素
 select * from PHONETHREE_VERITY_RESULT  where servicecode='12001' and responsecode = '0';
 --OCR识别
-select * from ocr_operate_record where customerid = '320000000034081';
+select * from ocr_operate_record where customerid = '320000000034108';
 --人脸照片
 select * from IMAGE_LIST where CUSTOMERID = '20200826000002008';
 --黑瞳复用
@@ -101,7 +101,7 @@ select * from third_relative where customerid = '320000000670153';
 --黑瞳调用
 select * from HEITONG_RESULT WHERE customerid = '320000001232004';
 select * from heitong_high_risk where OBJECT_NO = '20211027000006001';
-select * from heitong_high_risk where CUSTOMERID = '320000000034092';
+select * from heitong_high_risk where CUSTOMERID = '320000000034099';
 select * from trans_log where applyno = '20211022000002004' and Servicename = 'HeiTongAntiFraudService';
 --ilog5,ilog9人行数据落库
 select baoXianQueryNumLast6 from ED_ILOG_PBOC_DATA where REPORTNO = '2021102610021207445' and serialno = '20211026000004011';
@@ -200,10 +200,11 @@ select CUSTGRDE from PPDAI_CHANNEL_DETAIL where creditreqno = '20211026172529506
 select custgrade from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000034076';
 select * from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000006586';
 
-
+--测还呗产品影像时改拉取远程路径
 select * from code_library cl where cl.codeno ='ImagetPayApply';
-update code_library set attribute2 = '/sftp/ccic/income/upload/image' where cl.codeno ='ImagetPayApply';
+update code_library set attribute2 = '/sftp/ccic/income/upload/image' where codeno ='ImagetPayApply';
 update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='ImagetPayApply';
 
 
 
+select * from PUTOUT_APPROVE where CUSTOMERID = '320000000033928';

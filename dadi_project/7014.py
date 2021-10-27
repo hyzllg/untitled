@@ -296,8 +296,8 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
             # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
             if capitalCode == "LJBANK":
                 ljreqno = customer_info.customer().reqno(55)
-                lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime)
-                lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime)
+                lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime ,environment)
+                lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime ,environment)
             hyzllg = Hyzllg(channelCustId=i['channelCustId'],
                             creditReqNo=i['creditReqNo'],
                             loanReqNo = i['loanReqNo'],
