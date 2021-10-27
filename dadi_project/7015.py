@@ -3,8 +3,10 @@ import re as res
 import time
 import yaml
 import requests
-from past.builtins import raw_input
 import Collect
+from base import idcard
+from base import lj_mock
+
 
 
 class Hyzllg:
@@ -82,13 +84,13 @@ class Hyzllg:
                 try:
                     if requit["data"]["message"]:
                         print("受理失败")
-                        raw_input("Press <enter>")
+                        exit()
                 except BaseException as e:
                     if requit["data"]["status"] == '01':
                         print("已受理，处理中！")
             else:
                 print("未知错误！")
-                raw_input("Press <enter>")
+                exit()
         except KeyError:
             print("360投保接口响应异常！")
             exit()
@@ -147,17 +149,17 @@ class Hyzllg:
                         continue
                     elif requit["data"]["status"] == '05':
                         print("授信审批拒绝")
-                        raw_input("Press <enter>")
+                        exit()
                     elif requit["data"]["status"] == '02':
                         print("支用失败，银行放款失败")
-                        raw_input("Press <enter>")
+                        exit()
                     else:
                         print("未知错误！")
-                        raw_input("Press <enter>")
+                        exit()
 
                 else:
                     print("未知错误！")
-                    raw_input("Press <enter>")
+                    exit()
             except KeyError:
                 print("360支用结果查询接口响应异常！")
                 exit()
@@ -170,27 +172,27 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
     res_data = get_yaml_data('./setting/request_data.yaml')["360_res_data"]
     for i in range(number):
         loanReqNo = Collect.random_number_reqno()
-        random__name = Collect.random_name()
-        generate__ID = Collect.id_card().generate_ID()
+        idNo = idcard.id_card().idNo()
+        name = idcard.id_card().name()
         HB_phone = Collect.phone()
         Bank = Collect.bankcard()
         #指定姓名身份证手机号时使用
-        # random__name = "居贝亚"
-        # generate__ID = "450102199407088327"
-        # HB_phone = "16610221838"
+        # name = "粱九广"
+        # idNo = "330701199307093208"
+        # HB_phone = "15776631124"
         # Bank = "6214661022113802"
 
         # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
         if capitalCode == "LJBANK":
             loan_datetime = time.strftime("%Y-%m-%d")
-            Collect.start_lj_mock()
+            lj_mock.start_lj_mock()
             ljreqno = Collect.random_number_reqno()
-            Collect.update_lj_mock("apply", ljreqno, loan_datetime)
-            Collect.update_lj_mock("query", ljreqno, loan_datetime)
+            lj_mock.update_lj_mock("apply", ljreqno, loan_datetime)
+            lj_mock.update_lj_mock("query", ljreqno, loan_datetime)
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo = loanReqNo,
-                            name = random__name,
-                            idNo = generate__ID,
+                            name = name,
+                            idNo = idNo,
                             phone = HB_phone,
                             loanAmount = loanAmount,
                             periods = periods,
@@ -202,8 +204,8 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
                             )
         elif environment == "UAT":
             hyzllg = Hyzllg(loanReqNo = loanReqNo,
-                            name = random__name,
-                            idNo = generate__ID,
+                            name = name,
+                            idNo = idNo,
                             phone = HB_phone,
                             loanAmount = loanAmount,
                             periods = periods,
@@ -215,8 +217,8 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
                             )
         elif environment == "DEV":
             hyzllg = Hyzllg(loanReqNo = loanReqNo,
-                            name = random__name,
-                            idNo = generate__ID,
+                            name = name,
+                            idNo = idNo,
                             phone = HB_phone,
                             loanAmount = loanAmount,
                             periods = periods,
@@ -230,12 +232,12 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
             print("........")
 
         test_info = f'''
-                        姓名：{random__name}
-                        身份证号：{generate__ID}
+                        姓名：{name}
+                        身份证号：{idNo}
                         手机号：{HB_phone}
                         借款金额:{loanAmount}
                         借款期次:{periods}
-                        loanReqNo:{HB_loanReqNo}
+                        loanReqNo:{loanReqNo}
                     '''
         insure = hyzllg.insure_info()[0]
         hyzllg.insure_data_query(insure)

@@ -3,7 +3,7 @@ import re as res
 import time
 import requests
 import yaml
-from past.builtins import raw_input
+from base import idcard
 import Collect
 
 
@@ -59,7 +59,7 @@ class Hyzllg:
                 print("投保资料查询成功！")
             else:
                 print("投保资料查询失败！")
-                raw_input("Press <enter>")
+                exit()
         except KeyError:
             print("拍拍贷投保资料查询接口响应异常！")
             exit()
@@ -169,7 +169,7 @@ class Hyzllg:
             number += 1
         if number >= 10:
             print("拍拍贷授信时间过长！可能由于授信挡板问题，结束程序！")
-            raw_input("Press <enter>")
+            exit()
 
         return n
 
@@ -232,20 +232,20 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
         loanReqNo = Collect.random_number_reqno()
         creditReqNo = Collect.random_number_reqno()
 
-        random__name = Collect.random_name()
-        generate__ID = Collect.id_card().generate_ID()
+        idNo = idcard.id_card().idNo()
+        name = idcard.id_card().name()
         phone = Collect.phone()
         bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
-        # random__name = "自动化汪佳婵"
-        # generate__ID = "350182199207234324"
-        # HB_phone = "18492850576"
-        # HB_bankcard = "6226090265655661"
+        # name = "艾碧琼"
+        # idNo = "321200199110278386"
+        # phone = "18492850576"
+        # bankcard = "6226090265655661"
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo=loanReqNo,
                             creditReqNo=creditReqNo,
-                            name=random__name,
-                            idNo=generate__ID,
+                            name=name,
+                            idNo=idNo,
                             phone=phone,
                             loanAmount=loanAmount,
                             periods=periods,
@@ -260,8 +260,8 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
             abc.append(
                 {"creditReqNo" : creditReqNo,
                  "loanReqNo" : loanReqNo,
-                 "name" : random__name,
-                 "idNo" : generate__ID,
+                 "name" : name,
+                 "idNo" : idNo,
                  "phone" : phone,
                  "loanAmount" : loanAmount,
                  "periods" : periods,
@@ -272,8 +272,8 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
         elif environment == "UAT":
             hyzllg = Hyzllg(loanReqNo=loanReqNo,
                             creditReqNo=creditReqNo,
-                            name=random__name,
-                            idNo=generate__ID,
+                            name=name,
+                            idNo=idNo,
                             phone=phone,
                             loanAmount=loanAmount,
                             periods=periods,
@@ -288,8 +288,8 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
             abc.append(
                 {"creditReqNo" : creditReqNo,
                  "loanReqNo" : loanReqNo,
-                 "name" : random__name,
-                 "idNo" : generate__ID,
+                 "name" : name,
+                 "idNo" : idNo,
                  "phone" : phone,
                  "loanAmount" : loanAmount,
                  "periods" : periods,
@@ -300,8 +300,8 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
         elif environment == "DEV":
             hyzllg = Hyzllg(loanReqNo=loanReqNo,
                             creditReqNo=creditReqNo,
-                            name=random__name,
-                            idNo=generate__ID,
+                            name=name,
+                            idNo=idNo,
                             phone=phone,
                             loanAmount=loanAmount,
                             periods=periods,
@@ -316,8 +316,8 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
             abc.append(
                 {"creditReqNo" : creditReqNo,
                  "loanReqNo" : loanReqNo,
-                 "name" : random__name,
-                 "idNo" : generate__ID,
+                 "name" : name,
+                 "idNo" : idNo,
                  "phone" : phone,
                  "loanAmount" : loanAmount,
                  "periods" : periods,
@@ -352,7 +352,7 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
                 nnn = True
             n += 1
             if n > 30 and nnn == False:
-                raw_input("Press <enter>")
+                exit()
             test_info = f'''
                             姓名：{i["name"]}
                             身份证号：{i["idNo"]}
@@ -368,7 +368,7 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
 
 def main():
     #环境（sit,uat,dev）
-    environment = "sit"
+    environment = "uat"
     #走数据笔数
     number = 1
     # 借款金额

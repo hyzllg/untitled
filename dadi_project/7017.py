@@ -5,7 +5,7 @@ import time
 import re as res
 import yaml
 import requests
-from past.builtins import raw_input
+from base import idcard
 import Collect
 
 
@@ -87,7 +87,7 @@ class Hyzllg:
                 try:
                     if requit["data"]["message"]:
                         print("受理失败")
-                        raw_input("Press <enter>")
+                        exit()
                 except BaseException as e:
                     if requit["data"]["status"] == '01':
                         print("已受理，处理中！")
@@ -141,8 +141,8 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
     res_data = get_yaml_data('./setting/request_data.yaml')["hb_res_data"]
     for i in range(number):
         HB_loanReqNo = Collect.random_number_reqno()
-        random__name = Collect.random_name()
-        generate__ID = Collect.id_card().generate_ID()
+        idNo = idcard.id_card().idNo()
+        name = idcard.id_card().name()
         HB_phone = Collect.phone()
         HB_bankcard = Collect.bankcard()
         # 指定姓名身份证手机号时使用
@@ -152,8 +152,8 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         # HB_bankcard = "5555666677778889"
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo=HB_loanReqNo,
-                            name=random__name,
-                            idNo=generate__ID,
+                            name=name,
+                            idNo=idNo,
                             phone=HB_phone,
                             loanAmount=loanAmount,
                             periods=periods,
@@ -164,8 +164,8 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
                             discountRate=discountRate)
         elif environment == "UAT":
             hyzllg = Hyzllg(loanReqNo=HB_loanReqNo,
-                            name=random__name,
-                            idNo=generate__ID,
+                            name=name,
+                            idNo=idNo,
                             phone=HB_phone,
                             loanAmount=loanAmount,
                             periods=periods,
@@ -176,8 +176,8 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
                             discountRate=discountRate)
         elif environment == "DEV":
             hyzllg = Hyzllg(loanReqNo=HB_loanReqNo,
-                            name=random__name,
-                            idNo=generate__ID,
+                            name=name,
+                            idNo=idNo,
                             phone=HB_phone,
                             loanAmount=loanAmount,
                             periods=periods,
@@ -190,8 +190,8 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
             print("........")
 
         test_info = f'''
-                        姓名：{random__name}
-                        身份证号：{generate__ID}
+                        姓名：{name}
+                        身份证号：{idNo}
                         手机号：{HB_phone}
                         借款金额:{loanAmount}
                         借款期次:{periods}
@@ -207,7 +207,7 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
 
 def main():
     #环境（sit,uat,dev）
-    environment = "sit"
+    environment = "uat"
     #走数据笔数
     number = 1
     # 借款金额

@@ -1,7 +1,9 @@
 import time
-from past.builtins import raw_input
 import Collect
 import yaml
+from base import idcard
+from base import lj_mock
+
 
 
 class Hyzllg:
@@ -85,8 +87,7 @@ class Hyzllg:
                 exit()
         if hhh >= 16:
             print("甜橙授信时间过长！可能由于授信挡板问题，结束程序！")
-            raw_input("Press <enter>")
-
+            exit()
         return n
 
     def disburse_trial(self, capitalCode):
@@ -110,7 +111,7 @@ class Hyzllg:
                         continue
                 else:
                     print("未知异常！")
-                    raw_input("Press <enter>")
+                    exit()
             except KeyError:
                 print("甜橙支用试算接口响应异常！")
                 exit()
@@ -137,10 +138,10 @@ class Hyzllg:
                     print("受理成功，处理中!")
                 else:
                     print("受理失败")
-                    raw_input("Press <enter>")
+                    exit()
             else:
                 print("未知异常！")
-                raw_input("Press <enter>")
+                exit()
         except KeyError:
             print("甜橙支用接口响应异常！")
             exit()
@@ -165,10 +166,10 @@ class Hyzllg:
                         print("处理中！")
                     else:
                         print("支用失败！")
-                        raw_input("Press <enter>")
+                        exit()
                 else:
                     print("未知异常！")
-                    raw_input("Press <enter>")
+                    exit()
                 time.sleep(3)
             except KeyError:
                 print("甜橙支用结果查询接口响应异常！")
@@ -188,10 +189,10 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
         # generate__ID = "542128196305226980"
         # ORANGE_phone = "13800138001"
         # ORANGE_bankcard = "5555666677778889"
-        random_name = Collect.random_name()
-        generate__ID = Collect.id_card().generate_ID()
-        ORANGE_phone = Collect.phone()
-        ORANGE_bankcard = Collect.bankcard()
+        idNo = idcard.id_card().idNo()
+        name = idcard.id_card().name()
+        phone = Collect.phone()
+        bankcard = Collect.bankcard()
 
         channelCustId = Collect.random_number_reqno()
         creditReqNo = Collect.random_number_reqno()
@@ -200,13 +201,13 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
             hyzllg = Hyzllg(channelCustId=channelCustId,
                             creditReqNo=creditReqNo,
                             loanReqNo = loanReqNo,
-                            name = random_name,
-                            idNo = generate__ID,
-                            phone = ORANGE_phone,
+                            name = name,
+                            idNo = idNo,
+                            phone = phone,
                             repayAmount = repayAmount,
                             loanAmount = loanAmount,
                             periods = periods,
-                            bankcard = ORANGE_bankcard,
+                            bankcard = bankcard,
                             url = res_url["sit_url_tc"],
                             res_data = res_data,
                             custType = custType)
@@ -215,13 +216,13 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                 {"channelCustId" : channelCustId,
                  "creditReqNo" : creditReqNo,
                  "loanReqNo" : loanReqNo,
-                 "name" : random_name,
-                 "idNo" : generate__ID,
-                 "phone" : ORANGE_phone,
+                 "name" : name,
+                 "idNo" : idNo,
+                 "phone" : phone,
                  "repayAmount" : repayAmount,
                  "loanAmount" : loanAmount,
                  "periods" : periods,
-                 "bankcard" : ORANGE_bankcard,
+                 "bankcard" : bankcard,
                  "url" : res_url["sit_url_tc"],
                  "res_data" : res_data,
                  "credit" : credit,
@@ -230,13 +231,13 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
             hyzllg = Hyzllg(channelCustId=channelCustId,
                             creditReqNo=creditReqNo,
                             loanReqNo = loanReqNo,
-                            name = random_name,
-                            idNo = generate__ID,
-                            phone = ORANGE_phone,
+                            name = name,
+                            idNo = idNo,
+                            phone = phone,
                             repayAmount = repayAmount,
                             loanAmount = loanAmount,
                             periods = periods,
-                            bankcard = ORANGE_bankcard,
+                            bankcard = bankcard,
                             url = res_url["uat_url_tc"],
                             res_data=res_data,
                             custType = custType)
@@ -245,13 +246,13 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                 {"channelCustId" : channelCustId,
                  "creditReqNo" : creditReqNo,
                  "loanReqNo" : loanReqNo,
-                 "name" : random_name,
-                 "idNo" : generate__ID,
-                 "phone" : ORANGE_phone,
+                 "name" : name,
+                 "idNo" : idNo,
+                 "phone" : phone,
                  "repayAmount" : repayAmount,
                  "loanAmount" : loanAmount,
                  "periods" : periods,
-                 "bankcard" : ORANGE_bankcard,
+                 "bankcard" : bankcard,
                  "url" : res_url["uat_url_tc"],
                  "res_data": res_data,
                  "credit" : credit,
@@ -260,13 +261,13 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
             hyzllg = Hyzllg(channelCustId=channelCustId,
                             creditReqNo=creditReqNo,
                             loanReqNo = loanReqNo,
-                            name = random_name,
-                            idNo = generate__ID,
-                            phone = ORANGE_phone,
+                            name = name,
+                            idNo = idNo,
+                            phone = phone,
                             repayAmount = repayAmount,
                             loanAmount = loanAmount,
                             periods = periods,
-                            bankcard = ORANGE_bankcard,
+                            bankcard = bankcard,
                             url = res_url["dev_url_tc"],
                             res_data=res_data,
                             custType = custType)
@@ -275,13 +276,13 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                 {"channelCustId" : channelCustId,
                  "creditReqNo" : creditReqNo,
                  "loanReqNo" : loanReqNo,
-                 "name" : random_name,
-                 "idNo" : generate__ID,
-                 "phone" : ORANGE_phone,
+                 "name" : name,
+                 "idNo" : idNo,
+                 "phone" : phone,
                  "repayAmount" : repayAmount,
                  "loanAmount" : loanAmount,
                  "periods" : periods,
-                 "bankcard" : ORANGE_bankcard,
+                 "bankcard" : bankcard,
                  "url" : res_url["dev_url_tc"],
                  "res_data": res_data,
                  "credit" : credit,
@@ -296,10 +297,10 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
         for i in abc:
             # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
             if capitalCode == "LJBANK":
-                Collect.start_lj_mock()
+                lj_mock.start_lj_mock()
                 ljreqno = Collect.random_number_reqno()
-                Collect.update_lj_mock("apply", ljreqno, loan_datetime)
-                Collect.update_lj_mock("query", ljreqno, loan_datetime)
+                lj_mock.update_lj_mock("apply", ljreqno, loan_datetime)
+                lj_mock.update_lj_mock("query", ljreqno, loan_datetime)
             hyzllg = Hyzllg(channelCustId=i['channelCustId'],
                             creditReqNo=i['creditReqNo'],
                             loanReqNo = i['loanReqNo'],
@@ -320,8 +321,8 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                 abc.remove(i)
                 nnn = True
             n += 1
-            if n > 30 and nnn == False:
-                raw_input("Press <enter>")
+            if n > 16 and nnn == False:
+                exit()
             test_info = f'''
                     姓名：{i['name']}
                     身份证号：{i['idNo']}
@@ -336,7 +337,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
 
 def main():
     #环境（sit,uat,dev）
-    environment = "sit"
+    environment = "uat"
     #走数据笔数
     number = 1
     #放款金额

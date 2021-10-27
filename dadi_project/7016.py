@@ -5,8 +5,7 @@ import time
 
 import cx_Oracle
 import requests
-from past.builtins import raw_input
-
+from base import idcard
 import Collect
 
 
@@ -83,7 +82,7 @@ class Hyzllg:
             print("投保链接接口成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
 
         return self.url, a, requit, c
 
@@ -138,7 +137,7 @@ class Hyzllg:
             print("投保链接接口成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
 
         return self.url, a, requit, c
 
@@ -170,7 +169,7 @@ class Hyzllg:
             print("投保资料查询成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
 
         return self.url, a, requit
 
@@ -202,7 +201,7 @@ class Hyzllg:
             print("投保资料查询成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
 
         return self.url, a, requit
 
@@ -254,13 +253,13 @@ class Hyzllg:
                 if requit["data"]["message"]:
                     print("受理失败")
                     print(f'errormsg:{requit["data"]["message"]}')
-                    raw_input("Press <enter>")
+                    exit()
             except BaseException as e:
                 if requit["data"]["status"] == '01':
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
         return self.url, a, requit
 
     def insure_put(self):
@@ -311,13 +310,13 @@ class Hyzllg:
                 if requit["data"]["message"]:
                     print("受理失败")
                     print(f'errormsg:{requit["data"]["message"]}')
-                    raw_input("Press <enter>")
+                    exit()
             except BaseException as e:
                 if requit["data"]["status"] == '01':
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
         return self.url, a, requit
 
     def credit_granting(self):
@@ -438,7 +437,7 @@ class Hyzllg:
                     print("受理失败！")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                        raw_input("Press <enter>")
+                        exit()
             except BaseException as e:
                 if requit["data"]["message"]:
                     print(f'error:{requit["data"]["message"]}')
@@ -446,7 +445,7 @@ class Hyzllg:
 
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
         return self.url, a, requit, creditApplyNo
 
     def credit_inquiry(self, creditApplyNo):
@@ -483,7 +482,7 @@ class Hyzllg:
                         continue
                     else:
                         print("授信失败！")
-                        raw_input("Press <enter>")
+                        exit()
                 except BaseException as e:
                     if requit["data"]["message"]:
                         print(f'error:{requit["data"]["message"]}')
@@ -491,7 +490,7 @@ class Hyzllg:
 
             else:
                 print("msg:{}".format(requit["msg"]))
-                raw_input("Press <enter>")
+                exit()
         return self.url, a, requit
 
     def disburse(self, creditApplyNo):
@@ -558,10 +557,10 @@ class Hyzllg:
                 if requit["data"]["message"]:
                     print("受理失败")
                     print(f'errormsg:{requit["data"]["message"]}')
-                    raw_input("Press <enter>")
+                    exit()
         else:
             print("msg:{}".format(requit["msg"]))
-            raw_input("Press <enter>")
+            exit()
         return self.url, a, requit
 def JH_sql_update(setting,creditreqno):
     try:
@@ -575,8 +574,8 @@ def JH_sql_update(setting,creditreqno):
         return print("无效的SQL语句")
 
 def jh_main(a):
-    random__name = Collect.random_name()
-    generate__ID = Collect.id_card().generate_ID()
+    idNo = idcard.id_card().idNo()
+    name = idcard.id_card().name()
     JH_phone = Collect.phone()
     JH_bankcard = Collect.bankcard()
     #指定姓名身份证手机号时使用
