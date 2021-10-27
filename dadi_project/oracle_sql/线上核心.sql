@@ -208,3 +208,5 @@ update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='Ima
 
 
 select * from PUTOUT_APPROVE where CUSTOMERID = '320000000033928';
+
+select * from customer_info

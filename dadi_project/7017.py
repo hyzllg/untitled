@@ -1,8 +1,7 @@
 import time
 import re as res
 import yaml
-from utils import customer_info
-import Collect
+from utils import generate_customer_info,api_request
 
 
 class Hyzllg:
@@ -32,7 +31,7 @@ class Hyzllg:
         data["custGrde"] = self.custGrde
         url = self.url["insure_info"]
         print("**********投保信息接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 print("投保信息接口成功！")
@@ -53,7 +52,7 @@ class Hyzllg:
         data["token"] = token
         url = self.url['insure_data_query']
         print("**********投保资料查询接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 print("投保资料查询成功！")
@@ -77,7 +76,7 @@ class Hyzllg:
         data["premiumRate"] = a
         url = self.url['insure']
         print("**********投保接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
@@ -109,7 +108,7 @@ class Hyzllg:
         data["channelDetail"]["custGrde"] = self.custGrde
         url = self.url['disburse']
         print("**********支用接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
@@ -136,11 +135,11 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
     res_url = get_yaml_data('./setting/Config.yaml')["api_url_hb"]
     res_data = get_yaml_data('./setting/request_data.yaml')["hb_res_data"]
     for i in range(number):
-        HB_loanReqNo = customer_info.customer().reqno(66)
-        idNo = customer_info.customer().idNo()
-        name = customer_info.customer().name()
-        HB_phone = customer_info.customer().phone()
-        HB_bankcard = customer_info.customer().bankcard()
+        HB_loanReqNo = generate_customer_info.customer().reqno(66)
+        idNo = generate_customer_info.customer().idNo()
+        name = generate_customer_info.customer().name()
+        HB_phone = generate_customer_info.customer().phone()
+        HB_bankcard = generate_customer_info.customer().bankcard()
         # 指定姓名身份证手机号时使用
         # random__name = "张八"
         # generate__ID = "542128196305226980"

@@ -5,7 +5,7 @@ import time
 
 import cx_Oracle
 import requests
-from utils import customer_info
+from utils import generate_customer_info
 import Collect
 
 
@@ -574,8 +574,8 @@ def JH_sql_update(setting,creditreqno):
         return print("无效的SQL语句")
 
 def jh_main(a):
-    idNo = customer_info.id_card().idNo()
-    name = customer_info.id_card().name()
+    idNo = generate_customer_info.id_card().idNo()
+    name = generate_customer_info.id_card().name()
     JH_phone = Collect.phone()
     JH_bankcard = Collect.bankcard()
     #指定姓名身份证手机号时使用

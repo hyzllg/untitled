@@ -1,7 +1,6 @@
 import time
-import Collect
 import yaml
-from utils import lj_putout_mock, customer_info
+from utils import lj_putout_mock, generate_customer_info,api_request
 
 
 class Hyzllg:
@@ -35,7 +34,7 @@ class Hyzllg:
         data["custType"]=self.custType
         url = self.url["credit_granting"]
         print("**********授信申请**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 creditApplyNo = requit["data"]["body"]["creditApplyNo"]
@@ -65,7 +64,7 @@ class Hyzllg:
         while hhh < 16:
             url = self.url["credit_inquiry"]
             print("**********授信结果查询**********")
-            requit = Collect.test_api(url, data)
+            requit = api_request.request_api().test_api(url,data)
             print("授信查询接口调用成功！")
             try:
                 if requit["data"]["body"]["status"] == "01":
@@ -97,7 +96,7 @@ class Hyzllg:
         while True:
             url = self.url["disburse_trial"]
             print("**********支用试算**********")
-            requit = Collect.test_api(url,data)
+            requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
                     print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
@@ -128,7 +127,7 @@ class Hyzllg:
 
         url = self.url["disburse"]
         print("**********支用接口**********")
-        requit = Collect.test_api(url, data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 print("支用接口调用成功！")
@@ -153,7 +152,7 @@ class Hyzllg:
         while True:
             url = self.url["disburse_in_query"]
             print("**********支用结果查询**********")
-            requit = Collect.test_api(url, data)
+            requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
                     print("支用结果查询接口调用成功！")
@@ -187,14 +186,14 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
         # generate__ID = "542128196305226980"
         # ORANGE_phone = "13800138001"
         # ORANGE_bankcard = "5555666677778889"
-        idNo = customer_info.customer().idNo()
-        name = customer_info.customer().name()
-        phone = customer_info.customer().phone()
-        bankcard = customer_info.customer().bankcard()
+        idNo = generate_customer_info.customer().idNo()
+        name = generate_customer_info.customer().name()
+        phone = generate_customer_info.customer().phone()
+        bankcard = generate_customer_info.customer().bankcard()
 
-        channelCustId = customer_info.customer().reqno(66)
-        creditReqNo = customer_info.customer().reqno(88)
-        loanReqNo = customer_info.customer().reqno(99)
+        channelCustId = generate_customer_info.customer().reqno(66)
+        creditReqNo = generate_customer_info.customer().reqno(88)
+        loanReqNo = generate_customer_info.customer().reqno(99)
         if environment == "SIT":
             hyzllg = Hyzllg(channelCustId=channelCustId,
                             creditReqNo=creditReqNo,
@@ -295,7 +294,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
         for i in abc:
             # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
             if capitalCode == "LJBANK":
-                ljreqno = customer_info.customer().reqno(55)
+                ljreqno = generate_customer_info.customer().reqno(55)
                 lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime ,environment)
                 lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime ,environment)
             hyzllg = Hyzllg(channelCustId=i['channelCustId'],

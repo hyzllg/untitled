@@ -6,7 +6,7 @@
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
-      <jdbc-url>jdbc:oracle:thin:@//10 .1.12.141:1521/PTST12UF</jdbc-url>
+      <jdbc-url>jdbc:oracle:thin:@//10.1.12.141:1521/PTST12UF</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="线上核心dev" uuid="8a83135c-a8dd-452c-92c2-361872a0d06e">

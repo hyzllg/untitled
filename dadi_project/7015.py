@@ -1,8 +1,7 @@
 import re as res
 import time
 import yaml
-import Collect
-from utils import lj_putout_mock, customer_info
+from utils import lj_putout_mock, generate_customer_info,api_request
 
 
 class Hyzllg:
@@ -31,7 +30,7 @@ class Hyzllg:
         data["custGrde"] = self.custGrde
         url = self.url["insure_info"]
         print("**********投保信息接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["data"]["status"] == '01':
                 a = requit["data"]["insurUrl"]
@@ -52,7 +51,7 @@ class Hyzllg:
         data["token"] = token
         print("**********投保资料查询接口**********")
         url = self.url["insure_data_query"]
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 print("投保资料查询成功！")
@@ -74,7 +73,7 @@ class Hyzllg:
         data["periods"] = self.periods
         print("**********投保接口**********")
         url = self.url["insure"]
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
@@ -105,7 +104,7 @@ class Hyzllg:
         data["custGrde"] = self.custGrde
         print("**********支用接口**********")
         url = self.url["disburse"]
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 if requit["data"]["status"] == "01":
@@ -127,7 +126,7 @@ class Hyzllg:
             time.sleep(3)
             print("**********放款结果查询接口**********")
             url = self.url["disburse_in_query"]
-            requit = Collect.test_api(url, data)
+            requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
                     print("放款结果查询接口调用成功！")
@@ -167,11 +166,11 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
     res_url = get_yaml_data('./setting/Config.yaml')["api_url_360"]
     res_data = get_yaml_data('./setting/request_data.yaml')["360_res_data"]
     for i in range(number):
-        loanReqNo = customer_info.customer().reqno(66)
-        idNo = customer_info.customer().idNo()
-        name = customer_info.customer().name()
-        HB_phone = customer_info.customer().phone()
-        Bank = customer_info.customer().bankcard()
+        loanReqNo = generate_customer_info.customer().reqno(66)
+        idNo = generate_customer_info.customer().idNo()
+        name = generate_customer_info.customer().name()
+        HB_phone = generate_customer_info.customer().phone()
+        Bank = generate_customer_info.customer().bankcard()
         #指定姓名身份证手机号时使用
         # name = "粱九广"
         # idNo = "330701199307093208"
@@ -181,7 +180,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
         if capitalCode == "LJBANK":
             loan_datetime = time.strftime("%Y-%m-%d")
-            ljreqno = customer_info.customer().reqno(55)
+            ljreqno = generate_customer_info.customer().reqno(55)
             lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime)
             lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime)
         if environment == "SIT":

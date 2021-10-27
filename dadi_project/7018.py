@@ -1,8 +1,7 @@
 import re as res
 import time
 import yaml
-from utils import customer_info
-import Collect
+from utils import generate_customer_info,api_request
 
 
 class Hyzllg:
@@ -30,7 +29,7 @@ class Hyzllg:
         data["custGrde"] = self.custGrde
         url = self.url["insure_info"]
         print("**********投保信息接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 a = requit["data"]["insurUrl"]
@@ -51,7 +50,7 @@ class Hyzllg:
         data["token"] = token
         url = self.url['insure_data_query']
         print("**********投保资料查询接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 print("投保资料查询成功！")
@@ -77,7 +76,7 @@ class Hyzllg:
         data["insurantName"] = insurantName
         url = self.url['insure']
         print("**********投保接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
@@ -110,7 +109,7 @@ class Hyzllg:
         data["channelDetail"]["custGrde"] = self.custGrde
         url = self.url['credit_granting']
         print("**********授信接口**********")
-        requit = Collect.test_api(url,data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
@@ -139,7 +138,7 @@ class Hyzllg:
         while number <= 30:
             url = self.url['credit_inquiry']
             print("**********授信结果查询**********")
-            requit = Collect.test_api(url, data)
+            requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
                     print("授信查询接口调用成功！")
@@ -177,7 +176,7 @@ class Hyzllg:
         data["loanReqNo"] = self.loanReqNo
         url = self.url['disburse']
         print("**********支用接口**********")
-        requit = Collect.test_api(url, data)
+        requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 if requit["data"]["status"] == "01":
@@ -199,7 +198,7 @@ class Hyzllg:
         while True:
             url = self.url['disburse_in_query']
             print("**********支用结果查询**********")
-            requit = Collect.test_api(url, data)
+            requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
                     print("支用查询接口调用成功！")
@@ -227,13 +226,13 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
     res_data = get_yaml_data('./setting/request_data.yaml')["pp_res_data"]
     abc = []
     for i in range(number):
-        loanReqNo = customer_info.customer().reqno(66)
-        creditReqNo = customer_info.customer().reqno(88)
+        loanReqNo = generate_customer_info.customer().reqno(66)
+        creditReqNo = generate_customer_info.customer().reqno(88)
 
-        idNo = customer_info.customer().idNo()
-        name = customer_info.customer().name()
-        phone = customer_info.customer().phone()
-        bankcard = customer_info.customer().bankcard()
+        idNo = generate_customer_info.customer().idNo()
+        name = generate_customer_info.customer().name()
+        phone = generate_customer_info.customer().phone()
+        bankcard = generate_customer_info.customer().bankcard()
         # 指定姓名身份证手机号时使用
         # name = "艾碧琼"
         # idNo = "321200199110278386"
