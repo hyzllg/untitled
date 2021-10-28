@@ -28,7 +28,7 @@ select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889
 select * from business_apply where customerid ='320000001228058';
 --支用信息
 select * from putout_approve where serialno = '20211027000004001';
-select * from putout_approve where serialno = '20210930000002012';
+select * from putout_approve where CUSTOMERID = '320000001232785';
 --设备信息
 select * from CHANNEL_DEVICE_INFO where creditreqno = '2021091511112690919';--320000000033936
 --
@@ -46,7 +46,7 @@ and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_d
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211028000002005'
+select * from queue_task qm where qm.objectno = '20211028000014005'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';

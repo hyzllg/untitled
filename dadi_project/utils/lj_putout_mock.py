@@ -17,7 +17,7 @@ class lj_mock:
             print("获取token失败！")
         return token
     def update_lj_mock(self,api,loanNO,datetime,environment):
-        dict1 = {"sit":"191:26275","uat":"191:26275","dev":"191:26001"}
+        dict1 = {"SIT":"191:26275","UAT":"191:26275","DEV":"191:26001"}
         #启用龙江mock
         self.start_lj_mock(dict1[environment])
         #获取token

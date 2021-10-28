@@ -21,7 +21,7 @@ class Hyzllg:
     def insure_info(self):
         data = self.res_data["insure_info"]
         data["name"] = self.name
-        data["loanReqNo"] = self.loanReqNo
+        data["insuranceNo"] = self.loanReqNo
         data["idNo"] = self.idNo
         data["phone"] = self.phone
         data["periods"] = self.periods
@@ -169,7 +169,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         loanReqNo = generate_customer_info.customer().reqno(66)
         idNo = generate_customer_info.customer().idNo()
         name = generate_customer_info.customer().name()
-        HB_phone = generate_customer_info.customer().phone()
+        phone = generate_customer_info.customer().phone()
         Bank = generate_customer_info.customer().bankcard()
         #指定姓名身份证手机号时使用
         # name = "粱九广"
@@ -181,13 +181,13 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         if capitalCode == "LJBANK":
             loan_datetime = time.strftime("%Y-%m-%d")
             ljreqno = generate_customer_info.customer().reqno(55)
-            lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime)
-            lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime)
+            lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime,environment)
+            lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime,environment)
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo = loanReqNo,
                             name = name,
                             idNo = idNo,
-                            phone = HB_phone,
+                            phone = phone,
                             loanAmount = loanAmount,
                             periods = periods,
                             custGrde = custGrde,
@@ -200,7 +200,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
             hyzllg = Hyzllg(loanReqNo = loanReqNo,
                             name = name,
                             idNo = idNo,
-                            phone = HB_phone,
+                            phone = phone,
                             loanAmount = loanAmount,
                             periods = periods,
                             custGrde = custGrde,
@@ -213,7 +213,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
             hyzllg = Hyzllg(loanReqNo = loanReqNo,
                             name = name,
                             idNo = idNo,
-                            phone = HB_phone,
+                            phone = phone,
                             loanAmount = loanAmount,
                             periods = periods,
                             custGrde = custGrde,
@@ -228,7 +228,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         test_info = f'''
                         姓名：{name}
                         身份证号：{idNo}
-                        手机号：{HB_phone}
+                        手机号：{phone}
                         借款金额:{loanAmount}
                         借款期次:{periods}
                         loanReqNo:{loanReqNo}
@@ -246,7 +246,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
 
 def main():
     #环境（sit,uat,dev）
-    environment = "sit"
+    environment = "uat"
     #走数据笔数
     number = 1
     # 借款金额
@@ -256,7 +256,7 @@ def main():
     # 客户等级
     custGrde = 18
     # 资方代码 (微众：FBBANK，龙江：LJBANK)
-    capitalCode = "LJBANK"
+    capitalCode = "FBBANK"
     main_360(environment.upper(),number,loanAmount,periods,custGrde,capitalCode)
 
 if __name__ == '__main__':

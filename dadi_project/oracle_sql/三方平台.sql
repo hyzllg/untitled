@@ -19,6 +19,8 @@ select * from GDTP_HEITONG_HIGH_RISK_RES where serial_no = '6F3566FE-F664-4ECE-A
 
 --三方挡板
 select * from GDTP_CONF_BAFFLE_INFO;
+select * from GDTP_CONF_BAFFLE_INFO where INTERFACE_URL = 'http://10.1.11.196:9212/sfpt/external/platform/sp/sinosure/certauth';
+
 
 --法院限高
 select * from GDTP_LOG_EX_PLATFORM_BAIRONG where serial_no = 'E2DFF49B-BC96-4DB2-A904-8F9F3373089A';
