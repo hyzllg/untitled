@@ -1,3 +1,0 @@
-#CustomerTrafficQuery请求报文
-data1 : {"requestBody":{"certId":""},"requestHead":{"consumerSeqNo":"20210427141426283801","seqNo":"20210427141426283801","consumerID":"新客服系统"}}
-data2 : {"requestBody":{"certId":"513337199707"},"requestHead":{"consumerSeqNo":"20210427141426283801","seqNo":"20210427141426283801","consumerID":"新客服系统"}}

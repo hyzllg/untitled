@@ -22,7 +22,7 @@ select * from loan_credit_records where id_card='320681198909240017' and status=
 select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select * from channel_apply_info where creditreqno ='2020120410404386556';
-select * from channel_apply_info where customerid ='320000000034081' ;
+select * from channel_apply_info where customerid ='320000001232477' ;
 select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889';
 --授信信息
 select * from business_apply where customerid ='320000001228058';
@@ -46,7 +46,7 @@ and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_d
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211027000006001'
+select * from queue_task qm where qm.objectno = '20211028000002005'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
@@ -100,8 +100,8 @@ select * from IMAGE_LIST where CUSTOMERID = '20200826000002008';
 select * from third_relative where customerid = '320000000670153';
 --黑瞳调用
 select * from HEITONG_RESULT WHERE customerid = '320000001232004';
-select * from heitong_high_risk where OBJECT_NO = '20211027000006001';
-select * from heitong_high_risk where CUSTOMERID = '320000000034099';
+select * from heitong_high_risk where OBJECT_NO = '20211028000002007';
+select * from heitong_high_risk where CUSTOMERID = '320000000034080';
 select * from trans_log where applyno = '20211022000002004' and Servicename = 'HeiTongAntiFraudService';
 --ilog5,ilog9人行数据落库
 select baoXianQueryNumLast6 from ED_ILOG_PBOC_DATA where REPORTNO = '2021102610021207445' and serialno = '20211026000004011';
@@ -209,4 +209,4 @@ update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='Ima
 
 select * from PUTOUT_APPROVE where CUSTOMERID = '320000000033928';
 
-select * from customer_info
+select * from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000034080';

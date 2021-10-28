@@ -2,10 +2,11 @@ import datetime
 import random
 import sys
 import time
-import winreg
 import cx_Oracle
-import Collect
 import yaml
+import os
+
+from utils import database_manipulation
 
 
 class CLAIM_RESULT:
@@ -56,35 +57,35 @@ class CLAIM_RESULT:
 
     def Payamt(self, datetime1,loanrate,day):
         # 未还本金
-        a = Collect.sql_cha(self.cursor,
+        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
                             "select sum(paycorpusamt),sum(actualpaycorpusamt) from acct_payment_schedule s  where s.objectno = '{}'".format(
                                 self.loanNo))
         corpusamt = a[0][0] - a[0][1]
         # 逾期本金
         # 先查一下最早逾期期次
-        n = Collect.sql_cha(self.cursor,
+        n = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
                             f"select seqid from acct_payment_schedule s  where s.objectno = '{self.loanNo}'and status = '12'")[
             0][0]
-        a = Collect.sql_cha(self.cursor,
+        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
                             f"select sum(paycorpusamt),sum(actualpaycorpusamt) from acct_payment_schedule s  where s.objectno = '{self.loanNo}'and seqid in ('{n}','{n + 1}','{n + 2}')")
         yq_corpusamt = a[0][0] - a[0][1]
         # 正常本金
         zc_corpusamt = corpusamt - yq_corpusamt
 
         # 利息 正常本金(1683.86)*利率0.062/360*18 + 逾期期数未还利息
-        a = Collect.sql_cha(self.cursor,
+        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
                             f"select sum(payinteamt),sum(actualpayinteamt) from acct_payment_schedule s  where s.objectno = '{self.loanNo}'and seqid in ('{n}','{n + 1}','{n + 2}')")
         # 逾期整期未还利息
         yq_inteamt = a[0][0] - a[0][1]
         # 理赔日前不足整期利息
-        datetime2 = Collect.sql_cha(self.cursor,
+        datetime2 = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
                                     f"select paydate from acct_payment_schedule s  where s.objectno = '{self.loanNo}' and seqid = '{n + 2}'")[
             0][0]
         days = self.Caltime(datetime1, datetime2) + (day - 80)
         payinteamt = round(zc_corpusamt * loanrate / 360 * days + yq_inteamt, 2)
 
         # 罚息
-        a = Collect.sql_cha(self.cursor,
+        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
                             f"select sum(payfineamt),sum(actualfineamt) from acct_payment_schedule s  where s.objectno =  '{self.loanNo}'and seqid in ('{n}','{n + 1}','{n + 2}')")
         fineamt = a[0][0] - a[0][1]
 
@@ -112,7 +113,7 @@ class CLAIM_RESULT:
         }
         b = time.strftime("%Y%m%d%H%M%S")
         serialno = b + '00000000000000' + str(random.randint(1000, 10000))
-        a = Collect.sql_cha(self.cursor,
+        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
                             "select a.customername,a.accountno,af.result_seq_no,a.putoutno from acct_loan a inner join acct_fund_apply af on a.apply_no = af.apply_no where serialno = '{}'".format(
                                 self.loanNo))[0]
         data = f"{serialno}{number[productid]}533030001000001533020001000001{a[0]}{a[1]}{a[2]}{a[3]}805{self.datatime_cap(datetime0)}{payamt[2]}{payamt[3]}{payamt[4]}{payamt[5]}{self.datatime_cap(datatime3)}FINAL_CLAIM"
@@ -124,7 +125,7 @@ class CLAIM_RESULT:
         try:
             self.cursor.execute(statement)
             self.conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
-        except Collect.cx_Oracle.DatabaseError:
+        except cx_Oracle.DatabaseError:
             return print("无效的SQL语句")
 
     def insert_data_acct_file_task(self, loan_numbers, task_id, datatime):
@@ -137,21 +138,22 @@ class CLAIM_RESULT:
             print("data插入acct_file_task表成功！")
 
 
-        except Collect.cx_Oracle.DatabaseError:
+        except cx_Oracle.DatabaseError:
             return print("无效的SQL语句")
 
 
 def productid(cursor, loanNo):
     sql = f"select businesstype from ACCT_PAYMENT_SCHEDULE where objectno = '{loanNo}'"
-    productid = Collect.sql_cha(cursor, sql)[0][0]
+    productid = database_manipulation.DatabaseManipulation().sql_cha(cursor, sql)[0][0]
     return int(productid)
 
 
-def environments(environment):
+def get_db_config(environment):
+    db = lambda path : yaml.load(open(path,encoding='utf-8'),Loader=yaml.SafeLoader)
     if environment == "sit":
-        environment = Collect.zwSIT_ORACLE
+        environment = db('../conf/Config.yaml')["xxhx_oracle"]["xxhx_sit_oracle"]
     elif environment == "uat":
-        environment = Collect.zwUAT_ORACLE
+        environment = db('../conf/Config.yaml')["xxhx_oracle"]["xxhx_uat_oracle"]
     else:
         print("环境选择错误，sit/uat！")
     return environment
@@ -168,9 +170,9 @@ def main(environment,loanNo,loanrate,day):
     # 借据笔数
     loan_numbers = len(loanNo)
     # 环境
-    environment = environments(environment)
+    db_config = get_db_config(environment)
     # 连接数据库
-    conn = cx_Oracle.connect(environment[0], environment[1], environment[2])
+    conn = cx_Oracle.connect(db_config[0], db_config[1], db_config[2])
     cursor = conn.cursor()
     # TASK_ID
     TASK_ID = "46010001130" + str(random.randint(1000, 10000))
@@ -181,7 +183,7 @@ def main(environment,loanNo,loanrate,day):
         # datetime0最早逾期期次还款日，datatime3理赔日
         # 最早逾期期次还款日
         try:
-            datetime0 = Collect.sql_cha(cursor,
+            datetime0 = database_manipulation.DatabaseManipulation().sql_cha(cursor,
                                         f"select paydate from acct_payment_schedule s  where s.objectno = '{loanNo}'and status = '12'")[
                 0][0]
         except IndexError:
@@ -210,12 +212,10 @@ def main(environment,loanNo,loanrate,day):
             tab = False
         print(f"TASK_ID:{TASK_ID}")
         print(f"索赔日：{CLAIM_RESULTS.datatime_cap(datatime3)}")
-        # 生成理赔申请文件，路径是桌面
-        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
-                             r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
+        # 生成理赔申请文件，当前目录
+        path = os.path.dirname(__file__)
         #微众文件
-        with open(winreg.QueryValueEx(key, "Desktop")[
-                      0] + f"\INS_CLAIM_REQUEST_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
+        with open(path + f"\INS_CLAIM_REQUEST_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
                   mode="a") as h:
             h.write(datas[0] + '\n')
         #交行文件
@@ -228,7 +228,7 @@ def main(environment,loanNo,loanrate,day):
         #     h.write(datas[0])
     # # 关闭数据库连接
     conn.close()
-    print("理赔申请文件生成成功！在桌面")
+    print("理赔申请文件生成成功")
 
 
 if __name__ == '__main__':
