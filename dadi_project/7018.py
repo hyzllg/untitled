@@ -222,8 +222,8 @@ class Hyzllg:
 def pp_main(environment,number,loanAmount,periods,custGrde):
     #获取配置信息
     get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
-    res_url = get_yaml_data('./setting/Config.yaml')["api_url_pp"]
-    res_data = get_yaml_data('./setting/request_data.yaml')["pp_res_data"]
+    res_url = get_yaml_data('./conf/Config.yaml')["api_url_pp"]
+    res_data = get_yaml_data('./conf/request_data.yaml')["pp_res_data"]
     abc = []
     for i in range(number):
         loanReqNo = generate_customer_info.customer().reqno(66)

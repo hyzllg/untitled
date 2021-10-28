@@ -5,7 +5,7 @@ class DatabaseManipulation:
     def sql_cha(self,cursor, my_sql):
         try:
             # 创建oracle连接
-            # conns = cx_Oracle.connect(setting[0], setting[1], setting[2])
+            # conns = cx_Oracle.connect(conf[0], conf[1], conf[2])
             # cursor = conns.cursor()
             # 执行sql
             cursor.execute(my_sql)

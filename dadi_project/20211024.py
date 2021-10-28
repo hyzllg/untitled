@@ -4,7 +4,7 @@ from utils import database_manipulation
 
 data = lambda path : yaml.load(open(path,encoding='utf-8'),Loader=yaml.SafeLoader)
 loanNo = '787-503407243301792592'
-oracle_driver = data('./setting/Config.yaml')["xshx_oracle"]["xsxb_sit_oracle"]
+oracle_driver = data('./conf/Config.yaml')["xshx_oracle"]["xsxb_sit_oracle"]
 
 hx_conn = cx_Oracle.connect(oracle_driver[0], oracle_driver[1], oracle_driver[2])
 hx_cursor = hx_conn.cursor()

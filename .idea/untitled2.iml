@@ -28,7 +28,7 @@
         <option value="$MODULE_DIR$/dadi_project/datas" />
         <option value="$MODULE_DIR$/dadi_project/oracle_sql" />
         <option value="$MODULE_DIR$/dadi_project/scripts" />
-        <option value="$MODULE_DIR$/dadi_project/setting" />
+        <option value="$MODULE_DIR$/dadi_project/conf" />
       </list>
     </option>
   </component>
