@@ -11,15 +11,10 @@ select * from PRODUCT_TERM_INFO pt where pt.productid = '7018' and term = '6';
 --改当日送线下报收付费
 select * from offlinerecord where bacthno = '20210926000001_03';
 select * from offlinerecord where bacthno like '202201%';
-SELECT
-	*
-FROM
-	OFFLINERECORD
-WHERE
-	SERIALNO LIKE '20210926%';--额度平台在途件（在途后再次申请，报错时查）
-select * from loan_credit_records where id_card='320681198909240017' and status='0';
---额度状态表
-select * from loan_limit where id_card='410102199007183213';
+-- --额度平台在途件（在途后再次申请，报错时查）
+-- select * from loan_credit_records where id_card='320681198909240017' and status='0';
+-- --额度状态表
+-- select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select * from channel_apply_info where creditreqno ='2020120410404386556';
 select * from channel_apply_info where customerid ='320000001232477' ;
@@ -104,7 +99,7 @@ select * from heitong_high_risk where OBJECT_NO = '20211028000002007';
 select * from heitong_high_risk where CUSTOMERID = '320000000034080';
 select * from trans_log where applyno = '20211022000002004' and Servicename = 'HeiTongAntiFraudService';
 --ilog5,ilog9人行数据落库
-select baoXianQueryNumLast6 from ED_ILOG_PBOC_DATA where REPORTNO = '2021102610021207445' and serialno = '20211026000004011';
+select * from ED_ILOG_PBOC_DATA where REPORTNO = '2021102610021207445' and serialno = '20211026000004011';
 --ilog规则集结果
 SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '20200722000000006';
 SELECT * FROM ILOG_RULES_RESULT c WHERE c.customerid = '320000001219556';
@@ -197,7 +192,7 @@ select * from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000034073';
 SELECT * FROM queue_task where objectno ='20211026000000001' and  objecttype ='jbo.app.PUTOUT_APPROVE' order by runtime;
 
 select CUSTGRDE from PPDAI_CHANNEL_DETAIL where creditreqno = '2021102617252950601';
-select custgrade from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000034076';
+select * from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000034076';
 select * from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000006586';
 
 --测还呗产品影像时改拉取远程路径

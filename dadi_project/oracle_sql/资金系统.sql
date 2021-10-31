@@ -80,4 +80,6 @@ select * from acct_loan where serialno in (
 select * from prpjp pr where pr.policyno = 'PBLG202131170359022516';
 select * from prpjp pr where pr.batno = '20210720000001_7015_LJ';
 
+select * from acct_loan
+
 

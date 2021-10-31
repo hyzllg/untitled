@@ -20,8 +20,8 @@ if __name__ == '__main__':
     #获取配置信息
     get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
     res_url = get_yaml_data('../conf/Config.yaml')["xshx_oracle"]
-    sql_cha_customer_info = "select customername,certid,phoneno from customer_info where certid in (select distinct A.certid from customer_info A where A.certid not in (select certid from CUSTOMER_WHITELIST))"
-    datas = Collect.sql_cha(res_url["xsxb_sit_oracle"], sql_cha_customer_info)
+    db_query_all_customer_info = "select customername,certid,phoneno from customer_info where certid in (select distinct A.certid from customer_info A where A.certid not in (select certid from CUSTOMER_WHITELIST))"
+    datas = Collect.db_query_all(res_url["xsxb_sit_oracle"], db_query_all_customer_info)
     data = []
     for i in datas:
         if len(i[1]) == 18:

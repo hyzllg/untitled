@@ -11,11 +11,10 @@ from utils import database_manipulation
 
 class CLAIM_RESULT:
 
-    def __init__(self, environment, loanNo, conn, cursor):
+    def __init__(self, environment, loanNo, zwzj_oracle):
         self.environment = environment
         self.loanNo = loanNo
-        self.conn = conn
-        self.cursor = cursor
+        self.zwzj_oracle = zwzj_oracle
 
     # 计算两个日期相差天数，自定义函数名，和两个日期的变量名。
     def Caltime(self, date1, date2):
@@ -45,47 +44,41 @@ class CLAIM_RESULT:
         datatime = datatime.replace(r"/", "")
         return datatime
 
-    def sql_update_acct_loan(self, v, vv, n):
-        try:
-
-            my_sql_c = "update acct_loan set overduedays = '80',normalbalance = :v ,overduebalance = :vv where serialno = :n"
-            self.cursor.execute(my_sql_c, {'v': v, 'vv': vv, 'n': n})
-            self.conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
-
-        except cx_Oracle.DatabaseError:
-            return print("无效的SQL语句")
+    def sql_update_acct_loan(self, zc_corpusamt, yq_corpusamt, lonano):
+        my_sql_c = "update acct_loan set overduedays = '80',normalbalance = '{}' ,overduebalance = '{}' where serialno = '{}'".format(zc_corpusamt,yq_corpusamt,lonano)
+        self.zwzj_oracle.insert_update_data(my_sql_c)
 
     def Payamt(self, datetime1,loanrate,day):
         # 未还本金
-        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
+        a = self.zwzj_oracle.query_data(
                             "select sum(paycorpusamt),sum(actualpaycorpusamt) from acct_payment_schedule s  where s.objectno = '{}'".format(
                                 self.loanNo))
         corpusamt = a[0][0] - a[0][1]
         # 逾期本金
         # 先查一下最早逾期期次
-        n = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
+        n = self.zwzj_oracle.query_data(
                             f"select seqid from acct_payment_schedule s  where s.objectno = '{self.loanNo}'and status = '12'")[
             0][0]
-        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
+        a = self.zwzj_oracle.query_data(
                             f"select sum(paycorpusamt),sum(actualpaycorpusamt) from acct_payment_schedule s  where s.objectno = '{self.loanNo}'and seqid in ('{n}','{n + 1}','{n + 2}')")
         yq_corpusamt = a[0][0] - a[0][1]
         # 正常本金
         zc_corpusamt = corpusamt - yq_corpusamt
 
         # 利息 正常本金(1683.86)*利率0.062/360*18 + 逾期期数未还利息
-        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
+        a = self.zwzj_oracle.query_data(
                             f"select sum(payinteamt),sum(actualpayinteamt) from acct_payment_schedule s  where s.objectno = '{self.loanNo}'and seqid in ('{n}','{n + 1}','{n + 2}')")
         # 逾期整期未还利息
         yq_inteamt = a[0][0] - a[0][1]
         # 理赔日前不足整期利息
-        datetime2 = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
+        datetime2 = self.zwzj_oracle.query_data(
                                     f"select paydate from acct_payment_schedule s  where s.objectno = '{self.loanNo}' and seqid = '{n + 2}'")[
             0][0]
         days = self.Caltime(datetime1, datetime2) + (day - 80)
         payinteamt = round(zc_corpusamt * loanrate / 360 * days + yq_inteamt, 2)
 
         # 罚息
-        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
+        a = self.zwzj_oracle.query_data(
                             f"select sum(payfineamt),sum(actualfineamt) from acct_payment_schedule s  where s.objectno =  '{self.loanNo}'and seqid in ('{n}','{n + 1}','{n + 2}')")
         fineamt = a[0][0] - a[0][1]
 
@@ -99,12 +92,7 @@ class CLAIM_RESULT:
         533000007000001'--拍拍贷
         533010015000001'--零花保
         '''
-        # number = {
-        #     7014: "533000004000001",
-        #     7016: "533010003000001",
-        #     7017: "533010003000001",
-        #     7018: "533000007000001"
-        # }
+
         number = {
             7014: "533000001000001",
             7015: "533000004000001",
@@ -113,7 +101,7 @@ class CLAIM_RESULT:
         }
         b = time.strftime("%Y%m%d%H%M%S")
         serialno = b + '00000000000000' + str(random.randint(1000, 10000))
-        a = database_manipulation.DatabaseManipulation().sql_cha(self.cursor,
+        a = self.zwzj_oracle.query_data(
                             "select a.customername,a.accountno,af.result_seq_no,a.putoutno from acct_loan a inner join acct_fund_apply af on a.apply_no = af.apply_no where serialno = '{}'".format(
                                 self.loanNo))[0]
         data = f"{serialno}{number[productid]}533030001000001533020001000001{a[0]}{a[1]}{a[2]}{a[3]}805{self.datatime_cap(datetime0)}{payamt[2]}{payamt[3]}{payamt[4]}{payamt[5]}{self.datatime_cap(datatime3)}FINAL_CLAIM"
@@ -122,29 +110,16 @@ class CLAIM_RESULT:
         return data, sql
 
     def insert_data_acct_file_task_detail(self, statement):
-        try:
-            self.cursor.execute(statement)
-            self.conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
-        except cx_Oracle.DatabaseError:
-            return print("无效的SQL语句")
+        self.zwzj_oracle.insert_update_data(statement)
 
     def insert_data_acct_file_task(self, loan_numbers, task_id, datatime):
-        try:
-
-            statement = f"insert into acct_file_task (ID, BUSINESS_DATE, FUND_CODE, PRODUCT_CODE, ORG_ID, REQUEST_ID, FILE_CODE, FILE_PATH, FILE_NAME, FILE_SIZE, FILE_ROWS, STATUS, ERROR_CODE, ERROR_MESSAGE, CREATE_TIME, UPDATE_TIME, NEXT_STEP, ERROR_ROWS, PROCESS_TYPE) values ('{task_id}', '{datatime}', '787', null, null, '202103081124', 'ClaimApply', '/DBBX_KCXB_CLAIM/20281003/', 'INS_CLAIM_RESULT_DBBX_KCXB_20281002', null, '{loan_numbers}', 1, null, null, to_date('03-10-2028 09:52:14', 'dd-mm-yyyy hh24:mi:ss'), to_date('03-10-2028 09:52:15', 'dd-mm-yyyy hh24:mi:ss'), null, 0, 1)"
-
-            self.cursor.execute(statement)
-            self.conn.commit()  # 这里一定要commit才行，要不然数据是不会插入的
-            print("data插入acct_file_task表成功！")
+        statement = f"insert into acct_file_task (ID, BUSINESS_DATE, FUND_CODE, PRODUCT_CODE, ORG_ID, REQUEST_ID, FILE_CODE, FILE_PATH, FILE_NAME, FILE_SIZE, FILE_ROWS, STATUS, ERROR_CODE, ERROR_MESSAGE, CREATE_TIME, UPDATE_TIME, NEXT_STEP, ERROR_ROWS, PROCESS_TYPE) values ('{task_id}', '{datatime}', '787', null, null, '202103081124', 'ClaimApply', '/DBBX_KCXB_CLAIM/20281003/', 'INS_CLAIM_RESULT_DBBX_KCXB_20281002', null, '{loan_numbers}', 1, null, null, to_date('03-10-2028 09:52:14', 'dd-mm-yyyy hh24:mi:ss'), to_date('03-10-2028 09:52:15', 'dd-mm-yyyy hh24:mi:ss'), null, 0, 1)"
+        self.zwzj_oracle.insert_update_data(statement)
 
 
-        except cx_Oracle.DatabaseError:
-            return print("无效的SQL语句")
-
-
-def productid(cursor, loanNo):
+def productid(zwzj_oracle, loanNo):
     sql = f"select businesstype from ACCT_PAYMENT_SCHEDULE where objectno = '{loanNo}'"
-    productid = database_manipulation.DatabaseManipulation().sql_cha(cursor, sql)[0][0]
+    productid = zwzj_oracle.query_data(sql)[0][0]
     return int(productid)
 
 
@@ -171,19 +146,18 @@ def main(environment,loanNo,loanrate,day):
     loan_numbers = len(loanNo)
     # 环境
     db_config = get_db_config(environment)
-    # 连接数据库
-    conn = cx_Oracle.connect(db_config[0], db_config[1], db_config[2])
-    cursor = conn.cursor()
+    # 数据库操作类
+    zwzj_oracle = database_manipulation.Oracle_Class(db_config[0],db_config[1],db_config[2])
     # TASK_ID
     TASK_ID = "46010001130" + str(random.randint(1000, 10000))
     tab = True
     for loanNo in loanNo:
 
-        CLAIM_RESULTS = CLAIM_RESULT(environment, loanNo, conn, cursor)
+        CLAIM_RESULTS = CLAIM_RESULT(environment, loanNo, zwzj_oracle)
         # datetime0最早逾期期次还款日，datatime3理赔日
         # 最早逾期期次还款日
         try:
-            datetime0 = database_manipulation.DatabaseManipulation().sql_cha(cursor,
+            datetime0 = zwzj_oracle.query_data(
                                         f"select paydate from acct_payment_schedule s  where s.objectno = '{loanNo}'and status = '12'")[
                 0][0]
         except IndexError:
@@ -200,7 +174,7 @@ def main(environment,loanNo,loanrate,day):
         CLAIM_RESULTS.sql_update_acct_loan(payamt[0], payamt[1], loanNo)
         print("------更新成功------")
         # 生成申请文件数据
-        datas = CLAIM_RESULTS.data(productid(cursor, loanNo), datetime0, datatime3, payamt, TASK_ID)
+        datas = CLAIM_RESULTS.data(productid(zwzj_oracle, loanNo), datetime0, datatime3, payamt, TASK_ID)
         # datatime4 = CLAIM_RESULTS.datatime_cap(datatime3)
         # data插入acct_file_task_detail
         print("将数据插入acct_file_task_detail表")
@@ -215,7 +189,7 @@ def main(environment,loanNo,loanrate,day):
         # 生成理赔申请文件，当前目录
         path = os.path.dirname(__file__)
         #微众文件
-        with open(path + f"\INS_CLAIM_REQUEST_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
+        with open(path + f"/INS_CLAIM_REQUEST_DBBX_KCXB_{CLAIM_RESULTS.datatime_cap(CLAIM_RESULTS.get_date(datatime3, -1))}",
                   mode="a") as h:
             h.write(datas[0] + '\n')
         #交行文件
@@ -226,8 +200,8 @@ def main(environment,loanNo,loanrate,day):
 
         # with open(os.path.join(os.path.expanduser("~"), 'Desktop') + f"\CLAIM_RESULT_DBBX_KCXB_{datatime4}",mode="w") as h:
         #     h.write(datas[0])
-    # # 关闭数据库连接
-    conn.close()
+    # 关闭数据库连接
+    zwzj_oracle.close_all()
     print("理赔申请文件生成成功")
 
 
