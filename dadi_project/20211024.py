@@ -7,5 +7,3 @@ data = lambda path : yaml.load(open(path,encoding='utf-8'),Loader=yaml.SafeLoade
 loanNo = '787-503407243301792592'
 oracle_driver = data('./conf/Config.yaml')["xshx_oracle"]["xsxb_sit_oracle"]
 
-path = os.path.dirname(__file__)
-print(path)

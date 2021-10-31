@@ -21,7 +21,7 @@ select * from ACCT_BACK_BILL;
 select * from acct_loan where serialno = '787-503208293301702761';
 --还款计划表
 select * from ACCT_PAYMENT_SCHEDULE where objectno = '20062-W2021092915414699797';
-select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503209283301705553';
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503407243301792589';
 --账务还款记录表
 select * from acct_back_detail t where t.LOANSERIALNO='787-502805153301143206';
 select * from acct_back_detail t where t.LOANSERIALNO='787-502711152980095447';
@@ -79,7 +79,5 @@ select * from acct_loan where serialno in (
 
 select * from prpjp pr where pr.policyno = 'PBLG202131170359022516';
 select * from prpjp pr where pr.batno = '20210720000001_7015_LJ';
-
-select * from acct_loan
 
 
