@@ -3,7 +3,7 @@ from test_selenium.page.login import Login
 import requests
 import pytest
 
-class Index():
+class Index:
 
     def index(self,token,text):
         url = 'https://aip.baidubce.com/rest/2.0/solution/v1/text_censor/v2/user_defined'

@@ -97,13 +97,8 @@ where tr.relativeserialno='20062-W210923004201302' order by updated_date desc;  
 select * from business_intfgl where attribute13 = 'PBLG202131171845014785';  --应收
 select * from prpjp where policyno = 'PBLG202131171845014785' order by updatetime desc; --实收
 select *from kafka_payment_notify order by create_time desc;--查看kfk推送结果
-
 select * from kafka_payment_notify where bill_serialno = '460100024479785' order by create_time desc;--查看kfk推送结果
 select * from kafka_payment_notify where ACCTLOAN_NO = '787-503412233301797592' order by create_time desc;--查看kfk推送结果
-
-
 select al.startdate,al.finaldate,al.* from acct_loan al where al.serialno = '20062-W210923004201302'for update nowait;--借据表
-
-
-
-
+--
+select * from kafka_payment_notify where SERVICE_NAME = 'SendPrpjpDataService' and CERTI_NO like 'R%';
