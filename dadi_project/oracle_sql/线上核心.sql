@@ -71,7 +71,7 @@ select * from acct_payment_schedule where objectno = '787-503302173301732221';
 --不缩期还款计划
 select * from acct_payment_schedule_not where objectno = '787-503302173301732221';
 --还款通知
-select * from loan_batch_notice where billno='20062-W210923004201302';
+select * from loan_batch_notice where billno='787-503208153301694826';
 --还款记录
 select * from loan_batch_info where objectno='20062-W210923004201302';
 select * from loan_batch_info where objectno='20062-W210923004201302';
@@ -212,3 +212,11 @@ update customer_info set liveaddress = '北京市市辖区东城区' where custo
 update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '320000001231136';
 
 select liveaddress from CUSTOMER_INFO where customerid = '320000001232935';
+select * from CUSTOMER_INFO where CERTID = '350182199207234324';
+
+select * from CHANNEL_APPLY_INFO where customerid = '320000001220581';
+select * from BUSINESS_APPLY where serialno = '20210923000002001';
+select * from PUTOUT_APPROVE where CUSTOMERID = '320000001231136' and OBJECTNO = '20210923000002001';
+
+select ca.CHANNELCUSTID from CHANNEL_APPLY_INFO ca join BUSINESS_APPLY ba on ca.serialno=ba.CHANNELAPPLYNO join PUTOUT_APPROVE pa on
+    ba.serialno=pa.OBJECTNO where ba.SERIALNO = '20211022000000005';
