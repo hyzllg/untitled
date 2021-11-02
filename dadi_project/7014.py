@@ -1,6 +1,6 @@
 import time
 import yaml
-from utils import lj_putout_mock, generate_customer_info,api_request
+from utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation
 
 
 class Hyzllg:
@@ -28,9 +28,10 @@ class Hyzllg:
         data["name"]=self.name
         data["idNo"]=self.idNo
         data["phone"]=self.phone
-        data["repayAmount"]=self.repayAmount
+        data["loanAmount"]=self.repayAmount
         data["periods"]=self.periods
-        data["bankcard"]=self.bankcard
+        data["bankCard"]=self.bankcard
+        data['bankPhone']=self.phone
         data["custType"]=self.custType
         url = self.url["credit_granting"]
         print("**********授信申请**********")
@@ -120,8 +121,8 @@ class Hyzllg:
         data["creditReqNo"] = self.creditReqNo
         data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
-        data["bankcard"] = self.bankcard
-        data["phone"] = self.phone
+        data["bankCard"] = self.bankcard
+        data["bankPhone"] = self.phone
         data["capitalCode"] = capitalCode
         data["custType"] = self.custType
 
@@ -172,13 +173,25 @@ class Hyzllg:
                 print("甜橙支用结果查询接口响应异常！")
                 exit()
 
+def get_oracle_conf(conf,environment):
+    if environment == "SIT":
+        oracle_conf = conf['xshx_oracle']['xsxb_sit_oracle']
+    elif environment == "UAT":
+        oracle_conf = conf['xshx_oracle']['xsxb_uat_oracle']
+    elif environment == "DEV":
+        oracle_conf = conf['xshx_oracle']['xsxb_dev_oracle']
+    return oracle_conf
 
 
 def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,loan_datetime=time.strftime("%Y-%m-%d")):
     #获取配置信息
     get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
-    res_url = get_yaml_data('./conf/Config.yaml')["api_url_tc"]
+    conf = get_yaml_data('./conf/Config.yaml')
+    res_url = conf["api_url_tc"]
     res_data = get_yaml_data('./conf/request_data.yaml')["tc_res_data"]
+    #获取数据库配置
+    oracle_conf = get_oracle_conf(conf,environment)
+    hx_oracle = database_manipulation.Oracle_Class(oracle_conf[0], oracle_conf[1], oracle_conf[2])
     abc=[]
     for i in range(number):
         # 指定姓名身份证手机号时使用
@@ -311,6 +324,10 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                             res_data = i["res_data"],
                             custType = i['custType'])
             if hyzllg.credit_inquiry(i['credit']):
+                #连接数据库
+                sql = "update customer_info set liveaddress = '北京市市辖区东城区' where CERTID = '%s'" % i['idNo']
+                hx_oracle.insert_update_data(sql)
+
                 hyzllg.disburse_trial(capitalCode)
                 hyzllg.disburse(capitalCode)
                 # Python_crawler.disburse_in_query(ORANGE_serial_number[2])
@@ -330,10 +347,12 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                     loanReqNo:{i['loanReqNo']}
                     '''
             print(test_info)
+    hx_oracle.close_all()
+
 
 def main():
     #环境（sit,uat,dev）
-    environment = "uat"
+    environment = "sit"
     #走数据笔数
     number = 1
     #放款金额

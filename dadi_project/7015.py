@@ -246,7 +246,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
 
 def main():
     #环境（sit,uat,dev）
-    environment = "uat"
+    environment = "sit"
     #走数据笔数
     number = 1
     # 借款金额

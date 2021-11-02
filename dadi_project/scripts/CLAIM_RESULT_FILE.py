@@ -48,7 +48,7 @@ class CLAIM_RESULT:
         my_sql_c = "update acct_loan set overduedays = '80',normalbalance = '{}' ,overduebalance = '{}' where serialno = '{}'".format(zc_corpusamt,yq_corpusamt,lonano)
         self.zwzj_oracle.insert_update_data(my_sql_c)
 
-    def Payamt(self, datetime1,loanrate,day):
+    def Payamt(self, datetime1,day):
         # 未还本金
         a = self.zwzj_oracle.query_data(
                             "select sum(paycorpusamt),sum(actualpaycorpusamt) from acct_payment_schedule s  where s.objectno = '{}'".format(
@@ -74,6 +74,8 @@ class CLAIM_RESULT:
         datetime2 = self.zwzj_oracle.query_data(
                                     f"select paydate from acct_payment_schedule s  where s.objectno = '{self.loanNo}' and seqid = '{n + 2}'")[
             0][0]
+        #贷款利率
+        loanrate = self.zwzj_oracle.query_data("select LOANRATE from acct_loan where serialno = '%s'" % self.loanNo)[0][0]
         days = self.Caltime(datetime1, datetime2) + (day - 80)
         payinteamt = round(zc_corpusamt * loanrate / 360 * days + yq_inteamt, 2)
 
@@ -140,7 +142,7 @@ def data():
     return datas
 
 
-def main(environment,loanNo,loanrate,day):
+def main(environment,loanNo,day):
     print("------开始执行------")
     # 借据笔数
     loan_numbers = len(loanNo)
@@ -166,7 +168,7 @@ def main(environment,loanNo,loanrate,day):
         # 理赔日
         datatime3 = CLAIM_RESULTS.get_date(datetime0, day)
         # 各科目金额（正常本金，逾期本金，本金，利息，罚息，总和）
-        payamt = CLAIM_RESULTS.Payamt(datatime3,loanrate,day)
+        payamt = CLAIM_RESULTS.Payamt(datatime3,day)
         print(
             f"借据号：{loanNo}，正常本金：{payamt[0]}，逾期本金：{payamt[1]}，本金：{payamt[2]}，利息：{payamt[3]}，罚息：{payamt[4]}，总和：{payamt[5]}")
         # 更新借据表中的逾期金额，正常金额
@@ -208,6 +210,6 @@ def main(environment,loanNo,loanrate,day):
 if __name__ == '__main__':
     start = time.time()
     datas = data()
-    main(datas["environment"],datas["loanNo"],datas["loanrate"],datas["day"])
+    main(datas["environment"],datas["loanNo"],datas["day"])
     end = time.time()
     print(f"运行时间：{end - start}")

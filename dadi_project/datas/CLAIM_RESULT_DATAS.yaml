@@ -1,8 +1,6 @@
 #格式要统一
 #理赔天数
 day : 80
-#年利率
-loanrate : 0.062
 #环境 sit、uat
 environment : sit
 #借据号，多笔按格式往下排

@@ -47,6 +47,6 @@ select * from GDTP_XSFK_ILOG9_RES_EXTEND;
 --调用比例
 select * from GDTP_XSHX_RULE_CONFIG where product_id = '7015';
 --interface_type 1=三要素，6=四要素
-select * from GDTP_XSHX_RULE_CONFIG_ITEM where serial_no in (select serial_no from GDTP_XSHX_RULE_CONFIG where product_id = '7018' and interface_type = '6');
+select * from GDTP_XSHX_RULE_CONFIG_ITEM where serial_no in (select serial_no from GDTP_XSHX_RULE_CONFIG where product_id = '7018' and interface_type = '1');
 
 select * from GDTP_XSHX_RULE_CONFIG where product_id = '7014' and interface_type = '1'

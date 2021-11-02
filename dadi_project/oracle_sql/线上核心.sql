@@ -18,6 +18,8 @@ select * from offlinerecord where bacthno like '202201%';
 --渠道信息
 select * from channel_apply_info where creditreqno ='2020120410404386556';
 select * from channel_apply_info where customerid ='320000001232477' ;
+select * from channel_apply_info where CHANNELCUSTID ='2021102210321790273753' ;
+
 select * from BAODAI_INSURANCEPOLICYINFO WHERE INSURANCENO= '2020120213533888889';
 --授信信息
 select * from business_apply where customerid ='320000001228058';
@@ -41,7 +43,7 @@ and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_d
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211028000014005'
+select * from queue_task qm where qm.objectno = '20211102000000003'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
@@ -86,7 +88,7 @@ select * from customer_auth  where certid in (select idno from CHANNEL_APPLY_INF
 --四要素是否复用
 select * from third_relative where customerid = '320000001232002';
 --调三要素
-select * from PHONETHREE_VERITY_RESULT  where servicecode='12001' and responsecode = '0';
+select * from PHONETHREE_VERITY_RESULT  where servicecode='1001' and responsecode = '0';
 --OCR识别
 select * from ocr_operate_record where customerid = '320000000034108';
 --人脸照片
@@ -201,7 +203,12 @@ update code_library set attribute2 = '/sftp/ccic/income/upload/image' where code
 update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='ImagetPayApply';
 
 
-
-select * from PUTOUT_APPROVE where CUSTOMERID = '320000000033928';
+select * from BUSINESS_APPLY where serialno = '20211022000000005';
+select * from PUTOUT_APPROVE where CUSTOMERID = '320000001231136';
 
 select * from CHANNEL_APPLY_INFO where CUSTOMERID = '320000000034080';
+
+update customer_info set liveaddress = '北京市市辖区东城区' where customerid = '320000001232935';
+update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '320000001231136';
+
+select liveaddress from CUSTOMER_INFO where customerid = '320000001232935';

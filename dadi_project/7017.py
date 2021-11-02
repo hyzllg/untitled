@@ -1,7 +1,7 @@
 import time
 import re as res
 import yaml
-from utils import generate_customer_info,api_request
+from utils import generate_customer_info,api_request,database_manipulation
 
 
 class Hyzllg:
@@ -127,13 +127,25 @@ class Hyzllg:
         except KeyError:
             print("还呗支用接口响应异常！")
             exit()
-
+def get_oracle_conf(conf,environment):
+    if environment == "SIT":
+        oracle_conf = conf['xshx_oracle']['xsxb_sit_oracle']
+    elif environment == "UAT":
+        oracle_conf = conf['xshx_oracle']['xsxb_uat_oracle']
+    elif environment == "DEV":
+        oracle_conf = conf['xshx_oracle']['xsxb_dev_oracle']
+    return oracle_conf
 
 def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
     #获取配置信息
     get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
-    res_url = get_yaml_data('./conf/Config.yaml')["api_url_hb"]
+    conf = get_yaml_data('./conf/Config.yaml')
+    res_url = conf["api_url_hb"]
     res_data = get_yaml_data('./conf/request_data.yaml')["hb_res_data"]
+    #获取数据库配置
+    oracle_conf = get_oracle_conf(conf,environment)
+    hx_oracle = database_manipulation.Oracle_Class(oracle_conf[0], oracle_conf[1], oracle_conf[2])
+
     for i in range(number):
         HB_loanReqNo = generate_customer_info.customer().reqno(66)
         idNo = generate_customer_info.customer().idNo()
@@ -196,13 +208,16 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         Insure_Data_Query = hyzllg.insure_data_query(insure_infos)  # 投保资料查询接口
         hyzllg.insure(Insure_Data_Query)  # 投保接口
         hyzllg.disburse()  # 支用接口
-        time.sleep(1)
+        time.sleep(5)
+        # 连接数据库
+        sql = "update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '%s'" % idNo
+        hx_oracle.insert_update_data(sql)
         print(test_info)
-        # raw_input("Press <enter>")
+    hx_oracle.close_all()
 
 def main():
     #环境（sit,uat,dev）
-    environment = "uat"
+    environment = "sit"
     #走数据笔数
     number = 1
     # 借款金额
