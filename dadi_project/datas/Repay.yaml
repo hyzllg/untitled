@@ -1,5 +1,5 @@
 environment: sit #环境 sit dev uat
-Pay_time: 2034/12/25 #还款时间
+Pay_time: 2021/11/03 #还款时间
 loanNo: 787-503411253301796551 #借据号
 repayType: "00" #还款类型 00正常或预期还款，01正常结清或逾期结清
 

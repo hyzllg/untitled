@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="PY-212.4746.96">
+  <component name="dataSourceStorageLocal" created-in="PY-212.5080.64">
     <data-source name="线上核心sit" uuid="1fabf4ec-2cf9-454f-ab06-3301669a482c">
       <database-info product="Oracle" version="Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production&#10;With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options" jdbc-version="4.2" driver-name="Oracle JDBC driver" driver-version="21.1.0.0.0" dbms="ORACLE" exact-version="12.1.0.2.0" exact-driver-version="21.1">
         <extra-name-characters>$#</extra-name-characters>
@@ -50,7 +50,7 @@
       </schema-mapping>
     </data-source>
     <data-source name="账务资金sit" uuid="58abc28d-252f-459d-9685-07be4243ec3b">
-      <database-info product="Oracle" version="Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0" dbms="ORACLE" exact-version="12.2.0.1.0" exact-driver-version="12.1">
+      <database-info product="Oracle" version="Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production" jdbc-version="4.2" driver-name="Oracle JDBC driver" driver-version="21.1.0.0.0" dbms="ORACLE" exact-version="12.2.0.1.0" exact-driver-version="21.1">
         <extra-name-characters>$#</extra-name-characters>
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -62,6 +62,7 @@
           <node kind="schema">
             <name qname="@" />
             <name qname="PUBLIC" />
+            <name qname="GDBZBUSI" />
           </node>
         </introspection-scope>
       </schema-mapping>

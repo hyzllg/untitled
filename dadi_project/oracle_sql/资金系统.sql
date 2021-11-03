@@ -12,9 +12,9 @@ update ACCT_PAYMENT_SCHEDULE a set a.fineintedate = '',a.FINEINTEBASE = '',a.PAY
 
 --还款流水
 select t.result_code,t.*,t.rowid from acct_transaction t where t.relativeserialno like '787-502404203300211517' order by created_date desc;
-select a.result_code,a.* from acct_transaction a where a.relativeserialno='787-503411253301796551';
+select a.result_code,a.* from acct_transaction a where a.relativeserialno='787-503208153301694826';
 -- 还款明细表
-select * from ACCT_BACK_DETAIL where loanserialno = '20062-W210923004201302';
+select * from ACCT_BACK_DETAIL where loanserialno = '787-503208153301694826';
 
 select * from prpjp where policyno = 'PBLG202131171845014785' order by updatetime desc; --实收
 select *from kafka_payment_notify where bill_serialno = '460100024479785' order by create_time desc;--查看kfk推送结果
@@ -23,7 +23,7 @@ select * from ACCT_BACK_BILL;
 --还款借据表
 select * from acct_loan where serialno = '787-503208293301702761';
 --还款计划表
-select * from ACCT_PAYMENT_SCHEDULE where objectno = '20062-W2021092915414699797';
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503208153301694826';
 select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503407243301792589';
 --账务还款记录表
 select * from acct_back_detail t where t.LOANSERIALNO='787-502805153301143206';
@@ -94,11 +94,15 @@ select tr.pay_status,tr.result_code,tr.* from acct_transaction tr
 where tr.relativeserialno='20062-W210923004201302' order by updated_date desc;    --还款流水表
 
 --收付费
-select * from business_intfgl where attribute13 = 'PBLG202131171845014785';  --应收
-select * from prpjp where policyno = 'PBLG202131171845014785' order by updatetime desc; --实收
+select * from business_intfgl where attribute13 = 'PBLG202131170429001804';  --应收
+select * from prpjp where policyno = 'PBLG202131171845014406' order by updatetime desc; --实收
+select * from prpjp where policyno = 'PBLG202131170429001804' order by updatetime desc; --实收
+select * from payment_notify where certino like 'R%';
+
 select *from kafka_payment_notify order by create_time desc;--查看kfk推送结果
 select * from kafka_payment_notify where bill_serialno = '460100024479785' order by create_time desc;--查看kfk推送结果
-select * from kafka_payment_notify where ACCTLOAN_NO = '787-503412233301797592' order by create_time desc;--查看kfk推送结果
+select * from kafka_payment_notify where ACCTLOAN_NO = '787-503208153301694826' order by create_time desc;--查看kfk推送结果
 select al.startdate,al.finaldate,al.* from acct_loan al where al.serialno = '20062-W210923004201302'for update nowait;--借据表
 --
 select * from kafka_payment_notify where SERVICE_NAME = 'SendPrpjpDataService' and CERTI_NO like 'R%';
+

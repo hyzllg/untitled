@@ -1,5 +1,6 @@
 import yaml
 import os
+import selenium
 import cx_Oracle
 from utils import database_manipulation
 

@@ -59,8 +59,6 @@ class Hyzllg:
         data["channelCustId"] = self.channelCustId
         data["creditReqNo"] = self.creditReqNo
         data["creditApplyNo"] = creditApplyNo
-
-        time.sleep(2)
         n = False
         while hhh < 16:
             url = self.url["credit_inquiry"]

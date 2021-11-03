@@ -43,7 +43,7 @@ and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_d
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211102000000003'
+select * from queue_task qm where qm.objectno = '20211103000000001'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
