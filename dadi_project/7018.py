@@ -1,7 +1,7 @@
 import re as res
 import time
 import yaml
-from utils import generate_customer_info,api_request
+from utils import generate_customer_info,api_request,Log
 
 
 class Hyzllg:
@@ -17,6 +17,7 @@ class Hyzllg:
         self.url = kwargs["url"]
         self.res_data = kwargs["res_data"]
         self.custGrde = kwargs["custGrde"]
+        self.log = Log.Log()
 
     def insure_info(self):
         data = self.res_data["insure_info"]
@@ -28,19 +29,20 @@ class Hyzllg:
         data["periods"] = self.periods
         data["custGrde"] = self.custGrde
         url = self.url["insure_info"]
-        print("**********投保信息接口**********")
+        self.log.info("投保信息接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 a = requit["data"]["insurUrl"]
                 b = res.search("lp=(.*)", a)
                 c = b.group()[3:]
-                print("投保信息接口成功！")
+                self.log.info("投保信息接口成功！")
             else:
-                print("投保信息接口失败！")
+                self.log.error("投保信息接口失败！")
                 exit()
         except KeyError:
-            print("拍拍贷投保信息接口响应异常！")
+            self.log.error("拍拍贷投保信息接口响应异常！")
             exit()
         return c
 
@@ -49,16 +51,17 @@ class Hyzllg:
         data["loanReqNo"] = self.loanReqNo
         data["token"] = token
         url = self.url['insure_data_query']
-        print("**********投保资料查询接口**********")
+        self.log.info("投保资料查询接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
-                print("投保资料查询成功！")
+                self.log.info("投保资料查询成功！")
             else:
-                print("投保资料查询失败！")
+                self.log.error("投保资料查询失败！")
                 exit()
         except KeyError:
-            print("拍拍贷投保资料查询接口响应异常！")
+            self.log.error("拍拍贷投保资料查询接口响应异常！")
             exit()
 
         return requit["data"]["insurantName"],requit["data"]["premiumRate"]
@@ -75,22 +78,23 @@ class Hyzllg:
         data["premiumRate"] = premiumRate
         data["insurantName"] = insurantName
         url = self.url['insure']
-        print("**********投保接口**********")
+        self.log.info("投保接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
                     if requit["data"]["message"]:
-                        print("受理失败")
+                        self.log.error("受理失败")
                         exit()
                 except BaseException as e:
                     if requit["data"]["status"] == '01':
-                        print("已受理，处理中！")
+                        self.log.info("已受理，处理中！")
             else:
-                print("未知异常！")
+                self.log.error("未知异常！")
                 exit()
         except KeyError:
-            print("拍拍贷投保接口响应异常！")
+            self.log.error("拍拍贷投保接口响应异常！")
             exit()
 
 
@@ -108,26 +112,27 @@ class Hyzllg:
         data["docDate"] = time.strftime("%Y/%m/%d")
         data["channelDetail"]["custGrde"] = self.custGrde
         url = self.url['credit_granting']
-        print("**********授信接口**********")
+        self.log.info("授信接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
 
                     if requit["data"]["status"] == "01":
-                        print("授信受理成功，处理中！")
+                        self.log.info("授信受理成功，处理中！")
                     elif requit["data"]["status"] == "00":
                         print(requit)
-                        print("受理失败！")
+                        self.log.error("受理失败！")
                         exit()
                 except BaseException as e:
-                    print("未知异常！")
+                    self.log.error("未知异常！")
                     exit()
             else:
-                print("未知异常！")
+                self.log.error("未知异常！")
                 exit()
         except KeyError:
-            print("拍拍贷授信接口响应异常！")
+            self.log.error("拍拍贷授信接口响应异常！")
             exit()
 
     def credit_inquiry(self):
@@ -137,35 +142,36 @@ class Hyzllg:
         n = False
         while number <= 30:
             url = self.url['credit_inquiry']
-            print("**********授信结果查询**********")
+            self.log.info("授信结果查询")
+            self.log.info(url)
             requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
-                    print("授信查询接口调用成功！")
+                    self.log.info("授信查询接口调用成功！")
                     try:
                         if requit["data"]["status"] == "01":
-                            print("授信通过！")
+                            self.log.info("授信通过！")
                             n = True
                             break
                         elif requit["data"]["status"] == "00":
-                            print("授信中！")
+                            self.log.info("授信中！")
                             time.sleep(3)
                         else:
-                            print("授信失败！")
+                            self.log.error("授信失败！")
                             exit()
                     except BaseException as e:
-                        print("未知异常！")
+                        self.log.error("未知异常！")
                         exit()
 
                 else:
-                    print("未知异常！")
+                    self.log.error("未知异常！")
                     exit()
             except KeyError:
-                print("拍拍贷授信结果查询接口响应异常！")
+                self.log.error("拍拍贷授信结果查询接口响应异常！")
                 exit()
             number += 1
         if number >= 10:
-            print("拍拍贷授信时间过长！可能由于授信挡板问题，结束程序！")
+            self.log.error("拍拍贷授信时间过长！可能由于授信挡板问题，结束程序！")
             exit()
 
         return n
@@ -175,20 +181,21 @@ class Hyzllg:
         data["creditReqNo"] = self.creditReqNo
         data["loanReqNo"] = self.loanReqNo
         url = self.url['disburse']
-        print("**********支用接口**********")
+        self.log.info("支用接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 if requit["data"]["status"] == "01":
-                    print("支用受理成功，处理中！")
+                    self.log.info("支用受理成功，处理中！")
                 elif requit["data"]["status"] == "00":
-                    print("支用受理失败！")
+                    self.log.error("支用受理失败！")
                     exit()
             else:
-                print("未知异常！")
+                self.log.error("未知异常！")
                 exit()
         except KeyError:
-            print("拍拍贷支用接口响应异常！")
+            self.log.error("拍拍贷支用接口响应异常！")
             exit()
 
     def disburse_in_query(self):
@@ -197,25 +204,26 @@ class Hyzllg:
         data["loanReqNo"] = self.loanReqNo
         while True:
             url = self.url['disburse_in_query']
-            print("**********支用结果查询**********")
+            self.log.info("支用结果查询")
+            self.log.info(url)
             requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
-                    print("支用查询接口调用成功！")
+                    self.log.info("支用查询接口调用成功！")
                     if requit["data"]["status"] == "01":
-                        print("支用通过！")
+                        self.log.info("支用通过！")
                         break
                     elif requit["data"]["status"] == "00":
-                        print("支用中！")
+                        self.log.info("支用中！")
                     else:
-                        print("支用失败！")
+                        self.log.error("支用失败！")
                         exit()
 
                 else:
-                    print("未知异常！")
+                    self.log.error("未知异常！")
                     exit()
             except KeyError:
-                print("拍拍贷支用结果接口响应异常！")
+                self.log.error("拍拍贷支用结果接口响应异常！")
                 exit()
 
 
@@ -359,13 +367,14 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
                             loanReqNo:{i["loanReqNo"]}
                             creditReqNo:{i["creditReqNo"]}
                         '''
-            print(test_info)
+            log = Log.Log()
+            log.info(test_info)
 
 
 
 def main():
     #环境（sit,uat,dev）
-    environment = "uat"
+    environment = "sit"
     #走数据笔数
     number = 1
     # 借款金额

@@ -127,6 +127,7 @@ api_url_pp :
  sit_url_pp :
   #拍拍贷投保信息接口
   insure_info: http://10.1.14.106:27405/channel/apitest/PPDAI/INSURE_INFO
+  a:           http://10.1.14.106:27405/channel/apitest/PPDAI/INSURE_INFO
   #拍拍贷投保资料查询接口
   insure_data_query: http://10.1.14.106:27405/channel/apitest/PPDAI/INSURE_DATA_QUERY
   #拍拍贷投保接口

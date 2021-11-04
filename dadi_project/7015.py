@@ -1,7 +1,7 @@
 import re as res
 import time
 import yaml
-from utils import lj_putout_mock, generate_customer_info,api_request
+from utils import lj_putout_mock, generate_customer_info,api_request,Log
 
 
 class Hyzllg:
@@ -17,6 +17,7 @@ class Hyzllg:
         self.custGrde = kwargs["custGrde"]
         self.capitalCode = kwargs["capitalCode"]
         self.res_data = kwargs["res_data"]
+        self.log = Log.Log()
 
     def insure_info(self):
         data = self.res_data["insure_info"]
@@ -29,19 +30,20 @@ class Hyzllg:
         data["capitalCode"] = self.capitalCode
         data["custGrde"] = self.custGrde
         url = self.url["insure_info"]
-        print("**********投保信息接口**********")
+        self.log.info("投保信息接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["data"]["status"] == '01':
                 a = requit["data"]["insurUrl"]
                 b = res.search("lp=(.*)", a)
                 c = b.group()[3:]
-                print("投保信息接口成功！")
+                self.log.info("投保信息接口成功！")
             else:
-                print("投保信息接口失败！")
+                self.log.error("投保信息接口失败！")
                 exit()
         except KeyError:
-            print("360投保信息接口响应异常！")
+            self.log.error("360投保信息接口响应异常！")
             exit()
         return c,data
 
@@ -49,17 +51,18 @@ class Hyzllg:
         data = self.res_data["insure_data_query"]
         data["loanReqNo"] = self.loanReqNo
         data["token"] = token
-        print("**********投保资料查询接口**********")
         url = self.url["insure_data_query"]
+        self.log.info("投保资料查询接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
-                print("投保资料查询成功！")
+                self.log.info("投保资料查询成功！")
             else:
-                print("投保资料查询失败！")
+                self.log.error("投保资料查询失败！")
                 exit()
         except KeyError:
-            print("360投保资料查询接口响应异常！")
+            self.log.error("360投保资料查询接口响应异常！")
             exit()
 
     def insure(self):
@@ -71,23 +74,24 @@ class Hyzllg:
         data["phone"] = self.phone
         data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
-        print("**********投保接口**********")
         url = self.url["insure"]
+        self.log.info("投保接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
                     if requit["data"]["message"]:
-                        print("受理失败")
+                        self.log.error("受理失败")
                         exit()
                 except BaseException as e:
                     if requit["data"]["status"] == '01':
-                        print("已受理，处理中！")
+                        self.log.info("已受理，处理中！")
             else:
-                print("未知错误！")
+                self.log.error("未知错误！")
                 exit()
         except KeyError:
-            print("360投保接口响应异常！")
+            self.log.error("360投保接口响应异常！")
             exit()
 
     def disburse(self):
@@ -102,21 +106,22 @@ class Hyzllg:
         data["periods"] = self.periods
         data["channelDetail"]["capitalCode"] = self.capitalCode
         data["custGrde"] = self.custGrde
-        print("**********支用接口**********")
         url = self.url["disburse"]
+        self.log.info("支用接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 if requit["data"]["status"] == "01":
-                    print("放款受理成功，处理中！")
+                    self.log.info("放款受理成功，处理中！")
                 elif requit["data"]["status"] == "00":
-                    print("受理失败！")
+                    self.log.error("受理失败！")
                     exit()
             else:
-                print("未知错误！")
+                self.log.error("未知错误！")
                 exit()
         except KeyError:
-            print("360支用接口响应异常！")
+            self.log.error("360支用接口响应异常！")
             exit()
 
     def disburse_in_query(self, test_info):
@@ -124,39 +129,40 @@ class Hyzllg:
         data["loanReqNo"] = self.loanReqNo
         while True:
             time.sleep(3)
-            print("**********放款结果查询接口**********")
             url = self.url["disburse_in_query"]
+            self.log.info("放款结果查询接口")
+            self.log.info(url)
             requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
-                    print("放款结果查询接口调用成功！")
+                    self.log.info("放款结果查询接口调用成功！")
                     if requit["data"]["status"] == '01':
-                        print("支用成功，银行放款成功！")
+                        self.log.info("支用成功，银行放款成功！")
                         print(test_info)
                     elif requit["data"]["status"] == '00':
-                        print("支用中，银行放款中")
+                        self.log.info("支用中，银行放款中")
                         continue
                     elif requit["data"]["status"] == '03':
-                        print("授信审批中")
+                        self.log.info("授信审批中")
                         continue
                     elif requit["data"]["status"] == '04':
-                        print("授信审批成功")
+                        self.log.info("授信审批成功")
                         continue
                     elif requit["data"]["status"] == '05':
-                        print("授信审批拒绝")
+                        self.log.error("授信审批拒绝")
                         exit()
                     elif requit["data"]["status"] == '02':
-                        print("支用失败，银行放款失败")
+                        self.log.error("支用失败，银行放款失败")
                         exit()
                     else:
-                        print("未知错误！")
+                        self.log.error("未知错误！")
                         exit()
 
                 else:
-                    print("未知错误！")
+                    self.log.error("未知错误！")
                     exit()
             except KeyError:
-                print("360支用结果查询接口响应异常！")
+                self.log.error("360支用结果查询接口响应异常！")
                 exit()
 
 
@@ -238,9 +244,8 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         hyzllg.insure()
         hyzllg.disburse()
         # Python_crawler.disburse_in_query(test_info)
-        time.sleep(1)
-        print(test_info)
-        # raw_input("Press <enter>")
+        log = Log.Log()
+        log.info(test_info)
 
 
 
@@ -256,7 +261,7 @@ def main():
     # 客户等级
     custGrde = 18
     # 资方代码 (微众：FBBANK，龙江：LJBANK)
-    capitalCode = "LJBANK"
+    capitalCode = "FBBANK"
     main_360(environment.upper(),number,loanAmount,periods,custGrde,capitalCode)
 
 if __name__ == '__main__':

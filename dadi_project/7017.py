@@ -1,7 +1,7 @@
 import time
 import re as res
 import yaml
-from utils import generate_customer_info,api_request,database_manipulation
+from utils import generate_customer_info,api_request,database_manipulation,Log
 
 
 class Hyzllg:
@@ -17,6 +17,7 @@ class Hyzllg:
         self.res_data = kwargs["res_data"]
         self.discountRate = kwargs["discountRate"]
         self.custGrde = kwargs["custGrde"]
+        self.log = Log.Log()
 
 
     def insure_info(self):
@@ -30,19 +31,20 @@ class Hyzllg:
         data["discountRate"] = self.discountRate
         data["custGrde"] = self.custGrde
         url = self.url["insure_info"]
-        print("**********投保信息接口**********")
+        self.log.info("投保信息接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
-                print("投保信息接口成功！")
+                self.log.info("投保信息接口成功！")
                 a = requit["data"]["insurAgencyUrl"]
                 b = res.search("lp=(.*)", a)
                 c = b.group()[3:]
             else:
-                print("投保信息接口失败！")
+                self.log.error("投保信息接口失败！")
                 exit()
         except KeyError:
-            print("还呗投保信息接口响应异常！")
+            self.log.error("还呗投保信息接口响应异常！")
             exit()
         return c
 
@@ -51,16 +53,17 @@ class Hyzllg:
         data["loanReqNo"] = self.loanReqNo
         data["token"] = token
         url = self.url['insure_data_query']
-        print("**********投保资料查询接口**********")
+        self.log.info("投保资料查询接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
-                print("投保资料查询成功！")
+                self.log.info("投保资料查询成功！")
             else:
-                print("投保资料查询失败！")
+                self.log.error("投保资料查询失败！")
                 exit()
         except KeyError:
-            print("还呗投保资料查询接口响应异常！")
+            self.log.error("还呗投保资料查询接口响应异常！")
             exit()
         return requit["data"]["premiumRate"]
 
@@ -75,22 +78,23 @@ class Hyzllg:
         data["periods"] = self.periods
         data["premiumRate"] = a
         url = self.url['insure']
-        print("**********投保接口**********")
+        self.log.info("投保接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
                     if requit["data"]["message"]:
-                        print("受理失败")
+                        self.log.error("受理失败")
                         exit()
                 except BaseException as e:
                     if requit["data"]["status"] == '01':
-                        print("已受理，处理中！")
+                        self.log.info("已受理，处理中！")
             else:
-                print("未知异常！")
+                self.log.error("未知异常！")
                 exit()
         except KeyError:
-            print("还呗投保接口响应异常！")
+            self.log.error("还呗投保接口响应异常！")
             exit()
         return requit
 
@@ -107,25 +111,26 @@ class Hyzllg:
         data["discountRate"] = self.discountRate
         data["channelDetail"]["custGrde"] = self.custGrde
         url = self.url['disburse']
-        print("**********支用接口**********")
+        self.log.info("支用接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 try:
 
                     if requit["data"]["status"] == "01":
-                        print("支用受理成功，处理中！")
+                        self.log.info("支用受理成功，处理中！")
                     elif requit["data"]["status"] == "00":
-                        print("受理失败！")
+                        self.log.error("受理失败！")
                         exit()
                 except BaseException as e:
-                    print("未知异常！")
+                    self.log.error("未知异常！")
                     exit()
             else:
-                print("未知异常！")
+                self.log.error("未知异常！")
                 exit()
         except KeyError:
-            print("还呗支用接口响应异常！")
+            self.log.error("还呗支用接口响应异常！")
             exit()
 def get_oracle_conf(conf,environment):
     if environment == "SIT":
@@ -209,17 +214,19 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         hyzllg.insure(Insure_Data_Query)  # 投保接口
         hyzllg.disburse()  # 支用接口
         time.sleep(5)
-        # 连接数据库
+        log = Log.Log()
+        log.info("更新customer_info表liveaddress")
         sql = "update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '%s'" % idNo
+        log.info(sql)
         hx_oracle.insert_update_data(sql)
-        print(test_info)
+        log.info(test_info)
     hx_oracle.close_all()
 
 def main():
     #环境（sit,uat,dev）
     environment = "sit"
     #走数据笔数
-    number = 1
+    number =1
     # 借款金额
     loanAmount = 6100
     # 期数
