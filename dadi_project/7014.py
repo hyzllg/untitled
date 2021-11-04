@@ -1,6 +1,6 @@
 import time
 import yaml
-from utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation
+from utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,Log
 
 
 class Hyzllg:
@@ -18,6 +18,7 @@ class Hyzllg:
         self.url = kwargs["url"]
         self.res_data = kwargs["res_data"]
         self.custType = kwargs["custType"]
+        self.log = Log.Log()
 
 
     def credit_granting(self):
@@ -34,22 +35,25 @@ class Hyzllg:
         data['bankPhone']=self.phone
         data["custType"]=self.custType
         url = self.url["credit_granting"]
-        print("**********授信申请**********")
+
+        self.log.info("授信申请")
+        self.log.info(f"[{url}]")
+
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
                 creditApplyNo = requit["data"]["body"]["creditApplyNo"]
-                print("授信接口调用成功！")
+                self.log.info("授信接口调用成功！")
                 if requit["data"]["body"]["status"] == "01":
-                    print("授信受理成功，处理中！")
+                    self.log.info("授信受理成功，处理中！")
                 else:
-                    print("授信受理失败！")
+                    self.log.error("授信受理失败！")
                     exit()
             else:
-                print("未知异常！")
+                self.log.error("未知异常！")
                 exit()
         except KeyError:
-            print("甜橙授信接口响应异常！")
+            self.log.error("甜橙授信接口响应异常！")
             exit()
         return creditApplyNo
 
@@ -62,27 +66,28 @@ class Hyzllg:
         n = False
         while hhh < 16:
             url = self.url["credit_inquiry"]
-            print("**********授信结果查询**********")
+            self.log.info("授信结果查询")
+            self.log.info([url])
             requit = api_request.request_api().test_api(url,data)
-            print("授信查询接口调用成功！")
+            self.log.info("授信查询接口调用成功！")
             try:
                 if requit["data"]["body"]["status"] == "01":
-                    print("授信通过！")
+                    self.log.info("授信通过！")
                     n = True
                     break
                 elif requit["data"]["body"]["status"] == "00":
-                    print("授信中！")
+                    self.log.info("授信中！")
                     time.sleep(3)
                     hhh += 1
                     continue
                 else:
-                    print("授信失败！")
+                    self.log.error("授信失败！")
                     exit()
             except KeyError:
-                print("甜橙授信查询接口响应异常！")
+                self.log.error("甜橙授信查询接口响应异常！")
                 exit()
         if hhh >= 16:
-            print("甜橙授信时间过长！可能由于授信挡板问题，结束程序！")
+            self.log.error("甜橙授信时间过长！可能由于授信挡板问题，结束程序！")
             exit()
         return n
 
@@ -94,22 +99,23 @@ class Hyzllg:
 
         while True:
             url = self.url["disburse_trial"]
-            print("**********支用试算**********")
+            self.log.info("支用试算")
+            self.log.info(url)
             requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
-                    print(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
+                    self.log.info(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
                     if requit["data"]["body"]["status"] == "01" and requit["data"]["body"]["capitalCode"] == capitalCode:
-                        print("支用试算成功！")
+                        self.log.info("支用试算成功！")
                         break
                     else:
                         time.sleep(3)
                         continue
                 else:
-                    print("未知异常！")
+                    self.log.error("未知异常！")
                     exit()
             except KeyError:
-                print("甜橙支用试算接口响应异常！")
+                self.log.error("甜橙支用试算接口响应异常！")
                 exit()
 
     def disburse(self, capitalCode):
@@ -125,21 +131,25 @@ class Hyzllg:
         data["custType"] = self.custType
 
         url = self.url["disburse"]
-        print("**********支用接口**********")
+        self.log.info("支用接口")
+        self.log.info(url)
         requit = api_request.request_api().test_api(url,data)
         try:
             if requit["result"] == True:
-                print("支用接口调用成功！")
+                self.log.info("支用接口调用成功！")
                 if requit["data"]["body"]["status"] == "01":
-                    print("受理成功，处理中!")
+                    self.log.info("受理成功，处理中!")
                 else:
-                    print("受理失败")
+                    self.log.info("受理失败")
+
                     exit()
             else:
-                print("未知异常！")
+                self.log.info("未知异常！")
+
                 exit()
         except KeyError:
-            print("甜橙支用接口响应异常！")
+            self.log.info("甜橙支用接口响应异常！")
+
             exit()
 
     def disburse_in_query(self, loanReqNo):
@@ -150,25 +160,32 @@ class Hyzllg:
         time.sleep(5)
         while True:
             url = self.url["disburse_in_query"]
-            print("**********支用结果查询**********")
+            self.log.info("支用结果查询")
+            self.log.info(url)
+
             requit = api_request.request_api().test_api(url,data)
             try:
                 if requit["result"] == True:
-                    print("支用结果查询接口调用成功！")
+                    self.log.info("支用结果查询接口调用成功！")
                     if requit["data"]["body"]["status"] == "01":
-                        print("支用成功")
+                        self.log.info("支用成功")
+
                         break
                     elif requit["data"]["body"]["status"] == "00":
-                        print("处理中！")
+                        self.log.info("处理中！")
+
                     else:
-                        print("支用失败！")
+                        self.log.info("支用失败！")
+
                         exit()
                 else:
-                    print("未知异常！")
+                    self.log.info("未知异常！")
+
                     exit()
                 time.sleep(3)
             except KeyError:
-                print("甜橙支用结果查询接口响应异常！")
+                self.log.info("甜橙支用结果查询接口响应异常！")
+
                 exit()
 
 def get_oracle_conf(conf,environment):
@@ -187,6 +204,8 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
     conf = get_yaml_data('./conf/Config.yaml')
     res_url = conf["api_url_tc"]
     res_data = get_yaml_data('./conf/request_data.yaml')["tc_res_data"]
+    #日志
+    log = Log.Log()
     #获取数据库配置
     oracle_conf = get_oracle_conf(conf,environment)
     hx_oracle = database_manipulation.Oracle_Class(oracle_conf[0], oracle_conf[1], oracle_conf[2])
@@ -322,8 +341,9 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                             res_data = i["res_data"],
                             custType = i['custType'])
             if hyzllg.credit_inquiry(i['credit']):
-                #连接数据库
+                log.info("更新客户信息表liveaddress")
                 sql = "update customer_info set liveaddress = '北京市市辖区东城区' where CERTID = '%s'" % i['idNo']
+                log.info(sql)
                 hx_oracle.insert_update_data(sql)
 
                 hyzllg.disburse_trial(capitalCode)
@@ -344,7 +364,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
                     creditReqNo：{i['creditReqNo']}
                     loanReqNo:{i['loanReqNo']}
                     '''
-            print(test_info)
+            log.info(test_info)
     hx_oracle.close_all()
 
 

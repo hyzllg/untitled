@@ -100,7 +100,7 @@ class Hyzllg:
         data["name"] = self.name
         data["bankCard"] = self.bankcard
         data["periods"] = self.periods
-        data["capitalCode"] = self.capitalCode
+        data["channelDetail"]["capitalCode"] = self.capitalCode
         data["custGrde"] = self.custGrde
         print("**********支用接口**********")
         url = self.url["disburse"]
@@ -256,7 +256,7 @@ def main():
     # 客户等级
     custGrde = 18
     # 资方代码 (微众：FBBANK，龙江：LJBANK)
-    capitalCode = "FBBANK"
+    capitalCode = "LJBANK"
     main_360(environment.upper(),number,loanAmount,periods,custGrde,capitalCode)
 
 if __name__ == '__main__':

@@ -38,7 +38,7 @@ select * from customer_tel where applyno='20210917000000002';
 select *from customer_realname where regid ='320000000662825';
 select *from customer_realname_log where regid ='20201202000002005';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202110270000006006'
+select * from queue_task qm where qm.objectno = '202111040000000006'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 
 select * from queue_model where modelno = 'PutoutApproveOrange';
@@ -77,6 +77,9 @@ select * from loan_batch_info where objectno='20062-W210923004201302';
 select * from loan_batch_info where objectno='20062-W210923004201302';
 --扣款记录
 select * from loan_batch_cutpayment where billno='787-502805153301143206';
+--总欠记录
+select * from CLAIM_PAYMENT_SCHEDULE;
+
 --四要素成功落库
 select * from CUSTOMER_BANK_CARD where customerid = '320000001232085';
 --四要素是否调用
@@ -220,3 +223,11 @@ select * from PUTOUT_APPROVE where CUSTOMERID = '320000001231136' and OBJECTNO =
 
 select ca.CHANNELCUSTID from CHANNEL_APPLY_INFO ca join BUSINESS_APPLY ba on ca.serialno=ba.CHANNELAPPLYNO join PUTOUT_APPROVE pa on
     ba.serialno=pa.OBJECTNO where ba.SERIALNO = '20211022000000005';
+
+
+--服务节点异常后落库记录
+select * from exception_log_count where SERVICENAME = 'QueryCreditInfoOcr';
+
+--理赔知会短信发送后落库记录
+select * from TASK_EXECUTION_STATISTICS
+

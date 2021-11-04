@@ -22,7 +22,6 @@ class Oracle_Class:
     def insert_update_data(self, sql):
         self.cursor.execute(sql)
         self.conn.commit()
-        print(sql)
 
     # 关闭连接，释放资源
     def close_all(self):
