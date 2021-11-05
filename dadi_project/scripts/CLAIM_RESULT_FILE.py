@@ -2,11 +2,10 @@ import datetime
 import random
 import sys
 import time
-import cx_Oracle
 import yaml
 import os
 
-from utils import database_manipulation
+from utils import database_manipulation,my_log
 
 
 class CLAIM_RESULT:
@@ -143,7 +142,8 @@ def data():
 
 
 def main(environment,loanNo,day):
-    print("------开始执行------")
+    log = my_log.Log()
+    log.info("------开始执行------")
     # 借据笔数
     loan_numbers = len(loanNo)
     # 环境
@@ -163,31 +163,31 @@ def main(environment,loanNo,day):
                                         f"select paydate from acct_payment_schedule s  where s.objectno = '{loanNo}'and status = '12'")[
                 0][0]
         except IndexError:
-            print(f"借据需为逾期状态！{loanNo}")
+            log.error(f"借据需为逾期状态！{loanNo}")
             sys.exit()
         # 理赔日
         datatime3 = CLAIM_RESULTS.get_date(datetime0, day)
         # 各科目金额（正常本金，逾期本金，本金，利息，罚息，总和）
         payamt = CLAIM_RESULTS.Payamt(datatime3,day)
-        print(
+        log.info(
             f"借据号：{loanNo}，正常本金：{payamt[0]}，逾期本金：{payamt[1]}，本金：{payamt[2]}，利息：{payamt[3]}，罚息：{payamt[4]}，总和：{payamt[5]}")
         # 更新借据表中的逾期金额，正常金额
-        print(f"更新acct_loan表逾期金额（{payamt[0]}）和正常金额（{payamt[1]}）")
+        log.info(f"更新acct_loan表逾期金额（{payamt[0]}）和正常金额（{payamt[1]}）")
         CLAIM_RESULTS.sql_update_acct_loan(payamt[0], payamt[1], loanNo)
-        print("------更新成功------")
+        log.info("------更新成功------")
         # 生成申请文件数据
         datas = CLAIM_RESULTS.data(productid(zwzj_oracle, loanNo), datetime0, datatime3, payamt, TASK_ID)
         # datatime4 = CLAIM_RESULTS.datatime_cap(datatime3)
         # data插入acct_file_task_detail
-        print("将数据插入acct_file_task_detail表")
+        log.info("将数据插入acct_file_task_detail表")
         CLAIM_RESULTS.insert_data_acct_file_task_detail(datas[1])
-        print("------插入成功------")
+        log.info("------插入成功------")
         if tab:
             # 更改acct_file_task表数据
             CLAIM_RESULTS.insert_data_acct_file_task(loan_numbers, TASK_ID, CLAIM_RESULTS.get_date(datatime3, -1))
             tab = False
-        print(f"TASK_ID:{TASK_ID}")
-        print(f"索赔日：{CLAIM_RESULTS.datatime_cap(datatime3)}")
+        log.info(f"TASK_ID:{TASK_ID}")
+        log.info(f"索赔日：{CLAIM_RESULTS.datatime_cap(datatime3)}")
         # 生成理赔申请文件，当前目录
         path = os.path.dirname(__file__)
         #微众文件
@@ -204,12 +204,9 @@ def main(environment,loanNo,day):
         #     h.write(datas[0])
     # 关闭数据库连接
     zwzj_oracle.close_all()
-    print("理赔申请文件生成成功")
+    log.info("理赔申请文件生成成功")
 
 
 if __name__ == '__main__':
-    start = time.time()
     datas = data()
     main(datas["environment"],datas["loanNo"],datas["day"])
-    end = time.time()
-    print(f"运行时间：{end - start}")

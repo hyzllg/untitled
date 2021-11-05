@@ -12,15 +12,15 @@ xxhx_oracle :
 api_url_360 :
  sit_url_360 :
   #360投保信息接口
-  insure_info : http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+  insure_info : 'http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO'
   #360投保资料查询接口
-  insure_data_query : http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+  insure_data_query : 'http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY'
   #360投保接口
-  insure : http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+  insure : 'http://10.1.14.106:27405/channel/apitest/QFIN/INSURE'
   #360支用接口
-  disburse : http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+  disburse : 'http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE'
   #360支用查询接口
-  disburse_in_query : http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE_IN_QUERY
+  disburse_in_query : 'http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE_IN_QUERY'
 
  uat_url_360 :
   #360投保信息接口

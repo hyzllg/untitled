@@ -1,7 +1,7 @@
 import time
 import re as res
 import yaml
-from utils import generate_customer_info,api_request,database_manipulation,Log
+from utils import generate_customer_info,api_request,database_manipulation,my_log
 
 
 class Hyzllg:
@@ -17,7 +17,7 @@ class Hyzllg:
         self.res_data = kwargs["res_data"]
         self.discountRate = kwargs["discountRate"]
         self.custGrde = kwargs["custGrde"]
-        self.log = Log.Log()
+        self.log = my_log.Log()
 
 
     def insure_info(self):
@@ -33,7 +33,7 @@ class Hyzllg:
         url = self.url["insure_info"]
         self.log.info("投保信息接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 self.log.info("投保信息接口成功！")
@@ -55,7 +55,7 @@ class Hyzllg:
         url = self.url['insure_data_query']
         self.log.info("投保资料查询接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post",url, data)
         try:
             if requit["result"] == True:
                 self.log.info("投保资料查询成功！")
@@ -80,7 +80,7 @@ class Hyzllg:
         url = self.url['insure']
         self.log.info("投保接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 try:
@@ -113,7 +113,7 @@ class Hyzllg:
         url = self.url['disburse']
         self.log.info("支用接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 try:
@@ -214,7 +214,7 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         hyzllg.insure(Insure_Data_Query)  # 投保接口
         hyzllg.disburse()  # 支用接口
         time.sleep(5)
-        log = Log.Log()
+        log = my_log.Log()
         log.info("更新customer_info表liveaddress")
         sql = "update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '%s'" % idNo
         log.info(sql)
@@ -226,7 +226,7 @@ def main():
     #环境（sit,uat,dev）
     environment = "sit"
     #走数据笔数
-    number =1
+    number = 1
     # 借款金额
     loanAmount = 6100
     # 期数

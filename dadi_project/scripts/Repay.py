@@ -4,7 +4,7 @@ import requests
 import cx_Oracle
 import json
 import yaml
-from utils import generate_customer_info,api_request,database_manipulation
+from utils import generate_customer_info,api_request,database_manipulation,my_log
 
 
 class Collects:
@@ -33,27 +33,20 @@ class Collects:
         return a
 
 class Set_time:
+    def __init__(self):
+        self.log = my_log.Log()
     def set_zw_time(self,time):
         url = r"http://10.1.14.191:26275/sys/setDate"
         params = {"date":"20210119"}
         params["date"] = time
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********改账务系统时间！**********"
-        print(a)
-        print(f"请求报文：{params}")
-        re = requests.get(url, params=params, headers=headers)
-        requit = re.json()
-        print(f"请求报文：{requit}")
+        self.log.info(f"改账务系统时间 {time}")
+        api_request.request_api().test_api("get", url, params)
     def set_hx_time(self,xbhx_oracle,time):
-        a = "**********改线上核心系统时间！**********"
-        print(a)
+        self.log.info(f"改线上核心系统时间 {time}")
         update_sql = "UPDATE system_setup SET businessdate = '{}' ,batchdate = '{}'".format(time,time)
+        self.log.info(f"执行sql {update_sql}")
         xbhx_oracle.insert_update_data(update_sql)
-        print("更新成功！")
+        self.log.info("更新成功！")
 
 
 
@@ -69,6 +62,7 @@ class TC_repqy:
         self.repayType = repayType
         self.xbhx_oracle = xbhx_oracle
         self.zwzj_oracle = zwzj_oracle
+        self.log = my_log.Log()
 
     def ADVANCE_SETTLE_TRIAL(self):
         data = {
@@ -77,29 +71,19 @@ class TC_repqy:
                 }
         data["loanNo"] = self.loanNo
         data["channelCustId"] = self.channelCustId
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********甜橙提前结清接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        re = requests.post(self.url + "ADVANCE_SETTLE_TRIAL", data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            if requit["data"]["body"]["status"] == '01':
-                print(f"响应报文：{requit}")
-                print("甜橙提前结清接口！")
-                repayAmt = requit["data"]["body"]["result"]["repayAmt"]
+        self.log.info("甜橙提前结清接口")
+        self.log.info(f"[{self.url + 'ADVANCE_SETTLE_TRIAL'}]")
+        result = api_request.request_api().test_api("post", self.url + "ADVANCE_SETTLE_TRIAL", data)
+        if result["result"] == True:
+            if result["data"]["body"]["status"] == '01':
+                self.log.info("甜橙提前结清接口！")
+                repayAmt = result["data"]["body"]["result"]["repayAmt"]
             else:
-                print("甜橙提前结清接口失败！")
-                print("{} {}".format(requit["data"]["body"]["errorCode"],requit["data"]["body"]["errorMsg"]))
+                self.log.error("甜橙提前结清接口失败！")
         else:
-            print("msg:{}".format(requit["msg"]))
+            self.log.info("msg:{}".format(result["msg"]))
             exit()
-        return a, requit,repayAmt
+        return repayAmt
 
     def PAYMENT_NOTICE(self,repayAmt):
         data = {
@@ -122,27 +106,16 @@ class TC_repqy:
         data["repayType"] = self.repayType
         data["transTime"] = "{} 13:14:00".format(self.paytime)
         data["repayTime"] = "{} 13:14:00".format(self.paytime)
-
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********甜橙还款通知接口接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        re = requests.post(self.url + "PAYMENT_NOTICE", data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            if requit["data"]["body"]["status"] == '01':
-                print(f"响应报文：{requit}")
-                print("甜橙还款通知接口成功！")
+        self.log.info("甜橙还款通知接口接口")
+        self.log.info(f'[{self.url + "PAYMENT_NOTICE"}]')
+        result = api_request.request_api().test_api("post", self.url + "PAYMENT_NOTICE", data)
+        if result["result"] == True:
+            if result["data"]["body"]["status"] == '01':
+                self.log.info("甜橙还款通知接口成功！")
             else:
-                print("甜橙还款通知接口失败！")
-                print("{} {}".format(requit["data"]["body"]["errorCode"],requit["data"]["body"]["errorMsg"]))
+                self.log.info("甜橙还款通知接口失败！")
         else:
-            print("msg:{}".format(requit["msg"]))
+            self.log.info("msg:{}".format(result["msg"]))
             exit()
 
 
@@ -150,38 +123,39 @@ class TC_repqy:
         # 判断该借据是否逾期
         acct_loan_type = self.zwzj_oracle.query_data("select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0][0]
         if self.repayType == "01":
+
             repayAmt = self.ADVANCE_SETTLE_TRIAL()
-            self.PAYMENT_NOTICE(repayAmt[-1])
+            self.PAYMENT_NOTICE(repayAmt)
         elif self.repayType == "00":
+
             if acct_loan_type == "0":
-                print("借据为正常状态！")
+                self.log.info(f'借据是否逾期：Flase')
                 # 查询借据最远未还期次信息
                 normal_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 # print(normal_ACCT_PAYMENT_SCHEDULE[2])
                 #判断是否是还款日，如不是则不能做还款
                 if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
-                    print(f"还款金额：{repayamt}")
+                    self.log.info(f"还款金额：{repayamt}")
                     self.PAYMENT_NOTICE(repayamt)
                 else:
-                    print("不能做提前还当期操作！")
+                    self.log.error("不能做提前还当期操作！")
 
             elif acct_loan_type == "1":
-                print("借据为逾期状态！")
+                self.log.info(f'借据是否逾期：True')
                 overdue = []
                 overdueamt = 0
                 overdue_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
-                print(f"还款金额：{overdueamt}")
+                self.log.info(f"还款金额：{overdueamt}")
                 self.PAYMENT_NOTICE(overdueamt)
 
 
 
             elif acct_loan_type in ["10","20","30"]:
-                print("借据为结清状态！")
+                self.log.info("借据为结清状态！")
         else:
-            print("还款类型有误！")
-
+            self.log.info("还款类型有误！")
 
 class PP_repqy:
     def __init__(self,paytime,channelCustId,loanNo,repayReqNo,Period,repayType,url,xbhx_oracle,zwzj_oracle):
@@ -194,6 +168,7 @@ class PP_repqy:
         self.url = url
         self.xbhx_oracle =xbhx_oracle
         self.zwzj_oracle = zwzj_oracle
+        self.log = my_log.Log()
 
     def ADVANCE_SETTLE_TRIAL(self):
         data = {
@@ -202,30 +177,20 @@ class PP_repqy:
                 }
         data["loanNo"] = self.loanNo
         data["channelCustId"] = self.channelCustId
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********拍拍提前结清试算接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        re = requests.post(self.url + "ADVANCE_SETTLE_TRIAL", data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            if requit["data"]["status"] == '01':
-                print(f"响应报文：{requit}")
-                print("拍拍提前结清试算接口成功！")
-                repayAmt = requit["data"]["result"]["repayAmt"]
-
+        self.log.info("拍拍提前结清试算接口")
+        self.log.info(f'[{self.url + "ADVANCE_SETTLE_TRIAL"}]')
+        result = api_request.request_api().test_api("post", self.url + "ADVANCE_SETTLE_TRIAL", data)
+        if result["result"] == True:
+            if result["data"]["status"] == '01':
+                self.log.info("拍拍提前结清试算接口成功！")
+                repayAmt = result["data"]["result"]["repayAmt"]
             else:
-                print("拍拍提前结清试算接口失败！")
-                print("{} {}".format(requit["data"]["errorCode"],requit["data"]["errorMsg"]))
+                self.log.error("拍拍提前结清试算接口失败！")
+                self.log.error("{} {}".format(result["data"]["errorCode"],result["data"]["errorMsg"]))
         else:
-            print("msg:{}".format(requit["msg"]))
+            self.log.error("msg:{}".format(result["msg"]))
             exit()
-        return a, requit,repayAmt
+        return repayAmt
 
     def PAYMENT_NOTICE(self,repayAmt):
         data = {
@@ -251,64 +216,51 @@ class PP_repqy:
         data["repayType"] = self.repayType
         data["transTime"] = "{} 13:14:00".format(self.paytime)
         data["repayTime"] = "{} 13:14:00".format(self.paytime)
-
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********拍拍还款通知接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        re = requests.post(self.url + "PAYMENT_NOTICE", data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            if requit["data"]["status"] == '01':
-                print(f"响应报文：{requit}")
-                print("拍拍还款通知接口成功！")
+        self.log.info("拍拍还款通知接口")
+        self.log.info(f'[{self.url + "PAYMENT_NOTICE"}]')
+        result = api_request.request_api().test_api("post", self.url + "PAYMENT_NOTICE", data)
+        if result["result"] == True:
+            if result["data"]["status"] == '01':
+                self.log.info("拍拍还款通知接口成功！")
             else:
-                print("拍拍还款通知接口失败！")
-                print("{} {}".format(requit["data"]["errorCode"],requit["data"]["errorMsg"]))
+                self.log.error("拍拍还款通知接口失败！")
+                self.log.error("{} {}".format(result["data"]["errorCode"],result["data"]["errorMsg"]))
         else:
-            print("msg:{}".format(requit["msg"]))
+            self.log.error("msg:{}".format(result["msg"]))
             exit()
-        return a, requit
+        return result
 
     def pay(self):
         # 判断该借据是否逾期
         acct_loan_type = self.zwzj_oracle.query_data("select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0][0]
         if self.repayType == "01":
             repayAmt = self.ADVANCE_SETTLE_TRIAL()
-            self.PAYMENT_NOTICE(repayAmt[-1])
+            self.PAYMENT_NOTICE(repayAmt)
         elif self.repayType == "00":
             if acct_loan_type == "0":
-                print("借据为正常状态！")
+                self.log.info("借据为正常状态！")
                 # 查询借据最远未还期次信息
                 normal_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #判断是否是还款日，如不是则不能做还款
                 if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
-                    print(f"还款金额：{repayamt}")
+                    self.log.info(f"还款金额：{repayamt}")
                     self.PAYMENT_NOTICE(repayamt)
                 else:
-                    print("不能做提前还当期操作！")
+                    self.log.error("不能做提前还当期操作！")
 
             elif acct_loan_type == "1":
-                print("借据为逾期状态！")
+                self.log.info("借据为逾期状态！")
                 overdue = []
                 overdueamt = 0
                 overdue_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
-                print(f"还款金额：{overdueamt}")
+                self.log.info(f"还款金额：{overdueamt}")
                 self.PAYMENT_NOTICE(overdueamt)
-
-
-
             elif acct_loan_type in ["10","20","30"]:
-                print("借据为结清状态！")
+                self.log.error("借据为结清状态！")
         else:
-            print("还款类型有误！")
+            self.log.error("还款类型有误！")
 
 
 class HB_repqy:
@@ -321,6 +273,7 @@ class HB_repqy:
         self.url = url
         self.xbhx_oracle = xbhx_oracle
         self.zwzj_oracle = zwzj_oracle
+        self.log = my_log.Log()
 
     def ADVANCE_SETTLE_TRIAL(self):
         data = {
@@ -328,31 +281,21 @@ class HB_repqy:
                 "channelCustId":""
                 }
         data["loanNo"] = self.loanNo
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********还呗提前结清接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        re = requests.post(self.url + "ADVANCE_SETTLE_TRIAL", data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            print(requit)
-            if requit["data"]["status"] == '01':
-                print(f"响应报文：{requit}")
-                print("还呗提前结清试算接口成功！")
-                repayAmt = requit["data"]["result"]["repayAmt"]
 
+        self.log.info("还呗提前结清接口")
+        result = api_request.request_api().test_api("post", self.url + "ADVANCE_SETTLE_TRIAL", data)
+        if result["result"] == True:
+            if result["data"]["status"] == '01':
+                self.log.info("还呗提前结清试算接口成功！")
+                repayAmt = result["data"]["result"]["repayAmt"]
             else:
-                print("还呗提前结清接口失败！")
-                print("{} {}".format(requit["data"]["errorCode"],requit["data"]["errorMsg"]))
+                self.log.error("还呗提前结清接口失败！")
+                self.log.error("{} {}".format(result["data"]["errorCode"],result["data"]["errorMsg"]))
+
         else:
-            print("msg:{}".format(requit["msg"]))
+            self.log.error("msg:{}".format(result["msg"]))
             exit()
-        return a, requit,repayAmt
+        return repayAmt
 
     def PAYMENT_NOTICE(self,repayAmt):
         data = {
@@ -377,64 +320,55 @@ class HB_repqy:
         data["repayType"] = self.repayType
         data["transTime"] = "{} 13:14:00".format(self.paytime)
         data["repayTime"] = "{} 13:14:00".format(self.paytime)
+        self.log = my_log.Log()
 
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********还呗还款通知接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        re = requests.post(self.url + "PAYMENT_NOTICE", data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            if requit["data"]["status"] == '01':
-                print(f"响应报文：{requit}")
-                print("还呗还款通知接口成功！")
+        self.log.info("还呗还款通知接口")
+        result = api_request.request_api().test_api("post", self.url + "PAYMENT_NOTICE", data)
+        if result["result"] == True:
+            if result["data"]["status"] == '01':
+                self.log.info("还呗还款通知接口成功！")
             else:
-                print("还呗还款通知接口失败！")
-                print("{} {}".format(requit["data"]["errorCode"],requit["data"]["errorMsg"]))
+                self.log.error("还呗还款通知接口失败！")
+                self.log.error("{} {}".format(result["data"]["errorCode"],result["data"]["errorMsg"]))
         else:
-            print("msg:{}".format(requit["msg"]))
+            self.log.error("msg:{}".format(result["msg"]))
             exit()
-        return a, requit
+        return result
 
     def pay(self):
         # 判断该借据是否逾期
         acct_loan_type = self.zwzj_oracle.query_data("select loanstatus From acct_loan a where a.serialno = '{}'".format(self.loanNo))[0][0]
         if self.repayType == "01":
             repayAmt = self.ADVANCE_SETTLE_TRIAL()
-            self.PAYMENT_NOTICE(repayAmt[-1])
+            self.PAYMENT_NOTICE(repayAmt)
         elif self.repayType == "00":
             if acct_loan_type == "0":
-                print("借据为正常状态！")
+                self.log.info("借据为正常状态！")
                 # 查询借据最远未还期次信息
                 normal_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #判断是否是还款日，如不是则不能做还款
                 if int(Collects().pay_time(normal_ACCT_PAYMENT_SCHEDULE[2])) == int(Collects().pay_time(self.paytime)):
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
-                    print(f"还款金额：{repayamt}")
+                    self.log.info(f"还款金额：{repayamt}")
                     self.PAYMENT_NOTICE(repayamt)
                 else:
-                    print("不能做提前还当期操作！")
+                    self.log.error("不能做提前还当期操作！")
 
             elif acct_loan_type == "1":
-                print("借据为逾期状态！")
+                self.log.info("借据为逾期状态！")
                 overdue = []
                 overdueamt = 0
                 overdue_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
-                print(f"还款金额：{overdueamt}")
+                self.log.info(f"还款金额：{overdueamt}")
                 self.PAYMENT_NOTICE(overdueamt)
 
 
 
             elif acct_loan_type in ["10","20","30"]:
-                print("借据为结清状态！")
+                self.log.error("借据为结清状态！")
         else:
-            print("还款类型有误！")
+            self.log.error("还款类型有误！")
 
 
 class QY_repqy:
@@ -448,6 +382,7 @@ class QY_repqy:
         self.url = url
         self.xbhx_oracle = xbhx_oracle
         self.zwzj_oracle = zwzj_oracle
+        self.log = my_log.Log()
 
     def PAYMENT_NOTICE(self,repayAmt,principal,interest):
         data = {
@@ -475,29 +410,18 @@ class QY_repqy:
         data["repayType"] = self.repayType
         data["principal"] = principal
         data["interest"] = interest
-
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-        a = "**********360还款通知接口！**********"
-        print(a)
-        print(f"请求报文：{data}")
-        re = requests.post(self.url + "PAYMENT_NOTICE", data=json.dumps(data), headers=headers)
-        requit = re.json()
-        if re.status_code == 200 and requit["result"] == True:
-            requit["data"] = eval(requit["data"])
-            if requit["data"]["status"] == '01':
-                print(f"响应报文：{requit}")
-                print("360还款通知接口成功！")
+        self.log.info("360还款通知接口")
+        result = api_request.request_api().test_api("post", self.url + "PAYMENT_NOTICE", data)
+        if result["result"] == True:
+            if result["data"]["status"] == '01':
+                self.log.info("360还款通知接口成功！")
             else:
-                print("360还款通知接口失败！")
-                print("{} {}".format(requit["data"]["errorCode"],requit["data"]["errorMsg"]))
+                self.log.error("360还款通知接口失败！")
+                self.log.error("{} {}".format(result["data"]["errorCode"],result["data"]["errorMsg"]))
         else:
-            print("msg:{}".format(requit["msg"]))
+            self.log.error("msg:{}".format(result["msg"]))
             exit()
-        return a, requit
+        return result
 
     def pay(self):
         # 判断该借据是否逾期
@@ -514,7 +438,7 @@ class QY_repqy:
                 #息费
                 interest = round((lon_ACCT_PAYMENT_SCHEDULE[5] + lon_ACCT_PAYMENT_SCHEDULE[8]) / 30 * days,2)
                 repayamt = round(principal+interest,2)
-                print(f"还款金额：{repayamt}")
+                self.log.info(f"还款金额：{repayamt}")
                 self.PAYMENT_NOTICE(repayamt,principal,interest)
             elif acct_loan_type == "1":
                 amt = 0
@@ -529,7 +453,7 @@ class QY_repqy:
                 days = Collects().Caltime(a[3],self.paytime).days
                 interest = round((a[5]+a[8]) / 30 * days + amt,2)
                 repayamt = round(interest+principal,2)
-                print(f"还款金额：{repayamt}")
+                self.log.info(f"还款金额：{repayamt}")
                 self.PAYMENT_NOTICE(repayamt,principal,interest)
 
 
@@ -537,7 +461,7 @@ class QY_repqy:
 
         elif self.repayType == "00":
             if acct_loan_type == "0":
-                print("借据为正常状态！")
+                self.log.info("借据为正常状态！")
                 # 查询借据最远未还期次信息
                 normal_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 #判断是否是还款日，如不是则不能做还款
@@ -549,20 +473,20 @@ class QY_repqy:
                     repayamt = round(normal_ACCT_PAYMENT_SCHEDULE[3]+normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
                     principal = round(normal_ACCT_PAYMENT_SCHEDULE[3],2)
                     interest = round(normal_ACCT_PAYMENT_SCHEDULE[4]+normal_ACCT_PAYMENT_SCHEDULE[5]+normal_ACCT_PAYMENT_SCHEDULE[6]+normal_ACCT_PAYMENT_SCHEDULE[7],2)
-                    print(f"还款金额:{repayamt}")
+                    self.log.info(f"还款金额:{repayamt}")
                     self.PAYMENT_NOTICE(repayamt,principal,interest)
                 else:
-                    print("不能做提前还当期操作！")
+                    self.log.error("不能做提前还当期操作！")
 
             elif acct_loan_type == "1":
-                print("借据为逾期状态！")
+                self.log.info("借据为逾期状态！")
                 overdue = []
                 overdueamt = 0
                 overdue_ACCT_PAYMENT_SCHEDULE = self.zwzj_oracle.query_data("SELECT a.seqid,a.status,a.paydate,a.paycorpusamt,a.payinteamt,a.payfineamt,a.paycompdinteamt,a.payfeeamt1 FROM ACCT_PAYMENT_SCHEDULE a where objectno = '{}' and status in (11,12)".format(self.loanNo))[0]
                 overdueamt = round(overdue_ACCT_PAYMENT_SCHEDULE[3] + overdue_ACCT_PAYMENT_SCHEDULE[4] + overdue_ACCT_PAYMENT_SCHEDULE[5] + overdue_ACCT_PAYMENT_SCHEDULE[6] + overdue_ACCT_PAYMENT_SCHEDULE[7],2)
                 principal = round(overdue_ACCT_PAYMENT_SCHEDULE[3],2)
                 interest = round(overdue_ACCT_PAYMENT_SCHEDULE[4]+overdue_ACCT_PAYMENT_SCHEDULE[5]+overdue_ACCT_PAYMENT_SCHEDULE[6]+overdue_ACCT_PAYMENT_SCHEDULE[7],2)
-                print(f"还款金额：{overdueamt}")
+                self.log.info(f"还款金额：{overdueamt}")
                 # for i in a:
                 #     list(i)
                 #     overdue.append(i)
@@ -574,9 +498,9 @@ class QY_repqy:
 
 
             elif acct_loan_type in ["10","20","30"]:
-                print("借据为结清状态！")
+                self.log.error("借据为结清状态！")
         else:
-            print("还款类型有误！")
+            self.log.error("还款类型有误！")
 
 def datas():
     with open("../datas/Repay.yaml", encoding="utf-8") as f:
@@ -585,7 +509,10 @@ def datas():
 
 
 def main():
-    print("------开始执行------")
+    #日志
+    log = my_log.Log()
+    log.info("------开始执行------")
+
     #yaml文件取数
     data = datas()
     environment = data["environment"]

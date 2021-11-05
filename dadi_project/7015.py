@@ -1,7 +1,7 @@
 import re as res
 import time
 import yaml
-from utils import lj_putout_mock, generate_customer_info,api_request,Log
+from utils import lj_putout_mock, generate_customer_info,api_request,my_log
 
 
 class Hyzllg:
@@ -17,7 +17,7 @@ class Hyzllg:
         self.custGrde = kwargs["custGrde"]
         self.capitalCode = kwargs["capitalCode"]
         self.res_data = kwargs["res_data"]
-        self.log = Log.Log()
+        self.log = my_log.Log()
 
     def insure_info(self):
         data = self.res_data["insure_info"]
@@ -32,7 +32,7 @@ class Hyzllg:
         url = self.url["insure_info"]
         self.log.info("投保信息接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["data"]["status"] == '01':
                 a = requit["data"]["insurUrl"]
@@ -54,7 +54,7 @@ class Hyzllg:
         url = self.url["insure_data_query"]
         self.log.info("投保资料查询接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 self.log.info("投保资料查询成功！")
@@ -77,7 +77,7 @@ class Hyzllg:
         url = self.url["insure"]
         self.log.info("投保接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 try:
@@ -109,7 +109,7 @@ class Hyzllg:
         url = self.url["disburse"]
         self.log.info("支用接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 if requit["data"]["status"] == "01":
@@ -132,7 +132,7 @@ class Hyzllg:
             url = self.url["disburse_in_query"]
             self.log.info("放款结果查询接口")
             self.log.info(url)
-            requit = api_request.request_api().test_api(url,data)
+            requit = api_request.request_api().test_api("post", url, data)
             try:
                 if requit["result"] == True:
                     self.log.info("放款结果查询接口调用成功！")
@@ -244,7 +244,7 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         hyzllg.insure()
         hyzllg.disburse()
         # Python_crawler.disburse_in_query(test_info)
-        log = Log.Log()
+        log = my_log.Log()
         log.info(test_info)
 
 

@@ -229,5 +229,8 @@ select ca.CHANNELCUSTID from CHANNEL_APPLY_INFO ca join BUSINESS_APPLY ba on ca.
 select * from exception_log_count where SERVICENAME = 'QueryCreditInfoOcr';
 
 --理赔知会短信发送后落库记录
-select * from TASK_EXECUTION_STATISTICS
+select * from TASK_EXECUTION_STATISTICS;
+
+select * from CUSTOMER_INFO where customerid = '320000001233631';
+select * from CL_INFO where customerid = '320000001233631';
 

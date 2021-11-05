@@ -1,7 +1,7 @@
 import re as res
 import time
 import yaml
-from utils import generate_customer_info,api_request,Log
+from utils import generate_customer_info,api_request,my_log
 
 
 class Hyzllg:
@@ -17,7 +17,7 @@ class Hyzllg:
         self.url = kwargs["url"]
         self.res_data = kwargs["res_data"]
         self.custGrde = kwargs["custGrde"]
-        self.log = Log.Log()
+        self.log = my_log.Log()
 
     def insure_info(self):
         data = self.res_data["insure_info"]
@@ -31,7 +31,7 @@ class Hyzllg:
         url = self.url["insure_info"]
         self.log.info("投保信息接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 a = requit["data"]["insurUrl"]
@@ -53,7 +53,7 @@ class Hyzllg:
         url = self.url['insure_data_query']
         self.log.info("投保资料查询接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 self.log.info("投保资料查询成功！")
@@ -80,7 +80,7 @@ class Hyzllg:
         url = self.url['insure']
         self.log.info("投保接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 try:
@@ -114,7 +114,7 @@ class Hyzllg:
         url = self.url['credit_granting']
         self.log.info("授信接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 try:
@@ -144,7 +144,7 @@ class Hyzllg:
             url = self.url['credit_inquiry']
             self.log.info("授信结果查询")
             self.log.info(url)
-            requit = api_request.request_api().test_api(url,data)
+            requit = api_request.request_api().test_api("post", url, data)
             try:
                 if requit["result"] == True:
                     self.log.info("授信查询接口调用成功！")
@@ -183,7 +183,7 @@ class Hyzllg:
         url = self.url['disburse']
         self.log.info("支用接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 if requit["data"]["status"] == "01":
@@ -206,7 +206,7 @@ class Hyzllg:
             url = self.url['disburse_in_query']
             self.log.info("支用结果查询")
             self.log.info(url)
-            requit = api_request.request_api().test_api(url,data)
+            requit = api_request.request_api().test_api("post", url, data)
             try:
                 if requit["result"] == True:
                     self.log.info("支用查询接口调用成功！")
@@ -367,7 +367,7 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
                             loanReqNo:{i["loanReqNo"]}
                             creditReqNo:{i["creditReqNo"]}
                         '''
-            log = Log.Log()
+            log = my_log.Log()
             log.info(test_info)
 
 

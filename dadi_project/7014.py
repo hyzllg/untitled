@@ -1,6 +1,6 @@
 import time
 import yaml
-from utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,Log
+from utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,my_log
 
 
 class Hyzllg:
@@ -18,7 +18,7 @@ class Hyzllg:
         self.url = kwargs["url"]
         self.res_data = kwargs["res_data"]
         self.custType = kwargs["custType"]
-        self.log = Log.Log()
+        self.log = my_log.Log()
 
 
     def credit_granting(self):
@@ -39,7 +39,7 @@ class Hyzllg:
         self.log.info("授信申请")
         self.log.info(f"[{url}]")
 
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 creditApplyNo = requit["data"]["body"]["creditApplyNo"]
@@ -68,7 +68,7 @@ class Hyzllg:
             url = self.url["credit_inquiry"]
             self.log.info("授信结果查询")
             self.log.info([url])
-            requit = api_request.request_api().test_api(url,data)
+            requit = api_request.request_api().test_api("post", url, data)
             self.log.info("授信查询接口调用成功！")
             try:
                 if requit["data"]["body"]["status"] == "01":
@@ -101,7 +101,7 @@ class Hyzllg:
             url = self.url["disburse_trial"]
             self.log.info("支用试算")
             self.log.info(url)
-            requit = api_request.request_api().test_api(url,data)
+            requit = api_request.request_api().test_api("post", url, data)
             try:
                 if requit["result"] == True:
                     self.log.info(f'本次试算资方为：{requit["data"]["body"]["capitalCode"]}')
@@ -133,7 +133,7 @@ class Hyzllg:
         url = self.url["disburse"]
         self.log.info("支用接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api(url,data)
+        requit = api_request.request_api().test_api("post", url, data)
         try:
             if requit["result"] == True:
                 self.log.info("支用接口调用成功！")
@@ -163,7 +163,7 @@ class Hyzllg:
             self.log.info("支用结果查询")
             self.log.info(url)
 
-            requit = api_request.request_api().test_api(url,data)
+            requit = api_request.request_api().test_api("post", url, data)
             try:
                 if requit["result"] == True:
                     self.log.info("支用结果查询接口调用成功！")
@@ -205,7 +205,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
     res_url = conf["api_url_tc"]
     res_data = get_yaml_data('./conf/request_data.yaml')["tc_res_data"]
     #日志
-    log = Log.Log()
+    log = my_log.Log()
     #获取数据库配置
     oracle_conf = get_oracle_conf(conf,environment)
     hx_oracle = database_manipulation.Oracle_Class(oracle_conf[0], oracle_conf[1], oracle_conf[2])
