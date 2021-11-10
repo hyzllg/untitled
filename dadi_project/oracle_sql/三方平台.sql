@@ -19,7 +19,7 @@ select * from GDTP_HEITONG_HIGH_RISK_RES where serial_no = '6F3566FE-F664-4ECE-A
 
 --三方挡板
 select * from GDTP_CONF_BAFFLE_INFO;
-select * from GDTP_CONF_BAFFLE_INFO where INTERFACE_URL = 'http://10.1.11.196:9212/sfpt/external/platform/sp/sinosure/certauth';
+select * from GDTP_CONF_BAFFLE_INFO where INTERFACE_NAME in ('手机实名','银行卡四要素');
 
 
 --法院限高
@@ -30,14 +30,24 @@ select * from GDTP_BR_EXECUTION_LIMIT_XG_RES where serial_no = '8232D8E2-BF63-47
 select * from GDTP_BR_EXECUTION_LIMIT_SX_RES where serial_no = '8232D8E2-BF63-47CA-897B-613656AA5552';
 
 --手机实名认证
+--联通
 select * from GDTP_LOG_EX_PLATFORM_LT  where serial_no = '72D34273-C3EF-42B4-89D4-401C9B004879';
 select * from GDTP_LT_PHONE_AUTH_RES where serial_no = '20325EF5-D4C9-494C-8FF2-308570E52CA3';
 select * from GDTP_LT_PHONE_AUTH_RES where serial_no = '20325EF5-D4C9-494C-8FF2-308570E52CA3';
+--百行
+select * from GDTP_LOG_EX_PLATFORM_BAIHANG where SERIAL_NO = '86AABE22-B5E3-403E-B479-CB1852C8FA96';
+select * from GDTP_BAIHANG_PHONE_REQ where SERIAL_NO = '86AABE22-B5E3-403E-B479-CB1852C8FA96';
+select * from GDTP_BAIHANG_PHONE_RES where SERIAL_NO = '86AABE22-B5E3-403E-B479-CB1852C8FA96';
 
 --四要素
+--中诚信
 select * from GDTP_LOG_EX_PLATFORM_ZCX where SERIAL_NO = 'E5054FEC-9015-45F6-B841-673993FB96AA';
 select * from GDTP_ZCX_BANK_CARD_REQ;
 select * from GDTP_ZCX_BANK_CARD_RES;
+--百行
+select * from GDTP_LOG_EX_PLATFORM_BAIHANG;
+select * from GDTP_BAIHANG_BANK_CARD_REQ where SERIAL_NO = '31BC94B0-0E08-46C6-BA9A-8E987A2DE82B';
+select * from GDTP_BAIHANG_BANK_CARD_RES where SERIAL_NO = '31BC94B0-0E08-46C6-BA9A-8E987A2DE82B';
 
 --ilog5,ilog9征信报告变量加工
 select * from GDTP_XSFK_ILOG5_RES_EXTEND;
@@ -47,6 +57,7 @@ select * from GDTP_XSFK_ILOG9_RES_EXTEND;
 --调用比例
 select * from GDTP_XSHX_RULE_CONFIG where product_id = '7015';
 --interface_type 1=三要素，6=四要素
-select * from GDTP_XSHX_RULE_CONFIG_ITEM where serial_no in (select serial_no from GDTP_XSHX_RULE_CONFIG where product_id = '7018' and interface_type = '1');
+select * from GDTP_XSHX_RULE_CONFIG_ITEM where serial_no in (select serial_no
+from GDTP_XSHX_RULE_CONFIG where product_id = '7018' and interface_type = '6');
 
 select * from GDTP_XSHX_RULE_CONFIG where product_id = '7014' and interface_type = '1'

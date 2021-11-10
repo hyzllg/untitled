@@ -12,7 +12,7 @@ update ACCT_PAYMENT_SCHEDULE a set a.fineintedate = '',a.FINEINTEBASE = '',a.PAY
 
 --还款流水
 select t.result_code,t.*,t.rowid from acct_transaction t where t.relativeserialno like '787-502404203300211517' order by created_date desc;
-select a.result_code,a.* from acct_transaction a where a.relativeserialno='787-503208153301694826';
+select a.result_code,a.* from acct_transaction a where a.relativeserialno='787-503502243301802038';
 -- 还款明细表
 select * from ACCT_BACK_DETAIL where loanserialno = '787-503208153301694826';
 
@@ -23,7 +23,7 @@ select * from ACCT_BACK_BILL;
 --还款借据表
 select * from acct_loan where serialno = '787-503208293301702761';
 --还款计划表
-select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503208153301694826';
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503412233301797883';
 select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503407243301792589';
 --账务还款记录表
 select * from acct_back_detail t where t.LOANSERIALNO='787-502805153301143206';

@@ -100,6 +100,7 @@ class Hyzllg:
         data["idNo"] = self.idNo
         data["insuranceNo"] = self.loanReqNo
         data["phone"] = self.phone
+        data["bankPhone"] = self.phone
         data["loanAmount"] = self.loanAmount
         data["name"] = self.name
         data["bankCard"] = self.bankcard
@@ -178,10 +179,10 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         phone = generate_customer_info.customer().phone()
         Bank = generate_customer_info.customer().bankcard()
         #指定姓名身份证手机号时使用
-        # name = "粱九广"
-        # idNo = "330701199307093208"
-        # HB_phone = "15776631124"
-        # Bank = "6214661022113802"
+        # name = "张三"
+        # idNo = "653221198609178486"
+        # phone = "15838434412"
+        # Bank = "6216261000000000018"
 
         # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
         if capitalCode == "LJBANK":

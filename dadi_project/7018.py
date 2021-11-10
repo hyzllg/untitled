@@ -242,10 +242,10 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
         phone = generate_customer_info.customer().phone()
         bankcard = generate_customer_info.customer().bankcard()
         # 指定姓名身份证手机号时使用
-        # name = "艾碧琼"
-        # idNo = "321200199110278386"
-        # phone = "18492850576"
-        # bankcard = "6226090265655661"
+        # name = "张三"
+        # idNo = "653221198609178486"
+        # phone = "15838434412"
+        # bankcard = "6216261000000000018"
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo=loanReqNo,
                             creditReqNo=creditReqNo,

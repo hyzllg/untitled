@@ -2,11 +2,9 @@ import json
 import os
 import re as res
 import time
-
 import cx_Oracle
 import requests
 from utils import generate_customer_info
-import Collect
 
 
 class Hyzllg:
