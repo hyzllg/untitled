@@ -47,7 +47,7 @@ select *from customer_realname_log where regid ='20201202000002005';
 --核心流程节点配置
 select * from  queue_model where modelno ='BizApplyPay';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202111100000000015'
+select * from queue_task qm where qm.objectno = '202111110000002003'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
 select * from queue_task qm where qm.objectno = '20211110000000008'
@@ -89,10 +89,10 @@ delete FROM PFA_INSURANCEPOLICYINFO where CHANNELPUTOUTAPPROVENO='32000000001443
 --四要素成功落库
 select * from CUSTOMER_BANK_CARD where PUTOUTAPPROVENO = '20211110000000008';
 select * from CUSTOMER_BANK_CARD where CUSTOMERID = '320000001233903';
-delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001233903';
+delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001234146';
 
 --四要素是否调用
-select * from customer_auth where certid='653221198609178486';
+select * from customer_auth where certid='65322420090421440X';
 select * from CUSTOMER_AUTH where customerid = '320000001233903';
 select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211110000000008';
 select * from CUSTOMER_AUTH where phase = '1';
@@ -103,8 +103,8 @@ where cai.SERIALNO = '202111100000000012';
 select * from third_relative where customerid = '320000001233903' and OBJECTNO = '20211110000000008';
 select * from third_relative where phase = '1';
 --三要素结果落库
-select * from BUSINESS_APPLY where CHANNELAPPLYNO = '202111100000000005';
-select * from PHONETHREE_VERITY_RESULT where applyno = '202111100000000012';
+select * from BUSINESS_APPLY where CHANNELAPPLYNO = '202111110000002003';
+select * from PHONETHREE_VERITY_RESULT where applyno = '202111110000002003';
 
 
 --OCR识别
@@ -170,23 +170,18 @@ select ca.CHANNELCUSTID from CHANNEL_APPLY_INFO ca join BUSINESS_APPLY ba on ca.
     ba.serialno=pa.OBJECTNO where ba.SERIALNO = '20211108000004004';
 
 select liveaddress from CUSTOMER_INFO where customerid = '320000001233778';
-
-
-
+--调用比例
 select * from THIRD_INTERFACE_PROPORTION where PRODUCTID = '7014' and INTERFACECODE in ('11001','9001') and KIND = 'SJSM';
 select * from THIRD_INTERFACE_PROPORTION where PRODUCTID = '7018' and INTERFACECODE in ('9002','1001') and KIND = 'YHKJQ';
 
-
-
-
---理赔客户数
-select * from claim_payment_schedule where OBJECTNO in ('20062-W210706000021148','787-503005073301597106');
 --征信上报数
-select * from push_message_info where messagetype in ('gd604','gd607') and sendtime like '2021/11/09%'
+select * from push_message_info where messagetype in ('gd604','gd607') and sendtime like '2021/11/11%'
 and BILLNO in ('20062-W210706000021148','787-503005073301597106');
-select * from push_message_info where BILLNO in ('787-503008283301607572','787-503107192980250538');
 --预理赔
 select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno in ('20062-W210706000021148','787-503208153301694551');
+select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.confirmdate = '2021/11/10';
+select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.confirmdate is null;
+
 --昨日理赔数据/应发理赔短信数
 select * from claim_prepare_info cpi where cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and cpi.status = '1';
@@ -197,49 +192,4 @@ on cpi.billno = pmi.billno and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and pmi.messagetype in ('gd604','gd607') and to_char(to_date(pmi.sendtime,
 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd');
 
-select * from (
-select count(*) LPDATA from claim_prepare_info cpi where cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
-and cpi.status = '1') a
-NATURAL INNER JOIN (select count(*) sendMesCount from claim_prepare_info cpi
-inner join push_message_info pmi
-on cpi.billno = pmi.billno and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
-and pmi.messagetype in ('gd604','gd607')) b ;
-
-
-       select al.serialno,
-             al.customerid,
-             al.applyserialno,
-             al.customername,
-             al.DDPRODUCTID,
-             getItemName('CapitalCode', al.capitalcode) as capitalName,
-             nvl(CPS.PAYPRINCIPALAMT, 0) + nvl(CPS.PAYINTERESTAMT, 0) +
-             nvl(CPS.PAYPRINCIPALPENALTYAMT, 0) +
-             nvl(CPS.PAYINTERESTPENALTYAMT, 0) + nvl(CPS.PAYASSUREFEEAMT, 0) +
-             nvl(CPS.PAYOVERDUEFINE, 0) - nvl(CPS.ACTUALPAYPRINCIPALAMT, 0) -
-             nvl(CPS.ACTUALPAYINTERESTAMT, 0) -
-             nvl(CPS.ACTUALPAYPRINCIPALPENALTYAMT, 0) -
-             nvl(CPS.ACTUALPAYINTERESTPENALTYAMT, 0) -
-             nvl(CPS.ACTUALPAYASSUREFEEAMT, 0) - nvl(CPS.ACTUALOVERDUEFINE, 0)
-             as businesssum,
-             getItemName('CHANNEL_NAME', al.DDProductID) as channelName,
-             al.contractartificialno as contractno
-        from claim_prepare_info cpi, acct_loan al, CLAIM_PAYMENT_SCHEDULE CPS
-       where cpi.billNO = al.serialno
-         and al.serialno = CPS.Objectno
-         and cpi.status = '1'
-        and cpi.confirmdate = '2021/10/25'
-
-
-
---昨日理赔数据/应发理赔短信数
-select * from claim_prepare_info cpi where cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
-and cpi.status = '1';
-select cpi.confirmdate,cpi.* from CLAIM_PREPARE_INFO cpi where cpi.BILLNO in ('787-503008283301607572','787-503107192980250538')
---已发短信数
-select * from claim_prepare_info cpi
-inner join push_message_info pmi
-on cpi.billno = pmi.billno and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
-and pmi.messagetype in ('gd604','gd607');
-
-
-select * from cl_info where customerid = '320000001233903';
+select * from CUSTOMER_AUTH where certid = '142622199701056803';

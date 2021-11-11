@@ -237,14 +237,14 @@ def pp_main(environment,number,loanAmount,periods,custGrde):
         loanReqNo = generate_customer_info.customer().reqno(66)
         creditReqNo = generate_customer_info.customer().reqno(88)
 
-        idNo = generate_customer_info.customer().idNo()
-        name = generate_customer_info.customer().name()
-        phone = generate_customer_info.customer().phone()
+        # idNo = generate_customer_info.customer().idNo()
+        # name = generate_customer_info.customer().name()
+        # phone = generate_customer_info.customer().phone()
         bankcard = generate_customer_info.customer().bankcard()
         # 指定姓名身份证手机号时使用
-        # name = "张三"
-        # idNo = "653221198609178486"
-        # phone = "15838434412"
+        name = "丙三"
+        idNo = "210282198011169903"
+        phone = "13915367454"
         # bankcard = "6216261000000000018"
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo=loanReqNo,

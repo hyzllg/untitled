@@ -158,10 +158,10 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         HB_phone = generate_customer_info.customer().phone()
         HB_bankcard = generate_customer_info.customer().bankcard()
         # 指定姓名身份证手机号时使用
-        # name = "张三"
-        # idNo = "653221198609178486"
-        # HB_phone = "15838434412"
-        # HB_bankcard = "6216261000000000018"
+        # name = "甲一"
+        # idNo = "65322420090421440X"
+        # HB_phone = "13164823092"
+        # HB_bankcard = "6216261000000009274"
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo=HB_loanReqNo,
                             name=name,
