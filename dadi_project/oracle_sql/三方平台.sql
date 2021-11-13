@@ -18,7 +18,7 @@ select * from GDTP_HEITONG_HIGH_RISK_REQ where id_number = '210803199509207358';
 select * from GDTP_HEITONG_HIGH_RISK_RES where serial_no = '6F3566FE-F664-4ECE-A81A-0D6FB68BD0EF';
 
 --三方挡板
-select * from GDTP_CONF_BAFFLE_INFO;
+select * from GDTP_CONF_BAFFLE_INFO where INTERFACE_NAME in ('手机实名','银行卡四要素');
 
 
 --法院限高

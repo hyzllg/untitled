@@ -4,7 +4,7 @@ import cx_Oracle
 import logging
 from utils import database_manipulation,my_log
 from selenium.webdriver.common.by import By
-import selenium
+from selenium import webdriver
 
 
 
@@ -42,4 +42,15 @@ else:
     print("False")
 
 '''
-webderver = selenium.webdriver.Chrome()
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+consule_handler = logging.StreamHandler()
+fmt = logging.Formatter("%(asctime)s")
+consule_handler.setFormatter(fmt)
+logger.addHandler(consule_handler)
+
+driver = webdriver.Chrome()
+driver.get("https://www.baidu.com/")
+print(driver.current_url)
+print(driver.current_window_handle)

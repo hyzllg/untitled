@@ -6,6 +6,8 @@ SELECT * FROM CODE_LIBRARY where codeNo='EducateLevelCode';  --学历
 SELECT * FROM CODE_LIBRARY where codeNo='MarryStatus';  --婚姻状况
 SELECT * FROM CODE_LIBRARY where codeNo='RealNameStatus';  --获客渠道
 select * from code_library c where c.codeno in('ShowState');
+--住宅区域码表
+select * from CODE_AREA;
 --基础产品管理
 select * from PRODUCT_TERM_INFO pt where pt.productid = '7018' and term = '6';
 --拍拍贷客户等级上下限
@@ -47,7 +49,7 @@ select *from customer_realname_log where regid ='20201202000002005';
 --核心流程节点配置
 select * from  queue_model where modelno ='BizApplyPay';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202111110000002003'
+select * from queue_task qm where qm.objectno = '202111120000006004'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
 select * from queue_task qm where qm.objectno = '20211110000000008'
@@ -94,7 +96,7 @@ delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001234146';
 --四要素是否调用
 select * from customer_auth where certid='65322420090421440X';
 select * from CUSTOMER_AUTH where customerid = '320000001233903';
-select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211110000000008';
+select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211112000000001';
 select * from CUSTOMER_AUTH where phase = '1';
 
 select ba.SERIALNO,ca.* from CUSTOMER_AUTH ca left join BUSINESS_APPLY ba on ca.SERIALNO=ba.SERIALNO left join CHANNEL_APPLY_INFO cai on ba.CHANNELAPPLYNO=cai.SERIALNO
@@ -103,8 +105,7 @@ where cai.SERIALNO = '202111100000000012';
 select * from third_relative where customerid = '320000001233903' and OBJECTNO = '20211110000000008';
 select * from third_relative where phase = '1';
 --三要素结果落库
-select * from BUSINESS_APPLY where CHANNELAPPLYNO = '202111110000002003';
-select * from PHONETHREE_VERITY_RESULT where applyno = '202111110000002003';
+select * from PHONETHREE_VERITY_RESULT where applyno = '202111120000006001';
 
 
 --OCR识别
@@ -144,20 +145,7 @@ select * from BRAIN_PERSONSPECIAL where applyno = '202104160000000002'  order by
 --关联影像
 insert into image_list (SERIALNO, IMGID, BUSINESSNO, IMGTYPE, IMGTYPENAME, VALIDFLAG, PICNAME, PICCLASS, PICDETAILS, PICPATH, THUMBNAILPATH, CREATE_DATE, UPDATE_DATE, BUSINESSDATE, APPLYNO, REALNAMEKEYNO, PICORDER, SIGNLOANNO, IMAGESTAGE, CHANNELAPPLYNO, CUSTOMERID, BILLNO)
 values ('DF3B02E6AD474039B54A61114D824465', '3256765', '322000000001435', '|UWB438|', '|人脸识别图片|', '1', null, null, null, null, null, to_date('22-03-2021 00:00:00', 'dd-mm-yyyy hh24:mi:ss'), to_date('22-03-2021 00:00:00', 'dd-mm-yyyy hh24:mi:ss'), '20210322', '', null, null, null, null, '202106100000000009', null, null);
---统计前日应发理赔通知短信
-select count(1) as claimNums from claim_payment_schedule cps where  cps.PAYDATE=to_char(sysdate-1,'yyyy/MM/dd');
-select * from push_message_info where to_char(to_date(sendtime,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') and MESSAGETYPE in ('gd604','gd607');
-select count(*) from claim_prepare_info cpi where cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
-and cpi.status = '1';
 
---理赔客户数
-select * from claim_payment_schedule where OBJECTNO in ('20062-W210706000021148','787-503005073301597106');
---征信上报数
-select * from push_message_info where messagetype in ('gd604','gd607') and sendtime like '2021/11/09%';
-select * from push_message_info where BILLNO in ('20062-W210706000021148','787-503005073301597106');
---预理赔
-select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno = '20062-W210706000021148';
-select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno = '787-503005073301597106';
 --测还呗产品影像时改拉取远程路径
 select * from code_library cl where cl.codeno ='ImagetPayApply';
 update code_library set attribute2 = '/sftp/ccic/income/upload/image' where codeno ='ImagetPayApply';
@@ -173,15 +161,6 @@ select liveaddress from CUSTOMER_INFO where customerid = '320000001233778';
 --调用比例
 select * from THIRD_INTERFACE_PROPORTION where PRODUCTID = '7014' and INTERFACECODE in ('11001','9001') and KIND = 'SJSM';
 select * from THIRD_INTERFACE_PROPORTION where PRODUCTID = '7018' and INTERFACECODE in ('9002','1001') and KIND = 'YHKJQ';
-
---征信上报数
-select * from push_message_info where messagetype in ('gd604','gd607') and sendtime like '2021/11/11%'
-and BILLNO in ('20062-W210706000021148','787-503005073301597106');
---预理赔
-select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.billno in ('20062-W210706000021148','787-503208153301694551');
-select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.confirmdate = '2021/11/10';
-select cpi.confirmdate,cpi.* from claim_prepare_info cpi where cpi.confirmdate is null;
-
 --昨日理赔数据/应发理赔短信数
 select * from claim_prepare_info cpi where cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and cpi.status = '1';
@@ -191,5 +170,26 @@ inner join push_message_info pmi
 on cpi.billno = pmi.billno and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and pmi.messagetype in ('gd604','gd607') and to_char(to_date(pmi.sendtime,
 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd');
+--理赔后知会统计发邮件
+select
+   al.policyno,
+   '线上' productType,
+   confirmdate,
+   case when pmi.billno is not null then '是' else '否' end isSend,
+   pmi.sendtime,
+   pmi.messagetype,
+   pmi.billno
+from
+   claim_prepare_info cpi inner join acct_loan al
+   on cpi.billNO = al.serialno and cpi.status = '1' and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
+   inner join CLAIM_PAYMENT_SCHEDULE cps
+   on al.serialno = cps.Objectno
+   left join push_message_info pmi
+   on cpi.billNO = pmi.billno and pmi.messagetype in ('gd604','gd607')
+   and substr(pmi.sendtime,1,10) = to_char(sysdate,'yyyy/MM/dd');
 
-select * from CUSTOMER_AUTH where certid = '142622199701056803';
+select LIVEADDRESS from CUSTOMER_INFO where CUSTOMERID = '320000000036319';
+select * from CODE_AREA where AREACODE = '110000';
+
+
+

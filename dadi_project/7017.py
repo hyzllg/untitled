@@ -214,17 +214,11 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         hyzllg.insure(Insure_Data_Query)  # 投保接口
         hyzllg.disburse()  # 支用接口
         time.sleep(5)
-        log = my_log.Log()
-        log.info("更新customer_info表liveaddress")
-        sql = "update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '%s'" % idNo
-        log.info(sql)
-        hx_oracle.insert_update_data(sql)
-        log.info(test_info)
     hx_oracle.close_all()
 
 def main():
     #环境（sit,uat,dev）
-    environment = "sit"
+    environment = "uat"
     #走数据笔数
     number = 1
     # 借款金额
