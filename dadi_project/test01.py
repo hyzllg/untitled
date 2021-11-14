@@ -1,3 +1,6 @@
+import time
+
+import xlrd
 import yaml
 import os
 import cx_Oracle
@@ -42,15 +45,25 @@ else:
     print("False")
 
 '''
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-consule_handler = logging.StreamHandler()
-fmt = logging.Formatter("%(asctime)s")
-consule_handler.setFormatter(fmt)
-logger.addHandler(consule_handler)
-
+# option = webdriver.ChromeOptions()
+# option.add_argument("headless")
+# driver = webdriver.Chrome(chrome_options=option)
 driver = webdriver.Chrome()
-driver.get("https://www.baidu.com/")
-print(driver.current_url)
-print(driver.current_window_handle)
+#哔哩哔哩
+driver.get('https://passport.bilibili.com/login')
+#等待
+driver.implicitly_wait(10)
+#输入账号
+driver.find_element(By.ID,'login-username').send_keys(16621381003)
+#输入密码
+driver.find_element(By.ID,'login-passwd').send_keys('hyzllg336699')
+#点击登录
+driver.find_element(By.XPATH,'//*[@id="geetest-wrap"]/div/div[5]/a[1]').click()
+#强制等待，手动过验证
+time.sleep(6)
+
+
+
+
+
+

@@ -4,7 +4,9 @@ import re as res
 import time
 import cx_Oracle
 import requests
-from utils import generate_customer_info
+import yaml
+
+from utils import generate_customer_info,api_request
 
 
 class Hyzllg:
@@ -571,21 +573,24 @@ def JH_sql_update(setting,creditreqno):
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
 
-def jh_main(a):
-    idNo = generate_customer_info.id_card().idNo()
-    name = generate_customer_info.id_card().name()
-    JH_phone = Collect.phone()
-    JH_bankcard = Collect.bankcard()
+def jh_main(environment,number):
+    get_yaml_datas = lambda path : yaml.load(open(path,encoding='utf-8'),Loader=yaml.SafeLoader)
+    conf = get_yaml_datas('./conf/Config.yaml')
+    res_url = conf
+
+    idNo = generate_customer_info.customer().idNo()
+    name = generate_customer_info.customer().name()
+    phone = generate_customer_info.customer().phone()
+    bankcard = generate_customer_info.customer().bankcard()
     #指定姓名身份证手机号时使用
-    # random__name = "刘生"
-    # generate__ID = "310101199106127639"
-    # JH_phone = "13866666666"
-    # JH_bankcard = "6214660525152114"
+    # name = "刘生"
+    # idNo = "310101199106127639"
+    # phone = "13866666666"
+    # bankcard = "6214660525152114"
 
-    JH_creditReqNo = Collect.random_number_reqno()
-    JH_loanReqNo1 = Collect.random_number_reqno()
-    JH_loanReqNo2 = Collect.random_number_reqno()
-
+    JH_creditReqNo = generate_customer_info.customer().reqno(11)
+    JH_loanReqNo1 = generate_customer_info.customer().reqno(11)
+    JH_loanReqNo2 = generate_customer_info.customer().reqno(11)
 
     # 借款金额
     loanAmount = 13000
@@ -593,27 +598,24 @@ def jh_main(a):
     periods = '6'
 
     if a == 0:
-        environment = Collect.hxSIT_ORACLE
-        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
+        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, name, idNo, phone, loanAmount,
                         periods,
-                        JH_bankcard, "招商银行", JH_phone, Collect.sit_url_jh)
+                        bankcard, "招商银行", phone, Collect.sit_url_jh)
     elif a == 1:
-        environment = Collect.hxUAT_ORACLE
-        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
+        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, name, idNo, phone, loanAmount,
                         periods,
-                        JH_bankcard, "招商银行", JH_phone, Collect.uat_url_jh)
+                        bankcard, "招商银行", phone, Collect.uat_url_jh)
     elif a == 2:
-        environment = Collect.hxDEV_ORACLE
-        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, random__name, generate__ID, JH_phone, loanAmount,
+        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, name, idNo, phone, loanAmount,
                         periods,
-                        JH_bankcard, "招商银行", JH_phone, Collect.dev_url_jh)
+                        bankcard, "招商银行", phone, Collect.dev_url_jh)
     else:
         print("........")
 
     test_info = f'''
-                    姓名：{random__name}
-                    身份证号：{generate__ID}
-                    手机号：{JH_phone}
+                    姓名：{name}
+                    身份证号：{idNo}
+                    手机号：{phone}
                     借款金额:{loanAmount}
                     借款期次:{periods}
                     creditReqNo:{JH_creditReqNo}
@@ -632,9 +634,15 @@ def jh_main(a):
     hyzllg.disburse(credit_Granting[3])
     print(test_info)
 
+def main():
+    #环境
+    environment = "sit"
+    #笔数
+    number = 1
+
+
+    jh_main(environment,number)
 
 if __name__ == '__main__':
-    # 0是SIT
-    # 1是UAT
-    # 2是DEV
-    jh_main(0)
+
+    main()
