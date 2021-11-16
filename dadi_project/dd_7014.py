@@ -1,6 +1,7 @@
+import os.path
 import time
 import yaml
-from utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,my_log
+from dadi_project.utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,my_log
 
 
 class Hyzllg:
@@ -201,9 +202,10 @@ def get_oracle_conf(conf,environment):
 def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environment,loan_datetime=time.strftime("%Y-%m-%d")):
     #获取配置信息
     get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
-    conf = get_yaml_data('./conf/Config.yaml')
+    path = os.path.dirname(__file__)
+    conf = get_yaml_data(f'{path}/conf/Config.yaml')
     res_url = conf["api_url_tc"]
-    res_data = get_yaml_data('./conf/request_data.yaml')["tc_res_data"]
+    res_data = get_yaml_data(f'{path}/conf/request_data.yaml')["tc_res_data"]
     #日志
     log = my_log.Log()
     #获取数据库配置

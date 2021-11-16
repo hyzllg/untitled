@@ -32,7 +32,7 @@ select * from offlinerecord where bacthno = '20210926000001_03';
 -- select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select * from channel_apply_info where creditreqno ='2020120410404386556';
-select * from channel_apply_info where customerid ='320000001232477' ;
+select * from channel_apply_info where customerid ='320000001234265' ;
 --授信信息
 select * from business_apply where customerid ='320000001228058';
 --支用信息
@@ -49,11 +49,12 @@ select *from customer_realname_log where regid ='20201202000002005';
 --核心流程节点配置
 select * from  queue_model where modelno ='BizApplyPay';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202111120000006004'
+select * from queue_task qm where qm.objectno = '202111160000002002'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211110000000008'
+select * from queue_task qm where qm.objectno = '20211116000002001'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
+select * from queue_task where ITEM = 'CapitalPutoutQuery';
 --批单表
 select * from INSURANCEPOLICY_CHANGE_RECODE where policyno = 'PBLG202031170359000178';
 --缩期还款计划
@@ -90,12 +91,12 @@ delete FROM PFA_INSURANCEPOLICYINFO where CHANNELPUTOUTAPPROVENO='32000000001443
 -------风控相关-------
 --四要素成功落库
 select * from CUSTOMER_BANK_CARD where PUTOUTAPPROVENO = '20211110000000008';
-select * from CUSTOMER_BANK_CARD where CUSTOMERID = '320000001233903';
+select * from CUSTOMER_BANK_CARD where CUSTOMERID = '320000000675368';
 delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001234146';
 
 --四要素是否调用
 select * from customer_auth where certid='65322420090421440X';
-select * from CUSTOMER_AUTH where customerid = '320000001233903';
+select * from CUSTOMER_AUTH where customerid = '320000001234194';
 select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211112000000001';
 select * from CUSTOMER_AUTH where phase = '1';
 
@@ -105,7 +106,7 @@ where cai.SERIALNO = '202111100000000012';
 select * from third_relative where customerid = '320000001233903' and OBJECTNO = '20211110000000008';
 select * from third_relative where phase = '1';
 --三要素结果落库
-select * from PHONETHREE_VERITY_RESULT where applyno = '202111120000006001';
+select * from PHONETHREE_VERITY_RESULT where applyno = '202111150000000001';
 
 
 --OCR识别
@@ -151,7 +152,7 @@ select * from code_library cl where cl.codeno ='ImagetPayApply';
 update code_library set attribute2 = '/sftp/ccic/income/upload/image' where codeno ='ImagetPayApply';
 update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='ImagetPayApply';
 --更新customer_info表liveaddress
-update customer_info set liveaddress = '北京市市辖区东城区' where customerid = '320000001233778';
+update customer_info set liveaddress = '北京市市辖区东城区' where customerid = '320000001234265';
 update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '320000001231136';
 --查channelcustid
 select ca.CHANNELCUSTID from CHANNEL_APPLY_INFO ca join BUSINESS_APPLY ba on ca.serialno=ba.CHANNELAPPLYNO join PUTOUT_APPROVE pa on
@@ -164,12 +165,14 @@ select * from THIRD_INTERFACE_PROPORTION where PRODUCTID = '7018' and INTERFACEC
 --昨日理赔数据/应发理赔短信数
 select * from claim_prepare_info cpi where cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and cpi.status = '1';
+select * from push_message_info where phoneno = '16610282450';
 --已发短信数
 select cpi.confirmdate,pmi.*  from claim_prepare_info cpi
 inner join push_message_info pmi
 on cpi.billno = pmi.billno and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and pmi.messagetype in ('gd604','gd607') and to_char(to_date(pmi.sendtime,
 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd');
+select * from TASK_EXECUTION_STATISTICS where
 --理赔后知会统计发邮件
 select
    al.policyno,
