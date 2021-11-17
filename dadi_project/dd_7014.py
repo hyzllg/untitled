@@ -321,7 +321,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
 
     nnn = False
     n = 0
-    input("输入")
+    # input("输入")
     while len(abc):
         for i in abc:
             # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
@@ -372,7 +372,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
 
 def main():
     #环境（sit,uat,dev）
-    environment = "sit"
+    environment = "uat"
     #走数据笔数
     number = 1
     #放款金额

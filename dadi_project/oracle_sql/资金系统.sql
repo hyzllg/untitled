@@ -13,8 +13,9 @@ update ACCT_PAYMENT_SCHEDULE a set a.fineintedate = '',a.FINEINTEBASE = '',a.PAY
 --还款流水
 select t.result_code,t.*,t.rowid from acct_transaction t where t.relativeserialno like '787-502404203300211517' order by created_date desc;
 select a.result_code,a.* from acct_transaction a where a.relativeserialno='787-503005073301597532';
+select * from acct_transaction where SEQ_IDS = '99';
 -- 还款明细表
-select * from ACCT_BACK_DETAIL where loanserialno = '787-503005073301597532';
+select * from ACCT_BACK_DETAIL where loanserialno = '787-502601153300599524';
 
 select * from prpjp where policyno = 'PBLG202131171845014785' order by updatetime desc; --实收
 select *from kafka_payment_notify where bill_serialno = '460100024479785' order by create_time desc;--查看kfk推送结果
@@ -109,13 +110,15 @@ select * from kafka_payment_notify where SERVICE_NAME = 'SendPrpjpDataService' a
 select s.updated_date,s.serialno,'','100',s.MITCORPUSAMT,s.MITINTEAMT,s. MITFINEAMT,s.MITCOMPDINTEAMT,s.REDPREMIUMAMOUNT, s.REDLATEFEEAMOUNT,'0.00',
 to_char(to_date(s.updated_date,'yyyy/MM/dd HH24:mi:ss'),'yyyy/mm/dd') ,to_char(to_date(s.updated_date,'yyyy/MM/dd HH24:mi:ss'),'hh24:mi:ss')
  from ACCT_RECOVERY_LOSS s where s.REDATOTAL >0;
+select * from acct_recovery_loss where redatotal > 0
+                                   and serialno = '787-502601153300599524';
 
 select * from ACCT_RECOVERY_LOSS where serialno = '787-502601153300599524';
 
  --查询是否 有生成过
-delete  from ACCT_FILE_TASK t where    t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx')
+delete  from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx')
 
-select * from ACCT_FILE_TASK t where    t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx') /*and t.status = '1'*/
+select * from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx') /*and t.status = '1'*/
 /*and t.business_date in ('2032/11/09'  ,'xxx')
 order by t.file_code,t.business_date desc*/
 

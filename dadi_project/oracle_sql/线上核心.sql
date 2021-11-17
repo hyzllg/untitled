@@ -49,7 +49,7 @@ select *from customer_realname_log where regid ='20201202000002005';
 --核心流程节点配置
 select * from  queue_model where modelno ='BizApplyPay';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202111160000002002'
+select * from queue_task qm where qm.objectno = '202111170000000001'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
 select * from queue_task qm where qm.objectno = '20211116000002001'
@@ -96,9 +96,9 @@ delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001234146';
 
 --四要素是否调用
 select * from customer_auth where certid='65322420090421440X';
-select * from CUSTOMER_AUTH where customerid = '320000001234194';
+select * from CUSTOMER_AUTH where customerid = '320000000036838';
 select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211112000000001';
-select * from CUSTOMER_AUTH where phase = '1';
+select * from CUSTOMER_AUTH where RESULT = '2';
 
 select ba.SERIALNO,ca.* from CUSTOMER_AUTH ca left join BUSINESS_APPLY ba on ca.SERIALNO=ba.SERIALNO left join CHANNEL_APPLY_INFO cai on ba.CHANNELAPPLYNO=cai.SERIALNO
 where cai.SERIALNO = '202111100000000012';
@@ -172,7 +172,7 @@ inner join push_message_info pmi
 on cpi.billno = pmi.billno and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and pmi.messagetype in ('gd604','gd607') and to_char(to_date(pmi.sendtime,
 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd');
-select * from TASK_EXECUTION_STATISTICS where
+select * from TASK_EXECUTION_STATISTICS;
 --理赔后知会统计发邮件
 select
    al.policyno,
@@ -196,3 +196,36 @@ select * from CODE_AREA where AREACODE = '110000';
 
 
 
+--对公还款中间表
+select * from CORP_ACCOUNT_INFO where billno = '787-503005073301597532';
+--对公还款记录表
+select * from CORP_ACCOUNT_RECORD where billno = '787-503005073301597532';
+
+
+select ROWNUM, PA.CHANNELPUTOUTSNO,                          --{#翼支付订单号}
+											CPS.PERIODNO,				                              --{#还款期数}
+											CASE WHEN CAR.REPAYTYPE = '100' THEN 'TY'				  --{#催收减免：对应提前清贷}
+	 										WHEN CAR.REPAYTYPE =  '7' AND CPS.FINISHDATE IS NOT NULl
+	 										THEN 'Y'					 							  --{#该期结清}
+	 										WHEN CAR.REPAYTYPE =  '7' AND CPS.FINISHDATE IS  NULl
+	 									    THEN 'N'												  --{#该期未结清}
+											END  settled ,											  --{#该期是否还清}
+											(CAR.BALANCE +CAR.INTEREST +CAR.PENALTY
+											+CAR.COMP + CAR.FEEAMT)*100  sumpay,			          --{#当期还款总金额（分）}
+											CAR.BALANCE *100,							     	      --{#当期本金（分）}
+											(CAR.INTEREST+CAR.COMP)*100,							  --{#当期利息（分））含复利}
+											CAR.PENALTY*100,									      --{#当期罚息（分）}
+											CAR.FEEAMT*100,									          --{#当期保费（分）}
+											0，0，     											 	  --{#当期应还提前结清违约金、担保费：固定为0}
+											NVL(CPS.ACTUALOVERDUEFINE,0)							  --{#当期实际还款滞纳金：总欠表}
+									  from CORP_ACCOUNT_RECORD CAR LEFT JOIN                          --{#table：理赔后对公还款记录表 为主表}
+									  CLAIM_PAYMENT_SCHEDULE  CPS									  --{#table：总欠表}
+									  ON CAR.BILLNO = CPS.OBJECTNO
+									  LEFT JOIN ACCT_LOAN AL										  --{#table：借据表：关联取到保单号}
+			 						  ON CAR.BILLNO = AL.SERIALNO
+									  LEFT JOIN PUTOUT_APPROVE PA									  --{#table：提现记录表：通过保单号与借据表关联，取到最终翼支付订单号}
+			  						  ON  AL.POLICYNO =PA.POLICYNO
+									  WHERE  CAR.batch_date='2030/08/28'							  --{#where：D-1日账务传输的记录}
+									  AND EXISTS
+											(SELECT 1 FROM ACCT_LOAN al where						  --{#where：区分甜橙产品编号：7014}
+ 											al.SERIALNO = CAR.BILLNO AND al.PRODUCTID ='7014')
