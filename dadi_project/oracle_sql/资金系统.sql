@@ -33,7 +33,7 @@ select * from acct_back_detail t where t.LOANSERIALNO='787-502711152980095447';
 select * from acct_back_bill abb where abb.OBJECTNO='787-502805153301143206' ;
 select * from acct_back_bill abb where abb.OBJECTNO='787-502711152980095447';
 --总欠记录
-select * from acct_recovery_loss a  where a.serialno = '20062-W210923004201302';
+select * from acct_recovery_loss a  where a.serialno = '787-502601153300599524';
 --文件
 --LoanDetail    借据信息
 --RepayPlan     还款计划
@@ -90,7 +90,7 @@ select LOANRATE from acct_loan where serialno = '20062-W210525000020784';
 select al.finishdate,al.startdate,al.finaldate,al.* from acct_loan al where al.putoutno = 'PBLG202131171845014406'for update nowait;--借据表
 select bi.businesstype,bi.* from acct_back_bill bi where bi.objectno = '787-503208153301694826'  order by CREATED_DATE desc for update nowait;--还款单据表
 select * from acct_back_detail where loanserialno = '20062-W210923004201302'; --还款明细表
-select * from acct_payment_schedule where objectno = '7001-b06ba6f0779247f5a585b89845f0dad2';--还款计划
+select * from acct_payment_schedule where objectno = '787-503005073301597532';--还款计划
 select tr.pay_status,tr.result_code,tr.* from acct_transaction tr
 where tr.relativeserialno='20062-W210923004201302' order by updated_date desc;    --还款流水表
 
@@ -109,14 +109,14 @@ select * from kafka_payment_notify where SERVICE_NAME = 'SendPrpjpDataService' a
 
 select s.updated_date,s.serialno,'','100',s.MITCORPUSAMT,s.MITINTEAMT,s. MITFINEAMT,s.MITCOMPDINTEAMT,s.REDPREMIUMAMOUNT, s.REDLATEFEEAMOUNT,'0.00',
 to_char(to_date(s.updated_date,'yyyy/MM/dd HH24:mi:ss'),'yyyy/mm/dd') ,to_char(to_date(s.updated_date,'yyyy/MM/dd HH24:mi:ss'),'hh24:mi:ss')
- from ACCT_RECOVERY_LOSS s where s.REDATOTAL >0;
+ from ACCT_RECOVERY_LOSS s where s.REDATOTAL >0 and BUSINESSTYPE='7014';
 select * from acct_recovery_loss where redatotal > 0
-                                   and serialno = '787-502601153300599524';
+                                   and serialno = '787-502601153300599526';
 
-select * from ACCT_RECOVERY_LOSS where serialno = '787-502601153300599524';
+select * from ACCT_RECOVERY_LOSS where serialno = '787-503005073301597532';
 
  --查询是否 有生成过
-delete  from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx')
+delete  from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx');
 
 select * from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx') /*and t.status = '1'*/
 /*and t.business_date in ('2032/11/09'  ,'xxx')

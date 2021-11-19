@@ -54,9 +54,9 @@ driver.get('https://passport.bilibili.com/login')
 #等待
 driver.implicitly_wait(10)
 #输入账号
-driver.find_element(By.ID,'login-username').send_keys(16621381003)
+driver.find_element(By.ID,'login-username').send_keys("账号")
 #输入密码
-driver.find_element(By.ID,'login-passwd').send_keys('hyzllg336699')
+driver.find_element(By.ID,'login-passwd').send_keys('密码')
 #点击登录
 driver.find_element(By.XPATH,'//*[@id="geetest-wrap"]/div/div[5]/a[1]').click()
 #强制等待，手动过验证

@@ -372,7 +372,7 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
 
 def main():
     #环境（sit,uat,dev）
-    environment = "uat"
+    environment = "sit"
     #走数据笔数
     number = 1
     #放款金额

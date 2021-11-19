@@ -58,9 +58,9 @@ select * from queue_task where ITEM = 'CapitalPutoutQuery';
 --批单表
 select * from INSURANCEPOLICY_CHANGE_RECODE where policyno = 'PBLG202031170359000178';
 --缩期还款计划
-select * from acct_payment_schedule where objectno = '787-503302173301732221';
+select * from acct_payment_schedule where objectno = '787-503005073301597532';
 --不缩期还款计划
-select * from acct_payment_schedule_not where objectno = '787-503302173301732221';
+select * from acct_payment_schedule_not where objectno = '787-503005073301597532';
 --还款通知
 select * from loan_batch_notice where billno='787-503502243301802038';
 --还款记录
@@ -71,7 +71,7 @@ select * from loan_batch_cutpayment where billno='787-502805153301143206';
 --查还款交易类型
 SELECT operatetype FROM loan_batch_notice where billno in ('787-503403193301772087','');
 --总欠记录
-select * from CLAIM_PAYMENT_SCHEDULE;
+select * from CLAIM_PAYMENT_SCHEDULE where OBJECTNO = '787-503005073301597532';
 --清数据
 delete from customer_info c where c.certid = '412702199810032718';
 delete from customer_info c where c.customerid = '320000000014432';
@@ -96,10 +96,10 @@ delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001234146';
 
 --四要素是否调用
 select * from customer_auth where certid='65322420090421440X';
-select * from CUSTOMER_AUTH where customerid = '320000000036838';
+select * from CUSTOMER_AUTH where customerid = '320000000036968';
 select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211112000000001';
-select * from CUSTOMER_AUTH where RESULT = '2';
-
+select * from CUSTOMER_AUTH where phase = '1';
+select * from CUSTOMER_AUTH where result = '2';
 select ba.SERIALNO,ca.* from CUSTOMER_AUTH ca left join BUSINESS_APPLY ba on ca.SERIALNO=ba.SERIALNO left join CHANNEL_APPLY_INFO cai on ba.CHANNELAPPLYNO=cai.SERIALNO
 where cai.SERIALNO = '202111100000000012';
 --四要素是否复用
@@ -172,6 +172,7 @@ inner join push_message_info pmi
 on cpi.billno = pmi.billno and cpi.confirmdate = to_char(sysdate-1,'yyyy/MM/dd')
 and pmi.messagetype in ('gd604','gd607') and to_char(to_date(pmi.sendtime,
 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd');
+select confirmdate from claim_prepare_info where confirmdate like '2021/11/1%';
 select * from TASK_EXECUTION_STATISTICS;
 --理赔后知会统计发邮件
 select
@@ -199,7 +200,9 @@ select * from CODE_AREA where AREACODE = '110000';
 --对公还款中间表
 select * from CORP_ACCOUNT_INFO where billno = '787-503005073301597532';
 --对公还款记录表
-select * from CORP_ACCOUNT_RECORD where billno = '787-503005073301597532';
+select * from CORP_ACCOUNT_RECORD where billno = '787-502601153300599524';
+-- delete from CORP_ACCOUNT_RECORD where billno = '787-502601153300599526';
+
 
 
 select ROWNUM, PA.CHANNELPUTOUTSNO,                          --{#翼支付订单号}
@@ -225,7 +228,7 @@ select ROWNUM, PA.CHANNELPUTOUTSNO,                          --{#翼支付订单
 			 						  ON CAR.BILLNO = AL.SERIALNO
 									  LEFT JOIN PUTOUT_APPROVE PA									  --{#table：提现记录表：通过保单号与借据表关联，取到最终翼支付订单号}
 			  						  ON  AL.POLICYNO =PA.POLICYNO
-									  WHERE  CAR.batch_date='2030/08/28'							  --{#where：D-1日账务传输的记录}
+									  WHERE  CAR.batch_date='2030/08/29'							  --{#where：D-1日账务传输的记录}
 									  AND EXISTS
 											(SELECT 1 FROM ACCT_LOAN al where						  --{#where：区分甜橙产品编号：7014}
  											al.SERIALNO = CAR.BILLNO AND al.PRODUCTID ='7014')
