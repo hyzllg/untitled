@@ -1,69 +1,67 @@
+# -*- coding: utf-8 -*-
+
+"""
+
+性能测试
+
+向Oracle插入 63391 行，耗时 3.03 秒
+
+向Oracle插入 10439134 行，耗时 486.81 秒
+
+"""
+
 import time
-
-import xlrd
 import yaml
-import os
 import cx_Oracle
-import logging
-from utils import database_manipulation,my_log
-from selenium.webdriver.common.by import By
-from selenium import webdriver
 
+# 获取配置信息
+get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
+sit_oracle_conf = get_yaml_data('./conf/Config.yaml')["xshx_oracle"]["xsxb_sit_oracle"]
 
+# 控制每批次插入的数量
 
+batch = 1
 
+connection = cx_Oracle.connect(sit_oracle_conf[0], sit_oracle_conf[1], sit_oracle_conf[2], encoding = "UTF-8", nencoding = "UTF-8")
+cursor = connection.cursor()
+sql = '''INSERT INTO XBHXBUSI.REFUSE_REASON_LIST (SERIALNO, REFUSEMAINREASON, REFUSESUBREASON, FLOWNO, TERM, ISUSE, UPDATE_DATE, INPUTUSERID, CREATE_DATE) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9);'''
 '''
-第一步：
-    创建日志器
-        logger = logging.getloger()
-第二步：
-    创建处理器
-        console_handler = logging.StreamHandler()
-第三步：
-    设置格式器
-    fmt = logging.Formatter()
-    处理器中加入格式
-    console_handler.setFormatter(fmt)
-#第四步：
-    日志器添加处理器
-    logger.addHandler()
-
+INSERT INTO XBHXBUSI.REFUSE_REASON_LIST (SERIALNO, REFUSEMAINREASON, REFUSESUBREASON, FLOWNO, TERM, ISUSE, UPDATE_DATE, INPUTUSERID, CREATE_DATE) VALUES ('40F77C97F04E47DD8F876C9D5F1513E3', 'CPZR', 'CPZR005', '申请', '90', '1', TO_DATE('2020-07-07 12:22:22', 'YYYY-MM-DD HH24:MI:SS'), 'test99', TO_DATE('2020-07-07 12:22:22', 'YYYY-MM-DD HH24:MI:SS'));
 '''
-'''
-path = './conf/Config.yaml'
-datas = lambda path : yaml.load(open(path,mode='r',encoding='utf-8'),Loader=yaml.SafeLoader)
-oracle_conf = datas(path)['xshx_oracle']['xsxb_sit_oracle']
-conn = cx_Oracle.connect(oracle_conf[0],oracle_conf[1],oracle_conf[2])
-cursor = conn.cursor()
-sql = "select * from customer_info where customerid='320000001233778'"
-cursor.execute(sql)
-query_datas = cursor.fetchall()
-conn.close()
-if query_datas:
-    print("True")
-else:
-    print("False")
+start = time.time()
 
-'''
-# option = webdriver.ChromeOptions()
-# option.add_argument("headless")
-# driver = webdriver.Chrome(chrome_options=option)
-driver = webdriver.Chrome()
-#哔哩哔哩
-driver.get('https://passport.bilibili.com/login')
-#等待
-driver.implicitly_wait(10)
-#输入账号
-driver.find_element(By.ID,'login-username').send_keys("账号")
-#输入密码
-driver.find_element(By.ID,'login-passwd').send_keys('密码')
-#点击登录
-driver.find_element(By.XPATH,'//*[@id="geetest-wrap"]/div/div[5]/a[1]').click()
-#强制等待，手动过验证
-time.sleep(6)
+# 定义需要插入的文本路径
 
+path = u'C:/Users/yepeng/Desktop/Samples/stock_data.txt'
 
+dataset = list()
 
+try:
+    with open(path, 'r', encoding='UTF-8') as reader:
+        for index, line in enumerate(reader):
+            dataset.append(tuple(line.split('|')))
+            if (index + 1) % batch == 0:
+                cursor.prepare(sql)
+                cursor.executemany(None, dataset)
+                connection.commit()
+                dataset.clear()
+                continue
 
+except Exception as e:
+    print(e)
 
+finally:
 
+    cursor.executemany(sql, dataset)
+
+    connection.commit()
+
+    dataset.clear()
+
+    cursor.close()
+
+    connection.close()
+
+    elapsed = (time.time() - start)
+
+    print('向Oracle插入 {} 行，耗时 {} 秒'.format(index+1, elapsed))

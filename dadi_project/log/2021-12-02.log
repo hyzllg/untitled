@@ -1,0 +1,28 @@
+[2021-12-02 10:54:55,386] - [INFO] - 投保信息接口
+[2021-12-02 10:54:55,386] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2021-12-02 10:54:55,386] - [INFO] - 请求报文：{'channelCustId': '', 'name': '国莲', 'insuranceNo': '202112021054556624656', 'idNo': '362321199308052935', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16612027433', 'amount': 6000, 'periods': '6', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2021-12-02 10:54:55,979] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=202112021054556624656&lp=20211202105456024000030004', 'insuranceNo': '202112021054556624656', 'status': '01'}}
+[2021-12-02 10:54:55,981] - [INFO] - 投保信息接口成功！
+[2021-12-02 10:54:55,981] - [INFO] - 投保资料查询接口
+[2021-12-02 10:54:55,981] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2021-12-02 10:54:55,982] - [INFO] - 请求报文：{'loanReqNo': '202112021054556624656', 'token': '20211202105456024000030004'}
+[2021-12-02 10:54:56,163] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '07', 'premiumRate': 0.303, 'loanReqNo': '202112021054556624656', 'premiumExcTax': 17.55, 'idNo': '362321199308052935', 'phoneNo': '18968523600', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 6, 'taxFee': 1.05, 'email': '1264311721@hrtx.com', 'monthlyFee': 18.6, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16612027433', 'insAmount': 6139.2, 'name': '国莲', 'postCode': '200436'}}
+[2021-12-02 10:54:56,163] - [INFO] - 投保资料查询成功！
+[2021-12-02 10:54:56,164] - [INFO] - 投保接口
+[2021-12-02 10:54:56,164] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2021-12-02 10:54:56,165] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202112021054556624656', 'insReqNo': '202112021054556624656', 'name': '国莲', 'idNo': '362321199308052935', 'phone': '16612027433', 'amount': 6000, 'periods': '6', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2021-12-02 10:54:56,351] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '8801255027568383', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2021-12-02 10:54:56,351] - [INFO] - 已受理，处理中！
+[2021-12-02 10:54:56,351] - [INFO] - 支用接口
+[2021-12-02 10:54:56,351] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2021-12-02 10:54:56,351] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '202112021054556624656', 'idNo': '362321199308052935', 'insuranceNo': '202112021054556624656', 'phone': '16612027433', 'loanAmount': 6000, 'productId': '7015', 'name': '国莲', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214661202105455', 'bankName': '中国农业银行', 'bankPhone': '16612027433', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '6', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 1, 'unsettleLoanNum': 1.66, 'longestOverPeriod': 1, 'applyLevel360': 100, 'actionLevel360': 100, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2021-12-02 10:54:57,401] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202112020000000001', 'loanReqNo': '202112021054556624656', 'status': '01'}}
+[2021-12-02 10:54:57,402] - [INFO] - 放款受理成功，处理中！
+[2021-12-02 10:54:57,402] - [INFO] - 
+                        姓名：国莲
+                        身份证号：362321199308052935
+                        手机号：16612027433
+                        借款金额:6000
+                        借款期次:6
+                        loanReqNo:202112021054556624656
+                    

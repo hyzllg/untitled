@@ -4,7 +4,7 @@ SELECT * FROM CODE_LIBRARY where codeNo='repay_way';
 select * from business_config aa where aa.catalog_code='WEIGHT_RANDOM' and aa.product_code ='7014';
 select * from business_config aa where aa.product_code ='7014';
 --资方放款状态
-select * from ACCT_FUND_APPLY where apply_no = '20211115000000001';
+select * from ACCT_FUND_APPLY where apply_no = '20211122000000002';
 select * from ACCT_FUND_APPLY where RESULT_CODE = '22';
 --借据
 select * from acct_loan where serialno = '20062-W2021092915414699797';
@@ -12,7 +12,7 @@ update ACCT_PAYMENT_SCHEDULE a set a.fineintedate = '',a.FINEINTEBASE = '',a.PAY
 
 --还款流水
 select t.result_code,t.*,t.rowid from acct_transaction t where t.relativeserialno like '787-502404203300211517' order by created_date desc;
-select a.result_code,a.* from acct_transaction a where a.relativeserialno='787-503005073301597532';
+select a.result_code,a.* from acct_transaction a where a.relativeserialno='787-503101182980222609';
 select * from acct_transaction where SEQ_IDS = '99';
 -- 还款明细表
 select * from ACCT_BACK_DETAIL where loanserialno = '787-502601153300599524';
@@ -22,9 +22,12 @@ select *from kafka_payment_notify where bill_serialno = '460100024479785' order 
 -- 还款单据表
 select * from ACCT_BACK_BILL;
 --还款借据表
-select * from acct_loan where serialno = '787-503208293301702761';
+select LOANSTATUS from acct_loan where serialno = '787-503410233301796085';
+select a.LOANSTATUS,a.* from acct_loan a where a.serialno in ('787-503410243301796403','787-503410233301796085');
+select sysdate,add_months(sysdate,+1)+80 from dual;
+update acct_loan a set a.loanstatus='91',a.finishdate ='2035/02/12' where a.serialno = '787-503410233301796085';
 --还款计划表
-select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503412233301797883';
+select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503410233301796085';
 select * from ACCT_PAYMENT_SCHEDULE where objectno = '787-503407243301792589';
 --账务还款记录表
 select * from acct_back_detail t where t.LOANSERIALNO='787-503005073301597532';
@@ -109,11 +112,11 @@ select * from kafka_payment_notify where SERVICE_NAME = 'SendPrpjpDataService' a
 
 select s.updated_date,s.serialno,'','100',s.MITCORPUSAMT,s.MITINTEAMT,s. MITFINEAMT,s.MITCOMPDINTEAMT,s.REDPREMIUMAMOUNT, s.REDLATEFEEAMOUNT,'0.00',
 to_char(to_date(s.updated_date,'yyyy/MM/dd HH24:mi:ss'),'yyyy/mm/dd') ,to_char(to_date(s.updated_date,'yyyy/MM/dd HH24:mi:ss'),'hh24:mi:ss')
- from ACCT_RECOVERY_LOSS s where s.REDATOTAL >0 and BUSINESSTYPE='7014';
+ from ACCT_RECOVERY_LOSS s where s.REDATOTAL >0;
 select * from acct_recovery_loss where redatotal > 0
                                    and serialno = '787-502601153300599526';
 
-select * from ACCT_RECOVERY_LOSS where serialno = '787-503005073301597532';
+select * from ACCT_RECOVERY_LOSS where serialno = '20062-W2021102213465213070';
 
  --查询是否 有生成过
 delete  from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx');
@@ -121,6 +124,10 @@ delete  from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploa
 select * from ACCT_FILE_TASK t where t.file_code in ('PublicAndReductionFileUploadToAcct','xx','xx','xx') /*and t.status = '1'*/
 /*and t.business_date in ('2032/11/09'  ,'xxx')
 order by t.file_code,t.business_date desc*/
-
-for update
 ;
+
+insert into acct_recovery_loss (SERIALNO, OVERDUEFINEBEGINDATE, PAYCREDERE, ACTUALCREDERE, PAYOVERDUEFINE, ACTUALOVERDUEFINE, PAYFEEAMT1, ACTUALPAYFEEAMT1, OVERDUEFINECALCDATE, PAYOVERDUEFINEBASE, FINISHDATE, CREDEREFINISHDATE, BATCHSTATUS, RECOVERYLOSSDAYS, INPUTDATE, STATE, ANSHUOBATCHID, LUFAXBATCHID, CONFIRMDATE, CONFIRMFLAG, CONFIRMUSER, BUSINESSTYPE, OVERDUEDAYS, CONFIRMDATE1, CONFIRMUSER1, CREATED_DATE, UPDATED_DATE, PAYCORPUSAMT, ACTUALPAYCORPUSAMT, PAYINTEAMT, ACTUALPAYINTEAMT, PAYFINEAMT, ACTUALFINEAMT, PAYCOMPDINTEAMT, ACTUALCOMPDINTEAMT, PAYFEEAMT2, ACTUALPAYFEEAMT2, REMARK, ORGACCOUNTSERIALNO, CONTRACTSERIALNO, BASERIALNO, PREINTEAMT, BALANCETAILAMT, STOPPAYOVERDUEFINE, TRANSRISKIDF, TRANSRESON, REDPREMIUMAMOUNT, REDAFTERPREMIUMAMOUNT, REDCOMPENSATIONAMOUNT, REDAFTERCOMPENSATIONAMOUNT, REDLATEFEEAMOUNT, REDAFTERLATEFEEAMOUNT, TOTALRECOVERYPREMIUM, COMPENSATIONAMOUNT, LATEFEEAMOUNT, REDATOTAL, REDAFTERRECOVERYTOTAL, REDUCTIONDATE, MITCORPUSAMT, MITINTEAMT, MITFINEAMT, MITCOMPDINTEAMT)
+values ('787-503410233301796085', '2034/11/11', 1000, null, 0.00, null, 118.8, null, '2034/11/11', 0.00000000, null, '2034/11/11', '0', 0, '2034/11/11', null, null, null, null, '1', null, '7015', 81, null, null, '2034/11/11 06:41:34', '2034/11/11 14:28:33', 6000.00, null, 102.39, null, 5.00, null, 0.000000, null, 0.000000, null, null, null, '37881516000192', '2015121700000369', 0.000000, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+
+select LOANRATE from acct_loan where serialno = '787-503410233301796085'

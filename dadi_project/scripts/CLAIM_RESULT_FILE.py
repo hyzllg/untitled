@@ -76,7 +76,7 @@ class CLAIM_RESULT:
         #贷款利率
         loanrate = self.zwzj_oracle.query_data("select LOANRATE from acct_loan where serialno = '%s'" % self.loanNo)[0][0]
         days = self.Caltime(datetime1, datetime2) + (day - 80)
-        payinteamt = round(zc_corpusamt * loanrate / 360 * days + yq_inteamt, 2)
+        payinteamt = round(zc_corpusamt * loanrate/100 / 360 * days + yq_inteamt, 2)
 
         # 罚息
         a = self.zwzj_oracle.query_data(

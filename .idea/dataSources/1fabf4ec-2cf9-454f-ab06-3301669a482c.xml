@@ -5628,6 +5628,7 @@
     </view>
     <view id="953" parent="2" name="REPAY_SERIAL">
       <ObjectId>196036</ObjectId>
+      <Outdated>1</Outdated>
       <SourceTextLength>1210</SourceTextLength>
       <DependsOnIds>130084,130352,131043,160626</DependsOnIds>
       <CreatedTimestamp>2020-04-24.23:56:22</CreatedTimestamp>

@@ -107,15 +107,59 @@ webdriver提供了两种类型的元素等待：显式等待和隐式等待
 
 例：
 
-![](/Users/huangyahui/PycharmProjects/untitled/image/1593859669253.png)
+```python
+from selenium import webdriver
+from selenium import webdriver.common.by import By
+from selenium.webdriver.suport.ui import WebDriverWait
+from selenium.webdriver.suport import expected_conditions as EC
+
+driver = webdriver.Chrome()
+driver.get("htts://www.baidu.com/")
+element = WebDriverWait(driver,5,0.5).until(
+ EC.visibility_of_element_located((By.ID,"kw")))
+element.send_keys('selenium')
+driver.quit()
+```
 
 ​	本例中，通过as关键字将expected_conditions重命名为EC，并调用presence_of_element_located()方法判断元素是否存在
 
-![](/Users/huangyahui/PycharmProjects/untitled/image/1593859610301.png)
+```python
+title_is #判断当前页面的标题是否等于预期
+title_contains #判断当前页面的标题是否包含预期字符串
+presence_of_element_located #判断元素是否被加在DMO树里，并不代表该元素一定可见
+visibility_of_element_located #判断元素是否可见（可见代表元素非隐藏，并且元素的宽和高等都不等于0
+visibility_of #与上一个方法作用相同，上一个方法的参数为定位，该方法接收的参数为定位后的元素
+presence_of_all_element_located #判断是否至少有一个元素存在于DOM树中。例如，在页面中有个n个元素的class为“wp”，那么只要有一个元素存在于DOM树中就返回True
+text_to_be_present_in_element #判断某个元素中的text是否包含预期的字符串
+text_to_be_present_in_element_value #判断某个元素的value属性是否包含预期的字符串
+frame_to_be_available_and_switch_to_it #判断该表单是否可以切换进去，如果可以，返回True并且切换进去，否则返回Falue
+invisibility_of_element_located #判断某个元素是否不在DOM树中或不可见
+element_to_be_clickable #判断某个元素是否可见并且是可以点击的
+element_to_be_selected #判断某个元素是否被选中，一般用在下拉列表中
+element_selection_state_to_be #判断某个元素的选中状态是否符合预期
+staleness_of #等到一个元素从DOM树中移除
+element_located_selection_state_to_be #与上一个方法作用相同，只是一个方法参数为定位后的元素，该方法接收的参数为定位
+alert_is_present #判断页面上是否存在alert
+
+```
 
 ​	除expected——conditions类提供的丰富的预期条件判断方法外，还可以利用前面学到的is_displayed()方法自己实现元素显式等待。
 
-​	![](/Users/huangyahui/PycharmProjects/untitled/image/1593859898913.png)
+​	
+
+```python
+for i in range(10):
+    try:
+        el = driver.find_element_by_id("kw32")
+        if el.is_displayed():
+            break
+    except:
+        pass
+    sleep(1)
+else:
+    print("time out")
+driver.quit()
+```
 
 ​	相对来说，这种方式更容易理解。首先for循环10次，然后通过is_displayed()方法循环判断元素是否可见。如果为True，则说明元素可见，执行break跳出循环；否则执行sleep()休眠1s继续循环判断。10次循环结束后，如果没有执行break，则执行for循环对应的else语句，打印“time out”信息。
 
@@ -123,9 +167,23 @@ webdriver提供了两种类型的元素等待：显式等待和隐式等待
 
 WebDriver提供了implicitly_wait()方法可以用来实现隐式等地，用方法来说要简单的多。
 
-![](/Users/huangyahui/PycharmProjects/untitled/image/1593860199473.png)
-
-![](/Users/huangyahui/PycharmProjects/untitled/image/1593860216903.png)
+```python
+from time import ctime
+from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+driver = webdriver.Chrome()
+#设置为隐式等待为10s
+driver.implicitly_wait(10)
+driver.get()
+try:
+    print(ctime)
+    driver.find_element_by_id("kw32").send_keys('selenium')
+except NoSuchElementException as e:
+    print(e)
+finally:
+    print(ctime)
+    driver.quit()
+```
 
 ​	implicitly_wait()的参数是时间，单位为秒，本例中设置的等待时间是10s。首先，这10s并非一个固定的等待时间，它并不影响脚本的执行速度。其次，它会等待页面上的所有元素。当脚本执行到某个元素定位时，如果元素存在，则继续运行；如果定位不到元素，则它将进行轮询的方式不断地判断元素是否存在。假设在第6s定位到了元素，则继续运行，若直到超出设置时间还没有定位到元素，则抛出异常。
 
@@ -133,23 +191,25 @@ WebDriver提供了implicitly_wait()方法可以用来实现隐式等地，用方
 
 WebDriver还提供了8种用于定位一组元素的方法：
 
-![](/Users/huangyahui/PycharmProjects/untitled/image/1593864795483.png)
-
 定位一组元素的方法与定位单个元素的方法非常像，唯一的区别是单词“element”后面多了个“s”，用来表示复数。
 
-![1593864874490](/Users/huangyahui/PycharmProjects/untitled/image/1593864874490.png)
-
-![1593864888778](/Users/huangyahui/PycharmProjects/untitled/image/1593864888778.png)
-
 运行结果：
-
-![1593864909907](/Users/huangyahui/PycharmProjects/untitled/image/1593864909907.png)
 
 ### 1.9 多表单切换
 
 ​		在Web应用中经常会遇到frame/iframe表单嵌套页面的应用，WebDriver只能在一个页面上对元素进行识别和定位，无法直接定位frame/iframe表单内嵌页面上的元素，这时就需要通过swich_to.frame()方法将当前定位的主体切换为frame/iframe表单的内嵌页面。
 
-![1593865182586](/Users/huangyahui/PycharmProjects/untitled/image/1593865182586.png)
+```python
+from time import sleep
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get()
+sleep(2)
+login_frame = driver.find_element_by_css_selector('iframe[id^="x-URS-iframe"]')
+driver.switch_to.frame(login_frame)
+driver.switch_to.default_content()
+```
 
 ​		switch_to.frame()默认可以直接对表单的id属性或name属性传参，因而可以定位元素的对象。在这个例子中，表单的id属性后半部分的数字（1553484417298.5217）是随机变化的，在CSS定位方法中，可以通过“^=“匹配id属性为以”x-URS-iframe"开头的元素。
 
