@@ -4473,6 +4473,7 @@
     <table id="782" parent="2" name="CLAIM_PREPARE_INFO">
       <ObjectId>161014</ObjectId>
       <Comment>预理赔申请信息-河北银行</Comment>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2019-03-20.19:00:21</CreatedTimestamp>
       <ModifiedTimestamp>2020-11-17.17:39:36</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>

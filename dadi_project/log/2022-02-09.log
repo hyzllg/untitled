@@ -1,0 +1,235 @@
+[2022-02-09 09:43:36,832] - [INFO] - 投保信息接口
+[2022-02-09 09:43:36,832] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-09 09:43:36,832] - [INFO] - 请求报文：{'channelCustId': '', 'name': '宋士', 'insuranceNo': '20220209094336668060', 'idNo': '654326199304037896', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602093340', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-09 09:43:37,599] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=20220209094336668060&lp=20220209094337487000035023', 'insuranceNo': '20220209094336668060', 'status': '01'}}
+[2022-02-09 09:43:37,600] - [INFO] - 投保信息接口成功！
+[2022-02-09 09:43:37,601] - [INFO] - 投保资料查询接口
+[2022-02-09 09:43:37,602] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-09 09:43:37,602] - [INFO] - 请求报文：{'loanReqNo': '20220209094336668060', 'token': '20220209094337487000035023'}
+[2022-02-09 09:43:37,698] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '07', 'premiumRate': 0.352, 'loanReqNo': '20220209094336668060', 'premiumExcTax': 20.38, 'idNo': '654326199304037896', 'phoneNo': '18968523600', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 3, 'taxFee': 1.22, 'email': '1264311721@hrtx.com', 'monthlyFee': 21.6, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602093340', 'insAmount': 6139.2, 'name': '宋士', 'postCode': '200436'}}
+[2022-02-09 09:43:37,699] - [INFO] - 投保资料查询成功！
+[2022-02-09 09:43:37,700] - [INFO] - 投保接口
+[2022-02-09 09:43:37,700] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2022-02-09 09:43:37,700] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '20220209094336668060', 'insReqNo': '20220209094336668060', 'name': '宋士', 'idNo': '654326199304037896', 'phone': '16602093340', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-09 09:43:37,782] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '5483216253664802', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-09 09:43:37,784] - [INFO] - 已受理，处理中！
+[2022-02-09 09:43:37,784] - [INFO] - 支用接口
+[2022-02-09 09:43:37,785] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-09 09:43:37,785] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '20220209094336668060', 'idNo': '654326199304037896', 'insuranceNo': '20220209094336668060', 'phone': '16602093340', 'loanAmount': 6000, 'productId': '7015', 'name': '宋士', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660209094336', 'bankName': '中国农业银行', 'bankPhone': '16602093340', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 1, 'unsettleLoanNum': 1.66, 'longestOverPeriod': 1, 'applyLevel360': 100, 'actionLevel360': 100, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-09 09:43:38,619] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202090000000001', 'loanReqNo': '20220209094336668060', 'status': '01'}}
+[2022-02-09 09:43:38,620] - [INFO] - 放款受理成功，处理中！
+[2022-02-09 09:43:38,621] - [INFO] - 
+                        姓名：宋士
+                        身份证号：654326199304037896
+                        手机号：16602093340
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:20220209094336668060
+                    
+[2022-02-09 09:44:21,167] - [INFO] - 投保信息接口
+[2022-02-09 09:44:21,167] - [INFO] - http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_INFO
+[2022-02-09 09:44:21,168] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '2022020909442166610', 'capitalCode': 'FBBANK', 'custGrde': 18, 'name': '柳凯荷', 'idNo': '522601199012139020', 'phone': '16602095656', 'amount': 3000, 'periods': '6', 'purpose': '01', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '学霸路学渣小区1314弄520号', 'email': 'ybhdsg@hrtx.com', 'contactPhone': 'contactPhone', 'loanRate': 20.0, 'discountRate': 18}
+[2022-02-09 09:44:21,338] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurAgencyUrl': 'https://test-h5.dsibc.com/market/detail?productCode=1059901&env=sit&loanReqNo=2022020909442166610&lp=20220209094421290000035024', 'loanApplyNo': '2022020909442166610', 'loanReqNo': '2022020909442166610'}}
+[2022-02-09 09:44:21,338] - [INFO] - 投保信息接口成功！
+[2022-02-09 09:44:21,339] - [INFO] - 投保资料查询接口
+[2022-02-09 09:44:21,340] - [INFO] - http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_DATA_QUERY
+[2022-02-09 09:44:21,340] - [INFO] - 请求报文：{'loanReqNo': '2022020909442166610', 'token': '20220209094421290000035024'}
+[2022-02-09 09:44:21,413] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '01', 'premiumRate': 0.57, 'loanReqNo': '2022020909442166610', 'premiumExcTax': 16.5, 'idNo': '522601199012139020', 'phoneNo': 'contactPhone', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 6, 'taxFee': 0.99, 'email': 'ybhdsg@hrtx.com', 'monthlyFee': 17.49, 'addProvince': '110000', 'amount': 3000.0, 'address': '北京市北京市东城区学霸路学渣小区1314弄520号', 'irr': '18.00', 'addDistrict': '110101', 'addCity': '110000', 'annualIntRate': 6.2, 'addDetail': '学霸路学渣小区1314弄520号', 'phone': '16602095656', 'insAmount': 3069.6, 'name': '柳凯荷', 'postCode': '200436'}}
+[2022-02-09 09:44:21,414] - [INFO] - 投保资料查询成功！
+[2022-02-09 09:44:21,415] - [INFO] - 投保接口
+[2022-02-09 09:44:21,415] - [INFO] - http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE
+[2022-02-09 09:44:21,416] - [INFO] - 请求报文：{'agentNo': 'DingSheng', 'agentName': '鼎盛保险经纪', 'loanReqNo': '2022020909442166610', 'insReqNo': '2022020909442166610', 'name': '柳凯荷', 'idNo': '522601199012139020', 'phone': '16602095656', 'amount': 3000, 'periods': '6', 'purpose': '01', 'premiumRate': 0.57, 'insurantName': '哑巴湖大水怪', 'insurantAdd': '被保险人通讯地址', 'postCode': '110016', 'version': '', 'docVersion': ''}
+[2022-02-09 09:44:21,488] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '7658114487012512', 'errorCode': '', 'loanReqNo': '2022020909442166610', 'errorMsg': '', 'status': '01'}}
+[2022-02-09 09:44:21,489] - [INFO] - 已受理，处理中！
+[2022-02-09 09:44:21,489] - [INFO] - 支用接口
+[2022-02-09 09:44:21,490] - [INFO] - http://10.1.14.106:27405/channel/apitest/HUANBEI/DISBURSE
+[2022-02-09 09:44:21,490] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '2022020909442166610', 'loanRate': 20.0, 'discountRate': 18, 'name': '柳凯荷', 'spelling': 'LAIJING', 'sex': '00', 'nationality': '中国', 'nation': '汉族', 'birthday': '1993/12/12', 'idType': '00', 'loanAmount': 3000, 'periods': '6', 'phone': '16602095656', 'idNo': '522601199012139020', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '上海市崇明区太上皇路888弄001号', 'marriage': '00', 'children': '01', 'supplyPeople': 0, 'house': '09', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '学霸路学渣小区250弄38号', 'industry': 'C', 'profession': '01', 'workplaceName': '中国大地保险公司', 'workTel': '0521-11122844', 'workProvince': '上海市', 'workCity': '上海市', 'workDistrict': '浦东新区', 'workDetailAdd': '证大五道口1199弄', 'workAge': 5, 'income': '02', 'education': '05', 'school': '哈弗大学', 'email': 'ybhdsg@hrtx.com', 'bankCard': '6214660209094421', 'bankName': '建设银行', 'bankPhone': '16602095656', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'purpose': '01', 'direction': '04', 'payType': '00', 'payMerchantNo': '', 'authFlag': '01', 'capitalCode': 'FBBANK', 'agrSignTime': '20200506175500', 'docDate': '', 'contacts': [{'relation': '01', 'name': '鼎盛一', 'phoneNo': '17613148801'}, {'relation': '00', 'name': '鼎盛二', 'phoneNo': '17613148802'}], 'deviceDetail': {'deviceId': '646876135467846554646', 'mac': 'NONE', 'longitude': '162.357159', 'latitude': '63.589634', 'gpsCity': '上海市', 'ip': '192.3.46.57', 'ipCity': '上海市', 'oS': 'ios'}, 'channelDetail': {'custGrade': 18, 'obtainCustType': '01', 'faceType': '01', 'faceScore': 70, 'verifyResult': '01', 'fourElementsResult': '01', 'limitDate': '2020/05/06', 'limit': 20000.0, 'balanceLimit': 20000.0, 'isFirstDisburse': 'Y', 'settleLoanCounts': 1, 'unclearedLoanCnts': 1, 'unclearedLoanBaln': 0, 'overdueD3Days': 'N', 'maxOverdueDays': 14, 'overdueDays': 4, 'overdueD3Cnts': 1, 'isCurrentOverdue': 'N', 'firstRepayOdCnts': 1, 'beforeLoanSocre': '', 'midLoanSocre': '', 'afterLoanSocre': '', 'custGrde': 18}}
+[2022-02-09 09:44:21,835] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202090000000002', 'loanReqNo': '2022020909442166610', 'status': '01'}}
+[2022-02-09 09:44:21,836] - [INFO] - 支用受理成功，处理中！
+[2022-02-09 10:38:58,333] - [INFO] - 投保信息接口
+[2022-02-09 10:38:58,333] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-09 10:38:58,334] - [INFO] - 请求报文：{'channelCustId': '', 'name': '时蓓', 'insuranceNo': '202202091038586615180', 'idNo': '430903199512213982', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602097114', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-09 10:38:58,522] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=202202091038586615180&lp=20220209103858465000035025', 'insuranceNo': '202202091038586615180', 'status': '01'}}
+[2022-02-09 10:38:58,523] - [INFO] - 投保信息接口成功！
+[2022-02-09 10:38:58,523] - [INFO] - 投保资料查询接口
+[2022-02-09 10:38:58,524] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-09 10:38:58,524] - [INFO] - 请求报文：{'loanReqNo': '202202091038586615180', 'token': '20220209103858465000035025'}
+[2022-02-09 10:38:58,609] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '07', 'premiumRate': 0.352, 'loanReqNo': '202202091038586615180', 'premiumExcTax': 20.38, 'idNo': '430903199512213982', 'phoneNo': '18968523600', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 3, 'taxFee': 1.22, 'email': '1264311721@hrtx.com', 'monthlyFee': 21.6, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602097114', 'insAmount': 6139.2, 'name': '时蓓', 'postCode': '200436'}}
+[2022-02-09 10:38:58,610] - [INFO] - 投保资料查询成功！
+[2022-02-09 10:38:58,610] - [INFO] - 投保接口
+[2022-02-09 10:38:58,610] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2022-02-09 10:38:58,611] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202202091038586615180', 'insReqNo': '202202091038586615180', 'name': '时蓓', 'idNo': '430903199512213982', 'phone': '16602097114', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-09 10:38:58,685] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '3663442363232114', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-09 10:38:58,686] - [INFO] - 已受理，处理中！
+[2022-02-09 10:38:58,686] - [INFO] - 支用接口
+[2022-02-09 10:38:58,686] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-09 10:38:58,687] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '202202091038586615180', 'idNo': '430903199512213982', 'insuranceNo': '202202091038586615180', 'phone': '16602097114', 'loanAmount': 6000, 'productId': '7015', 'name': '时蓓', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660209103858', 'bankName': '中国农业银行', 'bankPhone': '16602097114', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 1, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-09 10:38:59,017] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202090000000003', 'loanReqNo': '202202091038586615180', 'status': '01'}}
+[2022-02-09 10:38:59,018] - [INFO] - 放款受理成功，处理中！
+[2022-02-09 10:38:59,019] - [INFO] - 
+                        姓名：时蓓
+                        身份证号：430903199512213982
+                        手机号：16602097114
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:202202091038586615180
+                    
+[2022-02-09 10:42:00,902] - [INFO] - 投保信息接口
+[2022-02-09 10:42:00,903] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-09 10:42:00,904] - [INFO] - 请求报文：{'channelCustId': '', 'name': '路冠', 'insuranceNo': '20220209104200668925', 'idNo': '362523199307028646', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602093569', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-09 10:42:01,013] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=20220209104200668925&lp=20220209104200960000035026', 'insuranceNo': '20220209104200668925', 'status': '01'}}
+[2022-02-09 10:42:01,013] - [INFO] - 投保信息接口成功！
+[2022-02-09 10:42:01,014] - [INFO] - 投保资料查询接口
+[2022-02-09 10:42:01,014] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-09 10:42:01,014] - [INFO] - 请求报文：{'loanReqNo': '20220209104200668925', 'token': '20220209104200960000035026'}
+[2022-02-09 10:42:01,093] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '07', 'premiumRate': 0.352, 'loanReqNo': '20220209104200668925', 'premiumExcTax': 20.38, 'idNo': '362523199307028646', 'phoneNo': '18968523600', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 3, 'taxFee': 1.22, 'email': '1264311721@hrtx.com', 'monthlyFee': 21.6, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602093569', 'insAmount': 6139.2, 'name': '路冠', 'postCode': '200436'}}
+[2022-02-09 10:42:01,093] - [INFO] - 投保资料查询成功！
+[2022-02-09 10:42:01,094] - [INFO] - 投保接口
+[2022-02-09 10:42:01,094] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2022-02-09 10:42:01,094] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '20220209104200668925', 'insReqNo': '20220209104200668925', 'name': '路冠', 'idNo': '362523199307028646', 'phone': '16602093569', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-09 10:42:01,155] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '8341478533356086', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-09 10:42:01,156] - [INFO] - 已受理，处理中！
+[2022-02-09 10:42:01,156] - [INFO] - 支用接口
+[2022-02-09 10:42:01,156] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-09 10:42:01,157] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '20220209104200668925', 'idNo': '362523199307028646', 'insuranceNo': '20220209104200668925', 'phone': '16602093569', 'loanAmount': 6000, 'productId': '7015', 'name': '路冠', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660209104200', 'bankName': '中国农业银行', 'bankPhone': '16602093569', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 0, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-09 10:42:01,278] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202090000000004', 'loanReqNo': '20220209104200668925', 'status': '01'}}
+[2022-02-09 10:42:01,279] - [INFO] - 放款受理成功，处理中！
+[2022-02-09 10:42:01,279] - [INFO] - 
+                        姓名：路冠
+                        身份证号：362523199307028646
+                        手机号：16602093569
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:20220209104200668925
+                    
+[2022-02-09 10:48:50,247] - [INFO] - 投保信息接口
+[2022-02-09 10:48:50,250] - [INFO] - http://10.1.14.117:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-09 10:48:50,250] - [INFO] - 请求报文：{'channelCustId': '', 'name': '驷公富', 'insuranceNo': '202202091048506696684', 'idNo': '542426199107058290', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602095282', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-09 10:48:52,994] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_uat/h5/?navStyle=hideLight#/application?loanReqNo=202202091048506696684&lp=20220209104852544000018001', 'insuranceNo': '202202091048506696684', 'status': '01'}}
+[2022-02-09 10:48:52,995] - [INFO] - 投保信息接口成功！
+[2022-02-09 10:48:52,995] - [INFO] - 投保资料查询接口
+[2022-02-09 10:48:52,996] - [INFO] - http://10.1.14.117:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-09 10:48:52,997] - [INFO] - 请求报文：{'loanReqNo': '202202091048506696684', 'token': '20220209104852544000018001'}
+[2022-02-09 10:48:53,611] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行有限公司', 'purpose': '07', 'premiumRate': 0.417, 'loanReqNo': '202202091048506696684', 'premiumExcTax': 24.34, 'idNo': '542426199107058290', 'phoneNo': '18968523600', 'insurantAdd': '中国(上海)自由贸易试验区世纪大道1168号A座101室、18楼、19楼及20楼', 'claimPeriod': '80', 'periods': 3, 'taxFee': 1.46, 'email': '1264311721@hrtx.com', 'monthlyFee': 25.8, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602095282', 'insAmount': 6186.0, 'name': '驷公富', 'postCode': '200122'}}
+[2022-02-09 10:48:53,612] - [INFO] - 投保资料查询成功！
+[2022-02-09 10:48:53,613] - [INFO] - 投保接口
+[2022-02-09 10:48:53,613] - [INFO] - http://10.1.14.117:27405/channel/apitest/QFIN/INSURE
+[2022-02-09 10:48:53,614] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202202091048506696684', 'insReqNo': '202202091048506696684', 'name': '驷公富', 'idNo': '542426199107058290', 'phone': '16602095282', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-09 10:48:53,756] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '6644111154674648', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-09 10:48:53,757] - [INFO] - 已受理，处理中！
+[2022-02-09 10:48:53,757] - [INFO] - 支用接口
+[2022-02-09 10:48:53,758] - [INFO] - http://10.1.14.117:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-09 10:48:53,758] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '202202091048506696684', 'idNo': '542426199107058290', 'insuranceNo': '202202091048506696684', 'phone': '16602095282', 'loanAmount': 6000, 'productId': '7015', 'name': '驷公富', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660209104850', 'bankName': '中国农业银行', 'bankPhone': '16602095282', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 0, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-09 10:48:54,629] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202090000000001', 'loanReqNo': '202202091048506696684', 'status': '01'}}
+[2022-02-09 10:48:54,630] - [INFO] - 放款受理成功，处理中！
+[2022-02-09 10:48:54,630] - [INFO] - 
+                        姓名：驷公富
+                        身份证号：542426199107058290
+                        手机号：16602095282
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:202202091048506696684
+                    
+[2022-02-09 14:14:32,710] - [INFO] - 授信申请
+[2022-02-09 14:14:32,710] - [INFO] - [http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-02-09 14:14:32,711] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'name': '干雅', 'spelling': 'ZHANGTIAN', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1985/06/02', 'idType': '00', 'idNo': '310114199006286829', 'idStartDate': '2016/01/18', 'idEndDate': '2036/01/18', 'idOffice': '北京市东城区', 'marriage': '01', 'children': '00', 'supplyPeople': 3, 'house': '00', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '东大街东大院', 'industry': 'C', 'profession': '11', 'workplaceName': 'AAA单位', 'workTel': '13162314539', 'workProvince': '110000', 'workCity': '110000', 'workDistrict': '110101', 'workDetailAdd': '西大街西大院', 'workAge': 8, 'income': '03', 'education': '06', 'school': '北京大学', 'phone': '16602095484', 'email': 'email163@qq.com', 'contacts': [{'relation': '00', 'name': '张三', 'phoneNo': '15638530000'}, {'relation': '01', 'name': '李四', 'phoneNo': '15638539999'}], 'bankCard': '6214660209141432', 'bankName': '建设银行', 'bankPhone': '16602095484', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'loanAmount': 5000, 'periods': '3', 'purpose': '01', 'direction': '01', 'payType': '00', 'payMerchantNo': '26666', 'authFlag': '01', 'deviceDetail': {'deviceId': '10-45-5-486', 'mac': '3a:b6:c6:5d:2e:f9', 'longitude': '121.551738', 'latitude': '31.224634', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'os': 'android', 'docDate': '2019/09/12'}, 'channelDetail': {'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1', 'consumeTimes': '1', 'creditTimes': '1', 'consumeScene': '1', 'frontId': '11', 'reverseId': '11', 'faceId': '11', 'woolFlag': '1', 'phoneFlag': '1', 'phoneTelco': '1', 'compScore': '650', 'repayAbilityScore': '650', 'comsAmount': '1', 'finAmount': '1', 'redPacket': '1', 'phoneAreaName': '上海市', 'modelScore': '650', 'whiteListFlag': '0', 'sugAmount': '3000.00', 'sugBasis': '2', 'loanGrade': 'A', 'registerTime': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'transFlag': '1', 'custType': '', 'currLimit': 5000, 'currRemainLimit': 2000, 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currLimitEndDate': '2021/07/31', 'currTotalPrice': 28.11, 'firstLoanFlag': '1', 'unsettleLoanLimit': 1, 'settleLoanLimit': 1, 'lastLoanDate': '2021/04/21', 'loanAmount': 3000}, 'custType': '0'}
+[2022-02-09 14:14:33,115] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:33,116] - [INFO] - 授信接口调用成功！
+[2022-02-09 14:14:33,116] - [INFO] - 授信受理成功，处理中！
+[2022-02-09 14:14:33,116] - [INFO] - 授信结果查询
+[2022-02-09 14:14:33,117] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:33,117] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:33,185] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:33,186] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:33,186] - [INFO] - 授信中！
+[2022-02-09 14:14:36,192] - [INFO] - 授信结果查询
+[2022-02-09 14:14:36,194] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:36,195] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:36,262] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:36,263] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:36,264] - [INFO] - 授信中！
+[2022-02-09 14:14:39,270] - [INFO] - 授信结果查询
+[2022-02-09 14:14:39,271] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:39,272] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:39,338] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:39,339] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:39,340] - [INFO] - 授信中！
+[2022-02-09 14:14:42,346] - [INFO] - 授信结果查询
+[2022-02-09 14:14:42,347] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:42,348] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:42,419] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:42,420] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:42,421] - [INFO] - 授信中！
+[2022-02-09 14:14:45,423] - [INFO] - 授信结果查询
+[2022-02-09 14:14:45,424] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:45,425] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:45,489] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:45,490] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:45,491] - [INFO] - 授信中！
+[2022-02-09 14:14:48,496] - [INFO] - 授信结果查询
+[2022-02-09 14:14:48,497] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:48,499] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:48,562] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:48,563] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:48,564] - [INFO] - 授信中！
+[2022-02-09 14:14:51,567] - [INFO] - 授信结果查询
+[2022-02-09 14:14:51,569] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:51,570] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:51,630] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:51,631] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:51,632] - [INFO] - 授信中！
+[2022-02-09 14:14:54,638] - [INFO] - 授信结果查询
+[2022-02-09 14:14:54,639] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:54,640] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:54,712] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:54,713] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:54,714] - [INFO] - 授信中！
+[2022-02-09 14:14:57,715] - [INFO] - 授信结果查询
+[2022-02-09 14:14:57,717] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:14:57,718] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:14:57,790] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:14:57,792] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:14:57,793] - [INFO] - 授信中！
+[2022-02-09 14:15:00,795] - [INFO] - 授信结果查询
+[2022-02-09 14:15:00,796] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:15:00,797] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:15:00,856] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:15:00,857] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:15:00,857] - [INFO] - 授信中！
+[2022-02-09 14:15:03,863] - [INFO] - 授信结果查询
+[2022-02-09 14:15:03,864] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:15:03,865] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:15:03,933] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:15:03,934] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:15:03,935] - [INFO] - 授信中！
+[2022-02-09 14:15:06,941] - [INFO] - 授信结果查询
+[2022-02-09 14:15:06,942] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:15:06,943] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:15:07,009] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:15:07,010] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:15:07,011] - [INFO] - 授信中！
+[2022-02-09 14:15:10,017] - [INFO] - 授信结果查询
+[2022-02-09 14:15:10,018] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:15:10,019] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:15:10,090] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:15:10,091] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:15:10,091] - [INFO] - 授信中！
+[2022-02-09 14:15:13,095] - [INFO] - 授信结果查询
+[2022-02-09 14:15:13,096] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:15:13,097] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:15:13,164] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:15:13,165] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:15:13,165] - [INFO] - 授信中！
+[2022-02-09 14:15:16,167] - [INFO] - 授信结果查询
+[2022-02-09 14:15:16,169] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:15:16,170] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:15:16,242] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:15:16,243] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:15:16,243] - [INFO] - 授信中！
+[2022-02-09 14:15:19,249] - [INFO] - 授信结果查询
+[2022-02-09 14:15:19,249] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-02-09 14:15:19,249] - [INFO] - 请求报文：{'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005'}
+[2022-02-09 14:15:19,309] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202202091414326675301', 'creditReqNo': '20220209141432886882', 'creditApplyNo': '202202090000000005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-02-09 14:15:19,310] - [INFO] - 授信查询接口调用成功！
+[2022-02-09 14:15:19,310] - [INFO] - 授信中！
+[2022-02-09 14:15:22,316] - [ERROR] - 甜橙授信时间过长！可能由于授信挡板问题，结束程序！

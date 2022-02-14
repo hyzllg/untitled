@@ -6,12 +6,12 @@ import cx_Oracle
 import requests
 import yaml
 
-from utils import generate_customer_info,api_request
+from dadi_project.utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,my_log
+
 
 
 class Hyzllg:
-    def __init__(self, creditReqNo, loanReqNo, loanReqNo1, name, idNo, phone, loanAmount, periods, bankCard, bankName,
-                 bankPhone, url):
+    def __init__(self, creditReqNo, loanReqNo, loanReqNo1, name, idNo, phone, loanAmount, periods, bankCard, url):
         self.creditReqNo = creditReqNo
         self.loanReqNo = loanReqNo
         self.name = name
@@ -20,26 +20,24 @@ class Hyzllg:
         self.loanAmount = loanAmount
         self.periods = periods
         self.bankCard = bankCard
-        self.bankName = bankName
-        self.bankPhone = bankPhone
         self.loanReqNo1 = loanReqNo1
         self.url = url
 
-    def wrapper(func):
-        def inner(*args, **kwargs):
-            s = func(*args, **kwargs)
-            with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\JIAOHANG.log", 'a+',
-                      encoding='utf-8') as hyzllg:
-                hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
-            return s
-
-        return inner
+    # def wrapper(func):
+    #     def inner(*args, **kwargs):
+    #         s = func(*args, **kwargs)
+    #         with open(os.path.join(os.path.expanduser("~"), 'Desktop') + "\JIAOHANG.log", 'a+',
+    #                   encoding='utf-8') as hyzllg:
+    #             hyzllg.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {s[0]} {s[1]} {s[2]}")
+    #         return s
+    #
+    #     return inner
 
     def insure_info(self):
         data = {
             "channelCustId": "",
             "insuranceNo": "2020070152013140002",
-            # "creditApplyNo":"",
+            "creditApplyNo":"",
             "name": "哑巴湖大水怪",
             "idNo": "412721198705203577",
             "phone": "16613145219",
@@ -52,26 +50,24 @@ class Hyzllg:
             "insuranceName": "交行",
             "insuranceAdd": "中国交行",
             "postCode": "110016",
-            "stage": "01",
+            "stage": "",
             "callbackUrl": "http://www.woshishui.com"
         }
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
+
         data["insuranceNo"] = self.loanReqNo
         data["name"] = self.name
         data["idNo"] = self.idNo
         data["phone"] = self.phone
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
+        data["stage"] = "01"
 
         a = "**********投保链接接口！**********"
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(self.url + 'INSURE_INFO', data=json.dumps(data), headers=headers)
+        url = self.url["insure_info"]
+        re = requests.post(url , data=json.dumps(data))
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -82,16 +78,14 @@ class Hyzllg:
             print("投保链接接口成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
 
         return self.url, a, requit, c
 
     def insure_info_put(self, b):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE_INFO'
         data = {
             "channelCustId": "",
             "insuranceNo": "2020070152013140002",
-            "creditApplyNo": "20202020202020",
+            "creditApplyNo":"",
             "name": "哑巴湖大水怪",
             "idNo": "412721198705203577",
             "phone": "16613145219",
@@ -104,14 +98,10 @@ class Hyzllg:
             "insuranceName": "交行",
             "insuranceAdd": "中国交行",
             "postCode": "110016",
-            "stage": "02",
+            "stage": "",
             "callbackUrl": "http://www.woshishui.com"
         }
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
+
         data["insuranceNo"] = self.loanReqNo1
         data["creditApplyNo"] = b
         data["name"] = self.name
@@ -119,12 +109,15 @@ class Hyzllg:
         data["phone"] = self.phone
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
+        data["stage"] = "02"
+
 
         a = "**********投保链接接口！**********"
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(self.url + 'INSURE_INFO', data=json.dumps(data), headers=headers)
+        url = self.url["insure_info"]
+        re = requests.post(url, data=json.dumps(data))
         requit = re.json()
 
         if re.status_code == 200 and requit["result"] == True:
@@ -137,30 +130,21 @@ class Hyzllg:
             print("投保链接接口成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
-
         return self.url, a, requit, c
 
     def insure_data_query(self, token):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE_DATA_QUERY'
         data1 = {
             "loanReqNo": "2020070614351688817",
             "token": ""
         }
-
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
-
         data1["loanReqNo"] = self.loanReqNo
         data1["token"] = token
         a = "**********投保资料查询接口！**********"
         print(a)
         print(f"请求报文：{data1}")
         time.sleep(1)
-        re = requests.post(self.url + 'INSURE_DATA_QUERY', data=json.dumps(data1), headers=headers)
+        url = self.url["insure_data_query"]
+        re = requests.post(url, data=json.dumps(data1))
         requit = re.json()
 
         if re.status_code == 200 and requit["result"] == True:
@@ -169,21 +153,13 @@ class Hyzllg:
             print("投保资料查询成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
 
         return self.url, a, requit
 
     def insure_data_query_put(self, token):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE_DATA_QUERY'
         data1 = {
             "loanReqNo": "2020070614351688817",
             "token": ""
-        }
-
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
 
         data1["loanReqNo"] = self.loanReqNo1
@@ -192,7 +168,8 @@ class Hyzllg:
         print(a)
         print(f"请求报文：{data1}")
         time.sleep(1)
-        re = requests.post(self.url + 'INSURE_DATA_QUERY', data=json.dumps(data1), headers=headers)
+        url = self.url["insure_data_query"]
+        re = requests.post(url, data=json.dumps(data1))
         requit = re.json()
 
         if re.status_code == 200 and requit["result"] == True:
@@ -201,12 +178,10 @@ class Hyzllg:
             print("投保资料查询成功！")
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
 
         return self.url, a, requit
 
     def insure(self):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE'
         data = {
             "agentNo": "TianCheng",
             "agentName": "甜橙保代",
@@ -222,14 +197,9 @@ class Hyzllg:
             "insurantName": "哑巴湖大水怪",
             "insurantAdd": "被保险人通讯地址",
             "postCode": "110016",
-            "stage": "01",
+            "stage": "",
             "version": "",
             "docVersion": ""
-        }
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
         }
 
         data["loanReqNo"] = self.loanReqNo
@@ -239,11 +209,14 @@ class Hyzllg:
         data["phone"] = self.phone
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
+        data["stage"] = "01"
         a = "**********投保接口！**********"
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(self.url + 'INSURE', data=json.dumps(data), headers=headers)
+        url = self.url["insure"]
+
+        re = requests.post(url, data=json.dumps(data))
         requit = re.json()
 
         if re.status_code == 200 and requit["result"] == True:
@@ -253,17 +226,14 @@ class Hyzllg:
                 if requit["data"]["message"]:
                     print("受理失败")
                     print(f'errormsg:{requit["data"]["message"]}')
-                    exit()
             except BaseException as e:
                 if requit["data"]["status"] == '01':
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
         return self.url, a, requit
 
     def insure_put(self):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/INSURE'
         data = {
             "agentNo": "TianCheng",
             "agentName": "甜橙保代",
@@ -279,15 +249,11 @@ class Hyzllg:
             "insurantName": "哑巴湖大水怪",
             "insurantAdd": "被保险人通讯地址",
             "postCode": "110016",
-            "stage": "02",
+            "stage": "",
             "version": "",
             "docVersion": ""
         }
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
+
 
         data["loanReqNo"] = self.loanReqNo1
         data["insReqNo"] = self.loanReqNo1
@@ -296,11 +262,14 @@ class Hyzllg:
         data["phone"] = self.phone
         data["amount"] = self.loanAmount
         data["periods"] = self.periods
+        data["stage"] = "02"
+
         a = "**********投保接口！**********"
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(self.url + 'INSURE', data=json.dumps(data), headers=headers)
+        url = self.url["insure"]
+        re = requests.post(url, data=json.dumps(data))
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -310,17 +279,14 @@ class Hyzllg:
                 if requit["data"]["message"]:
                     print("受理失败")
                     print(f'errormsg:{requit["data"]["message"]}')
-                    exit()
             except BaseException as e:
                 if requit["data"]["status"] == '01':
                     print("已受理，处理中！")
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
         return self.url, a, requit
 
     def credit_granting(self):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/CREDIT_GRANTING'
         data = {
             "creditReqNo": "20200706456123004",
             "insuranceNo": "2020070616462188640",
@@ -411,19 +377,14 @@ class Hyzllg:
         data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
         data["bankCard"] = self.bankCard
-        data["bankName"] = self.bankName
-        data["bankPhone"] = self.bankPhone
         data["docDate"] = time.strftime('%Y/%m/%d')
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
+
         a = "**********授信接口！**********"
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(self.url + 'CREDIT_GRANTING', data=json.dumps(data), headers=headers)
+        url = self.url["credit_granting"]
+        re = requests.post(url, data=json.dumps(data))
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -437,7 +398,6 @@ class Hyzllg:
                     print("受理失败！")
                     if requit["data"]["errorCode"] or requit["data"]["errorMsg"]:
                         print(f'errormsg:{requit["data"]["errorCode"] + requit["data"]["errorMsg"]}')
-                        exit()
             except BaseException as e:
                 if requit["data"]["message"]:
                     print(f'error:{requit["data"]["message"]}')
@@ -445,28 +405,23 @@ class Hyzllg:
 
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
         return self.url, a, requit, creditApplyNo
 
     def credit_inquiry(self, creditApplyNo):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/CREDIT_INQUIRY'
         data = {
             "creditReqNo": "20200706456123001",
             "creditApplyNo": "20200706000000009"
         }
         data["creditReqNo"] = self.creditReqNo
         data["creditApplyNo"] = creditApplyNo
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
+
         a = "**********授信结果查询接口！**********"
         print(a)
         print(f"请求报文：{data}")
+        url = self.url["credit_inquiry"]
         while True:
             time.sleep(6)
-            re = requests.post(self.url + 'CREDIT_INQUIRY', data=json.dumps(data), headers=headers)
+            re = requests.post(url, data=json.dumps(data))
             requit = re.json()
             if re.status_code == 200 and requit["result"] == True:
                 requit["data"] = eval(requit["data"])
@@ -482,7 +437,6 @@ class Hyzllg:
                         continue
                     else:
                         print("授信失败！")
-                        exit()
                 except BaseException as e:
                     if requit["data"]["message"]:
                         print(f'error:{requit["data"]["message"]}')
@@ -490,11 +444,9 @@ class Hyzllg:
 
             else:
                 print("msg:{}".format(requit["msg"]))
-                exit()
         return self.url, a, requit
 
     def disburse(self, creditApplyNo):
-        url = 'http://10.1.14.106:27405/channel/apitest/BCM/DISBURSE'
         data = {
             "loanReqNo": "202007061552308824",
             "creditApplyNo": "20200706000000012",
@@ -529,18 +481,13 @@ class Hyzllg:
         data["loanAmount"] = self.loanAmount
         data["periods"] = self.periods
         data["bankCard"] = self.bankCard
-        data["bankName"] = self.bankName
-        data["bankPhone"] = self.bankPhone
-        headers = {
-            "Content-Type": "application/json;charset=UTF-8",
-            "Host": "10.1.14.106:27405",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
-        }
+
         a = "**********提款投保接口！**********"
         print(a)
         print(f"请求报文：{data}")
         time.sleep(1)
-        re = requests.post(self.url + 'DISBURSE', data=json.dumps(data), headers=headers)
+        url = self.url["disburse"]
+        re = requests.post(url, data=json.dumps(data))
         requit = re.json()
         if re.status_code == 200 and requit["result"] == True:
             requit["data"] = eval(requit["data"])
@@ -557,10 +504,8 @@ class Hyzllg:
                 if requit["data"]["message"]:
                     print("受理失败")
                     print(f'errormsg:{requit["data"]["message"]}')
-                    exit()
         else:
             print("msg:{}".format(requit["msg"]))
-            exit()
         return self.url, a, requit
 def JH_sql_update(setting,creditreqno):
     try:
@@ -573,42 +518,56 @@ def JH_sql_update(setting,creditreqno):
     except cx_Oracle.DatabaseError:
         return print("无效的SQL语句")
 
-def jh_main(environment,number):
-    get_yaml_datas = lambda path : yaml.load(open(path,encoding='utf-8'),Loader=yaml.SafeLoader)
-    conf = get_yaml_datas('./conf/Config.yaml')
-    res_url = conf
+def get_oracle_conf(conf,environment):
+    if environment == "SIT":
+        oracle_conf = conf['xshx_oracle']['xsxb_sit_oracle']
+    elif environment == "UAT":
+        oracle_conf = conf['xshx_oracle']['xsxb_uat_oracle']
+    elif environment == "DEV":
+        oracle_conf = conf['xshx_oracle']['xsxb_dev_oracle']
+    return oracle_conf
 
+def jh_main(environment,loanAmount,periods):
+    #获取配置信息
+    get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
+    path = os.path.dirname(__file__)
+    conf = get_yaml_data(f'{path}/conf/Config.yaml')
+    res_url = conf["api_url_jh"]
+    res_data = get_yaml_data(f'{path}/conf/request_data.yaml')["jh_res_data"]
+    #日志
+    log = my_log.Log()
+    #获取数据库配置
+    oracle_conf = get_oracle_conf(conf,environment)
+    # hx_oracle = database_manipulation.Oracle_Class(oracle_conf[0], oracle_conf[1], oracle_conf[2])
     idNo = generate_customer_info.customer().idNo()
     name = generate_customer_info.customer().name()
     phone = generate_customer_info.customer().phone()
     bankcard = generate_customer_info.customer().bankcard()
     #指定姓名身份证手机号时使用
-    # name = "刘生"
-    # idNo = "310101199106127639"
-    # phone = "13866666666"
-    # bankcard = "6214660525152114"
+    # random__name = "刘生"
+    # generate__ID = "310101199106127639"
+    # JH_phone = "13866666666"
+    # JH_bankcard = "6214660525152114"
 
-    JH_creditReqNo = generate_customer_info.customer().reqno(11)
-    JH_loanReqNo1 = generate_customer_info.customer().reqno(11)
-    JH_loanReqNo2 = generate_customer_info.customer().reqno(11)
+    creditReqNo = generate_customer_info.customer().reqno(11)
+    loanReqNo1 = generate_customer_info.customer().reqno(22)
+    loanReqNo2 = generate_customer_info.customer().reqno(33)
 
-    # 借款金额
-    loanAmount = 13000
-    # 期数
-    periods = '6'
 
-    if a == 0:
-        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, name, idNo, phone, loanAmount,
+
+
+    if environment == 'SIT':
+        hyzllg = Hyzllg(creditReqNo, loanReqNo1, loanReqNo2, name, idNo, phone, loanAmount,
                         periods,
-                        bankcard, "招商银行", phone, Collect.sit_url_jh)
-    elif a == 1:
-        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, name, idNo, phone, loanAmount,
+                        bankcard, res_url["sit_url_jh"])
+    elif environment == 'UAT':
+        hyzllg = Hyzllg(creditReqNo, loanReqNo1, loanReqNo2, name, idNo, phone, loanAmount,
                         periods,
-                        bankcard, "招商银行", phone, Collect.uat_url_jh)
-    elif a == 2:
-        hyzllg = Hyzllg(JH_creditReqNo, JH_loanReqNo1, JH_loanReqNo2, name, idNo, phone, loanAmount,
+                        bankcard, res_url["uat_url_jh"])
+    elif environment == 'DEV':
+        hyzllg = Hyzllg(creditReqNo, loanReqNo1, loanReqNo2, name, idNo, phone, loanAmount,
                         periods,
-                        bankcard, "招商银行", phone, Collect.dev_url_jh)
+                        bankcard,res_url["dev_url_jh"])
     else:
         print("........")
 
@@ -618,15 +577,15 @@ def jh_main(environment,number):
                     手机号：{phone}
                     借款金额:{loanAmount}
                     借款期次:{periods}
-                    creditReqNo:{JH_creditReqNo}
-                    loanReqNo:{JH_loanReqNo2}
+                    creditReqNo:{creditReqNo}
+                    loanReqNo:{loanReqNo2}
                 '''
     insure = hyzllg.insure_info()
     hyzllg.insure_data_query(insure[-1])
     hyzllg.insure()
     credit_Granting = hyzllg.credit_granting()
     hyzllg.credit_inquiry(credit_Granting[3])
-    JH_sql_update(environment,JH_creditReqNo)
+    JH_sql_update(oracle_conf,creditReqNo)
     # a = input("aaa")
     insure_put = hyzllg.insure_info_put(credit_Granting[3])
     hyzllg.insure_data_query_put(insure_put[-1])
@@ -634,15 +593,12 @@ def jh_main(environment,number):
     hyzllg.disburse(credit_Granting[3])
     print(test_info)
 
-def main():
-    #环境
-    environment = "sit"
-    #笔数
-    number = 1
-
-
-    jh_main(environment,number)
 
 if __name__ == '__main__':
-
-    main()
+    #测试环境
+    environment = "sit"
+    # 借款金额
+    loanAmount = 3000
+    # 期数
+    periods = '6'
+    jh_main(environment.upper(),loanAmount,periods)

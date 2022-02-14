@@ -23,6 +23,14 @@ class Oracle_Class:
         self.cursor.execute(sql)
         self.conn.commit()
 
+    #批量插入数据
+    def batch_insert(self,masterplate,list_datas):
+        #masterplate sql批量插入模版
+        #list_datas 列表，里面放元组，每个元组里面放基于模版的对应数据
+        self.cursor.prepare(masterplate)
+        self.cursor.executemany(None, list_datas)
+        self.conn.commit()
+
     # 关闭连接，释放资源
     def close_all(self):
         self.cursor.close()

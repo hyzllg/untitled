@@ -32,7 +32,7 @@ select * from offlinerecord where bacthno = '20210926000001_03';
 -- select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select * from channel_apply_info where creditreqno ='2020120410404386556';
-select * from channel_apply_info where customerid ='320000000665395' ;
+select * from channel_apply_info where customerid ='320000000661397' ;
 --授信信息
 select * from business_apply where customerid ='320000001228058';
 --支用信息
@@ -49,10 +49,10 @@ select *from customer_realname_log where regid ='20201202000002005';
 --核心流程节点配置
 select * from  queue_model where modelno ='BizApplyPay';
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202111220000000001'
+select * from queue_task qm where qm.objectno = '202202090000000005'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20211206000002004'
+select * from queue_task qm where qm.objectno = '20220214000000001'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 select count(*) from queue_task where runstatus = 'ST';
 select * from PUTOUT_APPROVE;
@@ -61,16 +61,16 @@ select * from PUTOUT_APPROVE_LOG;
 --批单表
 select * from INSURANCEPOLICY_CHANGE_RECODE where policyno = 'PBLG202031170359000178';
 --缩期还款计划
-select * from acct_payment_schedule where objectno = '787-503410233301796085';
+select * from acct_payment_schedule where objectno = '787-503701143301829446';
 --不缩期还款计划
-select * from acct_payment_schedule_not where objectno = '787-503005073301597532';
+select * from acct_payment_schedule_not where objectno = '787-503701143301829446';
 --还款通知
-select * from loan_batch_notice where billno='787-503606163301818905';
+select * from loan_batch_notice where billno='787-503208153301694820';
 --还款记录
-select * from loan_batch_info where objectno='20062-W210923004201302';
+select * from loan_batch_info where objectno='787-503101182980222609';
 select * from loan_batch_info where objectno='20062-W210923004201302';
 --扣款记录
-select * from loan_batch_cutpayment where billno='787-502805153301143206';
+select * from loan_batch_cutpayment where billno='787-503101182980222609';
 --查还款交易类型
 SELECT operatetype FROM loan_batch_notice where billno in ('787-503403193301772087','');
 --总欠记录
@@ -94,12 +94,12 @@ delete FROM PFA_INSURANCEPOLICYINFO where CHANNELPUTOUTAPPROVENO='32000000001443
 -------风控相关-------
 --四要素成功落库
 select * from CUSTOMER_BANK_CARD where PUTOUTAPPROVENO = '20211110000000008';
-select * from CUSTOMER_BANK_CARD where CUSTOMERID = '320000001220580';
+select * from CUSTOMER_BANK_CARD where CUSTOMERID = '320000001220573';
 delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001234146';
 
 --四要素是否调用
 select * from customer_auth where certid='65322420090421440X';
-select * from CUSTOMER_AUTH where customerid = '320000001232017';
+select * from CUSTOMER_AUTH where customerid = '320000001220585';
 select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211112000000001';
 select * from CUSTOMER_AUTH where phase = '1';
 select * from CUSTOMER_AUTH where result = '2';
@@ -156,8 +156,8 @@ update code_library set attribute2 = '/sftp/ccic/income/upload/image' where code
 update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='ImagetPayApply';
 --更新customer_info表liveaddress
 update customer_info set liveaddress = '北京市市辖区东城区' where customerid = '320000001236128';
-select liveaddress from CUSTOMER_INFO where CUSTOMERID = '320000001226811';
-update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CERTID = '320000001231136';
+select liveaddress from CUSTOMER_INFO where CUSTOMERID = '320000001241994';
+update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CUSTOMERID = '320000001241994';
 --查channelcustid
 select ca.CHANNELCUSTID from CHANNEL_APPLY_INFO ca join BUSINESS_APPLY ba on ca.serialno=ba.CHANNELAPPLYNO join PUTOUT_APPROVE pa on
     ba.serialno=pa.OBJECTNO where ba.SERIALNO = '20211108000004004';
@@ -204,7 +204,7 @@ select * from CODE_AREA where AREACODE = '110000';
 --对公还款中间表
 select * from CORP_ACCOUNT_INFO where billno = '20062-W210706000021148';
 --对公还款记录表
-select * from CORP_ACCOUNT_RECORD where billno = '20062-W210706000021148';
+select * from CORP_ACCOUNT_RECORD where billno = '787-503208153301694830';
 select * from CORP_ACCOUNT_RECORD where repaydate = '2032/12/15';
 
 -- delete from CORP_ACCOUNT_RECORD where billno = '787-502601153300599526';
@@ -234,7 +234,7 @@ select ROWNUM, PA.CHANNELPUTOUTSNO,                          --{#翼支付订单
 			 						  ON CAR.BILLNO = AL.SERIALNO
 									  LEFT JOIN PUTOUT_APPROVE PA									  --{#table：提现记录表：通过保单号与借据表关联，取到最终翼支付订单号}
 			  						  ON  AL.POLICYNO =PA.POLICYNO
-									  WHERE  CAR.batch_date='2030/08/29'							  --{#where：D-1日账务传输的记录}
+									  WHERE  CAR.batch_date='2035/01/02'							  --{#where：D-1日账务传输的记录}
 									  AND EXISTS
 											(SELECT 1 FROM ACCT_LOAN al where						  --{#where：区分甜橙产品编号：7014}
  											al.SERIALNO = CAR.BILLNO AND al.PRODUCTID ='7014')
@@ -243,23 +243,59 @@ select ROWNUM, PA.CHANNELPUTOUTSNO,                          --{#翼支付订单
 select * from queue_model where modelno in ('BizApplyORANGE');
 select * from queue_model where modelno in ('BizApplyBCM');
 
+select ci.WORKUNIT,ci.* from customer_info ci where ci.customerid = '320000001237433';
+select ci.WORKUNIT,ci.CREATE_DATE from customer_info ci order by CREATE_DATE desc;
 
-select * from ACCT_LOAN where serialno = '787-503208153301694549';
-select * from CODE_LIBRARY where CODENO = 'LoanStatus';
+select * from queue_task where MODELNO = 'ReconciliationCheck';
 
-select * from acct_loan where loanstatus = '7';
+--授信流程节点（渠道申请流水号）
+select * from queue_task qm where qm.objectno = '202112240000000008'
+and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
+--支用流程节点（借款流水号）
+select * from queue_task qm where qm.objectno = '20211220000006001'
+and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
+--同盾
+select * from TD_RESULT_MSG where customerid = '320000000040618';
+select * from IP_INFO order by create_time desc;
+select * from IP_INFO where applyno = '202112200000002004';
+select * from IP_INFO where ip = '192.168.1.2' and applyno = '20210108000002003';
+--百融自然人
+select * from BRAIN_PERSONSPECIAL where applyno = '20211216000004002';
+--百融规则
+select * from BRAIN_RULESPECIALLIST where customerid='320000000040618';
+--百融特殊名单
+select * from BRAIN_SPECIALLIST where customerid='320000000040618';
+--冰鉴
+select * from ICE_WARNING_FIREEYES where customerid = '320000000040618';
+
+select * from acct_loan where serialno = '787-503701143301829446';
+
+select * from CODE_TEMP where ITEMDESCRIBE = '7014';
+select * from FLOW_OBJECT FO where FO.ObjectType='jbo.sys.CODE_TEMP';
+select * from FLOW_OBJECT FO where FO.ObjectType='jbo.sys.CODE_TEMP' and FO.ObjectNo=O.SERIALNO and FO.ApplyType=:ApplyType and FO.PhaseType=:PhaseType  and FO.UserID=:UserID and ITEMDESCRIBE = :productId
+
+select * from customer_info where customerid is not null;
+
+select * from BUSINESS_APPLY where serialno = '20211224000000006';
 
 
-select * from REFUSE_REASON_LIST where serialno = '40F77C97F04E47DD8F876C9D5F1513E3';
 
 
-select * from REFUSE_REASON_LIST where REFUSEMAINREASON = 'HYZ';
-delete from REFUSE_REASON_LIST where REFUSEMAINREASON = 'HYZ';
+select * from acct_loan where serialno = '787-503701143301829446';
+select * from ALL_REPAY_SERIAL where serialno = '20211208000000008';
+
+select * from BANK_BALANCE_INFO ;
 
 
 
-select * from CHANNEL_APPLY_INFO where CHANNELCUSTID = '2019092319214487410496';
+update acct_loan a set a.loanstatus='1',a.finishdate ='2037/08/02' where a.serialno = '787-503701143301829446';
+
+insert into CLAIM_PREPARE_INFO (SERIALNO, BILLNO, OVERDUEDAYS, OVERDUEBALANCE, OVERDUEINTEREST, OVERDUEFINE, OVERDUECOMPOUND, INTEREST, NORMALBALANCE, CLAIMAMT, ACTUALCLAIMAMT, STATUS, REMARK, CLAIMPLANDATE, CREATE_DATE, UPDATE_DATE, CONFIRMDATE, PAYTYPE, INPUTDATE, PAYASSUREFEEAMT, PAYREBACKASSUREFEEAMT, PAYPREASSUREFEEAMT)
+values ('20220110001000001', '787-503701143301829446', 80, 1984.31, 1.50, 0.00, 0.00, 96.79, 0.00, 4061.82, null, '0', '', '', to_date('10-10-2021 17:03:19', 'dd-mm-yyyy hh24:mi:ss'), to_date('22-10-2021 11:06:37', 'dd-mm-yyyy hh24:mi:ss'), '2037/08/02', '理赔', '2037/08/02', null, null, null);
+
+{"fundCode":"787","bizNo":"PBLG202131171845015146","claimDate":"2037/08/02 14:47:46","paytype":"6","paycredere":6107.39,"loanStatus":"91","seqId":12,
+"createTime":"2037/08/02 18:13:06","updateTime":"2037/08/02 15:00:51","bizSeqNo":"31040619506765008800000007241800","claimLock":1,"isCanClaim":true,
+"claimStatus":"91","claimDesc":"理赔成功"}
 
 
-select * from COMPARE_RESULT where COMPARETYPE='P'
-
+select * from CHANNEL_APPLY_INFO where IDNO  ='542426199107058290';

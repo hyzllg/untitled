@@ -258,7 +258,7 @@ def main():
     # 借款金额
     loanAmount = 6000
     # 期数
-    periods = '6'
+    periods = '3'
     # 客户等级
     custGrde = 18
     # 资方代码 (微众：FBBANK，龙江：LJBANK)

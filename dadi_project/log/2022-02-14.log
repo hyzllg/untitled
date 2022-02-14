@@ -1,0 +1,56 @@
+[2022-02-14 10:15:15,815] - [INFO] - 投保信息接口
+[2022-02-14 10:15:15,815] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-14 10:15:15,815] - [INFO] - 请求报文：{'channelCustId': '', 'name': '武舒', 'insuranceNo': '202202141015156658105', 'idNo': '320583199605118532', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602147967', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-14 10:15:16,303] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=202202141015156658105&lp=20220214101516266000035033', 'insuranceNo': '202202141015156658105', 'status': '01'}}
+[2022-02-14 10:15:16,304] - [INFO] - 投保信息接口成功！
+[2022-02-14 10:15:16,304] - [INFO] - 投保资料查询接口
+[2022-02-14 10:15:16,304] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-14 10:15:16,304] - [INFO] - 请求报文：{'loanReqNo': '202202141015156658105', 'token': '20220214101516266000035033'}
+[2022-02-14 10:15:16,519] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '07', 'premiumRate': 0.352, 'loanReqNo': '202202141015156658105', 'premiumExcTax': 20.38, 'idNo': '320583199605118532', 'phoneNo': '18968523600', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 3, 'taxFee': 1.22, 'email': '1264311721@hrtx.com', 'monthlyFee': 21.6, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602147967', 'insAmount': 6139.2, 'name': '武舒', 'postCode': '200436'}}
+[2022-02-14 10:15:16,520] - [INFO] - 投保资料查询成功！
+[2022-02-14 10:15:16,520] - [INFO] - 投保接口
+[2022-02-14 10:15:16,520] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2022-02-14 10:15:16,520] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202202141015156658105', 'insReqNo': '202202141015156658105', 'name': '武舒', 'idNo': '320583199605118532', 'phone': '16602147967', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-14 10:15:16,674] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '0788872687606022', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-14 10:15:16,674] - [INFO] - 已受理，处理中！
+[2022-02-14 10:15:16,674] - [INFO] - 支用接口
+[2022-02-14 10:15:16,674] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-14 10:15:16,674] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '202202141015156658105', 'idNo': '320583199605118532', 'insuranceNo': '202202141015156658105', 'phone': '16602147967', 'loanAmount': 6000, 'productId': '7015', 'name': '武舒', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660214101515', 'bankName': '中国农业银行', 'bankPhone': '16602147967', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 0, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-14 10:15:17,565] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202140000000002', 'loanReqNo': '202202141015156658105', 'status': '01'}}
+[2022-02-14 10:15:17,565] - [INFO] - 放款受理成功，处理中！
+[2022-02-14 10:15:17,565] - [INFO] - 
+                        姓名：武舒
+                        身份证号：320583199605118532
+                        手机号：16602147967
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:202202141015156658105
+                    
+[2022-02-14 10:29:32,704] - [INFO] - 投保信息接口
+[2022-02-14 10:29:32,704] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-14 10:29:32,704] - [INFO] - 请求报文：{'channelCustId': '', 'name': '通器海', 'insuranceNo': '202202141029326610086', 'idNo': '445321199010135175', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602148900', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-14 10:29:32,890] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=202202141029326610086&lp=20220214102932847000035034', 'insuranceNo': '202202141029326610086', 'status': '01'}}
+[2022-02-14 10:29:32,891] - [INFO] - 投保信息接口成功！
+[2022-02-14 10:29:32,891] - [INFO] - 投保资料查询接口
+[2022-02-14 10:29:32,892] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-14 10:29:32,892] - [INFO] - 请求报文：{'loanReqNo': '202202141029326610086', 'token': '20220214102932847000035034'}
+[2022-02-14 10:29:33,023] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '07', 'premiumRate': 0.352, 'loanReqNo': '202202141029326610086', 'premiumExcTax': 20.38, 'idNo': '445321199010135175', 'phoneNo': '18968523600', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 3, 'taxFee': 1.22, 'email': '1264311721@hrtx.com', 'monthlyFee': 21.6, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602148900', 'insAmount': 6139.2, 'name': '通器海', 'postCode': '200436'}}
+[2022-02-14 10:29:33,024] - [INFO] - 投保资料查询成功！
+[2022-02-14 10:29:33,024] - [INFO] - 投保接口
+[2022-02-14 10:29:33,024] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2022-02-14 10:29:33,024] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202202141029326610086', 'insReqNo': '202202141029326610086', 'name': '通器海', 'idNo': '445321199010135175', 'phone': '16602148900', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-14 10:29:33,104] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '3456805325128163', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-14 10:29:33,105] - [INFO] - 已受理，处理中！
+[2022-02-14 10:29:33,105] - [INFO] - 支用接口
+[2022-02-14 10:29:33,105] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-14 10:29:33,105] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '202202141029326610086', 'idNo': '445321199010135175', 'insuranceNo': '202202141029326610086', 'phone': '16602148900', 'loanAmount': 6000, 'productId': '7015', 'name': '通器海', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660214102932', 'bankName': '中国农业银行', 'bankPhone': '16602148900', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 0, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-14 10:29:33,233] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202140000000003', 'loanReqNo': '202202141029326610086', 'status': '01'}}
+[2022-02-14 10:29:33,233] - [INFO] - 放款受理成功，处理中！
+[2022-02-14 10:29:33,234] - [INFO] - 
+                        姓名：通器海
+                        身份证号：445321199010135175
+                        手机号：16602148900
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:202202141029326610086
+                    
