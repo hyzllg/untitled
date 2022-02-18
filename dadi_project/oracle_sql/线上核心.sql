@@ -52,7 +52,7 @@ select * from  queue_model where modelno ='BizApplyPay';
 select * from queue_task qm where qm.objectno = '202202090000000005'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20220214000000001'
+select * from queue_task qm where qm.objectno = '20220216000002004'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
 select count(*) from queue_task where runstatus = 'ST';
 select * from PUTOUT_APPROVE;
@@ -65,7 +65,7 @@ select * from acct_payment_schedule where objectno = '787-503701143301829446';
 --不缩期还款计划
 select * from acct_payment_schedule_not where objectno = '787-503701143301829446';
 --还款通知
-select * from loan_batch_notice where billno='787-503208153301694820';
+select * from loan_batch_notice where billno='787-503710023301839994';
 --还款记录
 select * from loan_batch_info where objectno='787-503101182980222609';
 select * from loan_batch_info where objectno='20062-W210923004201302';
@@ -156,8 +156,8 @@ update code_library set attribute2 = '/sftp/ccic/income/upload/image' where code
 update code_library set attribute2 = '/ccicall/cfs/test/file' where codeno ='ImagetPayApply';
 --更新customer_info表liveaddress
 update customer_info set liveaddress = '北京市市辖区东城区' where customerid = '320000001236128';
-select liveaddress from CUSTOMER_INFO where CUSTOMERID = '320000001241994';
-update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CUSTOMERID = '320000001241994';
+select liveaddress from CUSTOMER_INFO where CUSTOMERID = '320000001242026';
+update customer_info set liveaddress = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where CUSTOMERID = '320000001242026';
 --查channelcustid
 select ca.CHANNELCUSTID from CHANNEL_APPLY_INFO ca join BUSINESS_APPLY ba on ca.serialno=ba.CHANNELAPPLYNO join PUTOUT_APPROVE pa on
     ba.serialno=pa.OBJECTNO where ba.SERIALNO = '20211108000004004';
