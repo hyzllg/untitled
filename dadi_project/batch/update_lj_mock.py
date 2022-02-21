@@ -1,6 +1,9 @@
 import time
 import requests
 import random
+import yaml
+import os
+
 def esay_mock_login():
     url = "http://10.1.14.146:7300/api/u/login"
     data = {"name":"gdzwzj","password":"Pass01!"}
@@ -23,7 +26,13 @@ def random_number_reqno():
     b = time.strftime("%Y%m%d%H%M%S")
     reqno = b + a
     return reqno
-def update_lj_mock(api,loanNO,datetime):
+def update_lj_mock(api,loanNO,datetime,status):
+    #获取配置信息
+    get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
+    path = os.path.dirname(__file__)
+    conf = get_yaml_data(f'{path}/conf/code_library.yaml')
+    #获取龙江放款状态码值配置
+    asset_status = conf['lj_putout_status']
     token = esay_mock_login()
     url = "http://10.1.14.146:7300/api/mock/update"
     headers = {
@@ -42,7 +51,7 @@ def update_lj_mock(api,loanNO,datetime):
 }
     loan_query_datas = {
     "url":"/std/loan/query",
-    "mode":'{"data": {"code": 0,"message": "成功","data": {"loan_order_no":"%s","create_at": "%s 10:00:00","grant_amount": "22000.00","period": "12","asset_status": "repay","grant_at": "%s","debt_no": "W%s"}}}' % (loanNO,datetime,datetime,loanNO),
+    "mode":'{"data": {"code": 0,"message": "成功","data": {"loan_order_no":"%s","create_at": "%s 10:00:00","grant_amount": "22000.00","period": "12","asset_status": "%s","grant_at": "%s","debt_no": "W%s"}}}' % (loanNO,datetime,asset_status[status],datetime,loanNO),
     "method":"post",
     "description":"借款申请结果查询",
     "id":"5fbe001bc9b25623b2c09d00"
@@ -68,7 +77,17 @@ def update_lj_mock(api,loanNO,datetime):
 start_lj_mock()
 ljreqno = random_number_reqno()
 loan_datetime=time.strftime("%Y-%m-%d")
-update_lj_mock("apply", ljreqno, loan_datetime)
-update_lj_mock("query", ljreqno, loan_datetime)
+'''
+  0 : commit #审核中
+  1 : pass #审核通过
+  2 : grant #放款中
+  3 : repay #放款成功
+  4 : payoff #已结清
+  5 : invalid #已失效
+  6 : refused #审核不通过
+  7 : failed #放款失败
+'''
+update_lj_mock("apply", ljreqno, loan_datetime,3)
+update_lj_mock("query", ljreqno, loan_datetime,3)
 # time.sleep(3)
 

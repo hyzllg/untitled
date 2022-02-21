@@ -1,0 +1,56 @@
+[2022-02-21 11:03:19,843] - [INFO] - 投保信息接口
+[2022-02-21 11:03:19,843] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-21 11:03:19,844] - [INFO] - 请求报文：{'channelCustId': '', 'name': '秦信嘉', 'insuranceNo': '202202211103196667285', 'idNo': '542429199402257988', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602217409', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'LJBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-21 11:03:19,963] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=202202211103196667285&lp=20220221110320053000035121', 'insuranceNo': '202202211103196667285', 'status': '01'}}
+[2022-02-21 11:03:19,964] - [INFO] - 投保信息接口成功！
+[2022-02-21 11:03:19,964] - [INFO] - 投保资料查询接口
+[2022-02-21 11:03:19,965] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-21 11:03:19,965] - [INFO] - 请求报文：{'loanReqNo': '202202211103196667285', 'token': '20220221110320053000035121'}
+[2022-02-21 11:03:20,044] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '龙江银行', 'purpose': '07', 'premiumRate': 0.369, 'loanReqNo': '202202211103196667285', 'premiumExcTax': 21.51, 'idNo': '542429199402257988', 'phoneNo': '18968523600', 'insurantAdd': '黑龙江省哈尔滨市道里区136号', 'claimPeriod': '80', 'periods': 3, 'taxFee': 1.29, 'email': '1264311721@hrtx.com', 'monthlyFee': 22.8, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 5.85, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602217409', 'insAmount': 6175.8, 'name': '秦信嘉', 'postCode': '150016'}}
+[2022-02-21 11:03:20,044] - [INFO] - 投保资料查询成功！
+[2022-02-21 11:03:20,045] - [INFO] - 投保接口
+[2022-02-21 11:03:20,045] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2022-02-21 11:03:20,045] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202202211103196667285', 'insReqNo': '202202211103196667285', 'name': '秦信嘉', 'idNo': '542429199402257988', 'phone': '16602217409', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-21 11:03:20,120] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '5533415546224615', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-21 11:03:20,120] - [INFO] - 已受理，处理中！
+[2022-02-21 11:03:20,120] - [INFO] - 支用接口
+[2022-02-21 11:03:20,120] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-21 11:03:20,120] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '202202211103196667285', 'idNo': '542429199402257988', 'insuranceNo': '202202211103196667285', 'phone': '16602217409', 'loanAmount': 6000, 'productId': '7015', 'name': '秦信嘉', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660221110319', 'bankName': '中国农业银行', 'bankPhone': '16602217409', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'LJBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 0, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-21 11:03:20,333] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202210000000008', 'loanReqNo': '202202211103196667285', 'status': '01'}}
+[2022-02-21 11:03:20,334] - [INFO] - 放款受理成功，处理中！
+[2022-02-21 11:03:20,334] - [INFO] - 
+                        姓名：秦信嘉
+                        身份证号：542429199402257988
+                        手机号：16602217409
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:202202211103196667285
+                    
+[2022-02-21 11:05:47,806] - [INFO] - 投保信息接口
+[2022-02-21 11:05:47,807] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_INFO
+[2022-02-21 11:05:47,808] - [INFO] - 请求报文：{'channelCustId': '', 'name': '井器露', 'insuranceNo': '202202211105476625765', 'idNo': '450821199102094918', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602219341', 'amount': 6000, 'periods': '3', 'purpose': '07', 'capitalCode': 'LJBANK', 'custGrde': 18, 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+[2022-02-21 11:05:47,897] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=202202211105476625765&lp=20220221110547987000035122', 'insuranceNo': '202202211105476625765', 'status': '01'}}
+[2022-02-21 11:05:47,898] - [INFO] - 投保信息接口成功！
+[2022-02-21 11:05:47,898] - [INFO] - 投保资料查询接口
+[2022-02-21 11:05:47,899] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE_DATA_QUERY
+[2022-02-21 11:05:47,899] - [INFO] - 请求报文：{'loanReqNo': '202202211105476625765', 'token': '20220221110547987000035122'}
+[2022-02-21 11:05:47,978] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '龙江银行', 'purpose': '07', 'premiumRate': 0.369, 'loanReqNo': '202202211105476625765', 'premiumExcTax': 21.51, 'idNo': '450821199102094918', 'phoneNo': '18968523600', 'insurantAdd': '黑龙江省哈尔滨市道里区136号', 'claimPeriod': '80', 'periods': 3, 'taxFee': 1.29, 'email': '1264311721@hrtx.com', 'monthlyFee': 22.8, 'addProvince': '', 'amount': 6000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 5.85, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16602219341', 'insAmount': 6175.8, 'name': '井器露', 'postCode': '150016'}}
+[2022-02-21 11:05:47,979] - [INFO] - 投保资料查询成功！
+[2022-02-21 11:05:47,979] - [INFO] - 投保接口
+[2022-02-21 11:05:47,979] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/INSURE
+[2022-02-21 11:05:47,980] - [INFO] - 请求报文：{'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202202211105476625765', 'insReqNo': '202202211105476625765', 'name': '井器露', 'idNo': '450821199102094918', 'phone': '16602219341', 'amount': 6000, 'periods': '3', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015', 'loanAmount': 6000}
+[2022-02-21 11:05:48,227] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'insReqNo': '2106227503740528', 'errorCode': '', 'loanReqNo': '', 'errorMsg': '', 'status': '01'}}
+[2022-02-21 11:05:48,227] - [INFO] - 已受理，处理中！
+[2022-02-21 11:05:48,228] - [INFO] - 支用接口
+[2022-02-21 11:05:48,228] - [INFO] - http://10.1.14.106:27405/channel/apitest/QFIN/DISBURSE
+[2022-02-21 11:05:48,228] - [INFO] - 请求报文：{'channelCustId': '', 'loanReqNo': '202202211105476625765', 'idNo': '450821199102094918', 'insuranceNo': '202202211105476625765', 'phone': '16602219341', 'loanAmount': 6000, 'productId': '7015', 'name': '井器露', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660221110547', 'bankName': '中国农业银行', 'bankPhone': '16602219341', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '3', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'LJBANK', 'custGrde': 18, 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000.0, 'currRemainLimit': 20000.0, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 0, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}, 'custGrde': 18}
+[2022-02-21 11:05:48,323] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'loanApplyNo': '202202210000000009', 'loanReqNo': '202202211105476625765', 'status': '01'}}
+[2022-02-21 11:05:48,324] - [INFO] - 放款受理成功，处理中！
+[2022-02-21 11:05:48,324] - [INFO] - 
+                        姓名：井器露
+                        身份证号：450821199102094918
+                        手机号：16602219341
+                        借款金额:6000
+                        借款期次:3
+                        loanReqNo:202202211105476625765
+                    

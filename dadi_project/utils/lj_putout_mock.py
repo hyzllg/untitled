@@ -1,4 +1,7 @@
 import requests
+import yaml
+import os
+
 
 class lj_mock:
     #启用龙江放款mock
@@ -16,12 +19,18 @@ class lj_mock:
         except:
             print("获取token失败！")
         return token
-    def update_lj_mock(self,api,loanNO,datetime,environment):
+    def update_lj_mock(self,api,loanNO,datetime,environment,status):
         dict1 = {"SIT":"191:26275","UAT":"191:26275","DEV":"191:26001"}
         #启用龙江mock
         self.start_lj_mock(dict1[environment])
         #获取token
         token = self.esay_mock_login()
+        # 获取配置信息
+        get_yaml_data = lambda path: yaml.load(open(path, encoding='utf-8'), Loader=yaml.SafeLoader)
+        path = os.path.dirname(os.path.dirname(__file__))
+        conf = get_yaml_data(f'{path}/conf/code_library.yaml')
+        # 获取龙江放款状态码值配置
+        asset_status = conf['lj_putout_status']
         url = "http://10.1.14.146:7300/api/mock/update"
         headers = {
             "Content-Type":"application/json;charset=UTF-8",
@@ -39,7 +48,7 @@ class lj_mock:
     }
         loan_query_datas = {
         "url":"/std/loan/query",
-        "mode":'{"data": {"code": 0,"message": "成功","data": {"loan_order_no":"%s","create_at": "%s 10:00:00","grant_amount": "22000.00","period": "12","asset_status": "repay","grant_at": "%s","debt_no": "W%s"}}}' % (loanNO,datetime,datetime,loanNO),
+        "mode":'{"data": {"code": 0,"message": "成功","data": {"loan_order_no":"%s","create_at": "%s 10:00:00","grant_amount": "22000.00","period": "12","asset_status": "%s","grant_at": "%s","debt_no": "W%s"}}}' % (loanNO,datetime,asset_status[status],datetime,loanNO),
         "method":"post",
         "description":"借款申请结果查询",
         "id":"5fbe001bc9b25623b2c09d00"

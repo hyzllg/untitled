@@ -1,0 +1,9 @@
+lj_putout_status :
+  0 : commit #审核中
+  1 : pass #审核通过
+  2 : grant #放款中
+  3 : repay #放款成功
+  4 : payoff #已结清
+  5 : invalid #已失效
+  6 : refused #审核不通过
+  7 : failed #放款失败
