@@ -38,6 +38,7 @@ import time
 #         self.log.critical(message)
 
 class Log():
+    #log日志模块
     def __init__(self):
         # log_path是日志存放路径地址
         get_path = os.path.dirname(os.path.abspath(__file__))

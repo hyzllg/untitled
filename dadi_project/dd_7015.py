@@ -184,22 +184,22 @@ def main_360(environment,number,loanAmount,periods,custGrde,capitalCode):
         # phone = "15838434412"
         # Bank = "6216261000000000018"
 
-        # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
-        if capitalCode == "LJBANK":
-            loan_datetime = time.strftime("%Y-%m-%d")
-            ljreqno = generate_customer_info.customer().reqno(55)
-            '''
-              0 : commit #审核中
-              1 : pass #审核通过
-              2 : grant #放款中
-              3 : repay #放款成功
-              4 : payoff #已结清
-              5 : invalid #已失效
-              6 : refused #审核不通过
-              7 : failed #放款失败
-            '''
-            lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime,environment,3)#最后一个参数是龙江放款状态
-            lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime,environment,3)
+        # # （参数1：apply/query；参数2：流水号；参数3：放款时间，格式y-m-d)
+        # if capitalCode == "LJBANK":
+        #     loan_datetime = time.strftime("%Y-%m-%d")
+        #     ljreqno = generate_customer_info.customer().reqno(55)
+        #     '''
+        #       0 : commit #审核中
+        #       1 : pass #审核通过
+        #       2 : grant #放款中
+        #       3 : repay #放款成功
+        #       4 : payoff #已结清
+        #       5 : invalid #已失效
+        #       6 : refused #审核不通过
+        #       7 : failed #放款失败
+        #     '''
+        #     lj_putout_mock.lj_mock().update_lj_mock("apply", ljreqno, loan_datetime,environment,3)#最后一个参数是龙江放款状态
+        #     lj_putout_mock.lj_mock().update_lj_mock("query", ljreqno, loan_datetime,environment,3)
         if environment == "SIT":
             hyzllg = Hyzllg(loanReqNo = loanReqNo,
                             name = name,

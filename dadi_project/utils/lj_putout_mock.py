@@ -2,7 +2,7 @@ import requests
 import yaml
 import os
 
-
+#2022-02-22 因龙江mock已配置为随机生成流水号，故此代码已弃置
 class lj_mock:
     #启用龙江放款mock
     def start_lj_mock(self,ip):
