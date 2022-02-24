@@ -12,9 +12,7 @@ def datas():
 
 # 定义一个全局变量，用于存储内容
 global_data = {}
-
-
-@pytest.fixture
+@pytest.fixture()
 def set_global_data():
     """
     设置全局变量，用于关联参数
@@ -27,7 +25,7 @@ def set_global_data():
     return _set_global_data
 
 
-@pytest.fixture
+@pytest.fixture()
 def get_global_data():
     """
     从全局变量global_data中取值

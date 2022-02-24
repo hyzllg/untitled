@@ -18,7 +18,6 @@ def rd_excle_data():
     datas = {}
     #取出数据放入datas列表中
     for i in range(2,table.nrows):
-        # datas[table.row_values(i)[2]] = [table.row_values(i)[4],table.row_values(i)[5],table.row_values(i)[6],table.row_values(i)[7]]
         datas[table.row_values(i)[2]] = {'url':table.row_values(i)[5],'method':table.row_values(i)[6],'res':fill_request(table.row_values(i)[7])}
 
     return datas
@@ -56,7 +55,3 @@ def fill_request(data):
     res_dict['custType'] = "0"
     return data % res_dict
 
-import conf
-result = api_requests(rd_excle_data(),'CREDIT_GRANTING',conf.sit_url)
-print(result)
-print(type(result))
