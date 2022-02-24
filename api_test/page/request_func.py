@@ -2,7 +2,7 @@ import requests
 import xlrd
 import json
 from xlutils.copy import copy        #导入copy模块
-import generate_customer_info
+from page import generate_customer_info
 
 
 def rd_excle_data():

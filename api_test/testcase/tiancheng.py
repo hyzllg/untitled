@@ -16,6 +16,7 @@ class Test_TianCheng:
         assert 'SUCCESS!'==result['msg']
         assert '01'==result['data']['body']['status']
         self.set_global_data('creditApplyNo',result['data']['body']['creditApplyNo'])
+        assert 1 ==self.get_global_data('creditApplyNo')
 
 def main():
     pytest.main(['-vs', 'tiancheng.py::Test_TianCheng'])
