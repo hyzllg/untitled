@@ -1,9 +1,4 @@
-# from utils.mock_switch import Mock_Switch
-#
-# mock_switch = Mock_Switch("10.1.14.191","26275")
-# #开启龙江放款mock
-# refult = mock_switch.start_lj_mock()
-#
-
-
-import httprunner
+b = 1
+c = 2
+a = '{"channelCustId":%(b)s,"creditReqNo":"","name":"","spelling":"ZHANGTIAN","sex":"01","nationality":"中国","nation":"汉族","birthday":"1985/06/02","idType":"00","idNo":"","idStartDate":"2016/01/18","idEndDate":"2036/01/18","idOffice":"北京市东城区","marriage":"01","children":"00","supplyPeople":3,"house":"00","addProvince":"110000","addCity":"110000","addDistrict":"110101","addDetail":"东大街东大院","industry":"C","profession":"11","workplaceName":"AAA单位","workTel":"13162314539","workProvince":"110000","workCity":"110000","workDistrict":"110101","workDetailAdd":"西大街西大院","workAge":8,"income":"03","education":"06","school":"北京大学","phone":"","email":"email163@qq.com","contacts":[{"relation":"00","name":"张三","phoneNo":"15638530000"},{"relation":"01","name":"李四","phoneNo":"15638539999"}],"bankCard":"","bankName":"建设银行","bankPhone":"","applyProvince":"110000","applyCity":"110000","applyDistrict":"110101","loanAmount":"","periods":"","purpose":"01","direction":"01","payType":"00","payMerchantNo":"26666","authFlag":"01","deviceDetail":{"deviceId":"10-45-5-486","mac":"3a:b6:c6:5d:2e:f9","longitude":"121.551738","latitude":"31.224634","gpsCity":"上海市","ip":"106.14.135.199","ipCity":"上海","os":"android","docDate":"2019/09/12"},"channelDetail":{"citizenshipCheckResult":"1","bankCheckResult":"1","telcoCheckResult":"1","consumeTimes":"1","creditTimes":"1","consumeScene":"1","frontId":"11","reverseId":"11","faceId":"11","woolFlag":"1","phoneFlag":"1","phoneTelco":"1","compScore":"650","repayAbilityScore":"650","comsAmount":"1","finAmount":"1","redPacket":"1","phoneAreaName":"上海市","modelScore":"650","whiteListFlag":"0","sugAmount":"3000.00","sugBasis":"2","loanGrade":"A","registerTime":"1","realNameFlag":"1","realNameGrade":"1","transFlag":"1","custType":"","currLimit":5000,"currRemainLimit":2000,"currLimitOrg":"DD","currLimitStartDate":"2021/05/31","currLimitEndDate":"2021/07/31","currTotalPrice":28.11,"firstLoanFlag":"1","unsettleLoanLimit":1,"settleLoanLimit":1,"lastLoanDate":"2021/04/21","loanAmount":3000}}'
+print(a % {'b':1,'c':2})
