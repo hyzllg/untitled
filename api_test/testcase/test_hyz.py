@@ -1,6 +1,5 @@
 import pytest
-from page.request_func import api_requests
-import conf
+
 
 
 
