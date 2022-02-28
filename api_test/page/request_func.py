@@ -3,11 +3,12 @@ import xlrd
 import json
 from xlutils.copy import copy        #导入copy模块
 from page import generate_customer_info
+from ast import literal_eval
 
 
 def rd_excle_data():
     wordbook = xlrd.open_workbook('../datas/甜橙放款测试用例.xls', formatting_info=True)#formatting_info=True表示保留原有格式
-    table = wordbook.sheet_by_name('投保信息接口')
+    table = wordbook.sheet_by_name('Sheet1')
     #获取整行内容
     rows_value = table.row_values(2)
     #获取整列内容
@@ -34,7 +35,7 @@ def api_requests(datas,api_name,url):
     headers = {
         'Content-Type': 'application/json'
     }
-    response = requests.request(datas[api_name]['method'],url=url+datas[api_name]['url'],headers=headers,data=json.dumps(eval(datas[api_name]['res'])))
+    response = requests.request(datas[api_name]['method'],url=url+datas[api_name]['url'],headers=headers,data=json.dumps(datas[api_name]['res']))
     result = response.json()
     result["data"] = eval(result["data"])
 
@@ -53,5 +54,7 @@ def fill_request(data):
     res_dict['loanAmount'] = "3000"
     res_dict['periods'] = "6"
     res_dict['custType'] = "0"
-    return data % res_dict
+    datas = data % res_dict
+    #利用literal_eval将str转换成json格式
+    return literal_eval(datas)
 

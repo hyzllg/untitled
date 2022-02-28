@@ -21,37 +21,50 @@ class Test_TianCheng:
         #提取creditApplyNo用于授信结果查询接口
         set_global_data('creditApplyNo',result['data']['body']['creditApplyNo'])
 
-    # #因授信需要时间，顾授信查询接口设置成重跑16此，每次间隔3秒
-    # @pytest.mark.flaky(reruns=16, reruns_delay=3)  # reruns代表重试次数，reruns_delay代表间隔时间
-    # @pytest.mark.run(order=2)
-    # def test_credit_inquiry(self,datas,get_global_data):
-    #     #取出creditApplyNo
-    #     creditApplyNo = get_global_data('creditApplyNo')
-    #     #替换掉授信结果查询接口请求信息中的creditApplyNo
-    #     datas['CREDIT_GRANTING']['res']['creditApplyNo'] = creditApplyNo
-    #     # 调用甜橙授信申请结果查询接口，获取响应
-    #     result = api_requests(datas,'CREDIT_INQUIRY',conf.sit_url)
-    #     #进行响应断言
-    #     assert True==result['result']
-    #     assert 200==result['code']
-    #     assert 'SUCCESS!'==result['msg']
-    #     assert '01'==result['data']['body']['status']
-    #
-    # @pytest.mark.run(order=3)
-    # def test_disburse_trial(self,datas,set_global_data):
-    #     # 调用甜橙支用试算接口，获取响应
-    #     result = api_requests(datas,'DISBURSE_TRIAL',conf.sit_url)
-    #     # 提取响应中的资方编码
-    #     capitalCode = result['data']['body']['capitalCode']
-    #     set_global_data('capitalCode',capitalCode)
-    #     #进行响应断言
-    #     assert True==result['result']
-    #     assert 200==result['code']
-    #     assert 'SUCCESS!'==result['msg']
-    #     assert '01'==result['data']['body']['status']
+    #因授信需要时间，顾授信查询接口设置成重跑16此，每次间隔3秒
+    @pytest.mark.flaky(reruns=16, reruns_delay=3)  # reruns代表重试次数，reruns_delay代表间隔时间
+    @pytest.mark.run(order=2)
+    def test_credit_inquiry(self,datas,get_global_data):
+        #取出creditApplyNo
+        creditApplyNo = get_global_data('creditApplyNo')
+        #替换掉授信结果查询接口请求信息中的creditApplyNo
+        datas['CREDIT_INQUIRY']['res']['creditApplyNo'] = creditApplyNo
+        # 调用甜橙授信申请结果查询接口，获取响应
+        result = api_requests(datas,'CREDIT_INQUIRY',conf.sit_url)
+        #进行响应断言
+        assert True==result['result']
+        assert 200==result['code']
+        assert 'SUCCESS!'==result['msg']
+        assert '01'==result['data']['body']['status']
+
+    @pytest.mark.run(order=3)
+    def test_disburse_trial(self,datas,set_global_data):
+        # 调用甜橙支用试算接口，获取响应
+        result = api_requests(datas,'DISBURSE_TRIAL',conf.sit_url)
+        # 提取响应中的资方编码
+        capitalCode = result['data']['body']['capitalCode']
+        set_global_data('capitalCode',capitalCode)
+        #进行响应断言
+        assert True==result['result']
+        assert 200==result['code']
+        assert 'SUCCESS!'==result['msg']
+        assert '01'==result['data']['body']['status']
+
+    @pytest.mark.run(order=4)
+    def test_disburse(self,datas,get_global_data):
+        #更新支用接口请求中的银行编码
+        capitalCode = get_global_data('capitalCode')
+        datas['DISBURSE']['res']['capitalCode'] = capitalCode
+        # 调用甜橙支用接口
+        result = api_requests(datas,'CREDIT_INQUIRY',conf.sit_url)
+        #进行响应断言
+        assert True==result['result']
+        assert 200==result['code']
+        assert 'SUCCESS!'==result['msg']
+        assert '01'==result['data']['body']['status']
 
 
 def main():
-    pytest.main(['-vs', 'tiancheng.py::Test_TianCheng'])
+    pytest.main(['-vs', 'tiancheng.py'])
 if __name__ == '__main__':
     main()
