@@ -18,8 +18,11 @@
       <sourceFolder url="file://$MODULE_DIR$/dadi_project" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (untitled)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="PackageRequirementsSettings">
+    <option name="requirementsPath" value="" />
   </component>
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
@@ -34,5 +37,8 @@
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
+  </component>
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="py.test" />
   </component>
 </module>

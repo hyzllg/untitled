@@ -1,0 +1,93 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "360放款",
+    "children" : [ {
+      "name" : "360投保信息接口",
+      "children" : [ {
+        "name" : "test_insure_info",
+        "uid" : "1e3f4688961c7a8c",
+        "parentUid" : "d58f4e95b1200dc2df7c7eb2967fcf0e",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936398,
+          "stop" : 1646211936494,
+          "duration" : 96
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "d58f4e95b1200dc2df7c7eb2967fcf0e"
+    }, {
+      "name" : "360投保资料查询接口",
+      "children" : [ {
+        "name" : "test_insure_data_query",
+        "uid" : "8ef78bd423bcd342",
+        "parentUid" : "de8107df84d89bb0b1cc2f3097088a3d",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936498,
+          "stop" : 1646211936569,
+          "duration" : 71
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "de8107df84d89bb0b1cc2f3097088a3d"
+    }, {
+      "name" : "360投保接口",
+      "children" : [ {
+        "name" : "test_insure",
+        "uid" : "45fb58fbdfc8b612",
+        "parentUid" : "c8886d4a26c477747f7ee2c52402cafd",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936572,
+          "stop" : 1646211936636,
+          "duration" : 64
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "c8886d4a26c477747f7ee2c52402cafd"
+    }, {
+      "name" : "360支用接口",
+      "children" : [ {
+        "name" : "test_disburse",
+        "uid" : "5d300e040bbc02c",
+        "parentUid" : "153073f5c671bac52f456100fe17b2eb",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936640,
+          "stop" : 1646211936783,
+          "duration" : 143
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "153073f5c671bac52f456100fe17b2eb"
+    } ],
+    "uid" : "b503057dad71084389084ecfc821964c"
+  } ]
+}

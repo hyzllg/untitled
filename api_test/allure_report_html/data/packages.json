@@ -1,0 +1,77 @@
+{
+  "uid" : "83edc06c07f9ae9e47eb6dd1b683e4e2",
+  "name" : "packages",
+  "children" : [ {
+    "name" : "testcase.qiyubao",
+    "children" : [ {
+      "name" : "test_insure_info",
+      "uid" : "1e3f4688961c7a8c",
+      "parentUid" : "577586097a710d2ec0a7af0700441390",
+      "status" : "passed",
+      "time" : {
+        "start" : 1646211936398,
+        "stop" : 1646211936494,
+        "duration" : 96
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "test_insure_data_query",
+      "uid" : "8ef78bd423bcd342",
+      "parentUid" : "577586097a710d2ec0a7af0700441390",
+      "status" : "passed",
+      "time" : {
+        "start" : 1646211936498,
+        "stop" : 1646211936569,
+        "duration" : 71
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "test_insure",
+      "uid" : "45fb58fbdfc8b612",
+      "parentUid" : "577586097a710d2ec0a7af0700441390",
+      "status" : "passed",
+      "time" : {
+        "start" : 1646211936572,
+        "stop" : 1646211936636,
+        "duration" : 64
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "test_disburse",
+      "uid" : "5d300e040bbc02c",
+      "parentUid" : "577586097a710d2ec0a7af0700441390",
+      "status" : "passed",
+      "time" : {
+        "start" : 1646211936640,
+        "stop" : 1646211936783,
+        "duration" : 143
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "testcase.qiyubao"
+  } ]
+}

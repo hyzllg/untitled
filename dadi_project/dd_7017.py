@@ -33,11 +33,11 @@ class Hyzllg:
         url = self.url["insure_info"]
         self.log.info("投保信息接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api("post", url, data)
+        result = api_request.request_api().test_api("post", url, data)
         try:
-            if requit["result"] == True:
+            if result["result"] == True:
                 self.log.info("投保信息接口成功！")
-                a = requit["data"]["insurAgencyUrl"]
+                a = result["data"]["insurAgencyUrl"]
                 b = res.search("lp=(.*)", a)
                 c = b.group()[3:]
             else:
@@ -55,9 +55,9 @@ class Hyzllg:
         url = self.url['insure_data_query']
         self.log.info("投保资料查询接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api("post",url, data)
+        result = api_request.request_api().test_api("post",url, data)
         try:
-            if requit["result"] == True:
+            if result["result"] == True:
                 self.log.info("投保资料查询成功！")
             else:
                 self.log.error("投保资料查询失败！")
@@ -65,7 +65,7 @@ class Hyzllg:
         except KeyError:
             self.log.error("还呗投保资料查询接口响应异常！")
             exit()
-        return requit["data"]["premiumRate"]
+        return result["data"]["premiumRate"]
 
     def insure(self, a):
         data = self.res_data["insure"]
@@ -80,15 +80,15 @@ class Hyzllg:
         url = self.url['insure']
         self.log.info("投保接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api("post", url, data)
+        result = api_request.request_api().test_api("post", url, data)
         try:
-            if requit["result"] == True:
+            if result["result"] == True:
                 try:
-                    if requit["data"]["message"]:
+                    if result["data"]["message"]:
                         self.log.error("受理失败")
                         exit()
                 except BaseException as e:
-                    if requit["data"]["status"] == '01':
+                    if result["data"]["status"] == '01':
                         self.log.info("已受理，处理中！")
             else:
                 self.log.error("未知异常！")
@@ -96,7 +96,7 @@ class Hyzllg:
         except KeyError:
             self.log.error("还呗投保接口响应异常！")
             exit()
-        return requit
+        return result
 
     def disburse(self):
         data = self.res_data["disburse"]
@@ -113,14 +113,14 @@ class Hyzllg:
         url = self.url['disburse']
         self.log.info("支用接口")
         self.log.info(url)
-        requit = api_request.request_api().test_api("post", url, data)
+        result = api_request.request_api().test_api("post", url, data)
         try:
-            if requit["result"] == True:
+            if result["result"] == True:
                 try:
 
-                    if requit["data"]["status"] == "01":
+                    if result["data"]["status"] == "01":
                         self.log.info("支用受理成功，处理中！")
-                    elif requit["data"]["status"] == "00":
+                    elif result["data"]["status"] == "00":
                         self.log.error("受理失败！")
                         exit()
                 except BaseException as e:

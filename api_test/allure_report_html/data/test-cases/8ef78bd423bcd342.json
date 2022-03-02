@@ -1,0 +1,157 @@
+{
+  "uid" : "8ef78bd423bcd342",
+  "name" : "test_insure_data_query",
+  "fullName" : "testcase.qiyubao.Test_QiYu#test_insure_data_query",
+  "historyId" : "5b752b51ddf57eafcdcd4dd053be7243",
+  "time" : {
+    "start" : 1646211936498,
+    "stop" : 1646211936569,
+    "duration" : 71
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ {
+    "name" : "datas",
+    "time" : {
+      "start" : 1646211936363,
+      "stop" : 1646211936396,
+      "duration" : 33
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "LOG",
+    "time" : {
+      "start" : 1646211936497,
+      "stop" : 1646211936497,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "get_global_data",
+    "time" : {
+      "start" : 1646211936497,
+      "stop" : 1646211936497,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "调用投保资料查询接口，请求报文更新token",
+      "time" : {
+        "start" : 1646211936498,
+        "stop" : 1646211936569,
+        "duration" : 71
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "datas",
+        "value" : "{'INSURE_INFO': {'url': '/channel/apitest/QFIN/INSURE_INFO', 'method': 'POST', 'res': {'channelCustId': '202203021705366696652', 'name': '汪信', 'insuranceNo': '202203021705367760101', 'idNo': '533522199707176636', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16603022154', 'amount': '3000', 'periods': '6', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': '18', 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}}, 'INSURE_DATA_QUERY': {'url': '/channel/apitest/QFIN/INSURE_DATA_QUERY', 'method': 'POST', 'res': {'loanReqNo': '202203021705367760101', 'token': '20200921132700000003'}}, 'INSURE': {'url': '/channel/apitest/QFIN/INSURE', 'method': 'POST', 'res': {'agentNo': 'TianCheng', 'agentName': '甜橙保代', 'loanReqNo': '202203021705367760101', 'insReqNo': '202203021705367760101', 'name': '汪信', 'idNo': '533522199707176636', 'phone': '16603022154', 'amount': '3000', 'periods': '6', 'purpose': '07', 'premiumRate': 1.66, 'insurantName': '韦艺翠', 'insurantAdd': '上海市浦东新区龙阳路幸福村520号', 'postCode': '110016', 'productId': '7015'}}, 'DISBURSE': {'url': '/channel/apitest/QFIN/DISBURSE', 'method': 'POST', 'res': {'channelCustId': '', 'loanReqNo': '202203021705367760101', 'idNo': '533522199707176636', 'insuranceNo': '202203021705367760101', 'phone': '16603022154', 'loanAmount': '3000', 'productId': '7015', 'name': '汪信', 'spelling': 'CHENPI', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1991/01/08', 'idType': '00', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'idStartDate': '2015/10/08', 'idEndDate': '2025/10/08', 'idOffice': '杭州市公安局江干区分局', 'marriage': '03', 'education': '06', 'children': '00', 'supplyPeople': 0, 'house': '00', 'addProvince': '', 'addCity': '', 'addDistrict': '', 'addDetail': '', 'industry': 'C', 'profession': '18', 'workplaceName': '大地保险公司', 'workTel': '13196853698', 'workProvince': '', 'workCity': '', 'workDistrict': '', 'workDetailAdd': '学院路100号小杨制造厂', 'workAge': 10, 'income': '02', 'school': '清华大学', 'email': '1264311721@hrtx.com', 'contacts': [{'relation': '00', 'name': '哈利路亚', 'phoneNo': '18968523600'}], 'bankCard': '6214660302170536', 'bankName': '中国农业银行', 'bankPhone': '16603022154', 'applyProvince': '', 'applyCity': '', 'applyDistrict': '', 'periods': '6', 'purpose': '07', 'direction': '', 'payType': '01', 'payMerchantNo': '', 'authFlag': '01', 'deviceDetail': {'deviceId': '', 'mac': 'NONE', 'longitude': '23.232653', 'latitude': '88.369689', 'gpsCity': '', 'ip': '192.3.46.57', 'ipCity': '', 'oS': ''}, 'docDate': '', 'channelDetail': {'capitalCode': 'FBBANK', 'custGrde': '18', 'payType': '03', 'applyEntry': '03', 'creditDuration': '2020/03/02', 'faceRecoType': '01', 'faceRecoScore': 66, 'currLimit': 20000, 'currRemainLimit': 20000, 'firstLoanFlag': 'N', 'settleLoanNum': 1, 'unsettleLoanLimit': 0, 'unsettleLoanNum': 0, 'longestOverPeriod': 0, 'applyLevel360': 1000, 'actionLevel360': 1000, 'realFaceCheckResult': '1', 'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1'}}}, 'DISBURSE_IN_QUERY': {'url': '/channel/apitest/QFIN/DISBURSE_IN_QUERY', 'method': 'POST', 'res': {'channelCustId': '', 'loanReqNo': '202203021705367760101'}}}"
+      }, {
+        "name" : "get_global_data",
+        "value" : "<function get_global_data.<locals>._get_global_data at 0x7fcfb8043dc0>"
+      }, {
+        "name" : "LOG",
+        "value" : "<page.my_log.Log object at 0x7fcfd927f5e0>"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ {
+      "uid" : "fa4d414803c53145",
+      "name" : "log",
+      "source" : "fa4d414803c53145.txt",
+      "type" : "text/plain",
+      "size" : 1310
+    } ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 1,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "story",
+    "value" : "360投保资料查询接口"
+  }, {
+    "name" : "feature",
+    "value" : "360放款"
+  }, {
+    "name" : "tag",
+    "value" : "@pytest.mark.usefixtures('datas')"
+  }, {
+    "name" : "tag",
+    "value" : "run(order=2)"
+  }, {
+    "name" : "parentSuite",
+    "value" : "testcase"
+  }, {
+    "name" : "suite",
+    "value" : "qiyubao"
+  }, {
+    "name" : "subSuite",
+    "value" : "Test_QiYu"
+  }, {
+    "name" : "host",
+    "value" : "MacBook-Air.local"
+  }, {
+    "name" : "thread",
+    "value" : "15395-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "testcase.qiyubao"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ "@pytest.mark.usefixtures('datas')", "run(order=2)" ]
+  },
+  "source" : "8ef78bd423bcd342.json",
+  "parameterValues" : [ ]
+}

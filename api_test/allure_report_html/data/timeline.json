@@ -1,0 +1,81 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "MacBook-Air.local",
+    "children" : [ {
+      "name" : "15395-MainThread",
+      "children" : [ {
+        "name" : "test_insure_data_query",
+        "uid" : "8ef78bd423bcd342",
+        "parentUid" : "8d142930ec2321648e8cc548242ceffc",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936498,
+          "stop" : 1646211936569,
+          "duration" : 71
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "test_insure",
+        "uid" : "45fb58fbdfc8b612",
+        "parentUid" : "8d142930ec2321648e8cc548242ceffc",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936572,
+          "stop" : 1646211936636,
+          "duration" : 64
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "test_disburse",
+        "uid" : "5d300e040bbc02c",
+        "parentUid" : "8d142930ec2321648e8cc548242ceffc",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936640,
+          "stop" : 1646211936783,
+          "duration" : 143
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "test_insure_info",
+        "uid" : "1e3f4688961c7a8c",
+        "parentUid" : "8d142930ec2321648e8cc548242ceffc",
+        "status" : "passed",
+        "time" : {
+          "start" : 1646211936398,
+          "stop" : 1646211936494,
+          "duration" : 96
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "8d142930ec2321648e8cc548242ceffc"
+    } ],
+    "uid" : "4642973fc1ea2f142f8406cc160ff92a"
+  } ]
+}

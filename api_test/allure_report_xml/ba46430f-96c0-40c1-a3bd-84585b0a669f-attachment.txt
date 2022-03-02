@@ -1,0 +1,11 @@
+INFO     root:my_log.py:71 调用360投保信息接口
+INFO     root:my_log.py:71 360投保信息接口请求报文:{'channelCustId': '202203021705366696652', 'name': '汪信', 'insuranceNo': '202203021705367760101', 'idNo': '533522199707176636', 'idAddress': '上海市浦东新区龙阳路幸福村520号', 'phone': '16603022154', 'amount': '3000', 'periods': '6', 'purpose': '07', 'capitalCode': 'FBBANK', 'custGrde': '18', 'email': '1264311721@hrtx.com', 'contactPhone': '18968523600', 'callbackUrl': 'https://www.baidu.com'}
+DEBUG    urllib3.connectionpool:connectionpool.py:204 Starting new HTTP connection (1): 10.1.14.106:27405
+DEBUG    urllib3.connectionpool:connectionpool.py:391 http://10.1.14.106:27405 "POST /channel/apitest/QFIN/INSURE_INFO HTTP/1.1" 200 None
+INFO     root:my_log.py:71 360投保信息接口响应报文:{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'channelCustId': '', 'errorCode': '', 'errorMsg': '', 'insurUrl': 'https://test.95590.cn/openui_st/h5/?navStyle=hideLight#/application?env=sit&loanReqNo=202203021705367760101&lp=20220302170537096000037102', 'insuranceNo': '202203021705367760101', 'status': '01'}}
+INFO     root:my_log.py:71 响应断言
+INFO     root:my_log.py:71 True == True
+INFO     root:my_log.py:71 200 == 200
+INFO     root:my_log.py:71 SUCCESS == SUCCESS!
+INFO     root:my_log.py:71 01 == 01
+INFO     root:my_log.py:71 token = 20220302170537096000037102

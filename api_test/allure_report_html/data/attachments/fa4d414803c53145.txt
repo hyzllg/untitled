@@ -1,0 +1,6 @@
+INFO     root:my_log.py:71 调用360投保资料查询接口
+INFO     root:my_log.py:71 360投保投保资料查询接口请求报文:{'loanReqNo': '202203021705367760101', 'token': '20220302170537096000037102'}
+DEBUG    urllib3.connectionpool:connectionpool.py:204 Starting new HTTP connection (1): 10.1.14.106:27405
+DEBUG    urllib3.connectionpool:connectionpool.py:391 http://10.1.14.106:27405 "POST /channel/apitest/QFIN/INSURE_DATA_QUERY HTTP/1.1" 200 None
+INFO     root:my_log.py:71 360投保资料查询接口响应报文:{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'discountRate': 0, 'insurantName': '富邦华一银行', 'purpose': '07', 'premiumRate': 0.303, 'loanReqNo': '202203021705367760101', 'premiumExcTax': 8.77, 'idNo': '533522199707176636', 'phoneNo': '18968523600', 'insurantAdd': '上海市静安区高平路478号', 'claimPeriod': '50', 'periods': 6, 'taxFee': 0.53, 'email': '1264311721@hrtx.com', 'monthlyFee': 9.3, 'addProvince': '', 'amount': 3000.0, 'address': '上海市浦东新区龙阳路幸福村520号', 'irr': '18.00', 'addDistrict': '', 'addCity': '', 'annualIntRate': 6.2, 'addDetail': '上海市浦东新区龙阳路幸福村520号', 'phone': '16603022154', 'insAmount': 3069.6, 'name': '汪信', 'postCode': '200436'}}
+INFO     root:my_log.py:71 响应断言
