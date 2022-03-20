@@ -210,7 +210,6 @@ def hb_main(environment,number,loanAmount,periods,custGrde,discountRate):
         Insure_Data_Query = hyzllg.insure_data_query(insure_infos)  # 投保资料查询接口
         hyzllg.insure(Insure_Data_Query)  # 投保接口
         hyzllg.disburse()  # 支用接口
-        time.sleep(5)
 
 def main():
     #环境（sit,uat,dev）

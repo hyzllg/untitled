@@ -598,7 +598,7 @@ if __name__ == '__main__':
     #测试环境
     environment = "sit"
     # 借款金额
-    loanAmount = 3000
+    loanAmount = 1000
     # 期数
     periods = '6'
     jh_main(environment.upper(),loanAmount,periods)

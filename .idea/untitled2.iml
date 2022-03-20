@@ -18,7 +18,7 @@
       <sourceFolder url="file://$MODULE_DIR$/dadi_project" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (untitled)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (ddxb_demo)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

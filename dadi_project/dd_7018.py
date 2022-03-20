@@ -378,7 +378,7 @@ def main():
     #走数据笔数
     number = 1
     # 借款金额
-    loanAmount = 6000
+    loanAmount = 1000
     # 期数
     periods = "6"
     # 客户等级上下限

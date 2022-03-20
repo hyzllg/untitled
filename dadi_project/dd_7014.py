@@ -372,18 +372,18 @@ def tc_main(number,repayAmount,loanAmount,periods,custType,capitalCode,environme
 
 def main():
     #环境（sit,uat,dev）
-    environment = "sit"
+    environment = "uat"
     #走数据笔数
     number = 1
     #放款金额
-    repayAmount = 5000
+    repayAmount = 1000
     # 借款金额
-    loanAmount = 2000
+    loanAmount = 1000
     # 期数
     periods = "3"
     # 客户类型,0是新用户，1是存量活跃，2是存量静默
     custType = "0"
-    # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK
+    # 资方编码 富邦银行：FBBANK 龙江银行：LJBANK 河北银行: HBBANK
     capitalCode = "FBBANK"
     #龙江放款mock，设定放款日期
     # loan_datetime = "2021-09-16"

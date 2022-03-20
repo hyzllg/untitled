@@ -63,8 +63,6 @@ SELECT round(sum(nvl(CP.LIMIT,0)),2) FROM CHANNEL_POOL_LIMIT_CTRL CP
    and to_char(to_date(cp.businessdate,'yyyy-mm'),'yyyy')=to_char(sysdate,'yyyy');
    
 select round(sum(nvl(LIMIT,0)),2) from CHANNEL_POOL_LIMIT_CTRL where poolcode = 'CG12' and LENGTH(BUSINESSDATE) = 10 and businessdate like '2022%';
-
-select * from CHANNEL_POOL_LIMIT_CTRL where poolcode = 'CG12'
    
    
 
@@ -316,7 +314,7 @@ select * from queue_task where MODELNO = 'ReconciliationCheck';
 select * from queue_task qm where qm.objectno = '202203150000000009'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20220317000000001'
+select * from queue_task qm where qm.objectno = '20220317000002003'
 and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc for update;
 
 --同盾

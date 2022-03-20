@@ -7,7 +7,7 @@ sit_url = 'http://10.1.14.106:27405'
 uat_url = 'http://10.1.14.117:27405'
 dev_url = 'http://10.1.14.106:27405'
 #资金方编码
-capitalCode = 'FBBANK'
+capitalCode = 'HBBANK'
 #数据库参数
 xsxb_sit_oracle= ["xbhxbusi", "ccic1234", "10.1.12.141:1521/PTST12UF"]
 xsxb_uat_oracle= ["xbhxbusi", "ccic1234", "10.1.12.141:1523/PDEV12UF"]
