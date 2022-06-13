@@ -52,7 +52,7 @@ ActionChinas类提供了鼠标操作的常用方法：
 
 在使用键盘按键方法前需要导入Keys类
 
-from selenium.webdriver.common.keys import keys
+from selenium.webdriver.common.keys import Keys
 
 常用键盘操作：
 
@@ -226,8 +226,35 @@ driver.switch_to.default_content()
 + switch_to.window():切换到相应的窗口
 
   ​	以百度首页和账号注册页为例，在两个窗口之间的切换
-
-![1593865615313](/Users/huangyahui/PycharmProjects/untitled/image/1593865615313.png)![1593865625052](/Users/huangyahui/PycharmProjects/untitled/image/1593865625052.png)
+  
+  ```python
+  import time 
+  from selenium import webdriver
+  
+  driver = webdriver.Chrome()
+  driver.implicitly_wait(10)
+  driver.get("https://www.baidu.com")
+  #获得百度搜索窗口句柄
+  search_windows = driver.current_window_handle
+  driver.find_element_by_link_text('登录').click()
+  driver.find_element_bye_link_text('立即注册').click()
+  #获得当前所有打开的窗口句柄
+  all_handles = driver.windows_handles
+  #进入注册窗口
+  for handle in all_handles:
+      if handle != search_windows:
+          driver.switch_to.window(handle)
+          print(driver.title)
+          driver.find_element_by_name('userName').send_keys('username')
+          driver.find_element_by_name('phone').send_keys('phone')
+          time.sleep(2)
+          #关闭当前窗口
+          driver.close()
+  #回到搜索窗口
+  driver.switch_to.window(search_windows)
+  print(driver.title)
+  driver.quit()
+  ```
 
 ​		脚本的执行过程：首先打开百度首页，通过current_window_handle获得当前窗口句柄，并赋值给变量search_handle。接着打开登陆窗口，在登录弹窗上单击“立即注册”链接，从而打开新的注册窗口。通过window_handles获得当前所有窗口句柄（包含百度首页和账号注册页），并赋值给变量all_handles。
 
@@ -246,8 +273,36 @@ driver.switch_to.default_content()
 + send_keys()：在警告框中输入文本（如果可以输入的话）
 
   可以使用switch_to.alert()方法为百度搜索设置弹窗
-
-![1593866257114](/Users/huangyahui/PycharmProjects/untitled/image/1593866257114.png)
+  
+  ```python
+  from selenium import webdriver
+  from selenium.webdriver.common.action_chains import ActionChains #导入鼠标操作
+  from selenium.webdriver.common.keys import Keys #导入键盘操作
+  
+  driver=webdriver.Firefox()
+  
+  driver.get("https://www.baidu.com")
+  
+  mouse=driver.find_element_by_link_text("设置")
+  
+  ActionChains(driver).move_to_element(mouse).perform() #鼠标悬浮在 设置上
+  
+  driver.find_element_by_link_text("搜索设置").click()
+  
+  dd=driver.find_element_by_class_name("prefpanelgo") #保存设置按钮
+  
+  dd.send_keys(Keys.ENTER) #鼠标回车
+  
+  ale=driver.switch_to.alert # 通过switch_to.alert切换到alert
+  
+  ale.accept()
+  
+  #ale=driver.switch_to_alert().accept() #老写法
+  
+  driver.close()
+  ```
+  
+  
 
 ​		这里以百度搜索设置为例，打开百度瞍索设置，设置完成后单击“保存设置”按钮，弹出保存确认警告框。通过switch_to.alert获取当前页面上的警告框，text用于获取警告框提示信息，accept()于接受警告框。
 
@@ -265,13 +320,42 @@ driver.switch_to.default_content()
 
   以百度搜索设置为例，下拉框代码如下：
 
-  ![1593867058541](/Users/huangyahui/PycharmProjects/untitled/image/1593867058541.png)
-
+  ```html
+<select name="NR" id="nr">
+      <option value="10" selected="">每页显示10条</option>
+    <option value="20">每页显示20条</option>
+      <option value="50">每页显示50条</option>
+</select>
+  ```
+  
   通过WevDriver代码操作下拉框：
-
-  ![1593867092932](/Users/huangyahui/PycharmProjects/untitled/image/1593867092932.png)
-
-  ![1593867122898](/Users/huangyahui/PycharmProjects/untitled/image/1593867122898.png)
+  
+  ```python
+  from time import sleep
+  from selenium import webdriver
+  from selenium.webdriver.support.select import Select
+  
+  driver = webdriver.Chome()
+  driver.get("https://www.baidu.com")
+  
+  #打开搜索设置
+  link = driver.find_element_by_link_text('设置').click()
+  driver.find_element_by_link_text("搜索设置").click()
+  sleep(2)
+  #搜索结果显示条数
+  sel = driver.find_element_by_xpath("//select[@id='nr']")
+  # value="20"
+  Select(sel).select_by_value('20')
+  sleep(2)
+  #<option>每页显示50条</option>
+  Select(sel).select_by_visible_text("每页显示50条")
+  sleep(2)
+  #根据下拉选项的索引进行选项
+  Select(sel).select_by_index(0)
+  sleep(2)
+  
+  driver.quit()
+  ```
 
 ### 1.13 上传文件
 
@@ -286,16 +370,17 @@ driver.switch_to.default_content()
 + 插件上传：一般是指基于FIash、JavaScript或Ajax等技术实现的上传功能。
 
   ​	对于通过input标签实现的上传功能，可以将其看作一个输入框，即通过send_keys()指定本地文件路径的方式实现文件上传。
-
-![1593867676439](/Users/huangyahui/PycharmProjects/untitled/image/1593867676439.png)
-
-![1593867720672](/Users/huangyahui/PycharmProjects/untitled/image/1593867720672.png)
-
-通过浏览器打开upfile.html文件，效果如图所示
-
-![1593867765647](/Users/huangyahui/PycharmProjects/untitled/image/1593867765647.png)
-
-![1593867776351](/Users/huangyahui/PycharmProjects/untitled/image/1593867776351.png)
+  
+  ```python
+  import os
+  from selenium import webdriver
+  file_path = os.path.abspath('./files/')
+  driver = webdriver.Chrome()
+  upload_page = 'file:///' + file_path + 'upfile.html'
+  driver.get(upload_page)
+  #定位上传按钮，添加本地文件
+  driver.find_element_by_id("file").send_keys(file_path + 'test.txt')
+  ```
 
 ​		这里测试的页面（upfile.html）和上传的文件（test.txt）位于与当前程序同目录的files/目录下
 
@@ -307,39 +392,33 @@ driver.switch_to.default_content()
 
 ​		Webdriver允许我们设置默认的文件下载路径，也就是说，文件会自动下载并且存放到设置的目录中，不同的浏览器设置方式不同。
 
-​		下面以Firefox浏览器为例，演示文件的下载：
-
-![1593868058374](/Users/huangyahui/PycharmProjects/untitled/image/1593868058374.png)
-
-​		为了能在Firefox浏览器中实现文件的下载，我们需要通过FirefoxProfile()对其做一些设置。
-
-![1593868122844](/Users/huangyahui/PycharmProjects/untitled/image/1593868122844.png)
-
-​		设置为0，表示文件会下载到浏览器默认的下载路径；设置为2，表示文件会下载到指定的目录。
-
-![1593868184860](/Users/huangyahui/PycharmProjects/untitled/image/1593868184860.png)
-
-​		指定要下载文件的类型，即Content-type值，“binary/octet-stream”用于表示二进制文件。
-
-​		HTTP Content-type 常用对照表参见http://tool.oschina.net/commons
-
-​		可以通过在Firefox浏览器地址栏输入“about:config"进行参数的设置
-
-​		在调用WebDriver的Firefox类时将所有设置选项作为firefox_profile参数传递给Firefox浏览器。Firefox浏览器在下载时会根据这些设置将文件下载到当前脚本目录下。
-
-
-
 下面以Chrome浏览器为例，演示文件的下载。
 
-![1593868476249](/Users/huangyahui/PycharmProjects/untitled/image/1593868476249.png)
+```python
+import os 
+from selenium import webdriver
+
+options = webdriver.ChromeOptions()
+prefs = {'profile.default_content_settings.popups': 0,
+        'download.default_directory': os.getcwd()}
+options.add_experimental_option('prefs', prefs)
+
+driver = webdriver.Chrome(chrome_options=options)
+driver.get("https://pypi.org/project/seleium/#files")
+driver.find_element_by_partial_link_text("selenium-3.141.0.tar.gz").click()
+```
 
 Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修改默认的下载路径。
 
-![1593868532830](/Users/huangyahui/PycharmProjects/untitled/image/1593868532830.png)
+```python
+profile.default_content_settings.popups
+```
 
 设置为0，表示禁止弹出下载窗口
 
-![1593868579095](/Users/huangyahui/PycharmProjects/untitled/image/1593868579095.png)
+```python
+download.default_directory
+```
 
 设置文件下载路径，使用os.getcwd()方法获取当前脚本的目录作为下载文件的保存位置
 
@@ -361,84 +440,63 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
   下面通过get_cookies()获取当前浏览器的所有Cookie
 
-  ![1593869550026](/Users/huangyahui/PycharmProjects/untitled/image/1593869550026.png)
+  ```python
+from selenium import webdriver
+  driver = webdriver.Chrome()
+driver.get("https://www.baicu.com")
+  #获得所有Cookie信息并打印
+cookies = driver.get_cookies()
+  print(cookies)
+  ```
 
-  执行结果如下：
+​        可以看出，Cookie中的数据时以字典形式存放的。知道了Cookie中数据的存放形式后，即可按照这种形式向浏览器中添加Cookie
 
-  ![1593869584666](/Users/huangyahui/PycharmProjects/untitled/image/1593869584666.png)
+```python
+#添加Cookie信息
+driver.add_cookie({'name':'key-aaaaaa'},'value':'value-bbbbbb')
+#遍历指定的Cookies
+for cookie in driver.get_cookies():
+	print("%s -> %s" % (cookie['name'],cookie['value']))
+```
 
-  ![1593869600377](/Users/huangyahui/PycharmProjects/untitled/image/1593869600377.png)
-
-​        从执行结果可以看出，Cookie中的数据时以字典形式存放的。知道了Cookie中数据的存放形式后，即可按照这种形式向浏览器中添加Cookie
-
-![1593870105754](/Users/huangyahui/PycharmProjects/untitled/image/1593870105754.png)
-
-​		执行结果如下：![1593870132848](/Users/huangyahui/PycharmProjects/untitled/image/1593870132848.png)
-
-​		从执行结果可以看出，最后一条Cookie是在脚本执行过程中通过add_cookie()方法添加的。通过遍历得到所有的Cookie，从而找到字典中key为”name“和”value”的Cookie值。
+​		可以看出，最后一条Cookie是在脚本执行过程中通过add_cookie()方法添加的。通过遍历得到所有的Cookie，从而找到字典中key为”name“和”value”的Cookie值。
 
 ​		delete_cookie()和delete_all_cookies()方法的使用也很简单，前者通过name删除一个指定的Cookie，后者直接删除浏览器中的所有Cookies。
 
-### 1.16 调用JavaScript
-
-​		有些页面操作不能依靠WebDriver提供的API来实现，如浏览器滚动条的拖动。这时就需要借助JavaScript脚本。WevDriver提供了execute_script()方法来执行JavaScript代码。
-
-​		用于调整浏览器滚动条位置的JavaScript代码如下：
-
-![1593870497455](/Users/huangyahui/PycharmProjects/untitled/image/1593870497455.png)
-
-​		window.scrollTp()方法用于设置浏览器窗口滚动条的水平位置和垂直位置。第一个参数表示水平的左边距，第二个参数表示垂直的上边距，代码如下：
-
-![1593870588010](/Users/huangyahui/PycharmProjects/untitled/image/1593870588010.png)
-
-​		首先，在浏览器中打开百度，搜索“selenium”，通过set_window_size()方法将浏览器窗口设置为固定宽、高显式，目的是让窗口出现水平和垂直滚动条。然后，通过execute_script()方法执行JavaScript代码来控制浏览器滚动条的位置。
-
-​		当然，Javascript的作用不仅仅体现在浏览器滚动条的操作上，它还可以在页面中textarea文本框中输入内容。
-
-![1593870806093](/Users/huangyahui/PycharmProjects/untitled/image/1593870806093.png)
-
-​		文本框的HTML代码如下：
-
-![1593870829744](/Users/huangyahui/PycharmProjects/untitled/image/1593870829744.png)
-
-​		虽然可以通过id定位元素，但是不能通过send_keys()在文本框中输入文本信息。在这种情况下，可以借助JavaScript代码输入文本信息。
-
-![1593870891483](/Users/huangyahui/PycharmProjects/untitled/image/1593870891483.png)
-
-​		首先，定义要输入的内容text。然后，将text与JavaScript代码通过“+”进行拼接，这样做的目的是为了方便自定义输入内容。最后，通过execute_script()执行JavaScript代码。
-
-### 1.17 处理HTML5视频播放
-
-​		HTML5技术非常流行，主流的浏览器都支持HTML5，越来越多的应用使用HTML5的元素，如canvas、video等。另外，玩也存储功能提升了用户的网络体验，使得越来越多的开发者开始使用HTML5。
-
-​		WebDriver支持在指定的浏览器上测试HTML5，另外，还可以使用JavaScript测试这些功能，这样就可以在任意浏览器上测试HTML5了。
-
-​		大多数浏览器使用插件播放视频，但是，不同的浏览器需要使用不同的插件。HTML5定义了一个新的元素<video>，指定了一个标准的方式嵌入电影片段。HTML5 VIdeo Player，IE9+，Firefox，Opera,Chrome都支持元素<video>。
-
-​		下面介绍如何自动化测试<video>,<video>提供了JavaScript接口和多种方法及属性。
-
-![1593871388820](/Users/huangyahui/PycharmProjects/untitled/image/1593871388820.png)
-
-​		JavaScript有个内置的对象叫作arguments。arguments包含了函数调用的参数数组，[0]表示取对象的第一个值。
-
-​		currentSrc返回当前音频/视频的URL。如果未设置音频/视频，则返回空字符串。
-
-​		load(),play()和pause()控制视频的加载，播放和暂停。
-
 ### 1.18 滑动解锁
 
-​		滑动解锁如图：
-
-![1593871602893](/Users/huangyahui/PycharmProjects/untitled/image/1593871602893.png)
-
-​		当我们单击滑块时，改变的只是CSS样式，HTML代码段如下：
-![1593871671602](/Users/huangyahui/PycharmProjects/untitled/image/1593871671602.png)
+​		滑动解锁:
 
 ​		slide-to-unlock-handle表示滑块。在滑动过程中，滑块的左边距离会逐渐变大，因为它在向右移动。
 
 ​		slide-to-unlock-progress表示滑过之后的背景色，背景色的区域会逐渐增加，因为滑块在向右移动。
 
-![1593871807690](/Users/huangyahui/PycharmProjects/untitled/image/1593871807690.png)
+```python
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver import ActionChains
+from selenium.common.exceptions import UnexpectedAlertPresentException
+
+driver = webdriver.Chrome()
+driver.get("https://www.helloweba.com/deme/2017/unlock/")
+
+#定位滑动模块
+slider = driver.find_elements_by_class_name("slide-to-unlock-handle")[0]
+action = ActionChains(driver)
+action.click_and_hold(slider).perform()
+
+for index in range(200):
+	try:
+        action.move_by_offset(2,0).perform()
+    except UnexpectedAlertPresentException:
+        break
+    action.reset_actions()
+    sleep(0.1)
+    
+#打印警告框提示
+success_text = driver.switch_to.alert.text
+print(success_text)
+```
 
 ​		在这个脚本中，用到下面几个方法：
 
@@ -446,19 +504,29 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 + move_by_offset()：移动鼠标，第一个参数为x坐标距离，第二个参数为y坐标距离
 + reset_action()：重置action
 
-​       执行完成，滑动效果：
-
-![1593871982101](/Users/huangyahui/PycharmProjects/untitled/image/1593871982101.png)
-
-​		另一种应用，上下滑动选择日期：
-
-![1593872021148](/Users/huangyahui/PycharmProjects/untitled/image/1593872021148.png)
-
 ​		参考前面的操作，通过ActionChains类可以实现上下滑动选择日期，但是这里要介绍另外一种方法，及通过TouchActions类实现上下滑动选择日期。
 
-![1593872112058](/Users/huangyahui/PycharmProjects/untitled/image/1593872112058.png)
+```python
+from time import sleep
+from selenium import webdriver
 
-![1593872120534](/Users/huangyahui/PycharmProjects/untitled/image/1593872120534.png)
+driver = webdriver.Chrome()
+driver.get("https://www.jq22.com/yanshi4976")
+sleep(2)
+driver.switch_to.frame("iframe")
+driver.find_element_by_id("appDate").click()
+#定位要滑动的年、月、日
+dwwos = driver.find_elements_by_class_name("dwwo")
+year = dwwos[0]
+month = dwwos[1]
+day = dwwos[2]
+action = webdriver.TouchActions(driver)
+action.scroll_from_element(year,0,5).perform()
+action.scroll_from_element(month,0,30).perform()
+action.scroll_from_element(day,0,30).perform()
+```
+
+
 
 ​		这里使用TouchActions类中的scroll_from_element()方法滑动元素：
 
@@ -470,7 +538,14 @@ Chrome浏览器在下载时默认不会弹出下载窗口，这里主要想修�
 
 ​		自动化测试用例是由程序执行的，因此有时候打印的错误信息不够直观。如果在脚本执行出错时能够对当前窗口进行截图并保存，那么通过截图就可以非常直观地看到脚本出错的原因。WebDriver提供了截图函数save_screenshot(),可用来截取当前窗口。
 
-![1593872416646](/Users/huangyahui/PycharmProjects/untitled/image/1593872416646.png)
+```python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+#截取当前窗口，指定截图图片的保存位置
+driver.save_screenshot("./files/baidu_img.png")
+```
 
 ​		WebDriver建议使用png作为图片的后缀名。脚本运行完成后，会在当前files/目录中生成baidu_img.png图片。
 

@@ -20,7 +20,7 @@ select * from GDTP_HEITONG_HIGH_RISK_RES where serial_no = '6F3566FE-F664-4ECE-A
 --三方挡板
 select * from GDTP_CONF_BAFFLE_INFO where INTERFACE_NAME in ('手机实名','银行卡四要素','三方平台-三方资信-互金查询接口');
 
-select * from GDTP_CONF_BAFFLE_INFO  for update;
+select * from GDTP_CONF_BAFFLE_INFO where interface_name = '银保信实名查验' for update;
 
 select * from Gdtp_Nifa_Amount_Res
 select * from Gdtp_Nifa_Credit_res
@@ -58,7 +58,7 @@ select * from GDTP_XSFK_ILOG9_RES_EXTEND;
 
 
 --调用比例
-select * from GDTP_XSHX_RULE_CONFIG where product_id = '7015';
+select * from GDTP_XSHX_RULE_CONFIG where prod uct_id = '7015';
 --interface_type 1=三要素，6=四要素
 select * from GDTP_XSHX_RULE_CONFIG_ITEM where serial_no in (select serial_no
 from GDTP_XSHX_RULE_CONFIG where product_id = '7018' and interface_type = '6');

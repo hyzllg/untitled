@@ -117,6 +117,15 @@ class customer:
            count = count +int(id_num[i])*weight[i]
         return checkcode[str(count%11)] #算出校验码
 
+    def assign_bank_idno(self,idno,capitalCode='FBBANK'):
+        if capitalCode == 'FBBANK':
+            if idno[0:2] in ['37','12','13']:
+                return False
+            else:
+                return True
+        else:
+            pass
+
     def idNo(self):
         while True:
             base_dir = os.path.dirname(os.path.dirname(__file__))
@@ -130,7 +139,7 @@ class customer:
             checkcode=self.check((areaCd+birthDy+ordNum)) #生产校验码
             id_card=areaCd+birthDy+ordNum+checkcode  #拼装身份证号
 
-            if self.check_id_card(id_card):
+            if self.check_id_card(id_card) and self.assign_bank_idno(id_card):
                 break
             else:
                 continue
@@ -148,8 +157,8 @@ class customer:
         return phone
 
     def bankcard(self):
-        a = str(random.randint(1000, 10000))
-        b = time.strftime("%m%d%H%M%S")
+        a = str(random.randint(10000, 100000))
+        b = time.strftime("%m%d%H%M") + a
         bankcard = '621466' + b
         return bankcard
 

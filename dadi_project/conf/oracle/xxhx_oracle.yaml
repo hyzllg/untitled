@@ -1,0 +1,8 @@
+xxhx_sit_oracle:
+- gdbzdev
+- ccic1234
+- 10.2.3.203:1521/R2TST16GPDB
+xxhx_uat_oracle:
+- gdbzbusi
+- ccic9879
+- 10.2.3.203:1521/R2UAT16GPDB

@@ -1,0 +1,18 @@
+dev_url_hb:
+  disburse: http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/DISBURSE
+  disburse_in_query: http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/DISBURSE_IN_QUERY
+  insure: http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/INSURE
+  insure_data_query: http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/INSURE_DATA_QUERY
+  insure_info: http://10.1.14.106:27405/channel-dev/apitest/HUANBEI/INSURE_INFO
+sit_url_hb:
+  disburse: http://10.1.14.106:27405/channel/apitest/HUANBEI/DISBURSE
+  disburse_in_query: http://10.1.14.106:27405/channel/apitest/HUANBEI/DISBURSE_IN_QUERY
+  insure: http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE
+  insure_data_query: http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_DATA_QUERY
+  insure_info: http://10.1.14.106:27405/channel/apitest/HUANBEI/INSURE_INFO
+uat_url_hb:
+  disburse: http://10.1.14.117:27405/channel/apitest/HUANBEI/DISBURSE
+  disburse_in_query: http://10.1.14.117:27405/channel/apitest/HUANBEI/DISBURSE_IN_QUERY
+  insure: http://10.1.14.117:27405/channel/apitest/HUANBEI/INSURE
+  insure_data_query: http://10.1.14.117:27405/channel/apitest/HUANBEI/INSURE_DATA_QUERY
+  insure_info: http://10.1.14.117:27405/channel/apitest/HUANBEI/INSURE_INFO

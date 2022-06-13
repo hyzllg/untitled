@@ -5,7 +5,10 @@ import time
 import yaml
 import os
 
-from utils import database_manipulation,my_log
+# from utils import database_manipulation,my_log
+import dadi_project.utils.database_manipulation as database_manipulation
+import dadi_project.utils.my_log as my_log
+
 
 
 class CLAIM_RESULT:

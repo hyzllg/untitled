@@ -1,0 +1,137 @@
+credit_granting:
+  addCity: '110000'
+  addDetail: 学霸路学渣小区250弄38号
+  addDistrict: '110101'
+  addProvince: '110000'
+  applyCity: '110000'
+  applyDistrict: '110101'
+  applyProvince: '110000'
+  applyResult: '99'
+  authFlag: '01'
+  bankCard: ''
+  bankName: ''
+  bankPhone: ''
+  birthday: 1985/06/02
+  channelDetail:
+    bankLimit: ''
+    billAge: ''
+    childProductId: '01'
+    insuranceAdd: BCM
+    insuranceName: BCM
+    postCode: '110016'
+  children: ''
+  contacts:
+  - name: 哑巴湖大水怪
+    phoneNo: '17613145210'
+    relation: '00'
+  - name: 哑巴湖大水怪
+    phoneNo: '17613145210'
+    relation: '00'
+  creditReqNo: '2020070152013140001'
+  deviceDetail:
+    deviceId: ''
+    gpsCity: ''
+    ip: ''
+    ipCity: ''
+    latitude: ''
+    longitude: ''
+    mac: ''
+    oS: ''
+  direction: ''
+  docDate: ''
+  education: '05'
+  email: ybhdsg@hrtx.com
+  house: ''
+  idEndDate: 2036/01/18
+  idNo: '412721198705203577'
+  idOffice: ''
+  idStartDate: 2016/01/18
+  idType: '00'
+  income: '01'
+  industry: C
+  insuranceNo: '2020070152013140001'
+  loanAmount: 0
+  marriage: '00'
+  name: 哑巴湖大水怪
+  nation: ''
+  nationality: 中国
+  payMerchantNo: ''
+  payType: ''
+  periods: 0
+  phone: '16613145219'
+  profession: ''
+  purpose: ''
+  school: ''
+  sex: '00'
+  spelling: ''
+  supplyPeople: 0
+  workAge: 0
+  workCity: ''
+  workDetailAdd: ''
+  workDistrict: ''
+  workProvince: ''
+  workTel: ''
+  workplaceName: 大地保险公司
+credit_inquiry:
+  creditApplyNo: ''
+  creditReqNo: '2020070152013140001'
+disburse:
+  bankCard: '6228482089558543378'
+  bankName: 农业银行
+  bankPhone: '17633926706'
+  contacts:
+  - name: 哑巴湖大水怪
+    phoneNo: '17613145210'
+    relation: '00'
+  - name: 哑巴湖大水怪
+    phoneNo: '17613145210'
+    relation: '00'
+  creditApplyNo: '20200723000000005'
+  currentLimit: '50000'
+  insuranceNo: '202007230003'
+  ip: ''
+  latitude: ''
+  loanAmount: 5000
+  loanReqNo: '202007230003'
+  longitude: ''
+  periods: 12
+  purpose: '01'
+insure:
+  agentName: 甜橙保代
+  agentNo: TianCheng
+  amount: 5000
+  docVersion: ''
+  idNo: '412721198705203577'
+  insReqNo: ''
+  insurantAdd: 被保险人通讯地址
+  insurantName: 哑巴湖大水怪
+  loanReqNo: '2021070152013140001'
+  name: 哑巴湖大水怪
+  periods: 3
+  phone: '16613145219'
+  postCode: '110016'
+  premiumRate: 0.08
+  purpose: '01'
+  stage: '01'
+  version: ''
+insure_data_query:
+  loanReqNo: '2021070152013140002'
+  token: '20210329134119280000109006'
+insure_info:
+  amount: 5000
+  callbackUrl: http://www.woshishui.com
+  channelCustId: ''
+  creditApplyNo: ''
+  idAddress: 落魄山祖师堂
+  idNo: '412721198705203577'
+  insuranceAdd: 中国交行
+  insuranceID: '98763'
+  insuranceName: 交行
+  insuranceNo: '2020070152013140002'
+  laonRate: 8%
+  name: 哑巴湖大水怪
+  periods: 3
+  phone: '16613145219'
+  postCode: '110016'
+  purpose: '01'
+  stage: ''

@@ -1,0 +1,12 @@
+cs_sit_server:
+  - 10.1.11.201
+  - 22
+  - tomcat
+  - ccic_2019
+cs_uat_server:
+  - 10.1.11.164
+  - 22
+  - tomcat
+  - tomcat
+
+

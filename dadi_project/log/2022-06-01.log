@@ -1,0 +1,37 @@
+[2022-06-01 18:16:57,028] - [INFO] - 授信申请
+[2022-06-01 18:16:57,028] - [INFO] - [http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-06-01 18:16:57,028] - [INFO] - 请求报文：{'addCity': '130100', 'addDetail': '东大街东大院', 'addDistrict': '130101', 'addProvince': '130000', 'applyCity': '110000', 'applyDistrict': '110101', 'applyProvince': '110000', 'authFlag': '01', 'bankCard': '6214660601181688', 'bankName': '建设银行', 'bankPhone': '16606015761', 'birthday': '1985/06/02', 'channelCustId': '202206011816576682644', 'channelDetail': {'bankCheckResult': '1', 'citizenshipCheckResult': '1', 'compScore': '650', 'comsAmount': '1', 'consumeScene': '1', 'consumeTimes': '1', 'creditTimes': '1', 'currLimit': 5000, 'currLimitEndDate': '2021/07/31', 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currRemainLimit': 2000, 'currTotalPrice': 28.11, 'custType': '', 'faceId': '11', 'finAmount': '1', 'firstLoanFlag': '1', 'frontId': '11', 'lastLoanDate': '2021/04/21', 'loanAmount': 3000, 'loanGrade': 'A', 'modelScore': '650', 'phoneAreaName': '上海市', 'phoneFlag': '1', 'phoneTelco': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'redPacket': '1', 'registerTime': '1', 'repayAbilityScore': '650', 'reverseId': '11', 'settleLoanLimit': 1, 'sugAmount': '3000.00', 'sugBasis': '2', 'telcoCheckResult': '1', 'transFlag': '1', 'unsettleLoanLimit': 1, 'whiteListFlag': '0', 'woolFlag': '1'}, 'children': '00', 'contacts': [{'name': '张三', 'phoneNo': '15638530000', 'relation': '00'}, {'name': '李四', 'phoneNo': '15638539999', 'relation': '01'}], 'creditReqNo': '202206011816578876440', 'deviceDetail': {'deviceId': '10-45-5-486', 'docDate': '2019/09/12', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'latitude': '31.224634', 'longitude': '121.551738', 'mac': '3a:b6:c6:5d:2e:f9', 'os': 'android'}, 'direction': '01', 'education': '06', 'email': 'email163@qq.com', 'house': '00', 'idEndDate': '2036/01/18', 'idNo': '330183199411015623', 'idOffice': '北京市东城区', 'idStartDate': '2016/01/18', 'idType': '00', 'income': '03', 'industry': 'C', 'loanAmount': 5000, 'marriage': '01', 'name': '舌微易昌', 'nation': '汉族', 'nationality': '中国', 'payMerchantNo': '26666', 'payType': '00', 'periods': '6', 'phone': '16606015761', 'profession': '11', 'purpose': '01', 'school': '北京大学', 'sex': '01', 'spelling': 'ZHANGTIAN', 'supplyPeople': 3, 'workAge': 8, 'workCity': '110000', 'workDetailAdd': '西大街西大院', 'workDistrict': '110101', 'workProvince': '110000', 'workTel': '13162314539', 'workplaceName': 'AAA单位', 'custType': '0'}
+[2022-06-01 18:16:57,585] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202206011816576682644', 'creditReqNo': '202206011816578876440', 'creditApplyNo': '202206010000000001', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-06-01 18:16:57,585] - [INFO] - 授信接口调用成功！
+[2022-06-01 18:16:57,585] - [INFO] - 授信受理成功，处理中！
+[2022-06-01 18:16:57,586] - [INFO] - 授信结果查询
+[2022-06-01 18:16:57,586] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-06-01 18:16:57,586] - [INFO] - 请求报文：{'channelCustId': '202206011816576682644', 'creditApplyNo': '202206010000000001', 'creditReqNo': '202206011816578876440'}
+[2022-06-01 18:16:57,660] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202206011816576682644', 'creditReqNo': '202206011816578876440', 'creditApplyNo': '202206010000000001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-06-01 18:16:57,661] - [INFO] - 授信查询接口调用成功！
+[2022-06-01 18:16:57,661] - [INFO] - 授信中！
+[2022-06-01 18:28:25,162] - [INFO] - 开始下载文件
+[2022-06-01 18:29:23,015] - [INFO] - 连接sftp服务器！
+[2022-06-01 18:47:21,937] - [INFO] - 开始下载文件
+[2022-06-01 18:50:57,045] - [INFO] - 开始运行!
+[2022-06-01 18:53:11,962] - [INFO] - 开始运行!
+[2022-06-01 18:55:53,918] - [INFO] - 开始运行!
+[2022-06-01 18:56:23,727] - [INFO] - 开始运行!
+[2022-06-01 19:04:54,238] - [INFO] - 连接sftp服务器！
+[2022-06-01 19:07:34,510] - [INFO] - 连接sftp服务器！
+[2022-06-01 19:10:06,097] - [INFO] - 开始运行!
+[2022-06-01 19:10:38,243] - [INFO] - 开始运行!
+[2022-06-01 19:43:10,826] - [INFO] - 开始运行!
+[2022-06-01 19:43:30,695] - [INFO] - 开始运行!
+[2022-06-01 19:50:22,518] - [INFO] - 开始运行!
+[2022-06-01 19:52:11,339] - [INFO] - 开始运行!
+[2022-06-01 19:52:54,427] - [INFO] - 开始运行!
+[2022-06-01 19:53:40,184] - [INFO] - 开始运行!
+[2022-06-01 19:54:17,442] - [INFO] - 开始运行!
+[2022-06-01 19:56:05,284] - [INFO] - 开始运行!
+[2022-06-01 19:56:42,577] - [INFO] - 开始运行!
+[2022-06-01 19:58:44,155] - [INFO] - 开始运行!
+[2022-06-01 19:59:07,859] - [INFO] - 开始运行!
+[2022-06-01 20:00:15,618] - [INFO] - 开始运行!
+[2022-06-01 20:00:37,728] - [INFO] - 开始运行!
+[2022-06-01 20:01:24,139] - [INFO] - 开始运行!

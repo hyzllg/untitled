@@ -1,0 +1,225 @@
+[2022-03-28 14:36:25,608] - [INFO] - 授信申请
+[2022-03-28 14:36:25,609] - [INFO] - [http://10.1.14.117:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-03-28 14:36:25,609] - [INFO] - 请求报文：{'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'name': '康伯', 'spelling': 'ZHANGTIAN', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1985/06/02', 'idType': '00', 'idNo': '610101199703069183', 'idStartDate': '2016/01/18', 'idEndDate': '2036/01/18', 'idOffice': '北京市东城区', 'marriage': '01', 'children': '00', 'supplyPeople': 3, 'house': '00', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '东大街东大院', 'industry': 'C', 'profession': '11', 'workplaceName': 'AAA单位', 'workTel': '13162314539', 'workProvince': '110000', 'workCity': '110000', 'workDistrict': '110101', 'workDetailAdd': '西大街西大院', 'workAge': 8, 'income': '03', 'education': '06', 'school': '北京大学', 'phone': '16603285147', 'email': 'email163@qq.com', 'contacts': [{'relation': '00', 'name': '张三', 'phoneNo': '15638530000'}, {'relation': '01', 'name': '李四', 'phoneNo': '15638539999'}], 'bankCard': '6214660328143625', 'bankName': '建设银行', 'bankPhone': '16603285147', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'loanAmount': 1000, 'periods': '3', 'purpose': '01', 'direction': '01', 'payType': '00', 'payMerchantNo': '26666', 'authFlag': '01', 'deviceDetail': {'deviceId': '10-45-5-486', 'mac': '3a:b6:c6:5d:2e:f9', 'longitude': '121.551738', 'latitude': '31.224634', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'os': 'android', 'docDate': '2019/09/12'}, 'channelDetail': {'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1', 'consumeTimes': '1', 'creditTimes': '1', 'consumeScene': '1', 'frontId': '11', 'reverseId': '11', 'faceId': '11', 'woolFlag': '1', 'phoneFlag': '1', 'phoneTelco': '1', 'compScore': '650', 'repayAbilityScore': '650', 'comsAmount': '1', 'finAmount': '1', 'redPacket': '1', 'phoneAreaName': '上海市', 'modelScore': '650', 'whiteListFlag': '0', 'sugAmount': '3000.00', 'sugBasis': '2', 'loanGrade': 'A', 'registerTime': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'transFlag': '1', 'custType': '', 'currLimit': 5000, 'currRemainLimit': 2000, 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currLimitEndDate': '2021/07/31', 'currTotalPrice': 28.11, 'firstLoanFlag': '1', 'unsettleLoanLimit': 1, 'settleLoanLimit': 1, 'lastLoanDate': '2021/04/21', 'loanAmount': 3000}, 'custType': '0'}
+[2022-03-28 14:36:26,533] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'creditApplyNo': '202203280000000001', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:36:26,533] - [INFO] - 授信接口调用成功！
+[2022-03-28 14:36:26,533] - [INFO] - 授信受理成功，处理中！
+[2022-03-28 14:36:26,533] - [INFO] - 授信结果查询
+[2022-03-28 14:36:26,534] - [INFO] - ['http://10.1.14.117:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 14:36:26,534] - [INFO] - 请求报文：{'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'creditApplyNo': '202203280000000001'}
+[2022-03-28 14:36:26,612] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'creditApplyNo': '202203280000000001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:36:26,612] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 14:36:26,612] - [INFO] - 授信中！
+[2022-03-28 14:36:29,620] - [INFO] - 授信结果查询
+[2022-03-28 14:36:29,620] - [INFO] - ['http://10.1.14.117:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 14:36:29,620] - [INFO] - 请求报文：{'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'creditApplyNo': '202203280000000001'}
+[2022-03-28 14:36:29,669] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'creditApplyNo': '202203280000000001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:36:29,669] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 14:36:29,670] - [INFO] - 授信中！
+[2022-03-28 14:36:32,674] - [INFO] - 授信结果查询
+[2022-03-28 14:36:32,674] - [INFO] - ['http://10.1.14.117:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 14:36:32,674] - [INFO] - 请求报文：{'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'creditApplyNo': '202203280000000001'}
+[2022-03-28 14:36:33,133] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281436256692312', 'creditReqNo': '202203281436258880255', 'errorCode': 'QD_YWZT', 'creditApplyNo': '202203280000000001', 'errorMsg': '该业务暂时无法申请 ', 'status': '02'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:36:33,133] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 14:36:33,134] - [ERROR] - 授信失败！
+[2022-03-28 14:54:48,642] - [INFO] - 授信申请
+[2022-03-28 14:54:48,642] - [INFO] - [http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-03-28 14:54:48,642] - [INFO] - 请求报文：{'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'name': '卞信艺', 'spelling': 'ZHANGTIAN', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1985/06/02', 'idType': '00', 'idNo': '513333199707319769', 'idStartDate': '2016/01/18', 'idEndDate': '2036/01/18', 'idOffice': '北京市东城区', 'marriage': '01', 'children': '00', 'supplyPeople': 3, 'house': '00', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '东大街东大院', 'industry': 'C', 'profession': '11', 'workplaceName': 'AAA单位', 'workTel': '13162314539', 'workProvince': '110000', 'workCity': '110000', 'workDistrict': '110101', 'workDetailAdd': '西大街西大院', 'workAge': 8, 'income': '03', 'education': '06', 'school': '北京大学', 'phone': '16603289252', 'email': 'email163@qq.com', 'contacts': [{'relation': '00', 'name': '张三', 'phoneNo': '15638530000'}, {'relation': '01', 'name': '李四', 'phoneNo': '15638539999'}], 'bankCard': '6214660328145448', 'bankName': '建设银行', 'bankPhone': '16603289252', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'loanAmount': 1000, 'periods': '3', 'purpose': '01', 'direction': '01', 'payType': '00', 'payMerchantNo': '26666', 'authFlag': '01', 'deviceDetail': {'deviceId': '10-45-5-486', 'mac': '3a:b6:c6:5d:2e:f9', 'longitude': '121.551738', 'latitude': '31.224634', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'os': 'android', 'docDate': '2019/09/12'}, 'channelDetail': {'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1', 'consumeTimes': '1', 'creditTimes': '1', 'consumeScene': '1', 'frontId': '11', 'reverseId': '11', 'faceId': '11', 'woolFlag': '1', 'phoneFlag': '1', 'phoneTelco': '1', 'compScore': '650', 'repayAbilityScore': '650', 'comsAmount': '1', 'finAmount': '1', 'redPacket': '1', 'phoneAreaName': '上海市', 'modelScore': '650', 'whiteListFlag': '0', 'sugAmount': '3000.00', 'sugBasis': '2', 'loanGrade': 'A', 'registerTime': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'transFlag': '1', 'custType': '', 'currLimit': 5000, 'currRemainLimit': 2000, 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currLimitEndDate': '2021/07/31', 'currTotalPrice': 28.11, 'firstLoanFlag': '1', 'unsettleLoanLimit': 1, 'settleLoanLimit': 1, 'lastLoanDate': '2021/04/21', 'loanAmount': 3000}, 'custType': '0'}
+[2022-03-28 14:54:49,114] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:54:49,114] - [INFO] - 授信接口调用成功！
+[2022-03-28 14:54:49,115] - [INFO] - 授信受理成功，处理中！
+[2022-03-28 14:54:49,115] - [INFO] - 授信结果查询
+[2022-03-28 14:54:49,115] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 14:54:49,115] - [INFO] - 请求报文：{'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002'}
+[2022-03-28 14:54:49,191] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:54:49,191] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 14:54:49,191] - [INFO] - 授信中！
+[2022-03-28 14:54:52,200] - [INFO] - 授信结果查询
+[2022-03-28 14:54:52,200] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 14:54:52,201] - [INFO] - 请求报文：{'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002'}
+[2022-03-28 14:54:52,266] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:54:52,266] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 14:54:52,266] - [INFO] - 授信中！
+[2022-03-28 14:54:55,278] - [INFO] - 授信结果查询
+[2022-03-28 14:54:55,278] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 14:54:55,278] - [INFO] - 请求报文：{'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002'}
+[2022-03-28 14:54:55,348] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:54:55,348] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 14:54:55,348] - [INFO] - 授信中！
+[2022-03-28 14:54:58,355] - [INFO] - 授信结果查询
+[2022-03-28 14:54:58,355] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 14:54:58,356] - [INFO] - 请求报文：{'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002'}
+[2022-03-28 14:54:58,661] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'creditDate': '2022/03/28', 'creditExpireDate': '2025/03/28', 'freezingDate': '', 'channelCustId': '202203281454486634548', 'creditReqNo': '202203281454488891666', 'creditApplyNo': '202203280000000002', 'creditState': '00', 'availAmount': 1000.0, 'creditAmount': 1000.0, 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 14:54:58,661] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 14:54:58,662] - [INFO] - 授信通过！
+[2022-03-28 14:54:58,662] - [INFO] - 更新客户信息表liveaddress
+[2022-03-28 14:54:58,662] - [INFO] - update customer_info set liveaddress = '北京市市辖区东城区' where CERTID = '513333199707319769'
+[2022-03-28 14:54:58,691] - [INFO] - 支用试算
+[2022-03-28 14:54:58,691] - [INFO] - http://10.1.14.106:27405/channel/apitest/TCJQ/DISBURSE_TRIAL
+[2022-03-28 14:54:58,691] - [INFO] - 请求报文：{'channelCustId': '202203281454486634548', 'periods': '3', 'loanAmount': 1000}
+[2022-03-28 14:54:58,800] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0001', 'body': {'errorCode': '0002', 'errorMsg': '[purpose: 不允许为空, addProvince: 不允许为空, returnUrl: 不允许为空, name: 不允许为空, addCity: 不允许为空, idNo: 不允许为空, addDistrict: 不允许为空, idType: 不允许为空, phone: 不允许为空, addDetail: 不允许为空]'}, 'message': '请求失败'}}
+[2022-03-28 14:54:58,800] - [ERROR] - 甜橙支用试算接口响应异常！
+[2022-03-28 15:29:24,729] - [INFO] - 授信申请
+[2022-03-28 15:29:24,730] - [INFO] - [http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-03-28 15:29:24,730] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'name': '包毅', 'spelling': 'ZHANGTIAN', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1985/06/02', 'idType': '00', 'idNo': '340104199001035169', 'idStartDate': '2016/01/18', 'idEndDate': '2036/01/18', 'idOffice': '北京市东城区', 'marriage': '01', 'children': '00', 'supplyPeople': 3, 'house': '00', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '东大街东大院', 'industry': 'C', 'profession': '11', 'workplaceName': 'AAA单位', 'workTel': '13162314539', 'workProvince': '110000', 'workCity': '110000', 'workDistrict': '110101', 'workDetailAdd': '西大街西大院', 'workAge': 8, 'income': '03', 'education': '06', 'school': '北京大学', 'phone': '16603288493', 'email': 'email163@qq.com', 'contacts': [{'relation': '00', 'name': '张三', 'phoneNo': '15638530000'}, {'relation': '01', 'name': '李四', 'phoneNo': '15638539999'}], 'bankCard': '6214660328152924', 'bankName': '建设银行', 'bankPhone': '16603288493', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'loanAmount': 1000, 'periods': '3', 'purpose': '01', 'direction': '01', 'payType': '00', 'payMerchantNo': '26666', 'authFlag': '01', 'deviceDetail': {'deviceId': '10-45-5-486', 'mac': '3a:b6:c6:5d:2e:f9', 'longitude': '121.551738', 'latitude': '31.224634', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'os': 'android', 'docDate': '2019/09/12'}, 'channelDetail': {'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1', 'consumeTimes': '1', 'creditTimes': '1', 'consumeScene': '1', 'frontId': '11', 'reverseId': '11', 'faceId': '11', 'woolFlag': '1', 'phoneFlag': '1', 'phoneTelco': '1', 'compScore': '650', 'repayAbilityScore': '650', 'comsAmount': '1', 'finAmount': '1', 'redPacket': '1', 'phoneAreaName': '上海市', 'modelScore': '650', 'whiteListFlag': '0', 'sugAmount': '3000.00', 'sugBasis': '2', 'loanGrade': 'A', 'registerTime': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'transFlag': '1', 'custType': '', 'currLimit': 5000, 'currRemainLimit': 2000, 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currLimitEndDate': '2021/07/31', 'currTotalPrice': 28.11, 'firstLoanFlag': '1', 'unsettleLoanLimit': 1, 'settleLoanLimit': 1, 'lastLoanDate': '2021/04/21', 'loanAmount': 3000}, 'custType': '0'}
+[2022-03-28 15:29:25,445] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:25,445] - [INFO] - 授信接口调用成功！
+[2022-03-28 15:29:25,445] - [INFO] - 授信受理成功，处理中！
+[2022-03-28 15:29:25,446] - [INFO] - 授信结果查询
+[2022-03-28 15:29:25,446] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:25,446] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:25,535] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:25,535] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:25,535] - [INFO] - 授信中！
+[2022-03-28 15:29:28,543] - [INFO] - 授信结果查询
+[2022-03-28 15:29:28,543] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:28,543] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:28,618] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:28,618] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:28,618] - [INFO] - 授信中！
+[2022-03-28 15:29:31,624] - [INFO] - 授信结果查询
+[2022-03-28 15:29:31,624] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:31,625] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:31,681] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:31,681] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:31,681] - [INFO] - 授信中！
+[2022-03-28 15:29:34,692] - [INFO] - 授信结果查询
+[2022-03-28 15:29:34,692] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:34,693] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:34,755] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:34,755] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:34,755] - [INFO] - 授信中！
+[2022-03-28 15:29:37,766] - [INFO] - 授信结果查询
+[2022-03-28 15:29:37,766] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:37,767] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:37,820] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:37,820] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:37,821] - [INFO] - 授信中！
+[2022-03-28 15:29:40,830] - [INFO] - 授信结果查询
+[2022-03-28 15:29:40,830] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:40,830] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:40,908] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:40,908] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:40,908] - [INFO] - 授信中！
+[2022-03-28 15:29:43,918] - [INFO] - 授信结果查询
+[2022-03-28 15:29:43,918] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:43,919] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:43,965] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:43,965] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:43,965] - [INFO] - 授信中！
+[2022-03-28 15:29:46,973] - [INFO] - 授信结果查询
+[2022-03-28 15:29:46,973] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:29:46,973] - [INFO] - 请求报文：{'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001'}
+[2022-03-28 15:29:47,040] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281529246631524', 'creditReqNo': '202203281529248821155', 'creditApplyNo': '202203280000002001', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:29:47,040] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:29:47,040] - [INFO] - 授信中！
+[2022-03-28 15:38:03,269] - [INFO] - 授信申请
+[2022-03-28 15:38:03,269] - [INFO] - [http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-03-28 15:38:03,269] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'name': '崔歌怡', 'spelling': 'ZHANGTIAN', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1985/06/02', 'idType': '00', 'idNo': '360313199302277832', 'idStartDate': '2016/01/18', 'idEndDate': '2036/01/18', 'idOffice': '北京市东城区', 'marriage': '01', 'children': '00', 'supplyPeople': 3, 'house': '00', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '东大街东大院', 'industry': 'C', 'profession': '11', 'workplaceName': 'AAA单位', 'workTel': '13162314539', 'workProvince': '110000', 'workCity': '110000', 'workDistrict': '110101', 'workDetailAdd': '西大街西大院', 'workAge': 8, 'income': '03', 'education': '06', 'school': '北京大学', 'phone': '16603284614', 'email': 'email163@qq.com', 'contacts': [{'relation': '00', 'name': '张三', 'phoneNo': '15638530000'}, {'relation': '01', 'name': '李四', 'phoneNo': '15638539999'}], 'bankCard': '6214660328153803', 'bankName': '建设银行', 'bankPhone': '16603284614', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'loanAmount': 1000, 'periods': '3', 'purpose': '01', 'direction': '01', 'payType': '00', 'payMerchantNo': '26666', 'authFlag': '01', 'deviceDetail': {'deviceId': '10-45-5-486', 'mac': '3a:b6:c6:5d:2e:f9', 'longitude': '121.551738', 'latitude': '31.224634', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'os': 'android', 'docDate': '2019/09/12'}, 'channelDetail': {'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1', 'consumeTimes': '1', 'creditTimes': '1', 'consumeScene': '1', 'frontId': '11', 'reverseId': '11', 'faceId': '11', 'woolFlag': '1', 'phoneFlag': '1', 'phoneTelco': '1', 'compScore': '650', 'repayAbilityScore': '650', 'comsAmount': '1', 'finAmount': '1', 'redPacket': '1', 'phoneAreaName': '上海市', 'modelScore': '650', 'whiteListFlag': '0', 'sugAmount': '3000.00', 'sugBasis': '2', 'loanGrade': 'A', 'registerTime': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'transFlag': '1', 'custType': '', 'currLimit': 5000, 'currRemainLimit': 2000, 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currLimitEndDate': '2021/07/31', 'currTotalPrice': 28.11, 'firstLoanFlag': '1', 'unsettleLoanLimit': 1, 'settleLoanLimit': 1, 'lastLoanDate': '2021/04/21', 'loanAmount': 3000}, 'custType': '0'}
+[2022-03-28 15:38:03,424] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:03,424] - [INFO] - 授信接口调用成功！
+[2022-03-28 15:38:03,424] - [INFO] - 授信受理成功，处理中！
+[2022-03-28 15:38:03,424] - [INFO] - 授信结果查询
+[2022-03-28 15:38:03,440] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:03,440] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002'}
+[2022-03-28 15:38:03,487] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:03,487] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:03,487] - [INFO] - 授信中！
+[2022-03-28 15:38:06,500] - [INFO] - 授信结果查询
+[2022-03-28 15:38:06,500] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:06,500] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002'}
+[2022-03-28 15:38:06,563] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:06,563] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:06,563] - [INFO] - 授信中！
+[2022-03-28 15:38:09,574] - [INFO] - 授信结果查询
+[2022-03-28 15:38:09,574] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:09,574] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002'}
+[2022-03-28 15:38:09,637] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:09,637] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:09,637] - [INFO] - 授信中！
+[2022-03-28 15:38:12,651] - [INFO] - 授信结果查询
+[2022-03-28 15:38:12,651] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:12,651] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002'}
+[2022-03-28 15:38:12,698] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:12,698] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:12,698] - [INFO] - 授信中！
+[2022-03-28 15:38:15,706] - [INFO] - 授信结果查询
+[2022-03-28 15:38:15,706] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:15,706] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002'}
+[2022-03-28 15:38:15,753] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:15,753] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:15,753] - [INFO] - 授信中！
+[2022-03-28 15:38:18,765] - [INFO] - 授信结果查询
+[2022-03-28 15:38:18,765] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:18,765] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002'}
+[2022-03-28 15:38:18,812] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:18,812] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:18,812] - [INFO] - 授信中！
+[2022-03-28 15:38:21,818] - [INFO] - 授信结果查询
+[2022-03-28 15:38:21,818] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:21,818] - [INFO] - 请求报文：{'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002'}
+[2022-03-28 15:38:21,874] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538036635427', 'creditReqNo': '202203281538038869526', 'creditApplyNo': '202203280000002002', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:21,875] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:21,875] - [INFO] - 授信中！
+[2022-03-28 15:38:32,066] - [INFO] - 授信申请
+[2022-03-28 15:38:32,066] - [INFO] - [http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-03-28 15:38:32,066] - [INFO] - 请求报文：{'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'name': '明荷', 'spelling': 'ZHANGTIAN', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1985/06/02', 'idType': '00', 'idNo': '321088199311242859', 'idStartDate': '2016/01/18', 'idEndDate': '2036/01/18', 'idOffice': '北京市东城区', 'marriage': '01', 'children': '00', 'supplyPeople': 3, 'house': '00', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '东大街东大院', 'industry': 'C', 'profession': '11', 'workplaceName': 'AAA单位', 'workTel': '13162314539', 'workProvince': '110000', 'workCity': '110000', 'workDistrict': '110101', 'workDetailAdd': '西大街西大院', 'workAge': 8, 'income': '03', 'education': '06', 'school': '北京大学', 'phone': '16603282087', 'email': 'email163@qq.com', 'contacts': [{'relation': '00', 'name': '张三', 'phoneNo': '15638530000'}, {'relation': '01', 'name': '李四', 'phoneNo': '15638539999'}], 'bankCard': '6214660328153832', 'bankName': '建设银行', 'bankPhone': '16603282087', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'loanAmount': 1000, 'periods': '3', 'purpose': '01', 'direction': '01', 'payType': '00', 'payMerchantNo': '26666', 'authFlag': '01', 'deviceDetail': {'deviceId': '10-45-5-486', 'mac': '3a:b6:c6:5d:2e:f9', 'longitude': '121.551738', 'latitude': '31.224634', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'os': 'android', 'docDate': '2019/09/12'}, 'channelDetail': {'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1', 'consumeTimes': '1', 'creditTimes': '1', 'consumeScene': '1', 'frontId': '11', 'reverseId': '11', 'faceId': '11', 'woolFlag': '1', 'phoneFlag': '1', 'phoneTelco': '1', 'compScore': '650', 'repayAbilityScore': '650', 'comsAmount': '1', 'finAmount': '1', 'redPacket': '1', 'phoneAreaName': '上海市', 'modelScore': '650', 'whiteListFlag': '0', 'sugAmount': '3000.00', 'sugBasis': '2', 'loanGrade': 'A', 'registerTime': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'transFlag': '1', 'custType': '', 'currLimit': 5000, 'currRemainLimit': 2000, 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currLimitEndDate': '2021/07/31', 'currTotalPrice': 28.11, 'firstLoanFlag': '1', 'unsettleLoanLimit': 1, 'settleLoanLimit': 1, 'lastLoanDate': '2021/04/21', 'loanAmount': 3000}, 'custType': '0'}
+[2022-03-28 15:38:32,231] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'creditApplyNo': '202203280000002003', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:32,231] - [INFO] - 授信接口调用成功！
+[2022-03-28 15:38:32,231] - [INFO] - 授信受理成功，处理中！
+[2022-03-28 15:38:32,231] - [INFO] - 授信结果查询
+[2022-03-28 15:38:32,232] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:32,232] - [INFO] - 请求报文：{'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'creditApplyNo': '202203280000002003'}
+[2022-03-28 15:38:32,482] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'creditApplyNo': '202203280000002003', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:32,482] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:32,482] - [INFO] - 授信中！
+[2022-03-28 15:38:35,495] - [INFO] - 授信结果查询
+[2022-03-28 15:38:35,495] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:35,495] - [INFO] - 请求报文：{'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'creditApplyNo': '202203280000002003'}
+[2022-03-28 15:38:35,527] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'creditApplyNo': '202203280000002003', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:35,527] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:35,527] - [INFO] - 授信中！
+[2022-03-28 15:38:38,528] - [INFO] - 授信结果查询
+[2022-03-28 15:38:38,528] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:38:38,528] - [INFO] - 请求报文：{'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'creditApplyNo': '202203280000002003'}
+[2022-03-28 15:38:38,795] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'creditDate': '2022/03/28', 'creditExpireDate': '2025/03/28', 'freezingDate': '', 'channelCustId': '202203281538326658922', 'creditReqNo': '202203281538328844513', 'creditApplyNo': '202203280000002003', 'creditState': '00', 'availAmount': 1000.0, 'creditAmount': 1000.0, 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:38,795] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:38:38,795] - [INFO] - 授信通过！
+[2022-03-28 15:38:38,795] - [INFO] - 更新客户信息表liveaddress
+[2022-03-28 15:38:38,795] - [INFO] - update customer_info set liveaddress = '北京市市辖区东城区' where CERTID = '321088199311242859'
+[2022-03-28 15:38:38,826] - [INFO] - 支用试算
+[2022-03-28 15:38:38,826] - [INFO] - http://10.1.14.106:27405/channel/apitest/TCJQ/DISBURSE_TRIAL
+[2022-03-28 15:38:38,826] - [INFO] - 请求报文：{'channelCustId': '202203281538326658922', 'periods': '3', 'name': '明荷', 'loanAmount': 1000, 'idNo': '321088199311242859', 'purpose': '00', 'idType': '00', 'addProvince': '湖南省', 'addCity': '娄底市', 'addDistrict': '双峰县', 'phone': '16603282087', 'addDetail': '东大街东大院', 'returnUrl': 'ww.baidu.com'}
+[2022-03-28 15:38:38,889] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'repayPlanDetails': []}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:38:38,889] - [ERROR] - 甜橙支用试算接口响应异常！
+[2022-03-28 15:40:59,182] - [INFO] - 授信申请
+[2022-03-28 15:40:59,182] - [INFO] - [http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING]
+[2022-03-28 15:40:59,182] - [INFO] - 请求报文：{'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'name': '雕乐朋', 'spelling': 'ZHANGTIAN', 'sex': '01', 'nationality': '中国', 'nation': '汉族', 'birthday': '1985/06/02', 'idType': '00', 'idNo': '540121199610312735', 'idStartDate': '2016/01/18', 'idEndDate': '2036/01/18', 'idOffice': '北京市东城区', 'marriage': '01', 'children': '00', 'supplyPeople': 3, 'house': '00', 'addProvince': '110000', 'addCity': '110000', 'addDistrict': '110101', 'addDetail': '东大街东大院', 'industry': 'C', 'profession': '11', 'workplaceName': 'AAA单位', 'workTel': '13162314539', 'workProvince': '110000', 'workCity': '110000', 'workDistrict': '110101', 'workDetailAdd': '西大街西大院', 'workAge': 8, 'income': '03', 'education': '06', 'school': '北京大学', 'phone': '16603285541', 'email': 'email163@qq.com', 'contacts': [{'relation': '00', 'name': '张三', 'phoneNo': '15638530000'}, {'relation': '01', 'name': '李四', 'phoneNo': '15638539999'}], 'bankCard': '6214660328154059', 'bankName': '建设银行', 'bankPhone': '16603285541', 'applyProvince': '110000', 'applyCity': '110000', 'applyDistrict': '110101', 'loanAmount': 1000, 'periods': '3', 'purpose': '01', 'direction': '01', 'payType': '00', 'payMerchantNo': '26666', 'authFlag': '01', 'deviceDetail': {'deviceId': '10-45-5-486', 'mac': '3a:b6:c6:5d:2e:f9', 'longitude': '121.551738', 'latitude': '31.224634', 'gpsCity': '上海市', 'ip': '106.14.135.199', 'ipCity': '上海', 'os': 'android', 'docDate': '2019/09/12'}, 'channelDetail': {'citizenshipCheckResult': '1', 'bankCheckResult': '1', 'telcoCheckResult': '1', 'consumeTimes': '1', 'creditTimes': '1', 'consumeScene': '1', 'frontId': '11', 'reverseId': '11', 'faceId': '11', 'woolFlag': '1', 'phoneFlag': '1', 'phoneTelco': '1', 'compScore': '650', 'repayAbilityScore': '650', 'comsAmount': '1', 'finAmount': '1', 'redPacket': '1', 'phoneAreaName': '上海市', 'modelScore': '650', 'whiteListFlag': '0', 'sugAmount': '3000.00', 'sugBasis': '2', 'loanGrade': 'A', 'registerTime': '1', 'realNameFlag': '1', 'realNameGrade': '1', 'transFlag': '1', 'custType': '', 'currLimit': 5000, 'currRemainLimit': 2000, 'currLimitOrg': 'DD', 'currLimitStartDate': '2021/05/31', 'currLimitEndDate': '2021/07/31', 'currTotalPrice': 28.11, 'firstLoanFlag': '1', 'unsettleLoanLimit': 1, 'settleLoanLimit': 1, 'lastLoanDate': '2021/04/21', 'loanAmount': 3000}, 'custType': '0'}
+[2022-03-28 15:40:59,307] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'creditApplyNo': '202203280000002005', 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:40:59,307] - [INFO] - 授信接口调用成功！
+[2022-03-28 15:40:59,307] - [INFO] - 授信受理成功，处理中！
+[2022-03-28 15:40:59,307] - [INFO] - 授信结果查询
+[2022-03-28 15:40:59,307] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:40:59,307] - [INFO] - 请求报文：{'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'creditApplyNo': '202203280000002005'}
+[2022-03-28 15:40:59,354] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'creditApplyNo': '202203280000002005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:40:59,354] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:40:59,354] - [INFO] - 授信中！
+[2022-03-28 15:41:02,359] - [INFO] - 授信结果查询
+[2022-03-28 15:41:02,359] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:41:02,359] - [INFO] - 请求报文：{'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'creditApplyNo': '202203280000002005'}
+[2022-03-28 15:41:02,413] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'creditApplyNo': '202203280000002005', 'status': '00'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:41:02,413] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:41:02,413] - [INFO] - 授信中！
+[2022-03-28 15:41:05,422] - [INFO] - 授信结果查询
+[2022-03-28 15:41:05,422] - [INFO] - ['http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY']
+[2022-03-28 15:41:05,422] - [INFO] - 请求报文：{'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'creditApplyNo': '202203280000002005'}
+[2022-03-28 15:41:05,468] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'creditDate': '2022/03/28', 'creditExpireDate': '2025/03/28', 'freezingDate': '', 'channelCustId': '202203281540596697299', 'creditReqNo': '202203281540598875618', 'creditApplyNo': '202203280000002005', 'creditState': '00', 'availAmount': 1000.0, 'creditAmount': 1000.0, 'status': '01'}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:41:05,468] - [INFO] - 授信查询接口调用成功！
+[2022-03-28 15:41:05,468] - [INFO] - 授信通过！
+[2022-03-28 15:41:05,468] - [INFO] - 更新客户信息表liveaddress
+[2022-03-28 15:41:05,468] - [INFO] - update customer_info set liveaddress = '北京市市辖区东城区' where CERTID = '540121199610312735'
+[2022-03-28 15:41:05,500] - [INFO] - 支用试算
+[2022-03-28 15:41:05,500] - [INFO] - http://10.1.14.106:27405/channel/apitest/TCJQ/DISBURSE_TRIAL
+[2022-03-28 15:41:05,500] - [INFO] - 请求报文：{'channelCustId': '202203281540596697299', 'periods': '3', 'name': '雕乐朋', 'loanAmount': 1000, 'idNo': '540121199610312735', 'purpose': '00', 'idType': '00', 'addProvince': '湖南省', 'addCity': '娄底市', 'addDistrict': '双峰县', 'phone': '16603285541', 'addDetail': '东大街东大院', 'returnUrl': 'ww.baidu.com'}
+[2022-03-28 15:41:05,547] - [INFO] - 响应报文：{'result': True, 'code': 200, 'msg': 'SUCCESS!', 'data': {'code': '0000', 'productId': '7014', 'body': {'repayPlanDetails': []}, 'message': '成功', 'channelId': 'ORANGE'}}
+[2022-03-28 15:41:05,547] - [ERROR] - 甜橙支用试算接口响应异常！

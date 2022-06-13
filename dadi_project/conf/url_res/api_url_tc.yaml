@@ -1,0 +1,18 @@
+dev_url_tc:
+  credit_granting: http://10.1.14.106:27405/channel-dev/apitest/TCJQ/CREDIT_GRANTING
+  credit_inquiry: http://10.1.14.106:27405/channel-dev/apitest/TCJQ/CREDIT_INQUIRY
+  disburse: http://10.1.14.106:27405/channel-dev/apitest/TCJQ/DISBURSE
+  disburse_in_query: http://10.1.14.106:27405/channel-dev/apitest/TCJQ/DISBURSE_IN_QUERY
+  disburse_trial: http://10.1.14.106:27405/channel-dev/apitest/TCJQ/DISBRUSE_TRIAL
+sit_url_tc:
+  credit_granting: http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_GRANTING
+  credit_inquiry: http://10.1.14.106:27405/channel/apitest/TCJQ/CREDIT_INQUIRY
+  disburse: http://10.1.14.106:27405/channel/apitest/TCJQ/DISBURSE
+  disburse_in_query: http://10.1.14.106:27405/channel/apitest/TCJQ/DISBURSE_IN_QUERY
+  disburse_trial: http://10.1.14.106:27405/channel/apitest/TCJQ/DISBURSE_TRIAL
+uat_url_tc:
+  credit_granting: http://10.1.14.117:27405/channel/apitest/TCJQ/CREDIT_GRANTING
+  credit_inquiry: http://10.1.14.117:27405/channel/apitest/TCJQ/CREDIT_INQUIRY
+  disburse: http://10.1.14.117:27405/channel/apitest/TCJQ/DISBURSE
+  disburse_in_query: http://10.1.14.117:27405/channel/apitest/TCJQ/DISBRUSE_IN_QUERY
+  disburse_trial: http://10.1.14.117:27405/channel/apitest/TCJQ/DISBURSE_TRIAL

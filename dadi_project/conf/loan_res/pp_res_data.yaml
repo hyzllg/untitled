@@ -1,0 +1,135 @@
+credit_granting:
+  addCity: ''
+  addDetail: ''
+  addDistrict: ''
+  addProvince: ''
+  applyCity: ''
+  applyDistrict: ''
+  applyProvince: ''
+  authFlag: '01'
+  bankCard: '6214661026174103'
+  bankName: 建设银行
+  bankPhone: '16610267817'
+  birthday: 1985/06/02
+  channelCustId: ''
+  channelDetail:
+    applyEntry: applyEntry
+    bankCheckResult: '1'
+    capitalCode: FBBANK
+    citizenshipCheckResult: '1'
+    compScore: '1'
+    creditDuration: 2020/08/19
+    currLimit: 50000
+    currRemainLimit: 50000
+    custGrde: 23
+    faceRecoScore: 99
+    faceRecoType: LINKFACE
+    firstLoanFlag: Y
+    longestOverPeriod: 0
+    overdueFlag: N
+    realFaceCheckResult: '1'
+    settleLoanNum: 0
+    telcoCheckResult: '1'
+    unsettleLoanLimit: 0
+    unsettleLoanNum: 0
+  children: ''
+  contacts:
+  - name: 哑巴湖大水怪
+    phoneNo: '17613145210'
+    relation: '00'
+  - name: 哑巴湖大水怪
+    phoneNo: '17613145210'
+    relation: '00'
+  creditReqNo: '2021102617410358372'
+  deviceDetail:
+    deviceId: ''
+    gpsCity: ''
+    ip: ''
+    ipCity: ''
+    latitude: ''
+    longitude: ''
+    mac: ''
+    oS: ios
+  direction: ''
+  docDate: 2021/10/26
+  education: '05'
+  email: ybhdsg@hrtx.com
+  house: ''
+  idAddress: 浙江省杭州市江干区高教路119号
+  idEndDate: 2026/09/04
+  idNo: '510822199612086507'
+  idOffice: 浩然天下宝瓶洲大骊王朝落坡山办祖师堂
+  idStartDate: 2016/09/04
+  idType: '00'
+  income: '01'
+  industry: C
+  insuranceNo: '2021102617410347918'
+  loanAmount: 6000
+  marriage: '00'
+  name: 罗顺
+  nation: 汉族
+  nationality: 中国
+  payMerchantNo: ''
+  payType: ''
+  periods: '6'
+  phone: '16610267817'
+  profession: '07'
+  purpose: '01'
+  school: ''
+  sex: '00'
+  spelling: ''
+  supplyPeople: 0
+  workAge: 0
+  workCity: ''
+  workDetailAdd: ''
+  workDistrict: ''
+  workProvince: ''
+  workTel: ''
+  workplaceName: 大地保险公司
+credit_inquiry:
+  channelCustId: ''
+  creditReqNo: PREPPD08800000800136533
+disburse:
+  channelCustId: ''
+  creditReqNo: '443254352452341'
+  insuranceNo: ''
+  loanReqNo: '202002202002200220'
+disburse_in_query:
+  channelCustId: ''
+  creditReqNo: '132123123'
+  loanReqNo: '202002202002200220'
+insure:
+  agentName: ''
+  agentNo: ''
+  amount: 5000
+  docVersion: ccic-002
+  idNo: '412722198705223577'
+  insReqNo: ''
+  insurantAdd: 上海浦东新区1239号
+  insurantName: 富邦华一银行有限公司
+  loanReqNo: '202008150000000000011'
+  name: 哑巴湖大水怪
+  periods: 12
+  phone: '17613145209'
+  postCode: '200300'
+  premiumRate: 1.319
+  purpose: '01'
+  version: ccic-001
+insure_data_query:
+  loanReqNo: '20200921132700000003'
+  token: '20200921132700000003'
+insure_info:
+  amount: 5000
+  callbackUrl: callbackUrl
+  capitalCode: FBBANK
+  channelCustId: ''
+  contactPhone: '17613145209'
+  custGrde: GRD36
+  email: ybhdsg@hrtx.com
+  idAddress: 浙江省杭州市江干区高教路119号
+  idNo: '412722198705223577'
+  insuranceNo: '202009150000000000014'
+  name: 哑巴湖大水怪
+  periods: 12
+  phone: '17613145209'
+  purpose: '01'

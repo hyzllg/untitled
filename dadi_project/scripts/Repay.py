@@ -106,6 +106,7 @@ class TC_repqy:
         data["repayType"] = self.repayType
         data["transTime"] = "{} 13:14:00".format(self.paytime)
         data["repayTime"] = "{} 13:14:00".format(self.paytime)
+        print(data)
         self.log.info("甜橙还款通知接口接口")
         self.log.info(f'[{self.url + "PAYMENT_NOTICE"}]')
         result = api_request.request_api().test_api("post", self.url + "PAYMENT_NOTICE", data)

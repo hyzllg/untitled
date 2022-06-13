@@ -1,0 +1,6 @@
+-
+  url: https://www.baidu.com
+  method: post
+  param_type: json
+  data:
+    1: 1

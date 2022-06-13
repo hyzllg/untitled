@@ -1,73 +1,12 @@
 --改系统时间
-select * from system_setup for update;
-update system_setup set businessdate = '2021/01/19',batchdate = '2021/01/19' where systemid = '1';
+select * from system_setup;
+update system_setup set businessdate = '2022/05/11',batchdate = '2022/05/11' where systemid = '1';
 --标准查码值
 SELECT * FROM CODE_LIBRARY where codeNo='EducateLevelCode';  --学历
 SELECT * FROM CODE_LIBRARY where codeNo='MarryStatus';  --婚姻状况
 SELECT * FROM CODE_LIBRARY where codeNo='RealNameStatus';  --获客渠道
 select * from code_library c where c.codeno in('ShowState');
 SELECT * FROM CODE_LIBRARY where codeNo='LoanStatus';  --贷款状态
-
-
-select * from acct_loan al where al.productid = '7018'
-select sum(al.businesssum) from acct_loan al where al.productid = '7015' and to_char(to_date(al.create_time,'yyyy-mm-dd hh24:mi:ss'),'yyyy')=to_char(sysdate,'yyyy');
-
-select sum(overduebalance)+sum(normalbalance) from acct_loan where loanstatus in (0,1,2,3,4,8,9) and productid = '7018'; 
-select businessdate from CHANNEL_POOL_LIMIT_CTRL;
-select 
-                                           a.POOLNAME,
-                                           a.DAYLIMIT*10000 as DAYLIMIT,    --{#单日限额（万元）}
-                                     a.DAYFILSTLIMIT*10000 as DAYFILSTLIMIT, -- {#单日首借限额（万元）}
-                                     a.DAYRESUSELIMIT*10000 as DAYRESUSELIMIT,--{#单日复借限额}
-                                     a.DAILYAPPLICATION,--{#每日申请量}
-                                     b.LIMIT, --{#普通限额}
-                                     b.FIRSTLIMIT,--{#首借限额}
-                                     b.SECONDLIMIT,--{#复借限额}
-                                     c.APPLYNUM
-                                from CHANNEL_POOL a, CHANNEL_POOL_LIMIT_CTRL b, CHANNEL_POOL_APPLY_CTRL c
-                               where a.poolcode = b.poolcode
-                                 and a.poolcode = c.poolcode
-                                 and a.Isinuse = '1'
-                                 and b.businessdate = to_char(sysdate, 'yyyy/MM/dd')
-                                 and c.businessdate = to_char(sysdate, 'yyyy/MM/dd');
-
-                                                                       
-                                 select  a.POOLNAME,
-                                       a.MONTHLIMIT*10000 as MONTHLIMIT,
-                                       a.MONTHFILSTLIMIT*10000 as MONTHFILSTLIMIT,
-                                       a.MONTHRESUSELIMIT*10000 as MONTHRESUSELIMIT,
-                                       b.LIMIT,
-                                       b.FIRSTLIMIT,
-                                       b.SECONDLIMIT
-                                  from CHANNEL_POOL a, CHANNEL_POOL_LIMIT_CTRL b
-                                 where a.poolcode = b.poolcode
-                                   and a.Isinuse = '1'
-                                   and b.businessdate = to_char(sysdate, 'yyyy/MM')
-
-
--- 获取自留责任余额，排除理赔，渠道维度即可，不考虑其他状态
-SELECT round(sum(nvl(al.normalbalance,0) + nvl(al.overduebalance,0)),2) as USEDSELFLIABILITYBALANCE
-  FROM acct_loan al
- where exists (SELECT 1
-          FROM CHANNEL_APPLY_INFO CA, CHANNEL_POOL_RECEIVE CPR
-         WHERE CPR.POOLCODE = 'CG15'
-           AND CPR.RECEIVECHANNELCODE = CA.CHANNELID
-           AND AL.PRODUCTID = CA.PRODUCTID)
-   AND al.loanstatus not in ('7','8','9');-- 排除理赔
-
--- 获取年放款限额占用额度，把12个月的月限额加起来即可
-
-SELECT round(sum(nvl(CP.LIMIT,0)),2) FROM CHANNEL_POOL_LIMIT_CTRL CP
- WHERE LENGTH(CP.BUSINESSDATE) = 7
-   AND CP.POOLCODE = 'CG12'
-   and to_char(to_date(cp.businessdate,'yyyy-mm'),'yyyy')=to_char(sysdate,'yyyy');
-   
-select round(sum(nvl(LIMIT,0)),2) from CHANNEL_POOL_LIMIT_CTRL where poolcode = 'CG12' and LENGTH(BUSINESSDATE) = 10 and businessdate like '2022%';
-   
-   
-
-
-
 --住宅区域码表
 select * from CODE_AREA;
 --基础产品管理
@@ -94,19 +33,18 @@ select * from offlinerecord where bacthno = '20210926000001_03';
 -- select * from loan_limit where id_card='410102199007183213';
 --渠道信息
 select * from channel_apply_info where creditreqno ='2020120410404386556';
-select * from channel_apply_info where customerid ='320000000661397' ;
+select * from channel_apply_info where customerid ='320000000005694' ;
+select ca.channelcustid,ca.creditreqno,pa.channelputoutsno from channel_apply_info ca,putout_approve pa where ca.creditreqno = pa.creditreqno and ca.customerid = '320000001248250'
 --授信信息
-select * from business_apply where customerid ='320000001228058';
+select * from business_apply where customerid ='320000001242026';
 --支用信息
 select * from putout_approve where serialno = '20211027000004001';
-select * from putout_approve where CUSTOMERID = '320000000050432';
---设备信息
-select * from CHANNEL_DEVICE_INFO where creditreqno = '2021091511112690919';--320000000033936
+select * from putout_approve where CUSTOMERID = '320000001248791';
 --联系人信息
 select * from CUSTOMER_TEL where customerid = '320000000666413' and serialno like '20210917%';
 select * from customer_tel where applyno='20210917000000002';
 --实名流水
-select *from customer_realname where regid ='320000000662825';
+select *from customer_realname where regid ='320000000031323';
 select *from customer_realname_log where regid ='20201202000002005';
 --核心流程节点配置
 select * from  queue_model where modelno ='BizApplyPay';
@@ -114,8 +52,8 @@ select * from  queue_model where modelno ='BizApplyPay';
 select * from queue_task qm where qm.objectno = '202202090000000005'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20220216000002004'
-and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc;
+select * from queue_task qm where qm.objectno = '20220420000000004'
+and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc for update;
 select count(*) from queue_task where runstatus = 'ST';
 select * from PUTOUT_APPROVE;
 select * from PUTOUT_APPROVE_LOG;
@@ -123,16 +61,23 @@ select * from PUTOUT_APPROVE_LOG;
 --批单表
 select * from INSURANCEPOLICY_CHANGE_RECODE where policyno = 'PBLG202031170359000178';
 --缩期还款计划
-select * from acct_payment_schedule where objectno = '787-503701143301829446';
+select * from acct_payment_schedule where objectno = '787-330000197502085197';
 --不缩期还款计划
-select * from acct_payment_schedule_not where objectno = '787-503701143301829446';
+select * from acct_payment_schedule_not where objectno = '787-503905313301880886';
+select * from acct_payment_schedule_not where finishdate is not null;
+
 --还款通知
-select * from loan_batch_notice where billno='787-503710023301839994';
+select * from loan_batch_notice where billno='787-330000197502085197' for update;--787-503903293301877867 \ 787-503903283301877660 320000000660821
+select * from loan_batch_notice where repaystatus = '02' and subproduct = '7014'; 
+select REPAYSTATUS from ALL_REPAY_SERIAL;
+select * from REPAY_SERIAL;
 --还款记录
-select * from loan_batch_info where objectno='787-503101182980222609';
+select * from loan_batch_info where objectno='787-503903283301877660' --for update;
 select * from loan_batch_info where objectno='20062-W210923004201302';
+--对公还款
+select * from CORP_ACCOUNT_RECORD
 --扣款记录
-select * from loan_batch_cutpayment where billno='787-503101182980222609';
+select * from loan_batch_cutpayment where billno='787-503903283301877660';
 --查还款交易类型
 SELECT operatetype FROM loan_batch_notice where billno in ('787-503403193301772087','');
 --总欠记录
@@ -156,12 +101,13 @@ delete FROM PFA_INSURANCEPOLICYINFO where CHANNELPUTOUTAPPROVENO='32000000001443
 -------风控相关-------
 --四要素成功落库
 select * from CUSTOMER_BANK_CARD where PUTOUTAPPROVENO = '20211110000000008';
-select * from CUSTOMER_BANK_CARD where CUSTOMERID = '320000001220573';
+select * from CUSTOMER_BANK_CARD where CUSTOMERID = '320000001253325';
+update customer_bank_card set updatetime = '2022/04/17' where serialno = '20220418000000012';
 delete CUSTOMER_BANK_CARD where CUSTOMERID = '320000001234146';
 
 --四要素是否调用
 select * from customer_auth where certid='65322420090421440X';
-select * from CUSTOMER_AUTH where customerid = '320000001220585';
+select * from CUSTOMER_AUTH where customerid = '320000001253323';
 select * from CUSTOMER_AUTH where APPLYSERIALNO = '20211112000000001';
 select * from CUSTOMER_AUTH where phase = '1';
 select * from CUSTOMER_AUTH where result = '2';
@@ -188,7 +134,7 @@ select * from trans_log where applyno = '20211022000002004' and Servicename = 'H
 --ilog5,ilog9人行数据落库
 select * from ED_ILOG_PBOC_DATA where REPORTNO = '2021102610021207445' and serialno = '20211026000004011';
 --ilog规则集结果
-SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '20200722000000006';
+SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '202204260000000001';
 --法院限高调用记录
 select * from COURT_HEIGHT_LIMIT where object_no = '202108040000006005';
 --北冥接口
@@ -211,6 +157,7 @@ select * from BRAIN_PERSONSPECIAL where applyno = '202104160000000002'  order by
 --关联影像
 insert into image_list (SERIALNO, IMGID, BUSINESSNO, IMGTYPE, IMGTYPENAME, VALIDFLAG, PICNAME, PICCLASS, PICDETAILS, PICPATH, THUMBNAILPATH, CREATE_DATE, UPDATE_DATE, BUSINESSDATE, APPLYNO, REALNAMEKEYNO, PICORDER, SIGNLOANNO, IMAGESTAGE, CHANNELAPPLYNO, CUSTOMERID, BILLNO)
 values ('DF3B02E6AD474039B54A61114D824465', '3256765', '322000000001435', '|UWB438|', '|人脸识别图片|', '1', null, null, null, null, null, to_date('22-03-2021 00:00:00', 'dd-mm-yyyy hh24:mi:ss'), to_date('22-03-2021 00:00:00', 'dd-mm-yyyy hh24:mi:ss'), '20210322', '', null, null, null, null, '202106100000000009', null, null);
+
 
 --测还呗产品影像时改拉取远程路径
 select * from code_library cl where cl.codeno ='ImagetPayApply';
@@ -311,11 +258,11 @@ select ci.WORKUNIT,ci.CREATE_DATE from customer_info ci order by CREATE_DATE des
 select * from queue_task where MODELNO = 'ReconciliationCheck';
 
 --授信流程节点（渠道申请流水号）
-select * from queue_task qm where qm.objectno = '202203150000000009'
+select * from queue_task qm where qm.objectno = '202204260000002001'
 and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc;
 --支用流程节点（借款流水号）
-select * from queue_task qm where qm.objectno = '20220317000002003'
-and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc for update;
+select * from queue_task qm where qm.objectno = '20220523000000004'
+and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc --for update;
 
 --同盾
 select * from TD_RESULT_MSG where customerid = '320000000040618';
@@ -364,5 +311,232 @@ values ('20220110001000001', '787-503701143301829446', 80, 1984.31, 1.50, 0.00, 
 select * from CHANNEL_APPLY_INFO where IDNO  ='542426199107058290';
 
 
+SELECT * FROM CUSTOMER_BLACKLIST CB where CB.STATUS='1' and serialno = '909361A6097F48BB83BBCEBA3F864881' for update;
+	
+
+SELECT * FROM CUSTOMER_BLACKLIST CB where CB.STATUS='0' and CB.Customername in ( '曹贝辰','陈顺','燕好飞') for update;
+SELECT * FROM CODE_LIBRARY where codeNo='BlackListStatus';
+
+SELECT * FROM CUSTOMER_BLACKLIST CB where CB.STATUS='0' and customername = '巴萍' for update;
+select * from customer_blacklist where serialno = '2d01a4e165174b048dbe91213e859258';
+select * from customer_blacklist where serialno = 'f586e463cfdd4abab4957af3fb7d5b55';
+SELECT CB.SERIALNO FROM CUSTOMER_BLACKLIST CB where CB.STATUS='1' AND CB.INVALDATE = to_char(sysdate,'yyyy/MM/dd')
+select * from UPLOAD_TASK;
+
+select * from CUSTOMER_WHITELIST where customername = '测试';
+
+--在image_list里找这两种类型的文件，把businessno改成现跑的渠道流水号，把SIGNLOANNO改成你们现跑的体现流水号
+SELECT * FROM IMAGE_LIST O ,BUSINESS_INSURANCEPOLICYINFO BI WHERE O.SIGNLOANNO = BI.PUTOUTAPPROVENO  and IMGTYPE in 
+( '|UWB438|','|UWB401|','|UWB401|') and O.businessno = '322000000001568';
+
+select * from IMAGE_LIST il where il.businessno = '322000000001568' and IMGTYPE in 
+( '|UWB438|','|UWB401|','|UWB401|') for update;
+
+select * from IMAGE_LIST il where il.serialno in ('d3ef10a0d2de4f7782fc89f98d81f7fb','0d3bcef83a714d0ba78ec41eb60eaa95','80f6bfbd50a94e4782603c9e61e198be') for update;
+
+update IMAGE_LIST O set businessno = '202203290000002006', SIGNLOANNO = '20220329000000002' where IMGTYPE in 
+( '|UWB438|','|UWB401|','|UWB401|') and businessno = '2021091700001';
+
+select * from channel_apply_info where serialno = '202203290000002006';
+
+select * from queue_model where item = 'H5ResultQuery';
+select * from channel_apply_info where customerid ='320000000005694' ;
+--授信流程节点（渠道申请流水号）
+select * from queue_task qm where qm.objectno = '202204270000002007'
+and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc --for update;
+--支用流程节点（借款流水号）
+select * from queue_task qm where qm.objectno = '20220518000000013'
+and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc --for update;
+update queue_task set runstatus = 'G' where modelno = 'PushMessage' and item = 'PushMessageInError' and runstatus = 'ST';
+select * from trans_log where customerid = '320000000054722' and servicename = 'BmDataCommon';
+select * from trans_log where customerid = '320000000054722' and servicename = 'BigDataIlogService';
+select * from trans_log where customerid = '320000000056738' and servicename = 'CreateInsureOrange'; --查对应节点报文
+
+
+SELECT * FROM IMAGE_LIST O ,BUSINESS_INSURANCEPOLICYINFO BI WHERE O.SIGNLOANNO = BI.PUTOUTAPPROVENO  and IMGTYPE in ( '|UWB438|';
+
+SELECT * FROM IMAGE_LIST O ,BUSINESS_INSURANCEPOLICYINFO BI WHERE O.SIGNLOANNO = BI.PUTOUTAPPROVENO  and IMGTYPE in 
+( '|UWB438|','|UWB401|','|UWB401|') and businesstype = '7014';
+
+
+
+SELECT qt.rowid,qt.* FROM queue_task qt where qt.customerid = '320000000030836' and qt.modelno = 'PutoutApproveHB' for update;
+
+
+select * from IMAGE_LIST il where il.customerid = '320000001253323'-- for update;
+update image_list set imgtype = '|UWB401|',imgtypename = '身份证正面' where customerid = '320000001253341' and imgtype = '|UWB004|' and SIGNLOANNO is not null;
+update image_list set imgtype = '|UWB401|',imgtypename = '身份证反面' where customerid = '320000001253341' and imgtype = '|UWB441|' and SIGNLOANNO is not null;
+update image_list set imgtype = '|UWB438|',imgtypename = '人脸识别图片' where customerid = '320000001253341' and imgtype = '|UWB407|'and SIGNLOANNO is not null;
+
+
+select liveaddress from customer_info where CERTID = '430724199511302802';
+
+select * from INSURED_MANEGEMENT where insuredcode = 'HBBank001';
+update INSURED_MANEGEMENT set insuredname = '河北银行股份有限公司' where insuredcode = 'HBBank001';
+
+
+                       SELECT SERIALNO,LOANSTATUS as STATUS,POLICYNO,DDPRODUCTID,CAPITALCODE
+                    	      FROM ACCT_LOAN
+                    	     WHERE LOANSTATUS IN ('0','1') and serialno like '031502%' --for update
+                           
+                        update acct_loan set capitalcode = '031502' where LOANSTATUS IN ('0','1') and serialno like '031502%'
+                        update acct_loan set capitalcode = 'HBBank' where LOANSTATUS IN ('0','1') and serialno like '031502%'
+                        
+                        --031502-BHB903624826610319365
+                        update acct_loan set capitalcode = 'HBBank' where LOANSTATUS IN ('0','1') and serialno like '031502-BHB903624826610319365'
+                        
+
+                           
+                                                  SELECT SERIALNO,LOANSTATUS as STATUS,POLICYNO,DDPRODUCTID,CAPITALCODE
+                    	      FROM ACCT_LOAN
+                    	     WHERE LOANSTATUS IN ('0','1') 
+                           
+select * from queue_task qm where qm.objectno = '20220407000002007'
+and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc --for update;
+
+
+select * from acct_loan where serialno = '031502-BHB907250663771406337';
+select * from acct_payment_schedule where objectno = '031502-BHB907250663771406337';
+
+
+
+select * from business_trans_record where customerid = '320000001248791';
+
+select * from CAPITAL_RATE_INFO where capitalcode = 'HBBank';
+update channel_apply_info set IDADDRESS = '河北省石家庄市裕华区体育南大街379号11栋3单元403号' where IDNO = '230402199209206869'
+
+
+
+SELECT SERIALNO,LOANSTATUS as STATUS,POLICYNO,DDPRODUCTID,'031502' as CAPITALCODE FROM ACCT_LOAN WHERE 
+CAPITALCODE = 'HBBank' and 
+LOANSTATUS IN ('0','1') and 
+SERIALNO like '031502-%'; 
+
+select * from channel_apply_info where customerid ='320000000015285' ;
+--授信流程节点（渠道申请流水号）
+select * from queue_task qm where qm.objectno = '202205070000002008'
+and qm.objecttype = 'jbo.channel51.CHANNEL_APPLY_INFO' order by runtime,create_date desc for update;
+--支用流程节点（借款流水号）
+select * from queue_task qm where qm.objectno = '20220518000000003'
+and qm.objecttype = 'jbo.app.PUTOUT_APPROVE' order by runtime,create_date desc --for update;
+
+
+select * from CL_INFO where customerid = '320000000005694' --for update;
+
+ select o.* FROM ACCT_PAYMENT_SCHEDULE O WHERE EXISTS(
+SELECT 1 FROM ACCT_LOAN AL WHERE AL.SERIALNO = O.OBJECTNO
+--AND AL.CUSTOMERID = '320000001250209'
+AND AL.create_time >= to_date('2020/04/25', 'yyyy/MM/dd')
+AND AL.create_time <= to_date('2022/04/25', 'yyyy/MM/dd') 
+ ) AND O.ACTUALPAYDATE > O.PAYDATE;
+ 
+select * from acct_loan where customerid = '320000000015285' for update;
+update acct_loan set customerid = '320000001250357' where customerid = '320000000005501';
+update acct_loan set loanstatus = '0' where customerid = '320000000015285';
+SELECT * FROM CODE_LIBRARY where codeNo='LoanStatus';  --贷款状态
+select intransitLoanCount from channel_apply_info where serialno = '202204270000002012';--intransitLoanCount
+select intransitLoanCount from putout_approve where serialno = '20220427000000004';
+SELECT * FROM ILOG_RULES_RESULT c WHERE c.applyno = '20220427000000004';--ilog规则集
+SELECT * FROM ILOG_RULES_RESULT c WHERE c.signloanno = '20220427000000004';--ilog规则集
+
+select * from ILOG_RULES_LOAN_DETAIL where objectno = '62C6B1FD7C7746C9B6AA84E18F6E06A4';
+
+select * from acct_payment_schedule where objectno = '787-502903153301549941' for update;--787-502811012980162502、787-502811012980162504、787-502811012980162506
+select * from acct_payment_schedule where objectno = '20200710145457826826' for update;--20200710144014793793、20200710144411794794、20200710145457826826
+
+SELECT AL.Overduedays,AL.* FROM ACCT_LOAN AL WHERE
+AL.CUSTOMERID = '320000001250209'
+AND to_date(AL.putoutdate,'yyyy/MM/dd') >= to_date('2020/04/25', 'yyyy/MM/dd')
+
+
+select al.serialno,al.loanstatus,al.overduedays,al.* from acct_loan al where al.serialno in
+('787-503904153301878649','787-503904153301878650','787-503904153301878159',
+'787-503904153301878642','787-503904153301878203','787-503904153301878640','787-503904153301878644') for update nowait;
+
+
+
+SELECT * FROM   CLAIM_PREPARE_INFO CP, acct_loan al where al.serialno = cp.billno 
+and cp.status = '0' and al.capitalcode = '787' order by cp.serialno desc;
+
+select * from CLAIM_PREPARE_INFO where billno = '787-503811223301870136' for update;
+select * from acct_loan where serialno  = '787-503811223301870136' for update;
+update ACCT_LOAN al set al.loanstatus = '1' where al.serialno in (
+'787-503811223301870136'  
+);
+update CLAIM_PREPARE_INFO cp set cp.status = '0' where cp.billno in (
+'787-503811223301870136' 
+);
+
+update CallBack_interface_info set status = '00' where serial_no = '20220511000000001';
+
+
+SELECT SERIALNO,LOANSTATUS as STATUS,POLICYNO,DDPRODUCTID,CAPITALCODE
+FROM ACCT_LOAN al
+WHERE CAPITALCODE = '787'
+and LOANSTATUS IN ('0','1')
+and al.serialno in (
+'787-503011153301619141',
+'787-502405013300211806',
+'787-502405013300211804',
+'787-502901152980168910',
+'787-502811012980162506',
+'787-502811012980162614'  
+);
+
+
+update ACCT_LOAN al set al.loanstatus = '1' where al.serialno in (
+'787-503011153301619141',
+'787-502405013300211806',
+'787-502405013300211804',
+'787-502901152980168910',
+'787-502811012980162506',
+'787-502811012980162614'  
+);
+select * from acct_loan where serialno in (
+'787-503011153301619141',
+'787-502405013300211806',
+'787-502405013300211804',
+'787-502901152980168910',
+'787-502811012980162506',
+'787-502811012980162614'  
+);
+update CLAIM_PREPARE_INFO cp set cp.status = '0' where cp.billno in (
+'787-503011153301619141',
+'787-502405013300211806',
+'787-502405013300211804',
+'787-502901152980168910',
+'787-502811012980162506',
+'787-502811012980162614'  
+);
+select * from CLAIM_PREPARE_INFO where billno in (
+'787-503011153301619141',
+'787-502405013300211806',
+'787-502405013300211804',
+'787-502901152980168910',
+'787-502811012980162506',
+'787-502811012980162614'  
+);
+
+select * from CLAIM_PAYMENT_SCHEDULE where OBJECTNO in (
+'787-503011153301619141',
+'787-502405013300211806',
+'787-502405013300211804',
+'787-502901152980168910',
+'787-502811012980162506',
+'787-502811012980162614'  
+) for update;
+--甜橙理赔回调记录
+select * from CallBack_interface_info;
+update CallBack_interface_info set status = '00';
+
+SELECT * FROM queue_model qm where qm.modelno = 'OrangeCallbackList' ;
+
+select * from  queue_task  qt where qt.modelno = 'OrangeCallbackList' for update;
+
+
+select * from channel_apply_info where intransitloancount is not null;
+select * from putout_approve where intransitloancount is not null;
+
+);
 
 

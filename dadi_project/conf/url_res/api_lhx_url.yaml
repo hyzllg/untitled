@@ -1,0 +1,4 @@
+sit_url:
+  CollectionFile: http://10.1.12.42:27197/interfaceServer/rest/Col/CollectionFile
+uat_url:
+  CollectionFile: ttp://10.1.12.42:27201/interfaceServer/rest/Col/CollectionFile

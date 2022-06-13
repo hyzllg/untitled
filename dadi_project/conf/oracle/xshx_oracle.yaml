@@ -1,0 +1,12 @@
+xsxb_dev_oracle:
+- xbhxbusi
+- ccic1234
+- 10.1.12.141:1521/PUAT12uf
+xsxb_sit_oracle:
+- xbhxbusi
+- ccic1234
+- 10.1.12.141:1521/PTST12UF
+xsxb_uat_oracle:
+- xbhxbusi
+- ccic1234
+- 10.1.12.141:1523/PDEV12UF
