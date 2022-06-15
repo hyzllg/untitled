@@ -1,7 +1,7 @@
 import os.path
 import time
 import yaml
-from dadi_project.utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,my_log
+from utils import lj_putout_mock, generate_customer_info,api_request,database_manipulation,my_log
 
 global_data = {}
 class Hyzllg:

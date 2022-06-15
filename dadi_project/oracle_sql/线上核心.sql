@@ -539,4 +539,6 @@ select * from putout_approve where intransitloancount is not null;
 
 );
 
+select * from SECONDCREDIT_THIRD_RECORD
+
 

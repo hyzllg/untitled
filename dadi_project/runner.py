@@ -1,11 +1,11 @@
-from dadi_project.credit_xb.dd_7014 import tc_main
-from dadi_project.credit_xb.dd_7015 import main_360
-from dadi_project.credit_xb.dd_7017 import hb_main
-from dadi_project.credit_xb.dd_7018 import pp_main
+from credit_xb.dd_7014 import tc_main
+from credit_xb.dd_7015 import main_360
+from credit_xb.dd_7017 import hb_main
+from credit_xb.dd_7018 import pp_main
 
 def main():
     #环境（sit,uat,dev）
-    environment = "uat"
+    environment = "sit"
     #走数据笔数
     number = 1
     #放款金额
