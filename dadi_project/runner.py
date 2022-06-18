@@ -7,7 +7,7 @@ def main():
     #环境（sit,uat,dev）
     environment = "sit"
     #走数据笔数
-    number = 4
+    number = 1
     #放款金额
     repayAmount = 5000
     # 借款金额
